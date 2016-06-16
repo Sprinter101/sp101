@@ -1,9 +1,9 @@
 goog.provide('sv.lSberVmeste.bHeader.View');
 
-goog.require('sv.iUtils.Utils');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('sv.iUtils.Utils');
 
 
 

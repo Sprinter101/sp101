@@ -1,7 +1,7 @@
 goog.provide('sv.lSberVmeste.bHeaderManager.HeaderManager');
 
-goog.require('sv.lSberVmeste.bHeader.Header');
 goog.require('cl.iContentManager.ContentManager');
+goog.require('sv.lSberVmeste.bHeader.Header');
 
 
 

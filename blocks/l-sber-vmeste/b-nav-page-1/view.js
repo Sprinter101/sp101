@@ -2,6 +2,8 @@ goog.provide('sv.lSberVmeste.bNavPage1.View');
 
 goog.require('cl.iControl.View');
 
+
+
 /**
  * sv.lSberVmeste.bNavPage1.View
  * @param {Object=} opt_params
@@ -10,7 +12,9 @@ goog.require('cl.iControl.View');
  * @constructor
  * @extends {cl.iControl.View}
 */
-sv.lSberVmeste.bNavPage1.View = function(opt_params, opt_template, opt_modifier) {    
+sv.lSberVmeste.bNavPage1.View = function(opt_params, 
+                                            opt_template, 
+                                            opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.lSberVmeste.bNavPage1.View.CssClass.ROOT);
@@ -18,7 +22,7 @@ sv.lSberVmeste.bNavPage1.View = function(opt_params, opt_template, opt_modifier)
 goog.inherits(sv.lSberVmeste.bNavPage1.View, cl.iControl.View);
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bNavPage1.View
+    var View = sv.lSberVmeste.bNavPage1.View;
 
     /**
      * Css class enum
@@ -36,6 +40,6 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.ajaxCont_ = this.getElementByClass(View.CssClass.AJAX_CONT)
+        this.dom.ajaxCont_ = this.getElementByClass(View.CssClass.AJAX_CONT);
     };
 });  // goog.scope

@@ -1,15 +1,19 @@
 goog.provide('sv.iFactory.FactorySber');
 
+goog.require('cl.iFactory.Factory');
 goog.require('sv.iFactory.TemplateFactory');
-goog.require('sv.lSberVmeste.SberVmeste');
-goog.require('sv.lSberVmeste.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
-goog.require('sv.lSberVmeste.bPageManager.PageManager');
-goog.require('sv.lSberVmeste.bPageManager.View');
 goog.require('sv.lSberVmeste.bNavPage1.NavPage1');
 goog.require('sv.lSberVmeste.bNavPage1.View');
-goog.require('cl.iFactory.Factory');
+goog.require('sv.lSberVmeste.bPageManager.PageManager');
+goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.SberVmeste');
+goog.require('sv.lSberVmeste.View');
+goog.require('sv.gButtonsTest.ButtonsTest');
+goog.require('sv.gButtonsTest.View');
+
+
 
 /**
  * FactoryAdventure
@@ -41,6 +45,10 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.bNavPage1.NavPage1,
             view: sv.lSberVmeste.bNavPage1.View
         })
+        .setControlListItem('ButtonsTest', {
+            control: sv.gButtonsTest.ButtonsTest,
+            view: sv.gButtonsTest.View
+        });
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
 goog.addSingletonGetter(sv.iFactory.FactorySber);
@@ -54,3 +62,4 @@ goog.scope(function() {
      */
     Factory.getInstance().attachToManager();
 });  // goog.scope
+

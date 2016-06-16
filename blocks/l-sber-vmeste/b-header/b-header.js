@@ -1,9 +1,9 @@
 goog.provide('sv.lSberVmeste.bHeader.Header');
 
+goog.require('cl.iControl.Control');
 goog.require('sv.lSberVmeste.bHeader.View');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
-goog.require('cl.iControl.Control');
 
 
 
