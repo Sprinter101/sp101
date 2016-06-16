@@ -1,0 +1,38 @@
+{namespace sv.lSberVmeste.bPageManager.Template}
+
+/**
+ * @constructor
+ * @extends cl.iContentManager.Template
+ */
+{template .pageManager}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ * @param params {
+ *     config: {
+ *         state: ?string
+ *     }
+ * }
+ */
+{template .body}
+    {call .initChildWithState}
+        {param params: [
+            'states': [
+                [
+                    'type': 'navPage1',
+                ]
+            ],
+            'defaultControl': 'NavPage1',
+            'currentState': $params?.config?.state ?: 'navPage1'
+        ]/}
+    {/call}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-manager
+{/template}

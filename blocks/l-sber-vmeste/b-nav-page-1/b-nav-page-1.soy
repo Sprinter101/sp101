@@ -1,0 +1,31 @@
+{namespace sv.lSberVmeste.bNavPage1.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+	  <div class="{call .rootClass/}__wrapper">
+	    <div class="{call .rootClass/}__title">Содержимое вкладки 1</div>
+	    <div class="{call .rootClass/}__ajax-cont">
+	    	<div class="{call .rootClass/}__image">
+	    		<img src="images/loading.gif" alt="">
+	    	</div>
+	    </div>
+	    <div class="{call .rootClass/}__content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste dolor, numquam beatae aperiam fugiat necessitatibus accusamus et dicta placeat. Odio quaerat tempora hic, illo voluptatibus, aspernatur quo accusamus tenetur veniam dignissimos aperiam. Vel voluptas veritatis voluptatum sed quo perspiciatis quis repellendus aliquid sit hic labore atque libero neque fuga ut cum iure tempore, expedita ab. Sit maxime consectetur repudiandae, quidem blanditiis hic nesciunt deserunt officia incidunt maiores, optio neque! Sequi dolorem dolor voluptate ea amet non tenetur obcaecati, vel quidem cum reiciendis ipsum esse omnis eius nobis iusto. Vero nesciunt blanditiis recusandae repellat, doloribus sint quidem ab repellendus est?</div>
+	  </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-1
+{/template}

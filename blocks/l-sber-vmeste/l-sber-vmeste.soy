@@ -1,0 +1,90 @@
+{namespace sv.lSberVmeste.Template}
+
+/**
+ * @constructor
+ * @extends cl.iLayout.Template
+ */
+{template .sberVmeste}
+	{call .document data="all" /}
+{/template}
+
+
+/**
+ * Content
+ * @param? params {{
+ *     data: {
+ *         apiUrl: ?string
+ *     },
+ *     config: ?cl.iLayout.Template.Params.Config
+ * }}
+ */
+{template .content autoescape="strict" kind="html"}
+	{let $data: [
+	    'apiUrl': $params?.data?.apiUrl
+	] /}
+
+	<div class="{call .rootClass/}">
+		{call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
+			{param params: [
+				'factory': 'sber',
+				'type': 'HeaderManager',
+				'renderParams': [
+					'config': [
+						'state': 'default'
+					]
+				]
+			]/}
+		{/call}
+		{call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
+			{param params: [
+			    'factory': 'sber',
+			    'type': 'PageManager',
+			    'renderParams': [
+			        'data': $params?.data,
+			        'config': [
+			            'state': 'navPage1'
+			        ]
+			    ]
+			]/}
+		{/call}
+	</div>
+{/template}
+
+/**
+ * Default styles
+ * @param? params {{
+ *     config: ?cl.iLayout.Template.Params.Config
+ * }}
+ */
+{template .styles autoescape="strict" kind="html"}
+	{call cl.iStatic.Template.style}
+		{param path: 'clobl.build.css' /}
+		{param staticVersion: $params?.config?.staticVersion /}
+	{/call}
+	{call cl.iStatic.Template.style}
+		{param path: 'styles.css' /}
+		{param staticVersion: $params?.config?.staticVersion /}
+	{/call}
+{/template}
+
+/**
+ * @override
+ */
+{template .favicon autoescape="strict" kind="html"}
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+{/template}
+
+/**
+ * @override
+ */
+{template .scripts autoescape="strict" kind="html"}
+	<script type="text/javascript" src="external.min.js"></script>
+	<script type="text/javascript" src="scripts.js"></script>
+{/template}
+
+/**
+ * ROOT CLASS
+ */
+{template .rootClass}
+	l-sber-vmeste
+{/template}

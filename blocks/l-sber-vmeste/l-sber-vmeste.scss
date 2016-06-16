@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+.l-sber-vmeste {
+    width: 100%;
+    height: 100%;
+
+    text-align: center;
+}
+
+.i-layout_mobile,
+.i-layout_tablet,
+.i-layout_desktop {
+    .l-sber-vmeste {
+        display: block;
+    }
+}

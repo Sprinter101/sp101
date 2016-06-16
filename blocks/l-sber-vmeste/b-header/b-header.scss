@@ -1,0 +1,24 @@
+UL {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.b-header {
+	width: 80%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.b-header__nav-link {
+	display: inline-block;
+	padding: 10px;
+	font-size: 1.5rem;
+	border: 1px solid red;
+	border-radius: 10px;
+	box-sizing: border-box;
+	width: 33.33%;
+	&_active {
+		background: orange;
+	}
+}

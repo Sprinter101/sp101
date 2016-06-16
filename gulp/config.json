@@ -1,0 +1,19 @@
+{
+    "lintIgnore": [
+    ],
+    "external": [
+        "blocks/i-external-legacy/hammer.min.js",
+        "blocks/i-external-legacy/jquery.js",
+        "blocks/i-external-legacy/jquery-ui-1.10.3.custom.min.js",
+        "blocks/i-external-legacy/jquery.ui.autocomplete.html.js",
+        "blocks/i-external-legacy/datepicker-ru.js",
+        "blocks/i-external-legacy/modernizr.custom.34408.js",
+        "blocks/i-external-legacy/jquery.maskedinput.js",
+        "blocks/i-external-legacy/jquery.async.js",
+        "blocks/i-external-legacy/jquery.Jcrop.js",
+        "blocks/i-external-legacy/jquery.cookie.js",
+        "blocks/i-file-upload-legacy/i-file-upload_lib/vendor/jquery.ui.widget.js",
+        "blocks/i-file-upload-legacy/i-file-upload_lib/jquery.iframe-transport.js",
+        "blocks/i-file-upload-legacy/i-file-upload_lib/jquery.fileupload.js"
+    ]
+}

@@ -1,0 +1,29 @@
+.b-page-1 {
+	width: 85%;
+	margin: 0 auto;
+	margin-top: 30px;
+}
+
+.b-page-1__title {
+	font-size: 1.5rem;
+	color: orange;
+}
+
+.b-page-1__content {
+	margin-top: 20px;
+}
+
+.b-page-1__ajax-cont {
+	text-align: center;
+}
+
+.b-page-1__image {
+	display: inline-block;
+
+	img {
+		display: block;
+		width: 50px;
+		height: 50px;
+	}
+}
+

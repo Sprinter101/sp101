@@ -1,0 +1,21 @@
+//**VARIABLES**//
+
+//**HELPERS**//
+.i-utils__clearfix:after {
+    display: table !important;
+    clear: both;
+
+    content: "";
+}
+
+.i-utils__right {
+    float: right;
+}
+
+.i-utils__left {
+    float: left;
+}
+
+.i-utils__hidden {
+    display: none !important;
+}

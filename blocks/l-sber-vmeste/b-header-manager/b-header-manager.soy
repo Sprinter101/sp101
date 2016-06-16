@@ -1,0 +1,44 @@
+{namespace sv.lSberVmeste.bHeaderManager.Template}
+
+/**
+ * @constructor
+ * @extends cl.iContentManager.Template
+ */
+{template .headerManager}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ * @param params {
+ *     config: {
+ *         state: ?string
+ *     }
+ * }
+ */
+{template .body}
+    {call .initChildWithState}
+        {param params: [
+            'states': [
+                [
+                    'type': 'hidden',
+                    'config': [
+                        'isHidden': true
+                    ]
+                ],
+                [
+                    'type': 'default'
+                ]
+            ],
+            'defaultControl': 'Header',
+            'currentState': $params?.config?.state ?: 'hidden'
+        ]/}
+    {/call}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-header-manager
+{/template}
