@@ -33,8 +33,8 @@ goog.scope(function() {
     /**
     * 'Buttons test' action
     */
-    Controller.prototype.actionButtonsTest = function() {
-        this.pageManager_.setCurrentPage('ButtonsTest');
+    Controller.prototype.actionTestPage = function() {
+        this.pageManager_.setCurrentPage('TestPage');
     };
 
 });  // goog.scope

@@ -1,4 +1,4 @@
-goog.provide('sv.gButtonsTest.ButtonsTest');
+goog.provide('sv.gTestPage.TestPage');
 
 goog.require('cl.gButton.Button');
 goog.require('cl.iControl.Control');
@@ -6,15 +6,15 @@ goog.require('cl.iControl.Control');
 
 
 /**
- * sv.gButtonsTest.ButtonsTest control
- * @param {sv.bButtonsTest.View} view View used to render or
+ * sv.gTestPage.TestPage control
+ * @param {sv.bTestPage.View} view View used to render or
  *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  *     document interaction.
  * @constructor
  * @extends {cl.iControl.Control}
  */
-sv.gButtonsTest.ButtonsTest = function(view, opt_domHelper) {
+sv.gTestPage.TestPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
@@ -22,32 +22,41 @@ sv.gButtonsTest.ButtonsTest = function(view, opt_domHelper) {
     * @private
     */
     this.buttons_ = [];
+
+    /**
+    * @type {cl.gTab.Tab}
+    * @private
+    */
+    this.tab_ = null;
 };
-goog.inherits(sv.gButtonsTest.ButtonsTest, cl.iControl.Control);
+goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 
 goog.scope(function() {
-    var ButtonsTest = sv.gButtonsTest.ButtonsTest,
+    var TestPage = sv.gTestPage.TestPage,
         Button = cl.gButton.Button;
 
     /**
     * @override
     * @param {Element} element
     */
-    ButtonsTest.prototype.decorateInternal = function(element) {
+    TestPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domButtons = this.getView().getDom().buttons;
+        var domButtons = this.getView().getDom().buttons,
+            domTab = this.getView().getDom().tab;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('button', domButtons[i]));
         }
+
+        this.tab_ = this.decorateChild('tab', domTab);
     };
 
     /**
     * @override
     */
-    ButtonsTest.prototype.enterDocument = function() {
+    TestPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
         for (var i = 0; i < this.buttons_.length; i++) {
@@ -64,7 +73,7 @@ goog.scope(function() {
     * @param {Event} event
     * @private
     */
-    ButtonsTest.prototype.onButtonClick_ = function(event) {
+    TestPage.prototype.onButtonClick_ = function(event) {
         console.log(event.target.element_);
     };
 

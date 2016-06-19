@@ -1,0 +1,87 @@
+{namespace sv.gTestPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass /}__title">Кнопки</div>
+    {call .buttons_ /}
+    <div class="{call .rootClass /}__title">Таб</div>
+    {call .tab_ /}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-test-page
+{/template}
+
+/**
+* Buttons template
+*/
+{template .buttons_ autoescape="strict" kind="html"}
+    {let $buttonTypes: [
+            ['Помогать', 'start-helping'],
+            ['Готово', 'confirm'],
+            ['Основать фонд', 'create-fund'],
+            ['Я', 'profile'],
+            ['Начать', 'start'],
+            ['202 фонда', 'new-funds'],
+            ['+', 'add']
+        ] /}
+
+    {foreach $item in $buttonTypes}
+        <div class="{call .rootClass /}__element">
+            {call .renderChild}
+              {param params: [
+                    'type': 'button',
+                    'renderParams': [
+                        'data': [
+                            'content': $item[0],
+                        ],
+                        'config': [
+                            'theme': $item[1]
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+    {/foreach}
+{/template}
+
+/**
+* Tab template
+*/
+{template .tab_ autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__element">
+        {call .renderChild}
+          {param params: [
+                'type': 'tab',
+                'renderParams': [
+                    'data': [
+                        'tabs': [
+                            [
+                                'label': 'Темы',
+                                'content': 'Темы'
+                            ],
+                            [
+                                'label': 'Фонды',
+                                'content': 'Фонды'
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        /}
+        {/call}
+    </div>
+{/template}

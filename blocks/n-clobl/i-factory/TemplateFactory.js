@@ -2,7 +2,7 @@ goog.provide('sv.iFactory.TemplateFactory');
 goog.provide('sv.iFactory.TemplateFactory.INSTANCE');
 
 goog.require('cl.iFactory.TemplateFactory');
-goog.require('sv.gButtonsTest.Template'); // sandbox item
+goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bNavPage1.Template');
@@ -39,8 +39,8 @@ sv.iFactory.TemplateFactory = function() {
             'NavPage1',
             sv.lSberVmeste.bNavPage1.Template.page
         ).setTemplateListItem( // sandbox item
-            'ButtonsTest',
-            sv.gButtonsTest.Template.page
+            'TestPage',
+            sv.gTestPage.Template.page
         );
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);
