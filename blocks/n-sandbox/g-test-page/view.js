@@ -31,7 +31,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-test-page',
         BUTTON: 'g-button_sber',
-        TAB: 'g-tab_sber'
+        TAB: 'g-tab_sber',
+        LIST: 'g-list_sber'
     };
 
     /**
@@ -44,5 +45,7 @@ goog.scope(function() {
         this.dom.buttons = this.getElementsByClass(View.CssClass.BUTTON);
 
         this.dom.tab = this.getElementByClass(View.CssClass.TAB);
+
+        this.dom.list = this.getElementByClass(View.CssClass.LIST);
     };
 });  // goog.scope
