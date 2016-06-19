@@ -25,7 +25,17 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     this.buttons_ = [];
 
     /**
+<<<<<<< HEAD
     * @type {Array}
+=======
+    * @type {cl.gList.List}
+    * @private
+    */
+    this.list_ = null;
+
+    /**
+    * @type {cl.gTab.Tab}
+>>>>>>> Added list_tab
     * @private
     */
     this.tabs_ = [];
@@ -35,7 +45,8 @@ goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 goog.scope(function() {
     var TestPage = sv.gTestPage.TestPage,
-        Button = cl.gButton.Button;
+        Button = cl.gButton.Button,
+        List = cl.gList.List;
 
     /**
     * @override
@@ -54,7 +65,6 @@ goog.scope(function() {
         for (var i = 0; i < domTabs.length; i++) {
             this.tabs_.push(this.decorateChild('tab', domTabs[i]));
         }
-        
     };
 
     /**
@@ -70,6 +80,12 @@ goog.scope(function() {
                 this.onButtonClick_
             );
         }
+
+        goog.events.listen(
+            this.list_,
+            List.Event.ITEM_SELECT,
+            this.onListitemSelect_
+        );
     };
 
     /**
@@ -79,6 +95,15 @@ goog.scope(function() {
     */
     TestPage.prototype.onButtonClick_ = function(event) {
         console.log(event.target.element_);
+    };
+
+    /**
+    * List item select handler
+    * @param {Event} event
+    * @private
+    */
+    TestPage.prototype.onListitemSelect_ = function(event) {
+        console.log(event.itemId);
     };
 
 });  // goog.scope

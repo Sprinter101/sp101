@@ -31,7 +31,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-test-page',
         BUTTON: 'g-button_sber',
-        TAB: 'g-tab_sber'
+        TAB: 'g-tab_sber',
+        LIST: 'g-list_sber'
     };
 
     /**

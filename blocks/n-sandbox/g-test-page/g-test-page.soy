@@ -18,6 +18,8 @@
     //{call .icons_ /}
     <div class="{call .rootClass /}__title">Табы</div>
     {call .tab_ /}
+    // <div class="{call .rootClass /}__title">Иконки</div>
+    // {call .icons_ /}
 {/template}
 
 /**
@@ -136,8 +138,28 @@
                         ]
                     ]
                 ]
-            ]
-        /}
+            ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+* Iconst template
+*/
+{template .icons_ autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__element">
+        {call .renderChild}
+          {param params: [
+                'type': 'button',
+                'renderParams': [
+                    'data': [
+                        'content': '',
+                    ],
+                    'config': [
+                        'theme': ''
+                    ]
+                ]
+            ]/}
         {/call}
     </div>
 
