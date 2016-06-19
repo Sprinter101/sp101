@@ -30,7 +30,8 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-test-page',
-        BUTTON: 'g-button_sber'
+        BUTTON: 'g-button_sber',
+        TAB: 'g-tab_sber'
     };
 
     /**
@@ -41,5 +42,7 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.dom.buttons = this.getElementsByClass(View.CssClass.BUTTON);
+
+        this.dom.tabs = this.getElementsByClass(View.CssClass.TAB);
     };
 });  // goog.scope

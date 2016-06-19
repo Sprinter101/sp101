@@ -23,6 +23,12 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     * @private
     */
     this.buttons_ = [];
+
+    /**
+    * @type {Array}
+    * @private
+    */
+    this.tabs_ = [];
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
@@ -38,11 +44,17 @@ goog.scope(function() {
     TestPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domButtons = this.getView().getDom().buttons;
+        var domButtons = this.getView().getDom().buttons,
+            domTabs = this.getView().getDom().tabs;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('button', domButtons[i]));
         }
+
+        for (var i = 0; i < domTabs.length; i++) {
+            this.tabs_.push(this.decorateChild('tab', domTabs[i]));
+        }
+        
     };
 
     /**
