@@ -23,51 +23,51 @@
     }
 }
 
-.g-button_transparent {
+.g-button_background_transparent {
     background: none;
     color: #fff;
 }
 
-.g-button_green-border {
+.g-button_border_green {
     border: solid 1px #1eeb78;
 }
 
-.g-button_white-border {
+.g-button_border_white {
     border: solid 1px #fff;
 }
 
-.g-button_thick-border {
+.g-button_border_thick {
     border-width: 2px;
 }
 
-.g-button_opaque {
+.g-button_opacity_one-third {
     opacity: .31;
 }
 
-.g-button_fontSFUI {
+.g-button_font_SFUI {
     font-family: SFUIDisplay;
 }
 
-.g-button_small-height {
+.g-button_height_small {
     height: 33px;
 }
 
-.g-button_big-height {
+.g-button_height_big {
     height: 56px;
 }
 
-.g-button_width-m {
+.g-button_width_m {
     width: 56px;
 }
 
-.g-button_width-s {
+.g-button_width_s {
     width: 33px;
 }
 
-.g-button_no-padding {
+.g-button_padding_none {
     padding: 0;
 }
 
-.g-button_big-font {
+.g-button_font_big {
     font-size: 20px;
 }
