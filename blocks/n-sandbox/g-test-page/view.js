@@ -1,35 +1,35 @@
-goog.provide('sv.gButtonsTest.View');
+goog.provide('sv.gTestPage.View');
 
 goog.require('cl.iControl.View');
 
 
 
 /**
- * sv.gButtonsTest.View
+ * sv.gTestPage.View
  * @param {Object=} opt_params
  * @param {Function=} opt_template
  * @param {string=} opt_modifier
  * @constructor
  * @extends {cl.iControl.View}
 */
-sv.gButtonsTest.View = function(opt_params, 
+sv.gTestPage.View = function(opt_params, 
                                             opt_template, 
                                             opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
-    this.setCssClass(sv.gButtonsTest.View.CssClass.ROOT);
+    this.setCssClass(sv.gTestPage.View.CssClass.ROOT);
 };
-goog.inherits(sv.gButtonsTest.View, cl.iControl.View);
+goog.inherits(sv.gTestPage.View, cl.iControl.View);
 
 goog.scope(function() {
-    var View = sv.gButtonsTest.View;
+    var View = sv.gTestPage.View;
 
     /**
      * Css class enum
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-buttons-test',
+        ROOT: 'b-test-page',
         BUTTON: 'g-button_sber'
     };
 

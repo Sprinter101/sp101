@@ -1,24 +1,14 @@
-@font-face {
-    font-family: AndaleMono;
-
-    src: url(fonts/andale-mono.ttf);
-}
-
-@font-face {
-    font-family: SFUIDisplay;
-
-    src: url(fonts/SFUIDisplay-Medium.otf);
-}
-
 .g-button_sber {
     font-family: AndaleMono;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: normal;
-
+    
+    width: 180px;
     height: 43px;
     padding: 3px 0 0 0;
+
     vertical-align: middle;
-    
+
     color: #03371a;
     border: 0;
     border-radius: 30px;
@@ -33,48 +23,51 @@
     }
 }
 
-.g-button_start-helping-theme {
-    width: 194px;
-    color: #ffffff;
-    border: solid 2px #1eeb78;
+.g-button_transparent {
     background: none;
+    color: #fff;
 }
 
-.g-button_confirm-theme {
-    width: 176px;
-}
-
-.g-button_create-fund-theme {
-    width: 186px;
-}
-
-.g-button_profile-theme {
-    font-family: SFUIDisplay;
-
-    width: 56px;
-    height: 56px;
-}
-
-.g-button_start-theme {
-    width: 176px;
-}
-
-.g-button_new-funds-theme {
-    color: #ffffff;
-    width: 167px;
-    height: 32px;
-    font-size: 20px;
-    background: none;
+.g-button_green-border {
     border: solid 1px #1eeb78;
 }
 
-.g-button_add-theme {
+.g-button_white-border {
+    border: solid 1px #fff;
+}
+
+.g-button_thick-border {
+    border-width: 2px;
+}
+
+.g-button_opaque {
+    opacity: .31;
+}
+
+.g-button_fontSFUI {
     font-family: SFUIDisplay;
-    background: none;
-    color: #ffffff;
-    font-size: 18px;
-    width: 34px;
-    height: 34px;
-    opacity: 0.31;
-    border: solid 1px #ffffff;
+}
+
+.g-button_small-height {
+    height: 33px;
+}
+
+.g-button_big-height {
+    height: 56px;
+}
+
+.g-button_width-m {
+    width: 56px;
+}
+
+.g-button_width-s {
+    width: 33px;
+}
+
+.g-button_no-padding {
+    padding: 0;
+}
+
+.g-button_big-font {
+    font-size: 20px;
 }

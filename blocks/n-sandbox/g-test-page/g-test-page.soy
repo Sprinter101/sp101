@@ -1,0 +1,85 @@
+{namespace sv.gTestPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass /}__title">Кнопки</div>
+    {call .buttons_ /}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-test-page
+{/template}
+
+/**
+* Buttons template
+*/
+{template .buttons_ autoescape="strict" kind="html"}
+    {let $buttonTypes: [
+            ['Помогать', [
+                'transparent',
+                'green-border',
+                'thick-border'
+                ]
+            ],
+            ['Готово', []
+            ],
+            ['Основать фонд', []
+            ],
+            ['Я', [
+                'width-m',
+                'big-height',
+                'fontSFUI'
+                ]
+            ],
+            ['Начать', []
+            ],
+            ['202 фонда', [
+                'big-font',
+                'small-height',
+                'transparent',
+                'green-border'
+                ]
+            ],
+            ['+', [
+                'width-s',
+                'small-height',
+                'fontSFUI',
+                'transparent',
+                'white-border',
+                'opaque',
+                'no-padding'
+                ]
+            ]
+        ] /}
+
+    {foreach $item in $buttonTypes}
+        <div class="{call .rootClass /}__element">
+            {call .renderChild}
+              {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': $item[0],
+                        ],
+                        'config': [
+                            'buttonStyles': $item[1]
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+    {/foreach}
+{/template}
