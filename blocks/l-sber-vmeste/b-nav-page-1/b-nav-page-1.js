@@ -7,7 +7,7 @@ goog.require('sv.lSberVmeste.iRequest.Request');
 
 /**
  * sv.lSberVmeste.bNavPage1.NavPage1 control
- * @param {} view View used to render or
+ * @param {sv.lSberVmeste.bNavPage1.View} view View used to render or
  *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  *     document interaction.
@@ -31,7 +31,7 @@ goog.scope(function() {
     */
     NavPage1.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-    }
+    };
 
     /**
     * @override
@@ -39,8 +39,8 @@ goog.scope(function() {
     NavPage1.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.sendTestRequest_();
-    }
+        //this.sendTestRequest_();
+    };
 
     /**
     * @private
@@ -58,5 +58,5 @@ goog.scope(function() {
                 console.log('error', data, status, error);
             }
         });
-    }
+    };
 });  // goog.scope

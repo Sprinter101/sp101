@@ -1,7 +1,8 @@
 goog.provide('sv.lSberVmeste.bHeaderManager.View');
 
-goog.require('sv.lSberVmeste.bHeader.View');
 goog.require('cl.iControl.View');
+goog.require('sv.lSberVmeste.bHeader.View');
+
 
 
 /**
@@ -12,7 +13,9 @@ goog.require('cl.iControl.View');
  * @constructor
  * @extends {cl.iControl.View}
  */
-sv.lSberVmeste.bHeaderManager.View = function(opt_params, opt_temp, opt_modifier)
+sv.lSberVmeste.bHeaderManager.View = function(opt_params, 
+                                                opt_temp, 
+                                                opt_modifier)
 {
     goog.base(this, opt_params, opt_temp, opt_modifier);
 

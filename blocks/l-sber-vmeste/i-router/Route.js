@@ -7,4 +7,5 @@ goog.provide('sv.lSberVmeste.iRouter.Route');
  */
 sv.lSberVmeste.iRouter.Route = {
     NAV_LINK_1: 'navLink1',
+    TEST_PAGE: 'testPage'
 };

@@ -30,4 +30,11 @@ goog.scope(function() {
         this.pageManager_.setCurrentPage('NavPage1');
     };
 
+    /**
+    * 'Buttons test' action
+    */
+    Controller.prototype.actionTestPage = function() {
+        this.pageManager_.setCurrentPage('TestPage');
+    };
+
 });  // goog.scope

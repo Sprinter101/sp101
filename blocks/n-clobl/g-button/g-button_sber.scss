@@ -1,0 +1,73 @@
+.g-button_sber {
+    font-family: AndaleMono;
+    font-size: 18px;
+    font-weight: normal;
+    
+    width: 180px;
+    height: 43px;
+    padding: 3px 0 0 0;
+
+    vertical-align: middle;
+
+    color: #03371a;
+    border: 0;
+    border-radius: 30px;
+    background-color: #e7f038;
+    &:after {
+        display: inline-block;
+
+        height: 100%;
+
+        content: '';
+        vertical-align: middle;
+    }
+}
+
+.g-button_background_transparent {
+    background: none;
+    color: #fff;
+}
+
+.g-button_border_green {
+    border: solid 1px #1eeb78;
+}
+
+.g-button_border_white {
+    border: solid 1px #fff;
+}
+
+.g-button_border_thick {
+    border-width: 2px;
+}
+
+.g-button_opacity_one-third {
+    opacity: .31;
+}
+
+.g-button_font_SFUI {
+    font-family: SFUIDisplay;
+}
+
+.g-button_height_small {
+    height: 33px;
+}
+
+.g-button_height_big {
+    height: 56px;
+}
+
+.g-button_width_m {
+    width: 56px;
+}
+
+.g-button_width_s {
+    width: 33px;
+}
+
+.g-button_padding_none {
+    padding: 0;
+}
+
+.g-button_font_big {
+    font-size: 20px;
+}

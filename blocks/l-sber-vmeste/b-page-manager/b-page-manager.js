@@ -1,8 +1,8 @@
 goog.provide('sv.lSberVmeste.bPageManager.PageManager');
 
+goog.require('cl.iContentManager.ContentManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
 goog.require('sv.lSberVmeste.iRouter.Router');
-goog.require('cl.iContentManager.ContentManager');
 
 
 

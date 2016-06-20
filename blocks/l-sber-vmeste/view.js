@@ -1,8 +1,10 @@
 goog.provide('sv.lSberVmeste.View');
 
+goog.require('cl.iControl.View');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bPageManager.View');
-goog.require('cl.iControl.View');
+
+
 
 /**
  * sv.lSberVmeste.View
@@ -13,14 +15,14 @@ goog.require('cl.iControl.View');
  * @extends {cl.iControl.View}
 */
 sv.lSberVmeste.View = function(opt_params, opt_template, opt_modifier) {
-	goog.base(this, opt_params, opt_template, opt_modifier);
+    goog.base(this, opt_params, opt_template, opt_modifier);
 
-	this.setCssClass(sv.lSberVmeste.View.CssClass.ROOT);
+    this.setCssClass(sv.lSberVmeste.View.CssClass.ROOT);
 };
 goog.inherits(sv.lSberVmeste.View, cl.iControl.View);
 
 goog.scope(function() {
-	var View = sv.lSberVmeste.View,
+    var View = sv.lSberVmeste.View,
     HeaderManagerView = sv.lSberVmeste.bHeaderManager.View;
     PageManagerView = sv.lSberVmeste.bPageManager.View;
 
@@ -28,9 +30,9 @@ goog.scope(function() {
      * Css class enum
      * @enum {string}
     */
-	View.CssClass = {
-		ROOT: 'l-sber-vmeste'
-	};
+    View.CssClass = {
+        ROOT: 'l-sber-vmeste'
+    };
 
     /**
      * @override
@@ -54,4 +56,4 @@ goog.scope(function() {
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
     };
-});
+});  // goog.scope

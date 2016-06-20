@@ -1,0 +1,22 @@
+{namespace sv.gButton.Template}
+
+/**
+ * The button template
+ * @extends cl.gButton.Template
+ * @constructor
+ */
+{template .button}
+    {call .init data="all" /}
+{/template}
+
+/**
+* @param? params
+*/
+{template .additionalClasses}
+    {if $params?.config?.buttonStyles}
+        {let $butonStyles: $params.config.buttonStyles /}
+        {foreach $style in $butonStyles}
+            {call .rootClass/}_{$style}{sp}
+        {/foreach}
+    {/if}
+{/template}

@@ -1,9 +1,9 @@
 goog.provide('sv.lSberVmeste.Main');
 
+goog.require('goog.dom');
 goog.require('sv.iFactory.FactorySber');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
-goog.require('goog.dom');
 
 
 
@@ -26,7 +26,8 @@ goog.scope(function() {
     Main.prototype.run = function() {
         var elem = goog.dom.getElementByClass(SberVmesteView.CssClass.ROOT);
         FactorySber.getInstance().decorate('SberVmeste', elem);
-        window.location.href = '#navLink1';
+        window.location.href = '#';
+        window.location.href = '#testPage';
     };
 
 
