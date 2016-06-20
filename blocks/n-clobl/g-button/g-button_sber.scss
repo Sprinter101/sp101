@@ -1,19 +1,16 @@
-@font-face
-{
+@font-face {
     font-family: AndaleMono;
 
     src: url(fonts/andale-mono.ttf);
 }
 
-@font-face
-{
+@font-face {
     font-family: SFUIDisplay;
 
     src: url(fonts/SFUIDisplay-Medium.otf);
 }
 
-.g-button_sber
-{
+.g-button_sber {
     font-family: AndaleMono;
     font-size: 17px;
     font-weight: normal;
@@ -27,8 +24,7 @@
     border: 0;
     border-radius: 30px;
     background-color: #e7f038;
-    &:after
-    {
+    &:after {
         display: inline-block;
 
         height: 100%;
@@ -38,8 +34,7 @@
     }
 }
 
-.g-button_start-helping-theme
-{
+.g-button_start-helping-theme {
     width: 194px;
 
     color: #fff;
@@ -47,31 +42,26 @@
     background: none;
 }
 
-.g-button_confirm-theme
-{
+.g-button_confirm-theme {
     width: 176px;
 }
 
-.g-button_create-fund-theme
-{
+.g-button_create-fund-theme {
     width: 186px;
 }
 
-.g-button_profile-theme
-{
+.g-button_profile-theme {
     font-family: SFUIDisplay;
 
     width: 56px;
     height: 56px;
 }
 
-.g-button_start-theme
-{
+.g-button_start-theme {
     width: 176px;
 }
 
-.g-button_new-funds-theme
-{
+.g-button_new-funds-theme {
     font-size: 20px;
 
     width: 167px;
@@ -82,8 +72,7 @@
     background: none;
 }
 
-.g-button_add-theme
-{
+.g-button_add-theme {
     font-family: SFUIDisplay;
     font-size: 18px;
 

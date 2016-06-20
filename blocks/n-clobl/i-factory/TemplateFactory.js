@@ -38,7 +38,8 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'NavPage1',
             sv.lSberVmeste.bNavPage1.Template.page
-        ).setTemplateListItem( // sandbox item
+        )
+        .setTemplateListItem( // sandbox item
             'TestPage',
             sv.gTestPage.Template.page
         );

@@ -1,14 +1,13 @@
 @import '../../l-sber-vmeste/i-media/i-media.scss';
 
-@font-face
-{
+@font-face {
     font-family: SFUIDisplay;
 
     src: url(fonts/SFUIDisplay-Medium.otf);
 }
 
-.g-list__item
-{
+.g-list__item {
+    user-select: none;
     display: inline-block;
     padding: 0;
     box-sizing: border-box;
@@ -23,8 +22,7 @@
     color: #fff;
     border: solid 1px #fff;
     border-right: 0;
-    &:after
-    {
+    &:after {
         display: inline-block;
 
         height: 110%;
@@ -32,19 +30,16 @@
         content: '';
         vertical-align: middle;
     }
-    &:first-child
-    {
+    &:first-child {
         border-radius: 19px 0 0 19px;
     }
-    &:last-child
-    {
+    &:last-child {
         border: solid 1px #fff;
         border-radius: 0 19px 19px 0;
     }
 }
 
-.g-list__item_selected
-{
+.g-list__item_selected {
     color: #000;
     background-color: #fff;
 }
