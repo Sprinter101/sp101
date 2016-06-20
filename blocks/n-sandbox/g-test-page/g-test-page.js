@@ -1,8 +1,7 @@
 goog.provide('sv.gTestPage.TestPage');
 
-goog.require('cl.gButton.Button');
-goog.require('cl.gList.List');
 goog.require('cl.iControl.Control');
+goog.require('sv.gButton.Button');
 
 
 
@@ -45,8 +44,7 @@ goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 goog.scope(function() {
     var TestPage = sv.gTestPage.TestPage,
-        Button = cl.gButton.Button,
-        List = cl.gList.List;
+        Button = sv.gButton.Button;
 
     /**
     * @override
@@ -59,11 +57,11 @@ goog.scope(function() {
             domTabs = this.getView().getDom().tabs;
 
         for (var i = 0; i < domButtons.length; i++) {
-            this.buttons_.push(this.decorateChild('button', domButtons[i]));
+            this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
         }
 
         for (var i = 0; i < domTabs.length; i++) {
-            this.tabs_.push(this.decorateChild('tab', domTabs[i]));
+            this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
     };
 
@@ -81,11 +79,6 @@ goog.scope(function() {
             );
         }
 
-        goog.events.listen(
-            this.list_,
-            List.Event.ITEM_SELECT,
-            this.onListitemSelect_
-        );
     };
 
     /**
@@ -95,15 +88,6 @@ goog.scope(function() {
     */
     TestPage.prototype.onButtonClick_ = function(event) {
         console.log(event.target.element_);
-    };
-
-    /**
-    * List item select handler
-    * @param {Event} event
-    * @private
-    */
-    TestPage.prototype.onListitemSelect_ = function(event) {
-        console.log(event.itemId);
     };
 
 });  // goog.scope

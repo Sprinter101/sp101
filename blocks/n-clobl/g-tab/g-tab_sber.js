@@ -24,4 +24,13 @@ goog.inherits(sv.gTab.Tab, cl.gTab.Tab);
 goog.scope(function() {
     var Tab = sv.gTab.Tab,
         View = sv.gTab.View;
+
+    /**
+     * Event enum
+     * @enum {string}
+     */
+    Tab.Event = {
+        TAB_SELECT: View.Event.TAB_SELECT
+    };
+    
 });  // goog.scope

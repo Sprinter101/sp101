@@ -22,4 +22,23 @@ goog.inherits(sv.gTab.View, cl.gTab.View);
 
 goog.scope(function() {
     var View = sv.gTab.View;
+
+    /**
+     * Css class enum
+     * @enum {string}
+     */
+    View.CssClass = {
+        ROOT: 'g-tab',
+        TAB: 'g-tab__tab',
+        SELECTED_TAB: 'g-tab__tab_selected',
+        CONTENT: 'g-tab__content'
+    };
+
+    /**
+     * Event enum
+     * @enum {string}
+     */
+    View.Event = {
+        TAB_SELECT: 'tab-select'
+    };
 });  // goog.scope
