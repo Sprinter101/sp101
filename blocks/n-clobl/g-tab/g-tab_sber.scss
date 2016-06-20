@@ -1,14 +1,6 @@
 @import '../../l-sber-vmeste/i-media/i-media.scss';
 
-@font-face
-{
-    font-family: SFUIDisplay;
-
-    src: url(fonts/SFUIDisplay-Medium.otf);
-}
-
-.g-tab__tab
-{
+.g-tab__tab {
     font-family: SFUIDisplay;
 
     width: 40%;
@@ -19,8 +11,7 @@
     color: #fff;
     border: solid 1px #fff;
     border-right: 0;
-    &:after
-    {
+    &:after {
         display: inline-block;
 
         height: 110%;
@@ -28,19 +19,16 @@
         content: '';
         vertical-align: middle;
     }
-    &:first-child
-    {
+    &:first-child {
         border-radius: 19px 0 0 19px;
     }
-    &:last-child
-    {
+    &:last-child {
         border: solid 1px #fff;
         border-radius: 0 19px 19px 0;
     }
 }
 
-.g-tab__tab_selected
-{
+.g-tab__tab_selected {
     color: #000;
     background-color: #fff;
 }
@@ -80,10 +68,8 @@
     }
 }
 
-@include media-l
-{
-    .g-tab__content
-    {
+@include media-l {
+    .g-tab__content {
         width: 73%;
     }
 }
