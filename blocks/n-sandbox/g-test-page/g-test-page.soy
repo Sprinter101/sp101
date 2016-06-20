@@ -16,8 +16,6 @@
     {call .buttons_ /}
     <div class="{call .rootClass /}__title">Таб</div>
     {call .tab_ /}
-    // <div class="{call .rootClass /}__title">Иконки</div>
-    // {call .icons_ /}
 {/template}
 
 /**
@@ -32,26 +30,54 @@
 */
 {template .buttons_ autoescape="strict" kind="html"}
     {let $buttonTypes: [
-            ['Помогать', 'start-helping'],
-            ['Готово', 'confirm'],
-            ['Основать фонд', 'create-fund'],
-            ['Я', 'profile'],
-            ['Начать', 'start'],
-            ['202 фонда', 'new-funds'],
-            ['+', 'add']
+            ['Помогать', [
+                'transparent',
+                'green-border',
+                'thick-border'
+                ]
+            ],
+            ['Готово', []
+            ],
+            ['Основать фонд', []
+            ],
+            ['Я', [
+                'width-m',
+                'big-height',
+                'fontSFUI'
+                ]
+            ],
+            ['Начать', []
+            ],
+            ['202 фонда', [
+                'big-font',
+                'small-height',
+                'transparent',
+                'green-border'
+                ]
+            ],
+            ['+', [
+                'width-s',
+                'small-height',
+                'fontSFUI',
+                'transparent',
+                'white-border',
+                'opaque',
+                'no-padding'
+                ]
+            ]
         ] /}
 
     {foreach $item in $buttonTypes}
         <div class="{call .rootClass /}__element">
             {call .renderChild}
               {param params: [
-                    'type': 'button',
+                    'type': 'ButtonSber',
                     'renderParams': [
                         'data': [
                             'content': $item[0],
                         ],
                         'config': [
-                            'theme': $item[1]
+                            'buttonStyles': $item[1]
                         ]
                     ]
                 ]/}
@@ -100,27 +126,6 @@
                                 'content': 'Фонды'
                             ]
                         ]
-                    ]
-                ]
-            ]/}
-        {/call}
-    </div>
-{/template}
-
-/**
-* Iconst template
-*/
-{template .icons_ autoescape="strict" kind="html"}
-    <div class="{call .rootClass /}__element">
-        {call .renderChild}
-          {param params: [
-                'type': 'button',
-                'renderParams': [
-                    'data': [
-                        'content': '',
-                    ],
-                    'config': [
-                        'theme': ''
                     ]
                 ]
             ]/}

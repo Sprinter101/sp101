@@ -8,6 +8,7 @@ goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bNavPage1.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.Template');
+goog.require('sv.gButton.Template');
 
 
 
@@ -42,7 +43,11 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem( // sandbox item
             'TestPage',
             sv.gTestPage.Template.page
-        );
+        )
+        .setTemplateListItem( // sandbox item
+            'ButtonSber',
+            sv.gButton.Template.button
+        );;
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);
 goog.addSingletonGetter(sv.iFactory.TemplateFactory);
