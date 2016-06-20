@@ -2,13 +2,15 @@ goog.provide('sv.iFactory.TemplateFactory');
 goog.provide('sv.iFactory.TemplateFactory.INSTANCE');
 
 goog.require('cl.iFactory.TemplateFactory');
+goog.require('sv.gButton.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bNavPage1.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
+goog.require('sv.lSberVmeste.gCard.Template');
 goog.require('sv.lSberVmeste.Template');
-goog.require('sv.gButton.Template');
+
 
 
 
@@ -44,10 +46,14 @@ sv.iFactory.TemplateFactory = function() {
             'TestPage',
             sv.gTestPage.Template.page
         )
-        .setTemplateListItem( // sandbox item
+        .setTemplateListItem(
             'ButtonSber',
             sv.gButton.Template.button
-        );;
+        )
+        .setTemplateListItem(
+            'Card',
+            sv.lSberVmeste.gCard.Template.card
+        );
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);
 goog.addSingletonGetter(sv.iFactory.TemplateFactory);

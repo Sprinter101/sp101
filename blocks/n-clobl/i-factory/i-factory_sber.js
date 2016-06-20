@@ -1,6 +1,10 @@
 goog.provide('sv.iFactory.FactorySber');
 
 goog.require('cl.iFactory.Factory');
+goog.require('sv.gButton.Button');
+goog.require('sv.gButton.View');
+goog.require('sv.gTestPage.TestPage');
+goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
@@ -8,12 +12,10 @@ goog.require('sv.lSberVmeste.bNavPage1.NavPage1');
 goog.require('sv.lSberVmeste.bNavPage1.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.gCard.Card');
+goog.require('sv.lSberVmeste.gCard.View');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
-goog.require('sv.gTestPage.TestPage');
-goog.require('sv.gTestPage.View');
-goog.require('sv.gButton.Button');
-goog.require('sv.gButton.View');
 
 
 
@@ -54,6 +56,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('ButtonSber', {
             control: sv.gButton.Button,
             view: sv.gButton.View
+        })
+        .setControlListItem('Card', {
+            control: sv.lSberVmeste.gCard.Card,
+            view: sv.lSberVmeste.gCard.View
         });
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
