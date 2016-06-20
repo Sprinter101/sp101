@@ -33,6 +33,7 @@ goog.scope(function() {
         BUTTON: 'g-button_sber',
         TAB: 'g-tab_sber',
         LIST: 'g-list_sber'
+        BUTTON: 'g-button_sber'
     };
 
     /**
