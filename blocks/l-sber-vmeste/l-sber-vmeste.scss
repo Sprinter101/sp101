@@ -10,6 +10,12 @@
     src: url(fonts/SFUIDisplay-Medium.otf);
 }
 
+@font-face {
+    font-family: AffectBold;
+
+    src: url("fonts/Affect Bold.otf");
+}
+
 body {
     margin: 0;
 }
@@ -17,6 +23,14 @@ body {
 body, html {
     width: 100%;
     height: 100%;
+}
+
+.g-justify-fix {
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
 }
 
 .l-sber-vmeste {

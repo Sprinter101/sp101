@@ -12,20 +12,38 @@
  * @override
  */
 {template .body}
-    <div class="b-card__top">
+    <div class="b-card__top g-justify-fix">
         <div class="b-card__icon">
-            <div class="b-card__icon-image"></div>
+            <img src="http://i.ebayimg.com/00/s/NTAwWDQyMA==/z/N40AAOSwv9hW21tS/$_74.JPG" alt="" class="b-card__icon-image">
             <div class="b-card__icon-text">ПОМОЩЬ ДЕТЯМ</div>
-        </div>
+        </div>{sp}
         <div class="b-card__card-info">
             <div class="b-card__donations"> Ежемесячно 289 человек перечисляет</div>
             <div class="b-card__amount">11 378 рублей</div>
-            <div>Кнопка Помогать</div>
+            {call .renderChild}
+              {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': 'Помогать',
+                        ],
+                        'config': [
+                            'buttonStyles': [
+                                'background_transparent',
+                                'border_green',
+                                'border_thick'
+                                ]
+                        ]
+                    ]
+                ]/}
+            {/call}
         </div>
     </div>
-    <div class="b-card__middle">
-        <div class="b-card__text-title">Помощь детям</div>
-        <div class="b-card__text">«Дорогие друзья! На сегодняшний день благотворительность — это, пожалуй, единственная территория, где люди не пытаются реализовывать свои амбиции и достигать каких-либо целей, кроме одной — бескорыстная помощь человеку. Деятельность нашего Фонда направлена на спасение детей с заболеваниями головного мозга. Любой, даже самый скромный ваш вклад очень важен. Ведь каждая спасенная жизнь — бесценна!»</div>
+    <div class="b-card__description">
+        <div class="b-card__description-wrapper">
+            <div class="b-card__text-title">Помощь детям</div>
+            <div class="b-card__text">«Дорогие друзья! На сегодняшний день благотворительность — это, пожалуй, единственная территория, где люди не пытаются реализовывать свои амбиции и достигать каких-либо целей, кроме одной — бескорыстная помощь человеку. Деятельность нашего Фонда направлена на спасение детей с заболеваниями головного мозга. Любой, даже самый скромный ваш вклад очень важен. Ведь каждая спасенная жизнь — бесценна!»</div>
+        </div>
     </div>
     <div class="b-card__bottom">
         <div class="b-card__directions-count">3 Направления</div>
