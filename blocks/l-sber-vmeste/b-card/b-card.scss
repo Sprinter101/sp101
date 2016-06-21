@@ -1,9 +1,20 @@
+@import '../../l-sber-vmeste/i-media/i-media.scss';
+
+BODY {
+    background-image: url('images/fon_SV.jpg'); /* fallback for older browsers */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url('images/fon_SV.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+
 .b-card {
+    background: #fff; 
     font-family: AndaleMono;
-    width: 760px;
-    margin: 0 auto;
     text-align: left;
     font-size: 15px;
+    margin: 0 auto;
+    border-radius: 7px 7px 0 0;
 }
 
 .b-card__top, .b-card__description, .b-card__bottom {
@@ -67,8 +78,7 @@
     margin-left: 10px;
     font-family: AffectBold;
     color: #565656;
-
-}
+} 
 
 .b-card__text {
     margin-top: 17px;
@@ -86,4 +96,41 @@
 
 .b-card__directions {
     margin-top: 17px;
+}
+
+@include media-s {
+    .b-card {
+        border-radius: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .b-card__top, .b-card__description, .b-card__bottom {
+        padding: 50px 8% 30px 8%;
+    }
+
+    .b-card__top {
+        text-align: center;
+    }
+
+    .b-card__card-info {
+        width: 100%;
+    }
+
+    .b-card__text {
+        text-align: left;
+    }
+}
+
+@include media-m {
+    .b-card {
+        width: 770px;
+        border-radius: 0;
+    }
+}
+
+@include media-l {
+    .b-card {
+        width: 760px;
+    }
 }
