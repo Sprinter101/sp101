@@ -13,61 +13,35 @@
  */
 {template .body}
     <div class="b-card__top g-justify-fix">
-        <div class="b-card__icon">
-            <div class="b-card__icon-image-wrapper">
-                <img src="images/icon_345.png" alt="" class="b-card__icon-image">
-            </div>
-            <div class="b-card__icon-text">ПОМОЩЬ ДЕТЯМ</div>
-        </div>{sp}
-        <div class="b-card__card-info">
-            <div class="b-card__donations"> Ежемесячно 289 человек перечисляет</div>
-            <div class="b-card__amount">11 378 рублей</div>
-            {call .renderChild}
-              {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': 'Помогать',
-                        ],
-                        'config': [
-                            'buttonStyles': [
-                                'background_transparent',
-                                'border_green',
-                                'border_thick'
-                                ]
+        <div class="b-card__top-wrapper">
+            <div class="b-card__icon">
+                <div class="b-card__icon-image-wrapper">
+                    <img src="images/icon_345.png" alt="" class="b-card__icon-image">
+                </div>
+                <div class="b-card__icon-text">ПОМОЩЬ ДЕТЯМ</div>
+            </div>{sp}
+            <div class="b-card__card-info">
+                <div class="b-card__donations"> Ежемесячно 289 человек перечисляет</div>
+                <div class="b-card__amount">11 378 рублей</div>
+                {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Помогать',
+                            ],
+                            'config': [
+                                'buttonStyles': [
+                                    'background_transparent',
+                                    'border_green',
+                                    'border_thick'
+                                    ]
+                            ]
                         ]
-                    ]
-                ]/}
-            {/call}
+                    ]/}
+                {/call}
+            </div>
         </div>
-
-        // <div class="b-card__icon">
-        //     <div class="b-card__icon-image-wrapper">
-        //         <img src="images/icon_678.png" alt="" class="b-card__icon-image">
-        //     </div>
-        //     <div class="b-card__icon-text">ФОНД ПОДАРИ ЖИЗНЬ</div>
-        // </div>{sp}
-        // <div class="b-card__card-info">
-        //     <div class="b-card__donations"> Ежемесячно 289 человек перечисляет</div>
-        //     <div class="b-card__amount">11 378 рублей</div>
-        //     {call .renderChild}
-        //       {param params: [
-        //             'type': 'ButtonSber',
-        //             'renderParams': [
-        //                 'data': [
-        //                     'content': 'Помогать',
-        //                 ],
-        //                 'config': [
-        //                     'buttonStyles': [
-        //                         'background_transparent',
-        //                         'border_green',
-        //                         'border_thick'
-        //                         ]
-        //                 ]
-        //             ]
-        //         ]/}
-        //     {/call}
-        // </div>
 
     </div>
     <div class="b-card__description">
@@ -77,9 +51,11 @@
         </div>
     </div>
     <div class="b-card__bottom">
-        <div class="b-card__directions-count">3 Направления</div>
-        <div class="b-card__directions">
-            Список направлений
+        <div class="b-card__bottom-wrapper">
+            <div class="b-card__directions-count">3 Направления</div>
+            <div class="b-card__directions">
+                Список направлений
+            </div>
         </div>
     </div>
 

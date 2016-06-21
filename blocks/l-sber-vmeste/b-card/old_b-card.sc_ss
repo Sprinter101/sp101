@@ -11,19 +11,23 @@ BODY {
 .b-card {
     background: #fff; 
     font-family: AndaleMono;
-    text-align: center;
+    text-align: left;
     font-size: 15px;
+    margin: 0 auto;
+    border-radius: 7px 7px 0 0;
 }
 
 .b-card__top, .b-card__description, .b-card__bottom {
-    padding: 50px 8% 30px 8%;
+    padding: 50px 130px 30px 130px;
 }
 
 .b-card__top {
+    text-align: justify;
     box-shadow: 0 3px 2px -2px gray;
 }
 
 .b-card__icon {
+    text-align: center;
     width: 180px;
     margin: 0 0 30px 0;
     vertical-align: bottom;
@@ -39,15 +43,19 @@ BODY {
 }
 
 .b-card__icon-text {
+    text-align: center;
     margin-top: 17px;
     font-size: 25px;
 }
 
 .b-card__card-info {
+    margin: 0 35px 30px 0;
     display: inline-block;
+    width: 200px;
 }
 
 .b-card__donations {
+    font-weight: normal;
     line-height: 1.47;
     color: #585858;
 }
@@ -55,7 +63,7 @@ BODY {
 .b-card__amount {
     margin-top: 12px;
     margin-bottom: 31px;
-    font-size: 25px;
+    font-size: 24px;
     font-weight: normal;
 }
 
@@ -67,12 +75,12 @@ BODY {
 }
 
 .b-card__text-title {
+    margin-left: 10px;
     font-family: AffectBold;
     color: #565656;
 } 
 
 .b-card__text {
-    text-align: left;
     margin-top: 17px;
 }
 
@@ -81,6 +89,7 @@ BODY {
 }
 
 .b-card__directions-count {
+    margin-left: 10px;
     font-family: AffectBold;
     color: #565656;
 }
@@ -89,39 +98,39 @@ BODY {
     margin-top: 17px;
 }
 
-// @include media-s {
-//     .b-card {
-//         border-radius: 0;
-//         text-align: center;
-//         width: 100%;
-//     }
+@include media-s {
+    .b-card {
+        border-radius: 0;
+        text-align: center;
+        width: 100%;
+    }
 
-//     .b-card__top, .b-card__description, .b-card__bottom {
-//         padding: 50px 8% 30px 8%;
-//     }
+    .b-card__top, .b-card__description, .b-card__bottom {
+        padding: 50px 8% 30px 8%;
+    }
 
-//     .b-card__top {
-//         text-align: center;
-//     }
+    .b-card__top {
+        text-align: center;
+    }
 
-//     .b-card__card-info {
-//         width: 100%;
-//     }
+    .b-card__card-info {
+        width: 100%;
+    }
 
-//     .b-card__text {
-//         text-align: left;
-//     }
-// }
+    .b-card__text {
+        text-align: left;
+    }
+}
 
-// @include media-m {
-//     .b-card {
-//         width: 770px;
-//         border-radius: 0;
-//     }
-// }
+@include media-m {
+    .b-card {
+        width: 770px;
+        border-radius: 0;
+    }
+}
 
-// @include media-l {
-//     .b-card {
-//         width: 760px;
-//     }
-// }
+@include media-l {
+    .b-card {
+        width: 760px;
+    }
+}
