@@ -3,7 +3,6 @@ goog.provide('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.View');
 
 
-
 /**
  * sv.lSberVmeste.bStartPage.View
  * @param {Object=} opt_params
@@ -30,7 +29,8 @@ goog.scope(function() {
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-page-start'
+        ROOT: 'b-page-start',
+        BLOCK_START: 'b-page-start__start-block'
     };
 
     /**
@@ -39,5 +39,30 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.dom.startBlock = this.getElementByClass(
+            View.CssClass.BLOCK_START
+        );
+    };
+
+    /**
+     * Simply passing through an event from view
+     * @param {goog.events.Event} event
+     */
+    View.prototype.onStartBlockClick = function(event) {
+        this.dispatchEvent(event);
+    };
+
+    /**
+     * @override
+     */
+    View.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+        this.getHandler().listen(
+            this.dom.startBlock,
+            View.Event.BUTTON_START_CLICK,
+            this.onStartBlockClick
+        );
     };
 });  // goog.scope

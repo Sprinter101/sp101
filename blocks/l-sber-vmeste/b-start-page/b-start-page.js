@@ -3,7 +3,8 @@ goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('cl.iControl.Control');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
-
+goog.require('sv.lSberVmeste.iRouter.Route');
+goog.require('sv.lSberVmeste.iRouter.Router');
 
 
 /**
@@ -23,7 +24,9 @@ goog.inherits(sv.lSberVmeste.bStartPage.StartPage, sv.lSberVmeste.iPage.Page);
 
 
 goog.scope(function() {
-    var StartPage = sv.lSberVmeste.bStartPage.StartPage;
+    var StartPage = sv.lSberVmeste.bStartPage.StartPage,
+    Route = sv.lSberVmeste.iRouter.Route,
+    Router = sv.lSberVmeste.iRouter.Router;
 
     /**
     * @override
@@ -39,6 +42,20 @@ goog.scope(function() {
     StartPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        this.getHandler().listen(
+            this.dom.startButton,
+            View.Event.BUTTON_START_CLICK,
+            this.onStartBlockClick
+        );
+    };
+
+    /**
+     * Handles start block CLICK
+     * @param {goog.events.BrowserEvent} event Click event
+     * @protected
+     */
+    StartPage.prototype.onStartBlockClick = function(event) {
+        Router.getInstance().changeLocation(Route.TEST);
     };
 
 });  // goog.scope

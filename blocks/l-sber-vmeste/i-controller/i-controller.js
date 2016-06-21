@@ -24,7 +24,7 @@ goog.scope(function() {
     /**
      * 'Nav link 1' action
      */
-    Controller.prototype.actionNavLink1 = function() {
+    Controller.prototype.actionStart = function() {
         this.headerManager_.setCurrentHeader('Header');
         this.headerManager_.show();
         this.pageManager_.setCurrentPage('StartPage');

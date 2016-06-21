@@ -29,7 +29,16 @@ goog.scope(function() {
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-start-block'
+        ROOT: 'b-start-block',
+        BUTTON_START: 'b-start-block__button_start'
+    };
+
+     /**
+     * Event enum
+     * @enum {string}
+     */
+    View.Event = {
+        BUTTON_START_CLICK: 'start-button-click'
     };
 
     /**
@@ -38,6 +47,36 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+    
+        this.dom.startButton = this.getElementByClass(
+            View.CssClass.BUTTON_START
+        );
+        debugger;
+    };
+
+    /**
+     * Handles start button CLICK
+     * @param {goog.events.BrowserEvent} event Click event
+     * @protected
+     */
+    View.prototype.onStartButtonClick = function() {
+        console.log("Start button click");
+        this.dispatchEvent({
+             type: View.Event.BUTTON_START_CLICK
+         });
+    };
+
+    /**
+     * @override
+     */
+    View.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+        this.getHandler().listen(
+            this.dom.startButton,
+            goog.events.EventType.CLICK,
+            this.onStartButtonClick
+        );
     };
 });  // goog.scope
 

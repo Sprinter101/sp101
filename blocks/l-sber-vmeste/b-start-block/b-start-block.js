@@ -39,6 +39,19 @@ goog.scope(function() {
     StartBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        this.getHandler().listen(
+            this.dom.startButton,
+            View.Event.BUTTON_START_CLICK,
+            this.onStartButtonClick
+        );
+    };
+
+     /**
+     * Simply passing through an event from view
+     * @param {goog.events.Event} event
+     */
+    StartBlock.prototype.onStartButtonClick = function(event) {
+        this.dispatchEvent(event);
     };
 
 });  // goog.scope
