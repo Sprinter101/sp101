@@ -1,36 +1,35 @@
-goog.provide('sv.lSberVmeste.bStartPage.View');
+goog.provide('sv.lSberVmeste.bStartBlock.View');
 
-goog.require('sv.lSberVmeste.iPage.View');
+goog.require('cl.iControl.View');
 
 
 
 /**
- * sv.lSberVmeste.bStartPage.View
+ * sv.lSberVmeste.bStartBlock.View
  * @param {Object=} opt_params
  * @param {Function=} opt_template
  * @param {string=} opt_modifier
  * @constructor
- * @extends {sv.lSberVmeste.iPage.View}
+ * @extends {'cl.iControl.View'}
  */
-sv.lSberVmeste.bStartPage.View = function(opt_params,
-    opt_template, opt_modifier)
-{
+sv.lSberVmeste.bStartBlock.View = function(opt_params,
+    opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
-    this.setCssClass(sv.lSberVmeste.bStartPage.View.CssClass.ROOT);
+    this.setCssClass(sv.lSberVmeste.bStartBlock.View.CssClass.ROOT);
 };
-goog.inherits(sv.lSberVmeste.bStartPage.View, sv.lSberVmeste.iPage.View);
+goog.inherits(sv.lSberVmeste.bStartBlock.View, 'cl.iControl.View');
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bStartPage.View;
+    var View = sv.lSberVmeste.bStartBlock.View;
 
     /**
      * Css class enum
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-page-start'
+        ROOT: 'b-start-block'
     };
 
     /**
@@ -41,3 +40,4 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
     };
 });  // goog.scope
+

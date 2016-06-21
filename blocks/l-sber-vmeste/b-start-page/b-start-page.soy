@@ -15,9 +15,35 @@
     <div class="{call .rootClass/}__wrapper">
     {call .pathLine /}
     <div class="{call .rootClass/}__content">
-    GGGGGGGGGG
+            {call .renderChild}
+                {param params: [
+                    'type': 'StartBlock',
+                    'renderParams': [
+                        'config': [
+                            'customClasses': ['b-page-start__start-block']
+                        ]
+                    ]
+                ]/}
+            {/call}
     </div>
-    {call .footer /}
+    {call .userfundsInfo /}
+        {call .renderChild}
+                      {param params: [
+                            'type': 'ButtonSber',
+                            'renderParams': [
+                                'data': [
+                                    'content': '202 фонда',
+                                ],
+                                'config': [
+                                'buttonStyles': 
+                                ['font_big', 'height_small',
+                                'background_transparent', 'border_green'],
+                                'customClasses': 
+                                    ['b-page-start__button_userfunds-count']
+                                ]
+                            ]
+                    ]/}
+        {/call}
     </div>
 {/template}
 
@@ -29,32 +55,11 @@
 {/template}
 
 /**
- * template for page bottom
+ * template for useerfunds actual info
  */
-{template .footer}
-    <div class="{call .rootClass/}__footer">
-    {call .footerText/}
-    {call .footerButton/}
-    </div>
-{/template}
-
-/**
- * template for footer text
- */
-{template .footerText}
-    <div class="{call .rootClass/}__footer-text">
+{template .userfundsInfo}
+    <div class="{call .rootClass/}__userfunds-info">
     Сегодня открылись
-    </div>
-{/template}
-
-/**
- * temporary template for footer button
- */
-{template .footerButton}
-    <div class="{call .rootClass/}__footer-button">
-    <div class="{call .rootClass/}__footer-button-text">
-    202 фонда
-    </div>
     </div>
 {/template}
 
@@ -62,5 +67,7 @@
  * @override
  */
 {template .rootClass}
-    b-start-page
+    b-page-start
 {/template}
+
+

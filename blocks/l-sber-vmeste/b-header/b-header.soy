@@ -14,8 +14,40 @@
 {template .body}
 <div class="{call .rootClass/}__wrapper">
     {call .logo /}
-    {call .roundButton /}
-    {call .plusButton /}
+    {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Я',
+                            ],
+                            'config': [
+                            'buttonStyles': 
+                            ['width_m', 'height_big', 'font_SFUI'],
+                            'customClasses': 
+                                ['b-header__button_me']
+                            ]
+                        ]
+                    ]/}
+    {/call}
+    {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': '+',
+                            ],
+                            'config': [
+                            'buttonStyles': 
+                            ['width_s', 'height_small', 'font_SFUI',
+                            'background_transparent', 'border_white',
+                            'opacity_one-third', 'padding_none'],
+                            'customClasses': 
+                                ['b-header__button_plus']
+                            ]
+                        ]
+                    ]/}
+    {/call}
     {call .more /}
 </div>
 {/template}
@@ -29,24 +61,6 @@
              Лого
         </div>
     </div>
-{/template}
-
-/**
- * temporary "me button"
- */
-{template .roundButton}
-    <div class="{call .rootClass/}__button_me">
-        Я
-        </div>
-{/template}
-
-/**
- * temporary " plus button"
- */
-{template .plusButton}
-    <div class="{call .rootClass/}__button_plus">
-        +
-     </div>
 {/template}
 
 /**

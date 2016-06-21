@@ -5,6 +5,7 @@ goog.require('cl.iFactory.TemplateFactory');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
+goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.Template');
@@ -38,7 +39,11 @@ sv.iFactory.TemplateFactory = function() {
         )
         .setTemplateListItem(
             'StartPage',
-            sv.lSberVmeste.StartPage.Template.page
+            sv.lSberVmeste.bStartPage.Template.page
+        )
+        .setTemplateListItem(
+            'StartBlock',
+            sv.lSberVmeste.bStartBlock.Template.block
         )
         .setTemplateListItem( // sandbox item
             'TestPage',

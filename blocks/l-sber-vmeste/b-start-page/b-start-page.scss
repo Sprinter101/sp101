@@ -1,10 +1,10 @@
 @import "../i-media/i-media";
 
-.b-start-page__wrapper {
+.b-page-start__wrapper {
     height: 100%;
 }
 
-.b-start-page__path_vertical {
+.b-page-start__path_vertical {
     display: block;
     width: 1px;
     height: 30px;
@@ -15,7 +15,7 @@
     background: #ccc;
 }
 
-.b-start-page__content {
+.b-page-start__content {
     width: 260px;
     height: 370px;
     margin: 0 auto;
@@ -24,57 +24,54 @@
     border-radius: 8px;
 }
 
-.b-start-page__footer {
-    margin: 50px auto;
-}
-
-.b-start-page__footer-text {
-    margin-top: 12px;
+.b-page-start__userfunds-info {
+    margin: 17px auto 0;
     opacity: 0.55;
-    font-family: Arial, sans-serif;
+    font-family: AndaleMono;
     font-size: 13px;
     font-weight: normal;
     text-align: center;
     color: #FFFFFF;
 }
 
-.b-start-page__footer-button {
-    width: 167.2px;
-    height: 32px;
-    margin: 0 auto;
-    margin-top: 12px;
-    border-radius: 26px;
-    border: solid 1px #1eeb78;
-}
-.b-start-page__footer-button-text {
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-    font-weight: normal;
-    text-align: center;
-    color: #FFFFFF;
+.b-page-start__button_userfunds-count {
+    display: block;
+    margin: 8px auto 0;
 }
 
 @include media-m {
-    .b-start-page__content {
+    .b-page-start__content {
         width: 335px;
         height: 500px;
         border-radius: 8px;
         border: solid 1px #ffffff;
     }
-    .b-start-page__path_vertical {
+    .b-page-start__path_vertical {
         margin: 10px auto 15px;
+    }
+    .b-page-start__userfunds-info {
+        margin: 39px auto 0;
+    }
+    .b-page-start__button_userfunds-count {
+        margin: 14px auto 0;
     }
 }
 
 @include media-xl {
-    .b-start-page__content {
+    .b-page-start__content {
         width: 480px;
         height: 433px;
         border-radius: 8px;
         border: solid 1px #ffffff;
     }
-    .b-start-page__path_vertical {
+    .b-page-start__path_vertical {
         height: 57px;
         margin: 10px auto 15px;
+    }
+    .b-page-start__userfunds-info {
+        margin: 45px auto 0;
+    }
+    .b-page-start__button_userfunds-count {
+        margin: 14px auto 0;
     }
 }
