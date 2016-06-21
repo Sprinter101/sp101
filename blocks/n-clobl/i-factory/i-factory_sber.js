@@ -1,6 +1,10 @@
 goog.provide('sv.iFactory.FactorySber');
 
 goog.require('cl.iFactory.Factory');
+goog.require('sv.gButton.Button');
+goog.require('sv.gButton.View');
+goog.require('sv.gTestPage.TestPage');
+goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
@@ -10,10 +14,6 @@ goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
-goog.require('sv.gTestPage.TestPage');
-goog.require('sv.gTestPage.View');
-goog.require('sv.gButton.Button');
-goog.require('sv.gButton.View');
 
 
 

@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.iController.Controller');
 goog.require('goog.object');
 
 
+
 /**
  * Application controller
  * @param {{
