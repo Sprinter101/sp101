@@ -1,24 +1,116 @@
-UL {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
+@import '../i-media/i-media';
+
+$buttonWidth: 56px;
 
 .b-header {
-	width: 80%;
-	margin: 0 auto;
-	text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    vertical-align: middle;
 }
 
-.b-header__nav-link {
-	display: inline-block;
-	padding: 10px;
-	font-size: 1.5rem;
-	border: 1px solid red;
-	border-radius: 10px;
-	box-sizing: border-box;
-	width: 33.33%;
-	&_active {
-		background: orange;
-	}
+.b-header__wrapper {
+    position: relative;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    padding-bottom: 9px;
+}
+
+.b-header__logo-wrap {
+    display: inline-block;
+    float: left;
+    width: 46px;
+    height: 45px;
+    margin-left: 26px;
+    margin-top: 34px;
+    background-color: #ffffff;
+}
+.b-header__logo {
+    display: block;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.b-header__button_me {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    display: inline-block;
+    width: $buttonWidth;
+    height: $buttonWidth;
+    margin-left: -($buttonWidth / 2);
+    border: 1px solid #FFFFFF;
+
+}
+
+.b-header__button_plus {
+    position: absolute;
+    top: 41px;
+    left: 50%;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    margin-left: 16px + $buttonWidth;
+    border: 1px solid #FFFFFF;
+}
+
+.b-header__more-link {
+    display: inline-block;
+    float: right;
+    width: 86px;
+    height: 15px;
+    margin-top: 49px;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.b-header__more-link-text {
+    font-family: AndaleMono, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    color: #e7f038;
+}
+
+@include media-m {
+    .b-header__logo-wrap {
+        width: 206px;
+        height: 52px;
+        margin-left: 38px;
+        margin-top: 39px;
+        background-color: #ffffff;
+    }
+    .b-header__button_me {
+        top: 32px;
+    }
+    .b-header__button_plus {
+        top: 43px;
+    }
+    b-header__more-link {
+        width: 86px;
+        margin-top: 45px;
+        margin-right: 40px;
+    }
+}
+
+@include media-xl {
+    .b-header__logo-wrap {
+        width: 206px;
+        height: 52px;
+        margin-left: 38px;
+        margin-top: 39px;
+        background-color: #ffffff;
+    }
+    .b-header__button_me {
+        top: 35px;
+    }
+    .b-header__button_plus {
+        top: 46px;
+    }
+    .b-header__more-link {
+        width: 215px;
+        margin-top: 56px;
+        margin-right: 0;
+    }
+  
 }

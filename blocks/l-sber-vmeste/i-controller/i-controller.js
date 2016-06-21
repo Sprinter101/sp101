@@ -3,7 +3,6 @@ goog.provide('sv.lSberVmeste.iController.Controller');
 goog.require('goog.object');
 
 
-
 /**
  * Application controller
  * @param {{
@@ -27,13 +26,13 @@ goog.scope(function() {
     Controller.prototype.actionNavLink1 = function() {
         this.headerManager_.setCurrentHeader('Header');
         this.headerManager_.show();
-        this.pageManager_.setCurrentPage('NavPage1');
+        this.pageManager_.setCurrentPage('StartPage');
     };
 
     /**
     * 'Buttons test' action
     */
-    Controller.prototype.actionTestPage = function() {
+    Controller.prototype.actionTest = function() {
         this.pageManager_.setCurrentPage('TestPage');
     };
 

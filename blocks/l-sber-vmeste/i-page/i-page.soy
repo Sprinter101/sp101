@@ -1,0 +1,108 @@
+{namespace sv.lSberVmeste.iPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page autoescape="strict" kind="html"}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .pageRootClass/}__body
+    {sp}
+    {call .additionalClassesForBody/}">
+        <div class="{call .pageRootClass/}__content-wrap
+        {sp}
+        {call .additionalClassesForContentWrap/}">
+            <div class="{call .pageRootClass/}__content
+            {sp}
+            {call .additionalClassesForContent/}">
+                {call .content data="all"/}
+            </div>
+        </div>
+    </div>
+{/template}
+
+
+/**
+ * Additional classes to be specified from other blocks
+ */
+{template .additionalClassesForBody}
+
+{/template}
+
+/**
+ * Additional classes to be specified from other blocks
+ */
+{template .additionalClassesForContentWrap}
+
+{/template}
+
+/**
+ * Additional classes to be specified from other blocks
+ */
+{template .additionalClassesForContent}
+
+{/template}
+
+/**
+* @param params {{
+*     config: {
+*         stylizationModifier: ?string,
+*         customClasses: ?list<string>,
+*         theme: ?string
+*     },
+*     includes: ?list{
+*         type: ?string,
+*         data: ?string
+*     }
+* }}
+ * @override
+ */
+{template .classes}
+    i-control
+    {sp}
+    {call .pageRootClass/}
+    {sp}
+    {call .rootClass/}
+    {sp}
+    {call .stylizationModifierClass data="all"/}
+    {if $params?.config?.customClasses}
+        {foreach $class in $params.config.customClasses}
+            {sp}{$class}
+        {/foreach}
+    {/if}
+    {sp}
+{/template}
+
+/**
+ * @override
+ */
+{template .pageRootClass}
+    i-page
+{/template}
+
+/**
+  * @param params {{
+  *     config: {
+  *         stylizationModifier: ?string
+  *     }
+  * }}
+ * @override
+ */
+{template .stylizationModifierClass}
+    {if $params?.config?.stylizationModifier}
+        {call .pageRootClass/}_
+        {call .stylizationModifier data="all"/}
+    {/if}
+{/template}
+
+/**
+ * Page content
+ */
+{template .content}
+{/template}

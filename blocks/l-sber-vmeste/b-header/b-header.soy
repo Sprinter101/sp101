@@ -13,28 +13,51 @@
  */
 {template .body}
 <div class="{call .rootClass/}__wrapper">
-	<ul class="{call .rootClass/}__nav-links">
-		{call .tab}
-			{param params: [
-				'navLinks': [
-					'Header'
-				]
-			]/}
-		{/call}
-	</ul>
+    {call .logo /}
+    {call .roundButton /}
+    {call .plusButton /}
+    {call .more /}
 </div>
 {/template}
 
 /**
- * Tab template
- * @param params {{
- *     navLinks: list
- * }}
+ * Sber Logo
  */
-{template .tab}
-	{foreach $item in $params.navLinks}
-		<li class="{call .rootClass/}__nav-link">{$item}</li>
-	{/foreach}
+{template .logo}
+    <div class="{call .rootClass/}__logo-wrap">
+        <div class="{call .rootClass/}__logo">
+             Лого
+        </div>
+    </div>
+{/template}
+
+/**
+ * temporary "me button"
+ */
+{template .roundButton}
+    <div class="{call .rootClass/}__button_me">
+        Я
+        </div>
+{/template}
+
+/**
+ * temporary " plus button"
+ */
+{template .plusButton}
+    <div class="{call .rootClass/}__button_plus">
+        +
+     </div>
+{/template}
+
+/**
+ * Div for 'more info' link
+ */
+{template .more}
+    <div class="{call .rootClass/}__more-link">
+        <div class="{call .rootClass/}__more-link-text">
+            О проекте
+        </div>
+    </div>
 {/template}
 
 /**

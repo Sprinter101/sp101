@@ -1,0 +1,66 @@
+{namespace sv.lSberVmeste.bStartPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+    {call .pathLine /}
+    <div class="{call .rootClass/}__content">
+    GGGGGGGGGG
+    </div>
+    {call .footer /}
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+/**
+ * template for page bottom
+ */
+{template .footer}
+    <div class="{call .rootClass/}__footer">
+    {call .footerText/}
+    {call .footerButton/}
+    </div>
+{/template}
+
+/**
+ * template for footer text
+ */
+{template .footerText}
+    <div class="{call .rootClass/}__footer-text">
+    Сегодня открылись
+    </div>
+{/template}
+
+/**
+ * temporary template for footer button
+ */
+{template .footerButton}
+    <div class="{call .rootClass/}__footer-button">
+    <div class="{call .rootClass/}__footer-button-text">
+    202 фонда
+    </div>
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-start-page
+{/template}

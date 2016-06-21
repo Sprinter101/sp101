@@ -6,6 +6,6 @@ goog.provide('sv.lSberVmeste.iRouter.Route');
  * @enum {string}
  */
 sv.lSberVmeste.iRouter.Route = {
-    NAV_LINK_1: 'navLink1',
-    TEST_PAGE: 'testPage'
+    START: 'start',
+    TEST: 'test'
 };
