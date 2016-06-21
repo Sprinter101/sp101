@@ -8,8 +8,9 @@ goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bNavPage1.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
-goog.require('sv.lSberVmeste.gCard.Template');
+goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.Template');
+goog.require('sv.gCardTest.Template');
 
 
 
@@ -42,17 +43,21 @@ sv.iFactory.TemplateFactory = function() {
             'NavPage1',
             sv.lSberVmeste.bNavPage1.Template.page
         )
-        .setTemplateListItem( // sandbox item
-            'TestPage',
-            sv.gTestPage.Template.page
-        )
         .setTemplateListItem(
             'ButtonSber',
             sv.gButton.Template.button
         )
         .setTemplateListItem(
             'Card',
-            sv.lSberVmeste.gCard.Template.card
+            sv.lSberVmeste.bCard.Template.card
+        )
+        .setTemplateListItem( // sandbox item
+            'TestPage',
+            sv.gTestPage.Template.page
+        )
+        .setTemplateListItem( // sandbox item
+            'CardTest',
+            sv.gCardTest.Template.page
         );
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);

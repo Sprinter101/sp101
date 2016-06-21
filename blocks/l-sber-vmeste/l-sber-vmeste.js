@@ -78,6 +78,7 @@ goog.scope(function() {
         this.router_.enable();
         this.initRoute_(Route.NAV_LINK_1, controller.actionNavLink1);
         this.initRoute_(Route.TEST_PAGE, controller.actionTestPage);
+        this.initRoute_(Route.CARD_TEST, controller.actionCardTest);
     };
 
     /**

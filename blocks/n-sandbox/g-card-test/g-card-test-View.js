@@ -1,4 +1,4 @@
-goog.provide('sv.lSberVmeste.gCard.View');
+goog.provide('sv.gCardTest.View');
 
 goog.require('cl.iControl.Control');
 
@@ -12,18 +12,18 @@ goog.require('cl.iControl.Control');
  * @constructor
  * @extends {cl.iControl.View}
 */
-sv.lSberVmeste.gCard.View = function(opt_params, 
+sv.gCardTest.View = function(opt_params, 
                                             opt_template, 
                                             opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
-    this.setCssClass(sv.lSberVmeste.gCard.View.CssClass.ROOT);
+    this.setCssClass(sv.gCardTest.View.CssClass.ROOT);
 
 }
-goog.inherits(sv.lSberVmeste.gCard.View, cl.iControl.View);
+goog.inherits(sv.gCardTest.View, cl.iControl.View);
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.gCard.View;
+    var View = sv.gCardTest.View;
 
     View.CssClass = {
     	ROOT: ''

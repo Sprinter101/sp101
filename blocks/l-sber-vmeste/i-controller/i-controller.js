@@ -37,4 +37,11 @@ goog.scope(function() {
         this.pageManager_.setCurrentPage('TestPage');
     };
 
+    /**
+    * 'Card test' action
+    */
+    Controller.prototype.actionCardTest = function() {
+        this.pageManager_.setCurrentPage('CardTest');
+    };
+
 });  // goog.scope
