@@ -3,6 +3,7 @@
     width: 760px;
     margin: 0 auto;
     text-align: left;
+    font-size: 15px;
 }
 
 .b-card__top, .b-card__description, .b-card__bottom {
@@ -15,10 +16,15 @@
 }
 
 .b-card__icon {
-    margin: 0 30px 35px;
+    text-align: center;
+    width: 180px;
+    margin: 0 0 30px 0;
     vertical-align: bottom;
     display: inline-block;
-    width: 97px;
+}
+
+.b-card__icon-image-wrapper {
+    display: inline-block;
 }
 
 .b-card__icon-image {
@@ -29,8 +35,6 @@
     text-align: center;
     margin-top: 17px;
     font-size: 25px;
-    font-weight: normal;
-    
 }
 
 .b-card__card-info {
@@ -40,7 +44,6 @@
 }
 
 .b-card__donations {
-    font-size: 15px;
     font-weight: normal;
     line-height: 1.47;
     color: #585858;
@@ -61,9 +64,10 @@
 }
 
 .b-card__text-title {
+    margin-left: 10px;
     font-family: AffectBold;
     color: #565656;
-    font-size: 15px;
+
 }
 
 .b-card__text {
@@ -75,11 +79,11 @@
 }
 
 .b-card__directions-count {
+    margin-left: 10px;
     font-family: AffectBold;
     color: #565656;
-    font-size: 15px;
 }
 
 .b-card__directions {
-
+    margin-top: 17px;
 }
