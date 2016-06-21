@@ -23,12 +23,10 @@ $buttonWidth: 56px;
     height: 45px;
     margin-left: 26px;
     margin-top: 34px;
-    background-color: #ffffff;
 }
+
 .b-header__logo {
     display: block;
-    font-size: 13px;
-    line-height: 13px;
 }
 
 .b-header__button_me {
@@ -74,11 +72,10 @@ $buttonWidth: 56px;
 
 @include media-m {
     .b-header__logo-wrap {
-        width: 206px;
-        height: 52px;
+        width: 207px;
+        height: 50px;
         margin-left: 38px;
         margin-top: 39px;
-        background-color: #ffffff;
     }
     .b-header__button_me {
         top: 32px;
@@ -95,11 +92,10 @@ $buttonWidth: 56px;
 
 @include media-xl {
     .b-header__logo-wrap {
-        width: 206px;
-        height: 52px;
+        width: 207px;
+        height: 50px;
         margin-left: 38px;
         margin-top: 39px;
-        background-color: #ffffff;
     }
     .b-header__button_me {
         top: 35px;

@@ -56,7 +56,7 @@ gulp.task('scripts', ['soy', 'lint'], function () {
 });
 
 gulp.task('fonts', function () {
-    return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/**/*.*'))
+    return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
         .pipe(gulp.dest(path.join(__dirname + '/public/fonts')));
 });
 
