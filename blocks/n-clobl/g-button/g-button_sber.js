@@ -34,4 +34,5 @@ goog.scope(function() {
         TOUCH_START: View.Event.TOUCH_START,
         TOUCH_END: View.Event.TOUCH_END
     };
+
 });  // goog.scope

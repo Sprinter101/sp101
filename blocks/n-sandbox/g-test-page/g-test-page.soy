@@ -14,6 +14,8 @@
 {template .body}
     <div class="{call .rootClass /}__title">Кнопки</div>
     {call .buttons_ /}
+    <div class="{call .rootClass /}__title">Инпут</div>
+    {call .input_ /}
 {/template}
 
 /**
@@ -84,4 +86,26 @@
             {/call}
         </div>
     {/foreach}
+{/template}
+
+/**
+* Input template
+*/
+{template .input_ autoescape="strict" kind="html"}
+    {call .renderChild}
+      {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'placeholder': ''
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty',
+                        'numbersOnly'
+                    ]
+                ]
+            ]
+        ]/}
+    {/call}
 {/template}
