@@ -13,28 +13,63 @@
  */
 {template .body}
 <div class="{call .rootClass/}__wrapper">
-	<ul class="{call .rootClass/}__nav-links">
-		{call .tab}
-			{param params: [
-				'navLinks': [
-					'Header'
-				]
-			]/}
-		{/call}
-	</ul>
+    {call .logo /}
+    {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Я',
+                            ],
+                            'config': [
+                            'buttonStyles': 
+                            ['width_m', 'height_big', 'font_SFUI'],
+                            'customClasses': 
+                                ['b-header__button_me']
+                            ]
+                        ]
+                    ]/}
+    {/call}
+    {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': '+',
+                            ],
+                            'config': [
+                            'buttonStyles': 
+                            ['width_s', 'height_small', 'font_SFUI',
+                            'background_transparent', 'border_white',
+                            'opacity_one-third', 'padding_none'],
+                            'customClasses': 
+                                ['b-header__button_plus']
+                            ]
+                        ]
+                    ]/}
+    {/call}
+    {call .more /}
 </div>
 {/template}
 
 /**
- * Tab template
- * @param params {{
- *     navLinks: list
- * }}
+ * Sber Logo
  */
-{template .tab}
-	{foreach $item in $params.navLinks}
-		<li class="{call .rootClass/}__nav-link">{$item}</li>
-	{/foreach}
+{template .logo}
+    <div class="{call .rootClass/}__logo-wrap">
+        <img src="images/b-header/logo-sber_small.png" class="{call .rootClass/}__logo" />
+    </div>
+{/template}
+
+/**
+ * Div for 'more info' link
+ */
+{template .more}
+    <div class="{call .rootClass/}__more-link">
+        <div class="{call .rootClass/}__more-link-text">
+            О проекте
+        </div>
+    </div>
 {/template}
 
 /**

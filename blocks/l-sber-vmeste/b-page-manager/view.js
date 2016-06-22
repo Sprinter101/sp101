@@ -1,7 +1,7 @@
 goog.provide('sv.lSberVmeste.bPageManager.View');
 
 goog.require('cl.iControl.View');
-goog.require('sv.lSberVmeste.bNavPage1.View');
+goog.require('sv.lSberVmeste.bStartPage.View');
 
 
 
@@ -14,8 +14,7 @@ goog.require('sv.lSberVmeste.bNavPage1.View');
  * @extends {cl.iControl.View}
  */
 sv.lSberVmeste.bPageManager.View = function(opt_params, 
-                                            opt_template, 
-                                            opt_modifier) {
+    opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.lSberVmeste.bPageManager.View.CssClass.ROOT);
@@ -25,14 +24,14 @@ goog.inherits(sv.lSberVmeste.bPageManager.View, cl.iControl.View);
 
 goog.scope(function() {
     var View = sv.lSberVmeste.bPageManager.View,
-        NavPage1View = sv.lSberVmeste.bNavPage1.View;
+        StartPageView = sv.lSberVmeste.bStartPage.View;
 
     /**
      * Css class enum
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-page-manager',
+        ROOT: 'b-page-manager'
     };
 
     /**
@@ -42,7 +41,8 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.navPage1 = this.getElementByClass(NavPage1View.CssClass.ROOT);
+        this.dom.startPage = this.getElementByClass(
+            StartPageView.CssClass.ROOT);
     };
 });  // goog.scope
 

@@ -1,19 +1,19 @@
 goog.provide('sv.iFactory.FactorySber');
 
 goog.require('cl.iFactory.Factory');
+goog.require('sv.gButton.Button');
+goog.require('sv.gButton.View');
+goog.require('sv.gTestPage.TestPage');
+goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
-goog.require('sv.lSberVmeste.bNavPage1.NavPage1');
-goog.require('sv.lSberVmeste.bNavPage1.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.bStartPage.StartPage');
+goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
-goog.require('sv.gTestPage.TestPage');
-goog.require('sv.gTestPage.View');
-goog.require('sv.gButton.Button');
-goog.require('sv.gButton.View');
 
 
 
@@ -43,9 +43,9 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.bPageManager.PageManager,
             view: sv.lSberVmeste.bPageManager.View
         })
-        .setControlListItem('NavPage1', {
-            control: sv.lSberVmeste.bNavPage1.NavPage1,
-            view: sv.lSberVmeste.bNavPage1.View
+        .setControlListItem('StartPage', {
+            control: sv.lSberVmeste.bStartPage.StartPage,
+            view: sv.lSberVmeste.bStartPage.View
         })
         .setControlListItem('TestPage', {
             control: sv.gTestPage.TestPage,

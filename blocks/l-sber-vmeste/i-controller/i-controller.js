@@ -22,18 +22,18 @@ goog.scope(function() {
     var Controller = sv.lSberVmeste.iController.Controller;
 
     /**
-     * 'Nav link 1' action
+     * 'Start' action
      */
-    Controller.prototype.actionNavLink1 = function() {
+    Controller.prototype.actionStart = function() {
         this.headerManager_.setCurrentHeader('Header');
         this.headerManager_.show();
-        this.pageManager_.setCurrentPage('NavPage1');
+        this.pageManager_.setCurrentPage('StartPage');
     };
 
     /**
     * 'Buttons test' action
     */
-    Controller.prototype.actionTestPage = function() {
+    Controller.prototype.actionTest = function() {
         this.pageManager_.setCurrentPage('TestPage');
     };
 

@@ -56,21 +56,21 @@ gulp.task('scripts', ['soy', 'lint'], function () {
 });
 
 gulp.task('fonts', function () {
-    return gulp.src(path.join(__dirname + '/blocks/l-active-age/assets/fonts/**/*.*'))
+    return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
         .pipe(gulp.dest(path.join(__dirname + '/public/fonts')));
 });
 
 gulp.task('images', function () {
     return gulp.src([
-        path.join(__dirname + '/blocks/l-sber-vmeste/assets/images/**/*.png'),
-        path.join(__dirname + '/blocks/l-sber-vmeste/assets/images/**/*.ico'),
-        path.join(__dirname + '/blocks/l-sber-vmeste/assets/images/**/*.gif'),
-        path.join(__dirname + '/blocks/l-sber-vmeste/assets/images/**/*.jpg')
+        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.png'),
+        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
+        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
+        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
     ])
     .pipe(gulp.dest(path.join(__dirname + '/public/images')));
 });
 
-gulp.task('styles', function () {
+gulp.task('styles', ['images', 'fonts'], function () {
     return gulpHelper.css.build({
     });
 });

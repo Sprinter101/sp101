@@ -5,7 +5,7 @@
  * @extends cl.iLayout.Template
  */
 {template .sberVmeste}
-	{call .document data="all" /}
+    {call .document data="all" /}
 {/template}
 
 
@@ -19,35 +19,35 @@
  * }}
  */
 {template .content autoescape="strict" kind="html"}
-	{let $data: [
-	    'apiUrl': $params?.data?.apiUrl
-	] /}
-
-	<div class="{call .rootClass/}">
-		{call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
-			{param params: [
-				'factory': 'sber',
-				'type': 'HeaderManager',
-				'renderParams': [
-					'config': [
-						'state': 'default'
-					]
-				]
-			]/}
-		{/call}
-		{call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
-			{param params: [
-			    'factory': 'sber',
-			    'type': 'PageManager',
-			    'renderParams': [
-			        'data': $params?.data,
-			        'config': [
-			            'state': 'navPage1'
-			        ]
-			    ]
-			]/}
-		{/call}
-	</div>
+{let $data: [
+        'apiUrl': $params?.data?.apiUrl
+    ] /}
+    <div class="{call .rootClass/}"
+    data-params="{call goog.json.serialize data="$data" /}">
+        {call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
+            {param params: [
+                'factory': 'sber',
+                'type': 'HeaderManager',
+                'renderParams': [
+                    'config': [
+                        'state': 'default'
+                    ]
+                ]
+            ]/}
+        {/call}
+        {call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
+            {param params: [
+                'factory': 'sber',
+                'type': 'PageManager',
+                'renderParams': [
+                    'data': $params?.data,
+                    'config': [
+                        'state': 'startPage'
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
 {/template}
 
 /**
@@ -57,34 +57,27 @@
  * }}
  */
 {template .styles autoescape="strict" kind="html"}
-	{call cl.iStatic.Template.style}
-		{param path: 'clobl.build.css' /}
-		{param staticVersion: $params?.config?.staticVersion /}
-	{/call}
-	{call cl.iStatic.Template.style}
-		{param path: 'styles.css' /}
-		{param staticVersion: $params?.config?.staticVersion /}
-	{/call}
-{/template}
-
-/**
- * @override
- */
-{template .favicon autoescape="strict" kind="html"}
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    {call cl.iStatic.Template.style}
+        {param path: 'clobl.build.css' /}
+        {param staticVersion: $params?.config?.staticVersion /}
+    {/call}
+    {call cl.iStatic.Template.style}
+        {param path: 'styles.css' /}
+        {param staticVersion: $params?.config?.staticVersion /}
+    {/call}
 {/template}
 
 /**
  * @override
  */
 {template .scripts autoescape="strict" kind="html"}
-	<script type="text/javascript" src="external.min.js"></script>
-	<script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" src="external.min.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
 {/template}
 
 /**
  * ROOT CLASS
  */
 {template .rootClass}
-	l-sber-vmeste
+    l-sber-vmeste
 {/template}

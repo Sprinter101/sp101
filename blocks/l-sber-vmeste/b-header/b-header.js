@@ -19,15 +19,12 @@ goog.require('sv.lSberVmeste.iRouter.Router');
 sv.lSberVmeste.bHeader.Header = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
-    this.button_ = null;
 };
 goog.inherits(sv.lSberVmeste.bHeader.Header, cl.iControl.Control);
 
 
 goog.scope(function() {
     var Header = sv.lSberVmeste.bHeader.Header,
-        Route = sv.lSberVmeste.iRouter.Route,
-        Router = sv.lSberVmeste.iRouter.Router,
         View = sv.lSberVmeste.bHeader.View;
 
     /**
@@ -36,14 +33,6 @@ goog.scope(function() {
      */
     Header.Event = {
 
-    };
-
-    /**
-     * Maps paths to navigation link ids
-     * @enum {number}
-     */
-    Header.NavLinkID = {
-        'navLink1': 1
     };
 
     /**
@@ -58,37 +47,10 @@ goog.scope(function() {
     /**
      * @override
      */
-    Header.prototype.enterDocument = function() {
+    /*Header.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.viewListen(
-            View.Event.NAV_LINK_CLICKED,
-            this.onNavLinkSelect
-        );
-    };
-
-    /**
-     * Handles navigation link selection
-     * @param {goog.events.Event} event
-     */
-    Header.prototype.onNavLinkSelect = function(event) {
-        switch (this.getView().getNavLinkTitle([event.value.id])) {
-            case 'navLink1':
-                Router.getInstance().changeLocation(Route.NAV_LINK_1);
-                break;
-            default:
-                console.log('Nav Link ' + event.value.id + ' clicked!');
-        }
-    };
-
-    /**
-     * Converts part of url to link ID and
-     * calls view method that actually marks the link as active
-     * @param {string} path
-     */
-    Header.prototype.makeLinkActive = function(path) {
-        this.getView().makeLinkActive(Header.NavLinkID[path]);
-    };
+    };*/
 
     /**
      * Show header
@@ -105,3 +67,4 @@ goog.scope(function() {
     };
 
 });  // goog.scope
+

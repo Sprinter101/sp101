@@ -1,0 +1,73 @@
+{namespace sv.lSberVmeste.bStartPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+    {call .pathLine /}
+    <div class="{call .rootClass/}__content">
+            {call .renderChild}
+                {param params: [
+                    'type': 'StartBlock',
+                    'renderParams': [
+                        'config': [
+                            'customClasses': ['b-page-start__start-block']
+                        ]
+                    ]
+                ]/}
+            {/call}
+    </div>
+    {call .userfundsInfo /}
+        {call .renderChild}
+                      {param params: [
+                            'type': 'ButtonSber',
+                            'renderParams': [
+                                'data': [
+                                    'content': '202 фонда',
+                                ],
+                                'config': [
+                                'buttonStyles': 
+                                ['font_big', 'height_small',
+                                'background_transparent', 'border_green'],
+                                'customClasses': 
+                                    ['b-page-start__button_userfunds-count']
+                                ]
+                            ]
+                    ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+/**
+ * template for useerfunds actual info
+ */
+{template .userfundsInfo}
+    <div class="{call .rootClass/}__userfunds-info">
+    Сегодня открылись
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-start
+{/template}
+
+
