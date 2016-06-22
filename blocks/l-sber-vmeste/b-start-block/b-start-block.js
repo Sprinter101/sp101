@@ -19,8 +19,14 @@ goog.require('sv.lSberVmeste.bStartBlock.View');
 sv.lSberVmeste.bStartBlock.StartBlock = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
+    /**
+     * start button
+     * @type {string}
+     * @private
+     */
+    this.startButton_ = null;
 };
-goog.inherits(sv.lSberVmeste.bStartBlock.StartBlock, 'cl.iControl.Control');
+goog.inherits(sv.lSberVmeste.bStartBlock.StartBlock, cl.iControl.Control);
 
 
 goog.scope(function() {

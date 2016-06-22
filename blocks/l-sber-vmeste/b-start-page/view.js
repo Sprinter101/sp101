@@ -35,8 +35,8 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-page-start',
-        BUTTON_START: 'b-start-block__button_start'
-        //BLOCK_START: 'b-page-start__start-block'
+        BUTTON_START: 'b-start-block__button_start',
+        BLOCK_START: 'b-start-block'
     };
 
     /**
@@ -58,7 +58,7 @@ goog.scope(function() {
         this.dom.startButton = this.getElementByClass(
             View.CssClass.BUTTON_START
         );
-
+        
         this.dom.startBlock = this.getElementByClass(
             View.CssClass.BLOCK_START
         );

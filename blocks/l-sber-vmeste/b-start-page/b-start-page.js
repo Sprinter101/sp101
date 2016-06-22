@@ -57,6 +57,7 @@ goog.scope(function() {
             'StartBlock',
             this.getView().getDom().startBlock
         );
+        debugger;
         this.startButton_ = this.decorateChild(
             'ButtonSber',
             this.getView().getDom().startButton
@@ -68,7 +69,7 @@ goog.scope(function() {
     */
     StartPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
+        debugger;
         this.viewListen(View.Event.BUTTON_START_CLICK,
             this.onStartButtonClick
         );

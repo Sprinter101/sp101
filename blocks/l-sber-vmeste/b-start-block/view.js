@@ -20,9 +20,9 @@ sv.lSberVmeste.bStartBlock.View = function(opt_params,
 
     this.setCssClass(sv.lSberVmeste.bStartBlock.View.CssClass.ROOT);
 
-    this.dom.startButton = null;
+    //this.dom.startButton = null;
 };
-goog.inherits(sv.lSberVmeste.bStartBlock.View, 'cl.iControl.View');
+goog.inherits(sv.lSberVmeste.bStartBlock.View, cl.iControl.View);
 
 
 goog.scope(function() {
@@ -43,7 +43,7 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
+        
         this.dom.startButton = this.getElementByClass(
             View.CssClass.BUTTON_START
         );
