@@ -78,6 +78,7 @@ goog.scope(function() {
         this.router_.enable();
         this.initRoute_(Route.START, controller.actionStart);
         this.initRoute_(Route.TEST, controller.actionTest);
+        this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
     };
 
     /**
