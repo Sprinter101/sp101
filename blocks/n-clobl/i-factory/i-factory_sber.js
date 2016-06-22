@@ -14,6 +14,8 @@ goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
+goog.require('sv.gInput.Input');
+goog.require('sv.gInput.View');
 
 
 
@@ -54,6 +56,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('ButtonSber', {
             control: sv.gButton.Button,
             view: sv.gButton.View
+        })
+        .setControlListItem('InputSber', {
+            control: sv.gInput.Input,
+            view: sv.gInput.View
         });
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);

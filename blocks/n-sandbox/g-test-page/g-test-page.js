@@ -3,6 +3,7 @@ goog.provide('sv.gTestPage.TestPage');
 goog.require('cl.gButton.Button');
 goog.require('cl.gList.List');
 goog.require('cl.iControl.Control');
+goog.require('sv.gInput.Input');
 
 
 
@@ -23,13 +24,20 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     * @private
     */
     this.buttons_ = [];
+
+    /**
+    * @type {sv.gInput.Input}
+    * @private
+    */
+    this.input_ = null;
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 
 goog.scope(function() {
     var TestPage = sv.gTestPage.TestPage,
-        Button = cl.gButton.Button;
+        Button = cl.gButton.Button,
+        Input = sv.gInput.Input;
 
     /**
     * @override
@@ -38,11 +46,14 @@ goog.scope(function() {
     TestPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domButtons = this.getView().getDom().buttons;
+        var domButtons = this.getView().getDom().buttons,
+            domInput = this.getView().getDom().input;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('button', domButtons[i]));
         }
+
+        this.input_ = this.decorateChild('InputSber', domInput);
     };
 
     /**

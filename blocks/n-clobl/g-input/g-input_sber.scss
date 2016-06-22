@@ -1,0 +1,23 @@
+.g-input_sber {
+    display: inline-block;
+}
+
+.g-input__input {
+    width: 290px;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    background: none;
+    font-family: AndaleMono;
+    font-size: 62px;
+    font-weight: normal;
+    text-align: center;
+    color: #ffffff;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.g-input_not-valid {
+    border: 3px solid red;
+}

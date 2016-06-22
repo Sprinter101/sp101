@@ -9,6 +9,7 @@ goog.require('sv.lSberVmeste.bNavPage1.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.Template');
 goog.require('sv.gButton.Template');
+goog.require('sv.gInput.Template');
 
 
 
@@ -44,10 +45,15 @@ sv.iFactory.TemplateFactory = function() {
             'TestPage',
             sv.gTestPage.Template.page
         )
-        .setTemplateListItem( // sandbox item
+        .setTemplateListItem(
             'ButtonSber',
             sv.gButton.Template.button
-        );;
+        )
+        .setTemplateListItem(
+            'InputSber',
+            sv.gInput.Template.input
+        );
+
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);
 goog.addSingletonGetter(sv.iFactory.TemplateFactory);
