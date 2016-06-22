@@ -43,7 +43,7 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.currentPage_ =
-            this.decorateChild('NavPage1', this.getView().getDom().navPage1);
+            this.decorateChild('StartPage', this.getView().getDom().startPage);
     };
 
     /**

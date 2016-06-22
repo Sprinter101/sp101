@@ -4,12 +4,12 @@ goog.provide('sv.iFactory.TemplateFactory.INSTANCE');
 goog.require('cl.iFactory.TemplateFactory');
 goog.require('sv.gButton.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
-goog.require('sv.lSberVmeste.bHeader.Template');
+goog.require('sv.lSberVmeste.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
+goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
-goog.require('sv.lSberVmeste.Template');
 
 
 

@@ -1,6 +1,9 @@
 goog.provide('sv.lSberVmeste.bStartPage.View');
 
+goog.require('goog.dom');
+goog.require('goog.events.EventType');
 goog.require('sv.lSberVmeste.iPage.View');
+
 
 
 /**
@@ -17,6 +20,8 @@ sv.lSberVmeste.bStartPage.View = function(opt_params,
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.lSberVmeste.bStartPage.View.CssClass.ROOT);
+
+    this.dom.startBlock = null;
 };
 goog.inherits(sv.lSberVmeste.bStartPage.View, sv.lSberVmeste.iPage.View);
 
@@ -30,7 +35,17 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-page-start',
-        BLOCK_START: 'b-page-start__start-block'
+        BUTTON_START: 'b-start-block__button_start'
+        //BLOCK_START: 'b-page-start__start-block'
+    };
+
+    /**
+     * Event enum
+     * @enum {string}
+     */
+    View.Event = {
+        CLICK: goog.events.EventType.CLICK,
+        BUTTON_START_CLICK: 'start-button-click'
     };
 
     /**
@@ -40,17 +55,24 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.dom.startButton = this.getElementByClass(
+            View.CssClass.BUTTON_START
+        );
+
         this.dom.startBlock = this.getElementByClass(
             View.CssClass.BLOCK_START
         );
     };
 
     /**
-     * Simply passing through an event from view
-     * @param {goog.events.Event} event
+     * Handles start button CLICK
+     * @param {goog.events.BrowserEvent} event Click event
+     * @protected
      */
-    View.prototype.onStartBlockClick = function(event) {
-        this.dispatchEvent(event);
+    View.prototype.onStartButtonClick = function(event) {
+        this.dispatchEvent({
+             type: View.Event.BUTTON_START_CLICK
+         });
     };
 
     /**
@@ -60,9 +82,9 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.getHandler().listen(
-            this.dom.startBlock,
-            View.Event.BUTTON_START_CLICK,
-            this.onStartBlockClick
+            this.dom.startButton,
+            View.Event.CLICK,
+            this.onStartButtonClick
         );
     };
 });  // goog.scope

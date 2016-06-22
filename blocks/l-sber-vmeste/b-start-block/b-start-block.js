@@ -1,6 +1,8 @@
 goog.provide('sv.lSberVmeste.bStartBlock.StartBlock');
 
 goog.require('cl.iControl.Control');
+goog.require('goog.dom');
+goog.require('goog.events.EventType');
 goog.require('sv.lSberVmeste.bStartBlock.View');
 
 
@@ -26,11 +28,20 @@ goog.scope(function() {
         View = sv.lSberVmeste.bStartBlock.View;
 
     /**
+     * Event enum
+     * @enum {string}
+     */
+    StartBlock.Event = {
+
+    };
+
+    /**
     * @override
     * @param {Element} element
     */
     StartBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
     };
 
     /**
@@ -38,20 +49,6 @@ goog.scope(function() {
     */
     StartBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
-        this.getHandler().listen(
-            this.dom.startButton,
-            View.Event.BUTTON_START_CLICK,
-            this.onStartButtonClick
-        );
-    };
-
-     /**
-     * Simply passing through an event from view
-     * @param {goog.events.Event} event
-     */
-    StartBlock.prototype.onStartButtonClick = function(event) {
-        this.dispatchEvent(event);
     };
 
 });  // goog.scope

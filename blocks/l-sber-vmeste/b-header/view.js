@@ -55,10 +55,10 @@ goog.scope(function() {
     /**
      * @override
      */
-    View.prototype.enterDocument = function() {
+    /*View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-    };
+    };*/
 
     /**
      * Show header

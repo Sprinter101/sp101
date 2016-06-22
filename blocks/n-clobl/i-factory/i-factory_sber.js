@@ -8,10 +8,10 @@ goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
-goog.require('sv.lSberVmeste.bStartPage.StartPage');
-goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.bStartPage.StartPage');
+goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
 

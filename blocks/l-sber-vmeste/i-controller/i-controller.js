@@ -22,7 +22,7 @@ goog.scope(function() {
     var Controller = sv.lSberVmeste.iController.Controller;
 
     /**
-     * 'Nav link 1' action
+     * 'Start' action
      */
     Controller.prototype.actionStart = function() {
         this.headerManager_.setCurrentHeader('Header');
