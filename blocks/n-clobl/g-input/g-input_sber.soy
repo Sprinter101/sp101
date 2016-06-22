@@ -10,3 +10,24 @@
 {template .input}
     {call .init data="all" /}
 {/template}
+
+
+/**
+ * @override
+ * @param? params {
+ *     config: {
+ *         validations: list<?string>
+ *     }
+ * }}
+ */
+{template .attributes kind="attributes"}
+    {let $data: [
+        'validations': $params?.config?.validations ?
+            $params?.config?.validations :
+            [],
+        'constraints': $params?.config?.constraints ?
+            $params?.config?.constraints :
+            []
+    ]/}
+    data-params="{call goog.json.serialize data="$data" /}"
+{/template}

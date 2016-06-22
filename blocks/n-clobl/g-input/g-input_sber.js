@@ -17,15 +17,13 @@ sv.gInput.Input = function(view, opt_params, opt_domHelper) {
     goog.base(this, view, opt_params, opt_domHelper);
 
     /**
-     * Possible validation type handlers
+     * Possible constraint type handlers
      * @type {Object}
      */
-    this.validationTypeHandlers = {
-        'digits': this.validateDigits_,
-        'email': this.validateEmail_,
-        'notEmpty': this.validateNotEmpty_,
-        'numbersOnly': this.validateNumbersOnly_
-    };
+    this.constraintsHandlers = {
+        'digitsOnly': this.constraintDigitsOnly_
+    }
+
 };
 goog.inherits(sv.gInput.Input, cl.gInput.Input);
 
@@ -46,14 +44,56 @@ goog.scope(function() {
     };
 
     /**
-     * Check for any non-numeric characters in the input
-     * @param {string} text text to validate
-     * @return {boolean}
-     * @private
+     * @override
      */
-    Input.prototype.validateNumbersOnly_ = function(text) {
-        var numbersRegex = /^([0-9]+)$/;
-        return numbersRegex.test(text.trim());
+    Input.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+        this.viewListen(
+            View.Event.BLUR,
+            this.onBlur
+        );
+
+        this.viewListen(
+            View.Event.INPUT,
+            this.onInput
+        );
+
+        this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
     };
+
+    /**
+     * Input handler
+     */
+    Input.prototype.onInput = function() {
+        var that = this;
+
+        this.params['constraints'].forEach(function(constraintType) {
+                that.doConstraintType_(constraintType);
+        });
+        
+    };
+
+    /**
+    * Executes a constraint of given type and assigns the returned string to the input value
+    * @param {string} constraintType
+    */
+    Input.prototype.doConstraintType_ = function(constraintType) {
+        var constraintFunction = this.constraintsHandlers[constraintType];
+
+        var oldValue_ = this.getValue();
+        var newValue_ = constraintFunction(oldValue_);
+
+        this.setValue(newValue_);
+    }
+
+    /**
+     * Removes all non-numeric characters from the string
+     * @param {string} oldValue
+     * @return {boolean}
+     */
+    Input.prototype.constraintDigitsOnly_ = function(oldValue) {
+        return oldValue.replace(/[\D]/g, '');
+    }
 
 });  // goog.scope
