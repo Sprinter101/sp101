@@ -1,0 +1,30 @@
+{namespace sv.gCardTest.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    {call .renderChild}
+      {param params: [
+            'type': 'Card',
+            'renderParams': [
+                'data': []
+            ]
+        ]/}
+    {/call}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-card-test
+{/template}

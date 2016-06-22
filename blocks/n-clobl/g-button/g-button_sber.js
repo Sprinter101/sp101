@@ -1,7 +1,7 @@
 goog.provide('sv.gButton.Button');
 
-goog.require('sv.gButton.View');
 goog.require('cl.gButton.Button');
+goog.require('sv.gButton.View');
 
 
 
@@ -34,5 +34,5 @@ goog.scope(function() {
         TOUCH_START: View.Event.TOUCH_START,
         TOUCH_END: View.Event.TOUCH_END
     };
-    
+
 });  // goog.scope

@@ -2,13 +2,15 @@ goog.provide('sv.iFactory.TemplateFactory');
 goog.provide('sv.iFactory.TemplateFactory.INSTANCE');
 
 goog.require('cl.iFactory.TemplateFactory');
+goog.require('sv.gButton.Template');
+goog.require('sv.gCardTest.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
+goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bNavPage1.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.Template');
-goog.require('sv.gButton.Template');
 
 
 
@@ -40,14 +42,22 @@ sv.iFactory.TemplateFactory = function() {
             'NavPage1',
             sv.lSberVmeste.bNavPage1.Template.page
         )
+        .setTemplateListItem(
+            'ButtonSber',
+            sv.gButton.Template.button
+        )
+        .setTemplateListItem(
+            'Card',
+            sv.lSberVmeste.bCard.Template.card
+        )
         .setTemplateListItem( // sandbox item
             'TestPage',
             sv.gTestPage.Template.page
         )
         .setTemplateListItem( // sandbox item
-            'ButtonSber',
-            sv.gButton.Template.button
-        );;
+            'CardTest',
+            sv.gCardTest.Template.page
+        );
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);
 goog.addSingletonGetter(sv.iFactory.TemplateFactory);

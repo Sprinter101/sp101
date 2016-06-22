@@ -1,0 +1,132 @@
+@import '../../l-sber-vmeste/i-media/i-media.scss';
+
+.b-card {
+    background: #fff; 
+    font-family: AndaleMono;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+}
+
+.b-card__top-wrapper,
+.b-card__text-wrapper,
+.b-card__directions-wrapper {
+    padding: 30px 8% 30px 8%;
+}
+
+.b-card__top-wrapper {
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+.b-card__top {
+    box-shadow: 0 2px 2px -1px gray;
+}
+
+.b-card__icon {
+    width: 180px;
+    margin-bottom: 30px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+
+.b-card__icon-image-wrapper {
+    display: inline-block;
+}
+
+.b-card__icon-image {
+    display: block;
+}
+
+.b-card__icon-text {
+    margin-top: 17px;
+    font-size: 25px;
+}
+
+.b-card__donations {
+    line-height: 1.47;
+    color: #585858;
+}
+
+.b-card__amount {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.b-card__description {
+    border-bottom: 2px solid #EBEBEB;
+}
+
+.b-card__text-title {
+    font-family: AffectBold;
+    color: #565656;
+} 
+
+.b-card__text {
+    text-align: left;
+    margin-top: 17px;
+
+}
+
+.b-card__directions-count {
+    font-family: AffectBold;
+    color: #565656;
+}
+
+.b-card__directions {
+    margin-top: 17px;
+}
+
+
+@include media-m {
+    .b-card {
+        width: 768px;
+        border-radius: 7px 7px 0 0;
+        text-align: left;
+    }
+
+    .b-card__top-wrapper,
+    .b-card__text-wrapper,
+    .b-card__directions-wrapper {
+        padding: 50px 130px 30px 130px;
+    }
+
+    .b-card__top {
+        text-align: justify;
+        box-shadow: 0 3px 2px -2px gray;
+    }
+    
+    .b-card__icon, 
+    .b-card__card-info {
+        display: inline-block;
+    }
+
+    .b-card__icon {
+        text-align: center;
+        margin: 0;
+    }
+
+    .b-card__card-info {
+        width: 200px;
+    }
+
+    .b-card__amount {
+        margin-top: 12px;
+    }
+
+    .b-card__text-title {
+        margin-left: 10px;
+    }
+
+    .b-card__directions-count {
+        margin-left: 10px;
+    }
+
+    .b-card__card-info {
+        margin-left: 30px;
+    }
+}

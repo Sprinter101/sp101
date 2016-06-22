@@ -14,6 +14,8 @@
 {template .body}
     <div class="{call .rootClass /}__title">Кнопки</div>
     {call .buttons_ /}
+    <div class="{call .rootClass /}__title">Таб</div>
+    {call .tab_ /}
 {/template}
 
 /**
@@ -84,4 +86,51 @@
             {/call}
         </div>
     {/foreach}
+{/template}
+
+/**
+* Tab template
+*/
+{template .tab_ autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__element">
+        {call .renderChild}
+          {param params: [
+                'type': 'list',
+                'renderParams': [
+                    'data': [
+                        'items': [
+                            [
+                                'label' : '% от доходов'
+                            ],
+                            [
+                                'label' : 'Сумма'
+                            ]
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="{call .rootClass /}__element">
+        {call .renderChild}
+          {param params: [
+                'type': 'tab',
+                'renderParams': [
+                    'data': [
+                        'tabs': [
+                            [
+                                'label': 'Темы',
+                                'content': 'Темы'
+                            ],
+                            [
+                                'label': 'Фонды',
+                                'content': 'Фонды'
+                            ]
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
 {/template}

@@ -23,13 +23,26 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     * @private
     */
     this.buttons_ = [];
+
+    /**
+    * @type {cl.gList.List}
+    * @private
+    */
+    this.list_ = null;
+
+    /**
+    * @type {cl.gTab.Tab}
+    * @private
+    */
+    this.tab_ = null;
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 
 goog.scope(function() {
     var TestPage = sv.gTestPage.TestPage,
-        Button = cl.gButton.Button;
+        Button = cl.gButton.Button,
+        List = cl.gList.List;
 
     /**
     * @override
@@ -38,11 +51,17 @@ goog.scope(function() {
     TestPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domButtons = this.getView().getDom().buttons;
+        var domButtons = this.getView().getDom().buttons,
+            domTab = this.getView().getDom().tab,
+            domList = this.getView().getDom().list;
 
         for (var i = 0; i < domButtons.length; i++) {
-            this.buttons_.push(this.decorateChild('button', domButtons[i]));
+            this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
         }
+
+        this.tab_ = this.decorateChild('tab', domTab);
+
+        this.list_ = this.decorateChild('list', domList);
     };
 
     /**
@@ -58,6 +77,12 @@ goog.scope(function() {
                 this.onButtonClick_
             );
         }
+
+        goog.events.listen(
+            this.list_,
+            List.Event.ITEM_SELECT,
+            this.onListitemSelect_
+        );
     };
 
     /**
@@ -67,6 +92,15 @@ goog.scope(function() {
     */
     TestPage.prototype.onButtonClick_ = function(event) {
         console.log(event.target.element_);
+    };
+
+    /**
+    * List item select handler
+    * @param {Event} event
+    * @private
+    */
+    TestPage.prototype.onListitemSelect_ = function(event) {
+        console.log(event.itemId);
     };
 
 });  // goog.scope
