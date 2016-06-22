@@ -1,31 +1,26 @@
 @import '../../l-sber-vmeste/i-media/i-media.scss';
 
-BODY {
-    background-image: url('images/fon_SV.jpg'); /* fallback for older browsers */
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url('images/fon_SV.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
-}
-
 .b-card {
     background: #fff; 
     font-family: AndaleMono;
+    margin: 0 auto;
     text-align: center;
     font-size: 15px;
 }
 
-.b-card__top, .b-card__description, .b-card__bottom {
-    padding: 50px 8% 30px 8%;
+.b-card__top-wrapper,
+.b-card__description-wrapper,
+.b-card__bottom-wrapper {
+    padding: 30px 8% 30px 8%;
 }
 
 .b-card__top {
-    box-shadow: 0 3px 2px -2px gray;
+    box-shadow: 0 2px 2px -1px gray;
 }
 
 .b-card__icon {
     width: 180px;
-    margin: 0 0 30px 0;
+    margin-bottom: 30px;
     vertical-align: bottom;
     display: inline-block;
 }
@@ -43,27 +38,19 @@ BODY {
     font-size: 25px;
 }
 
-.b-card__card-info {
-    display: inline-block;
-}
-
 .b-card__donations {
     line-height: 1.47;
     color: #585858;
 }
 
 .b-card__amount {
-    margin-top: 12px;
-    margin-bottom: 31px;
+    margin-top: 5px;
+    margin-bottom: 30px;
     font-size: 25px;
-    font-weight: normal;
 }
 
 .b-card__description {
     border-bottom: 2px solid #EBEBEB;
-}
-
-.b-card__description-wrapper {
 }
 
 .b-card__text-title {
@@ -74,9 +61,6 @@ BODY {
 .b-card__text {
     text-align: left;
     margin-top: 17px;
-}
-
-.b-card__bottom {
 
 }
 
@@ -89,39 +73,52 @@ BODY {
     margin-top: 17px;
 }
 
-// @include media-s {
-//     .b-card {
-//         border-radius: 0;
-//         text-align: center;
-//         width: 100%;
-//     }
 
-//     .b-card__top, .b-card__description, .b-card__bottom {
-//         padding: 50px 8% 30px 8%;
-//     }
+@include media-m {
+    .b-card {
+        width: 768px;
+        border-radius: 7px 7px 0 0;
+        text-align: left;
+    }
 
-//     .b-card__top {
-//         text-align: center;
-//     }
+    .b-card__top-wrapper,
+    .b-card__description-wrapper,
+    .b-card__bottom-wrapper {
+        padding: 50px 130px 30px 130px;
+    }
 
-//     .b-card__card-info {
-//         width: 100%;
-//     }
+    .b-card__top {
+        text-align: justify;
+        box-shadow: 0 3px 2px -2px gray;
+    }
+    
+    .b-card__icon, 
+    .b-card__card-info {
+        display: inline-block;
+    }
 
-//     .b-card__text {
-//         text-align: left;
-//     }
-// }
+    .b-card__icon {
+        text-align: center;
+        margin: 0;
+    }
 
-// @include media-m {
-//     .b-card {
-//         width: 770px;
-//         border-radius: 0;
-//     }
-// }
+    .b-card__card-info {
+        width: 200px;
+    }
 
-// @include media-l {
-//     .b-card {
-//         width: 760px;
-//     }
-// }
+    .b-card__amount {
+        margin-top: 12px;
+    }
+
+    .b-card__text-title {
+        margin-left: 10px;
+    }
+
+    .b-card__directions-count {
+        margin-left: 10px;
+    }
+
+    .b-card__card-info {
+        margin-left: 30px;
+    }
+}

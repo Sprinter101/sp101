@@ -56,7 +56,7 @@ goog.scope(function() {
             domList = this.getView().getDom().list;
 
         for (var i = 0; i < domButtons.length; i++) {
-            this.buttons_.push(this.decorateChild('button', domButtons[i]));
+            this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
         }
 
         this.tab_ = this.decorateChild('tab', domTab);
