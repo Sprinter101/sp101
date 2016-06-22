@@ -4,6 +4,7 @@ goog.provide('sv.iFactory.TemplateFactory.INSTANCE');
 goog.require('cl.iFactory.TemplateFactory');
 goog.require('sv.gButton.Template');
 goog.require('sv.gIcon.Template');
+goog.require('sv.gInput.Template');
 goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bCardList.Template');
@@ -67,6 +68,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'CardList',
             sv.lSberVmeste.bCardList.Template.cardList
+        )
+        .setTemplateListItem(
+            'InputSber',
+            sv.gInput.Template.input
         );
 
 };

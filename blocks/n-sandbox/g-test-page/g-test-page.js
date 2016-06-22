@@ -24,27 +24,24 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     this.buttons_ = [];
 
     /**
-<<<<<<< HEAD
     * @type {Array}
-=======
-    * @type {cl.gList.List}
-    * @private
-    */
-    this.list_ = null;
-
-    /**
-    * @type {cl.gTab.Tab}
->>>>>>> Added list_tab
     * @private
     */
     this.tabs_ = [];
+
+    /**
+    * @type {sv.gInput.Input}
+    * @private
+    */
+    this.input_ = null;
+
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 
 goog.scope(function() {
     var TestPage = sv.gTestPage.TestPage,
-        Button = sv.gButton.Button;
+        Button = cl.gButton.Button;
 
     /**
     * @override
@@ -54,7 +51,8 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         var domButtons = this.getView().getDom().buttons,
-            domTabs = this.getView().getDom().tabs;
+            domTabs = this.getView().getDom().tabs,
+            domInput = this.getView().getDom().input;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
@@ -63,6 +61,8 @@ goog.scope(function() {
         for (var i = 0; i < domTabs.length; i++) {
             this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
+
+        this.input_ = this.decorateChild('InputSber', domInput);
     };
 
     /**

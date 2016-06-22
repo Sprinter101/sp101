@@ -18,6 +18,8 @@
     {call .icons_ /}
     <div class="{call .rootClass /}__title">Табы</div>
     {call .tab_ /}
+    <div class="{call .rootClass /}__title">Инпут</div>
+    {call .input_ /}
 {/template}
 
 /**
@@ -180,4 +182,26 @@
         /}
         {/call}
     </div>
+{/template}
+
+/**
+* Input template
+*/
+{template .input_ autoescape="strict" kind="html"}
+    {call .renderChild}
+      {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'placeholder': ''
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty',
+                        'numbersOnly'
+                    ]
+                ]
+            ]
+        ]/}
+    {/call}
 {/template}

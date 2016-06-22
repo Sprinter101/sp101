@@ -20,6 +20,8 @@ goog.require('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
+goog.require('sv.gInput.Input');
+goog.require('sv.gInput.View');
 
 
 
@@ -72,6 +74,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('CardList', {
             control: sv.lSberVmeste.bCardList.CardList,
             view: sv.lSberVmeste.bCardList.View
+        }
+        .setControlListItem('InputSber', {
+            control: sv.gInput.Input,
+            view: sv.gInput.View
         });
 
 };
