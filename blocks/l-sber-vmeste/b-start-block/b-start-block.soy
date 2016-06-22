@@ -13,7 +13,17 @@
  */
 {template .body autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__inner-wrap">
-        {call .iconStart /}
+        {call .renderChild}
+                  {param params: [
+                        'type': 'IconSber',
+                        'renderParams': [
+                            'data': [],
+                            'config': [
+                            'iconStyles': ['logo-userfund']
+                            ]
+                        ]
+                    ]/}
+        {/call}
         {call .userFund /}
         {call .slogan /}
         {call .renderChild}
@@ -30,16 +40,6 @@
                     ]/}
             {/call}
         </div>
-{/template}
-
-/**
- * template for start icon
- * TODO: need to render 2 different iconf for S and M,L layouts
- */
-{template .iconStart autoescape="strict" kind="html"}
-     <div class="{call .rootClass/}__icon-start-wrap">
-        <img src="images/b-start-block/icon-start.png" class="{call .rootClass/}__icon-start" />
-    </div>
 {/template}
 
 /**

@@ -13,7 +13,17 @@
  */
 {template .body}
 <div class="{call .rootClass/}__wrapper">
-    {call .logo /}
+    {call .renderChild}
+                  {param params: [
+                        'type': 'IconSber',
+                        'renderParams': [
+                            'data': [],
+                            'config': [
+                            'iconStyles': ['logo-sber']
+                            ]
+                        ]
+                    ]/}
+        {/call}
     {call .renderChild}
                   {param params: [
                         'type': 'ButtonSber',
@@ -50,15 +60,6 @@
     {/call}
     {call .more /}
 </div>
-{/template}
-
-/**
- * Sber Logo
- */
-{template .logo}
-    <div class="{call .rootClass/}__logo-wrap">
-        <img src="images/b-header/logo-sber_small.png" class="{call .rootClass/}__logo" />
-    </div>
 {/template}
 
 /**

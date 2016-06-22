@@ -1,13 +1,5 @@
 @import "../i-media/i-media";
 
-.b-start-block__icon-start-wrap {
-    
-}
-.b-start-block__icon-start {
-    display: block;
-    margin: 20.0923378% auto;
-}
-
 .b-start-block__userfund-name {
     margin: 49.5px auto 0;
     font-family: AndaleMono;
@@ -33,24 +25,19 @@
 }
 
 @include media-m {
-    .b-start-block__icon-start {
-        margin: 25.6% auto;
-        }
-        .b-start-block__userfund-name {
+    .b-start-block__userfund-name {
         margin: 26px auto;
-        }
-        .b-start-block__slogan {
-        margin: 26px auto;
-        }
-        .b-start-block__button_start {
-        margin: 48px auto;
+    }
+    .b-start-block__slogan {
+    margin: 26px auto;
+    }
+    .b-start-block__button_start {
+    margin: 48px auto;
     }
 }
 
 @include media-xl {
-    .b-start-block__icon-start {
-        margin: 19.8614318% auto;
-    }
+
     .b-start-block__userfund-name {
         margin: 33px auto 0;
     }
