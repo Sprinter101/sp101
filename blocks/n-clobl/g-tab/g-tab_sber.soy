@@ -1,0 +1,68 @@
+{namespace sv.gTab.Template}
+
+
+/**
+ * The button template
+ * @extends cl.gTab.Template
+ * @constructor
+ */
+{template .tab}
+    {call .init data="all" /}
+{/template}
+
+/**
+ * Body
+ * @param? params {{
+ *     data: {
+ *         tabs: list<{
+ *             label: ?string,
+ *             content: ?string
+ *         }>,
+ *         selectedTabId: ?number
+ *     },
+ *     config: {
+ *         noDefaultTab: ?bool
+ *     }
+ * }}
+ * @override
+ */
+{template .body}
+    {let $selectedTabId: $params.data?.selectedTabId ?:
+        $params.config?.noDefaultTab ? (-1) : 0 /}
+    {call .tabs data="all"/}
+    {for $i in range($params?.data?.tabs?.length)}
+        {call .content}
+            {param params: [
+                'content': $params.data.tabs[$i].content,
+                'hidden': not($i == $selectedTabId),
+                'tabClasses': $params?.config?.tabClasses?.content ? 
+                            $params?.config?.tabClasses?.content : []
+            ]/}
+        {/call}
+    {/for}
+    {call .placeholder data="all"/}
+{/template}
+
+/**
+ * Content template
+ * @param params {{
+ *     hidden: ?bool
+ * }}
+ */
+{template .content}
+    <div class="{call .rootClass/}__content
+        {$params?.hidden ? ' i-utils__hidden' : ''}{call .contentClasses data="all" /}">
+        {call .innerContent data="all"/}
+    </div>
+{/template}
+
+/**
+* Adds classes to the content element
+* @param? params
+*/
+{template .contentClasses}
+    {let $contentClasses: $params?.tabClasses /}
+    {for $i in range($contentClasses.length)}
+        {sp}{call .rootClass/}__content_{$contentClasses[$i]}
+    {/for}
+{/template}

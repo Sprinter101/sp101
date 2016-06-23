@@ -3,6 +3,8 @@ goog.provide('sv.iFactory.FactorySber');
 goog.require('cl.iFactory.Factory');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
+goog.require('sv.gTab.Tab');
+goog.require('sv.gTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
@@ -60,6 +62,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('ButtonSber', {
             control: sv.gButton.Button,
             view: sv.gButton.View
+        })
+        .setControlListItem('TabSber', {
+            control: sv.gTab.Tab,
+            view: sv.gTab.View
         });
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
