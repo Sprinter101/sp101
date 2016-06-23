@@ -25,8 +25,9 @@ goog.scope(function() {
      * 'Start' action
      */
     Controller.prototype.actionStart = function() {
-        this.headerManager_.setCurrentHeader('Header');
-        this.headerManager_.show();
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'start'}
+            });
         this.pageManager_.setCurrentPage('StartPage');
     };
 
@@ -34,6 +35,9 @@ goog.scope(function() {
     * 'Buttons test' action
     */
     Controller.prototype.actionTest = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'directions'}
+            });
         this.pageManager_.setCurrentPage('TestPage');
     };
 

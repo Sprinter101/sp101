@@ -21,17 +21,26 @@
         {param params: [
             'states': [
                 [
-                    'type': 'hidden',
-                    'config': [
-                        'isHidden': true
-                    ]
+                    'type': 'start',
+                    'config': ['headerType': 'start']
                 ],
                 [
-                    'type': 'default'
+                    'type': 'directions',
+                    'config': ['headerType': 'directions']
+                ],
+                [
+                    'type': 'card',
+                    'config': ['headerType': 'card']
+                ],
+                [
+                    'type': 'budget',
+                    'config': ['headerType': 'budget']
                 ]
+                
             ],
             'defaultControl': 'Header',
-            'currentState': $params?.config?.state ?: 'hidden'
+            'currentState': $params?.config?.state ?: 'start',
+            'defaultConfig': ['headerType': 'start']
         ]/}
     {/call}
 {/template}

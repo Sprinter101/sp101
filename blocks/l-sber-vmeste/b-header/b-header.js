@@ -47,23 +47,9 @@ goog.scope(function() {
     /**
      * @override
      */
-    /*Header.prototype.enterDocument = function() {
+    Header.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-    };*/
-
-    /**
-     * Show header
-     */
-    Header.prototype.show = function() {
-        this.getView().show();
-    };
-
-    /**
-     * Hide header
-     */
-    Header.prototype.hide = function() {
-        this.getView().hide();
     };
 
 });  // goog.scope

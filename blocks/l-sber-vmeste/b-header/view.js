@@ -3,7 +3,6 @@ goog.provide('sv.lSberVmeste.bHeader.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
-goog.require('sv.iUtils.Utils');
 
 
 
@@ -24,8 +23,7 @@ sv.lSberVmeste.bHeader.View = function(opt_params, opt_template, opt_modifier) {
 goog.inherits(sv.lSberVmeste.bHeader.View, cl.iControl.View);
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bHeader.View,
-        Utils = sv.iUtils.Utils;
+    var View = sv.lSberVmeste.bHeader.View;
 
     /**
      * Css class enum
@@ -59,19 +57,5 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
     };*/
-
-    /**
-     * Show header
-     */
-    View.prototype.show = function() {
-        goog.dom.classlist.remove(this.getElement(), Utils.CssClass.HIDDEN);
-    };
-
-    /**
-     * Hide header
-     */
-    View.prototype.hide = function() {
-        goog.dom.classlist.add(this.getElement(), Utils.CssClass.HIDDEN);
-    };
 
 });  // goog.scope

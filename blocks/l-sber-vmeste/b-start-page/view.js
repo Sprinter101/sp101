@@ -34,7 +34,6 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-page-start',
-        //BUTTON_START: 'b-start-block__button_start',
         BLOCK_START: 'b-start-block'
     };
 

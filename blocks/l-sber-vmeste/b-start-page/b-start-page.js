@@ -66,7 +66,7 @@ goog.scope(function() {
     */
     StartPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-        debugger;
+
         this.getHandler().listen(
             this.startBlock_,
             StartBlock.Event.CHANGE_PAGE,

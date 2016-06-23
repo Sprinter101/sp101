@@ -10,55 +10,113 @@
 
 /**
  * @override
+ * @param params {{
+ *     config: {
+ *         headerType: string
+ *     }
+ *  }}
  */
 {template .body}
 <div class="{call .rootClass/}__wrapper">
-    {call .renderChild}
+    {let $headerType: $params.config.headerType/}
+    {switch $headerType}
+        {case 'start'}
+            {call .renderChild}
+                {param params: [
+                    'type': 'IconSber',
+                    'renderParams': [
+                        'data': [],
+                        'config': [
+                        'iconStyles': ['logo-sber']
+                        ]
+                    ]
+                ]/}
+            {/call}
+            {call .renderChild}
+                {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': 'Я',
+                        ],
+                        'config': [
+                        'buttonStyles': 
+                        ['width_m', 'height_big', 'font_SFUI'],
+                        'customClasses': 
+                            ['b-header__button_me']
+                        ]
+                    ]
+                ]/}
+            {/call}
+            {call .more /}
+        {case 'directions'}
+            {call .renderChild}
+                {param params: [
+                    'type': 'IconSber',
+                    'renderParams': [
+                        'data': [],
+                        'config': [
+                            'iconStyles': ['arrow-back_white']
+                        ]
+                    ]
+                ]/}
+            {/call}
+            {call .renderChild}
+                      {param params: [
+                            'type': 'ButtonSber',
+                            'renderParams': [
+                                'data': [
+                                    'content': 'Я',
+                                ],
+                                'config': [
+                                'buttonStyles': 
+                                ['width_m', 'height_big', 'font_SFUI'],
+                                'customClasses': 
+                                    ['b-header__button_me']
+                                ]
+                            ]
+                        ]/}
+            {/call}
+            {call .more /}
+        {case 'card'}
+            {call .renderChild}
                   {param params: [
                         'type': 'IconSber',
                         'renderParams': [
                             'data': [],
                             'config': [
-                            'iconStyles': ['logo-sber']
+                                'iconStyles': ['arrow-back_grey']
                             ]
                         ]
                     ]/}
-        {/call}
-    {call .renderChild}
+                {/call}
+                {call .cardCategory /}
+                {call .renderChild}
                   {param params: [
-                        'type': 'ButtonSber',
+                        'type': 'IconSber',
                         'renderParams': [
-                            'data': [
-                                'content': 'Я',
-                            ],
+                            'data': [],
                             'config': [
-                            'buttonStyles': 
-                            ['width_m', 'height_big', 'font_SFUI'],
-                            'customClasses': 
-                                ['b-header__button_me']
+                                'iconStyles': ['share']
                             ]
                         ]
                     ]/}
-    {/call}
-    {call .renderChild}
+                {/call}
+        {case 'budget'}
+            {call .renderChild}
                   {param params: [
-                        'type': 'ButtonSber',
+                        'type': 'IconSber',
                         'renderParams': [
-                            'data': [
-                                'content': '+',
-                            ],
+                            'data': [],
                             'config': [
-                            'buttonStyles': 
-                            ['width_s', 'height_small', 'font_SFUI',
-                            'background_transparent', 'border_white',
-                            'opacity_one-third', 'padding_none'],
-                            'customClasses': 
-                                ['b-header__button_plus']
+                                'iconStyles': ['arrow-back_white']
                             ]
                         ]
                     ]/}
-    {/call}
-    {call .more /}
+            {/call}
+            {call .tip /}
+            {call .infoLink /}
+    {/switch}
 </div>
 {/template}
 
@@ -74,6 +132,35 @@
 {/template}
 
 /**
+ * Div for cards filter category
+ */
+{template .cardCategory}
+    <div class="{call .rootClass/}__category">
+        ТЕМА
+    </div>
+{/template}
+
+/**
+ * Div for cards filter category
+ */
+{template .tip}
+    <div class="{call .rootClass/}__tip">
+        Выберите напрпавления или фонды, которым Вы готовы помогать
+    </div>
+{/template}
+
+/**
+ * Div for 'what's it? link
+ */
+{template .infoLink}
+    <div class="{call .rootClass/}__info-link">
+        <div class="{call .rootClass/}__info-link-text">
+            Что это?
+        </div>
+    </div>
+{/template}
+
+/**
  * @override
  */
 {template .rootClass}
@@ -81,14 +168,13 @@
 {/template}
 
 /**
- * @param params {
+* @param? params {{
  *     config: {
- *         isHidden: ?bool
+ *         headerType: string
  *     }
- * }
- */
+ *  }}
+*/
 {template .additionalClasses}
-    {if $params?.config?.isHidden}
-        i-utils__hidden{sp}
-    {/if}
+    {let $headerType: $params.config.headerType/}
+        {call .rootClass/}_{$headerType}
 {/template}
