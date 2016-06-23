@@ -1,5 +1,10 @@
+$error_color: #F76464;
+
 .g-input_sber {
     display: inline-block;
+    font-family: SFUIDisplay;
+    text-align: center;
+    width: 290px;
 }
 
 .g-input__input {
@@ -18,6 +23,14 @@
     }
 }
 
-.g-input_not-valid {
-    border: 3px solid red;
+.g-input__input_not-valid {
+    border-bottom: 2px solid $error_color;
+    color: $error_color;
+}
+
+.g-input__error-message-box {
+    margin-top: 10px;
+    display: inline-block;
+    width: 240px;
+    color: $error_color;
 }

@@ -97,15 +97,17 @@
             'type': 'InputSber',
             'renderParams': [
                 'data': [
-                    'placeholder': ''
+                    'inputType': 'text'
                 ],
                 'config': [
                     'validations': [
                         'notEmpty',
-                        'digits'
+                        'digits',
+                        'maxDonation'
                     ],
                     'constraints': [
-                        'digitsOnly'
+                        'digitsOnly',
+                        'charactersLimit'
                     ]
                 ]
             ]
