@@ -1,6 +1,7 @@
 goog.provide('sv.gInput.View');
 
 goog.require('cl.gInput.View');
+goog.require('sv.iUtils.Utils');
 
 
 
@@ -16,6 +17,18 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.gInput.View.CssClass.ROOT);
+
+    /**
+     * Error messages for validations
+     * @type {Object}
+     */
+    this.validationErrorMessages = {
+        'digits': 'Допустимо использовать только цифры',
+        'email': 'Введён некорректный адрес электронной почты',
+        'notEmpty': 'Это поле не может быть пустым',
+        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
+                        'чем 500 тыс. рублей'
+    };
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
@@ -30,7 +43,10 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'g-input',
         INPUT: 'g-input__input',
-        NOT_VALID: 'g-input_not-valid'
+        NOT_VALID: 'g-input_not-valid',
+        INPUT_NOT_VALID: 'g-input__input_not-valid',
+        ERROR_MESSAGE_BOX: 'g-input__error-message-box',
+        HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
 
     /**
@@ -41,6 +57,82 @@ goog.scope(function() {
         BLUR: 'blur',
         INPUT: 'input-input',
         CHANGE: 'input-change'
+    };
+
+    /**
+     * @override
+     * @param {Element} element
+     */
+    View.prototype.decorateInternal = function(element) {
+        goog.base(this, 'decorateInternal', element);
+
+        this.dom.input = this.getElementByClass(View.CssClass.INPUT);
+        this.dom.errorMessage = this.getElementByClass(
+                                    View.CssClass.ERROR_MESSAGE_BOX);
+
+        this.getDataParams(element);
+    };
+
+    /**
+     * Set valid state
+     * @public
+     */
+    View.prototype.unSetNotValidState = function() {
+        goog.dom.classlist.remove(
+            this.getElement(),
+            View.CssClass.NOT_VALID
+        );
+
+        goog.dom.classlist.remove(
+            this.dom.input,
+            View.CssClass.INPUT_NOT_VALID
+        );
+    };
+
+    /**
+     * Set not valid state
+     * @public
+     */
+    View.prototype.setNotValidState = function() {
+        goog.dom.classlist.add(
+            this.getElement(),
+            View.CssClass.NOT_VALID
+        );
+
+        goog.dom.classlist.add(
+            this.dom.input,
+            View.CssClass.INPUT_NOT_VALID
+        );
+    };
+
+    /**
+    * Shows error message
+    * @param {Array} failedValidations
+    */
+    View.prototype.showErrorMessage = function(failedValidations) {
+        goog.dom.classlist.remove(
+            this.dom.errorMessage,
+            View.CssClass.HIDDEN
+        );
+
+        var errorMessageText = '';
+
+        failedValidations.forEach(function(type) {
+            var errorMessage = this.validationErrorMessages[type];
+            errorMessageText += errorMessage + ' ';
+        }, this);
+
+        this.dom.errorMessage.textContent = errorMessageText.trim();
+    };
+
+    /**
+    * Hides error message
+    */
+    View.prototype.hideErrorMessage = function() {
+        goog.dom.classlist.add(
+            this.dom.errorMessage,
+            View.CssClass.HIDDEN
+        );
     };
 
 });  // goog.scope
