@@ -57,11 +57,7 @@ gulp.task('scripts', ['soy', 'lint'], function () {
 });
 
 gulp.task('fonts', function () {
-<<<<<<< HEAD
     return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
-=======
-    return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/**/*.*'))
->>>>>>> SV-33 Added template, control and view for g-input
         .pipe(gulp.dest(path.join(__dirname + '/public/fonts')));
 });
 

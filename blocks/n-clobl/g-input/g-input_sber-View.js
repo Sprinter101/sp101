@@ -56,7 +56,8 @@ goog.scope(function() {
     View.Event = {
         BLUR: 'blur',
         INPUT: 'input-input',
-        CHANGE: 'input-change'
+        CHANGE: 'input-change',
+        FOCUS: 'input-focus'
     };
 
     /**
@@ -71,6 +72,35 @@ goog.scope(function() {
                                     View.CssClass.ERROR_MESSAGE_BOX);
 
         this.getDataParams(element);
+    };
+
+    /**
+     * @override
+     */
+    View.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+
+        this.getHandler()
+            .listen(
+                this.dom.input,
+                goog.events.EventType.BLUR,
+                this.onBlur
+            ).listen(
+                this.dom.input,
+                goog.events.EventType.INPUT,
+                this.onInput
+            )
+            .listen(
+                this.dom.input,
+                goog.events.EventType.CHANGE,
+                this.onChange
+            )
+            .listen(
+                this.dom.input,
+                goog.events.EventType.FOCUS,
+                this.onFocus
+            );
     };
 
     /**
@@ -133,6 +163,15 @@ goog.scope(function() {
             this.dom.errorMessage,
             View.CssClass.HIDDEN
         );
+    };
+
+    /**
+     * Focus handler
+     * @protected
+     */
+    View.prototype.onFocus = function() {
+        this.dom.input.select();
+        this.dispatchEvent(View.Event.FOCUS);
     };
 
 });  // goog.scope

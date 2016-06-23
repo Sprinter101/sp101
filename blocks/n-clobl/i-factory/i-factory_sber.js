@@ -74,7 +74,7 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('CardList', {
             control: sv.lSberVmeste.bCardList.CardList,
             view: sv.lSberVmeste.bCardList.View
-        }
+        })
         .setControlListItem('InputSber', {
             control: sv.gInput.Input,
             view: sv.gInput.View
