@@ -1,0 +1,71 @@
+@import "../../l-sber-vmeste/i-media/i-media";
+
+.g-icon_sber {
+    display: block;
+    width: 30px;
+    height: 30px;
+
+}
+
+.g-icon_arrow-back_white {
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_white.png);
+    background-size: contain;
+}
+
+.g-icon_arrow-back_grey {
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_grey.png);
+    background-size: contain;
+}
+
+.g-icon_logo-sber {
+    display: inline-block;
+    float: left;
+    width: 46px;
+    height: 45px;
+    margin-left: 26px;
+    margin-top: 34px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_small.png);
+    background-size: contain;
+}
+
+.g-icon_logo-userfund {
+    display: block;
+    width: 60px;
+    height: 80px;
+    margin: 87px auto 0;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-userfund.png);
+}
+
+.g-icon_share {
+    width: 32px;
+    height: 36px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_share.png);
+}
+
+.g-icon_arrow-right {
+    width: 8px;
+    height: 12px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-right.png);
+}
+
+@include media-m {
+    .g-icon_logo-sber {
+        width: 204px;
+        height: 48px;
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large3.png);
+    }
+    .g-icon_logo-userfund {
+        margin: 128px auto 0;
+    }
+}
+
+@include media-xl {
+    .g-icon_logo-sber {
+        width: 204px;
+        height: 48px;
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large3.png);
+    }
+    .g-icon_logo-userfund {
+        margin: 86px auto 0;
+    }
+}

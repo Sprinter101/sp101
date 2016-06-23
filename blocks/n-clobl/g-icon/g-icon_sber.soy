@@ -1,0 +1,26 @@
+{namespace sv.gIcon.Template}
+
+/**
+ * The button template
+ * @extends cl.gIcon.Template
+ * @constructor
+ */
+{template .icon}
+    {call .init data="all" /}
+{/template}
+
+/**
+* @param? params {
+ *     config: {
+ *         iconStyles: ?string
+ *     }
+ * }
+*/
+{template .additionalClasses}
+    {if $params?.config?.iconStyles}
+        {let $iconStyles: $params.config.iconStyles /}
+        {foreach $style in $iconStyles}
+            {call .rootClass/}_{$style}{sp}
+        {/foreach}
+    {/if}
+{/template}

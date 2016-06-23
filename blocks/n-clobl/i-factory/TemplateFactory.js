@@ -3,6 +3,7 @@ goog.provide('sv.iFactory.TemplateFactory.INSTANCE');
 
 goog.require('cl.iFactory.TemplateFactory');
 goog.require('sv.gButton.Template');
+goog.require('sv.gIcon.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
@@ -52,6 +53,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem( // sandbox item
             'ButtonSber',
             sv.gButton.Template.button
+        )
+        .setTemplateListItem( // sandbox item
+            'IconSber',
+            sv.gIcon.Template.icon
         );
 };
 goog.inherits(sv.iFactory.TemplateFactory, cl.iFactory.TemplateFactory);

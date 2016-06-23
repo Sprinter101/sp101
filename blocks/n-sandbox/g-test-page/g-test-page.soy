@@ -14,6 +14,7 @@
 {template .body}
     <div class="{call .rootClass /}__title">Кнопки</div>
     {call .buttons_ /}
+    {call .icons_ /}
 {/template}
 
 /**
@@ -78,6 +79,30 @@
                         ],
                         'config': [
                             'buttonStyles': $item[1]
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+    {/foreach}
+{/template}
+
+/**
+* Icons template
+*/
+{template .icons_ autoescape="strict" kind="html"}
+    {let $iconTypes: ['arrow-back_white', 'arrow-back_grey',
+                      'arrow-right', 'share', 'logo-userfund', 'logo-sber'
+                     ]/}
+    {foreach $item in $iconTypes}
+        <div class="{call .rootClass /}__element">
+            {call .renderChild}
+              {param params: [
+                    'type': 'IconSber',
+                    'renderParams': [
+                        'data': [],
+                        'config': [
+                            'iconStyles': [$item]
                         ]
                     ]
                 ]/}
