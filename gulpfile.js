@@ -2,7 +2,8 @@ const gulp = require('gulp');
 const util = require('gulp-util');
 const path = require('path');
 const args  = require('yargs').argv;
-
+const livereload = require('gulp-livereload');
+livereload({ start: true });
 
 
 const modulesPath = args.modulesPath || path.join(__dirname, 'node_modules');
@@ -62,7 +63,7 @@ gulp.task('fonts', function () {
 
 gulp.task('images', function () {
     return gulp.src([
-        path.join(__dirname + '/blocks/**/**/*.png'),
+        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.png'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
@@ -72,7 +73,7 @@ gulp.task('images', function () {
 
 gulp.task('styles', ['images', 'fonts'], function () {
     return gulpHelper.css.build({
-    });
+    }).pipe(livereload());;
 });
 
 gulp.task('html', ['scripts'], function() {
@@ -88,6 +89,11 @@ gulp.task('html', ['scripts'], function() {
 });
 
 gulp.task('watch', function () {
+    livereload.listen();
+    gulp.watch([
+        path.join(__dirname, 'blocks', '/**/*.scss'),
+        path.join(__dirname, 'blocks', '/**/*.css')
+    ], ['styles']);
     gulp.watch(
         [path.join(__dirname, 'blocks', '/**/*.soy')],
         ['scripts']
@@ -96,10 +102,7 @@ gulp.task('watch', function () {
         [path.join(__dirname, 'blocks', '/**/*.js')],
         ['scripts']
     );
-    gulp.watch([
-        path.join(__dirname, 'blocks', '/**/*.scss'),
-        path.join(__dirname, 'blocks', '/**/*.css')
-    ], ['styles']);
+    
 });
 
 const tasks = function (bool) {

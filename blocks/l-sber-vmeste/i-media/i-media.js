@@ -1,4 +1,4 @@
-goog.provide('aa.iMedia.Media');
+goog.provide('sv.iMedia.Media');
 
 
 
@@ -8,12 +8,12 @@ goog.provide('aa.iMedia.Media');
  * TODO refactor into singleton
  * listen to resize event here instead of dealing with it in each block
  */
-aa.iMedia.Media = function() {
+sv.iMedia.Media = function() {
 
 };
 
 goog.scope(function() {
-    var Media = aa.iMedia.Media;
+    var Media = sv.iMedia.Media;
 
     /**
      * Breakpoint enum

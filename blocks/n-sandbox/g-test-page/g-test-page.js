@@ -1,8 +1,7 @@
 goog.provide('sv.gTestPage.TestPage');
 
-goog.require('cl.gButton.Button');
-goog.require('cl.gList.List');
 goog.require('cl.iControl.Control');
+goog.require('sv.gButton.Button');
 
 
 
@@ -23,13 +22,29 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     * @private
     */
     this.buttons_ = [];
+
+    /**
+<<<<<<< HEAD
+    * @type {Array}
+=======
+    * @type {cl.gList.List}
+    * @private
+    */
+    this.list_ = null;
+
+    /**
+    * @type {cl.gTab.Tab}
+>>>>>>> Added list_tab
+    * @private
+    */
+    this.tabs_ = [];
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 
 goog.scope(function() {
     var TestPage = sv.gTestPage.TestPage,
-        Button = cl.gButton.Button;
+        Button = sv.gButton.Button;
 
     /**
     * @override
@@ -38,10 +53,15 @@ goog.scope(function() {
     TestPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domButtons = this.getView().getDom().buttons;
+        var domButtons = this.getView().getDom().buttons,
+            domTabs = this.getView().getDom().tabs;
 
         for (var i = 0; i < domButtons.length; i++) {
-            this.buttons_.push(this.decorateChild('button', domButtons[i]));
+            this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
+        }
+
+        for (var i = 0; i < domTabs.length; i++) {
+            this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
     };
 
@@ -58,6 +78,7 @@ goog.scope(function() {
                 this.onButtonClick_
             );
         }
+
     };
 
     /**
