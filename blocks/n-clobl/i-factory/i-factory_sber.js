@@ -51,7 +51,7 @@ sv.iFactory.FactorySber = function() {
         })
         .setControlListItem('StartBlock', {
             control: sv.lSberVmeste.bStartBlock.StartBlock,
-            view: sv.lSberVmeste.bStartPage.View
+            view: sv.lSberVmeste.bStartBlock.View
         })
         .setControlListItem('TestPage', {
             control: sv.gTestPage.TestPage,

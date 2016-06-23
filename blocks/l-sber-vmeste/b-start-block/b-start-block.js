@@ -38,7 +38,7 @@ goog.scope(function() {
      * @enum {string}
      */
     StartBlock.Event = {
-
+        CHANGE_PAGE: 'change-page'
     };
 
     /**
@@ -48,6 +48,21 @@ goog.scope(function() {
     StartBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.startButton_ = this.decorateChild(
+            'ButtonSber',
+            this.getView().getDom().startButton
+            );
+    };
+
+    /**
+     * Handles view click event by pushing it
+     * to the start page
+     * @param {View.Event.BUTTON_START_CLICK} event
+     */
+    StartBlock.prototype.onViewEventClick = function(event) {
+        this.dispatchEvent({
+            type: StartBlock.Event.CHANGE_PAGE
+           });
     };
 
     /**
@@ -55,6 +70,12 @@ goog.scope(function() {
     */
     StartBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.viewListen(View.Event.BUTTON_START_CLICK,
+            this.onViewEventClick
+        );
     };
+
+     
 
 });  // goog.scope

@@ -21,7 +21,6 @@ sv.lSberVmeste.bStartPage.View = function(opt_params,
 
     this.setCssClass(sv.lSberVmeste.bStartPage.View.CssClass.ROOT);
 
-    this.dom.startBlock = null;
 };
 goog.inherits(sv.lSberVmeste.bStartPage.View, sv.lSberVmeste.iPage.View);
 
@@ -35,17 +34,8 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-page-start',
-        BUTTON_START: 'b-start-block__button_start',
+        //BUTTON_START: 'b-start-block__button_start',
         BLOCK_START: 'b-start-block'
-    };
-
-    /**
-     * Event enum
-     * @enum {string}
-     */
-    View.Event = {
-        CLICK: goog.events.EventType.CLICK,
-        BUTTON_START_CLICK: 'start-button-click'
     };
 
     /**
@@ -55,24 +45,9 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.startButton = this.getElementByClass(
-            View.CssClass.BUTTON_START
-        );
-        
-        this.dom.startBlock = this.getElementByClass(
+       this.dom.startBlock = this.getElementByClass(
             View.CssClass.BLOCK_START
         );
-    };
-
-    /**
-     * Handles start button CLICK
-     * @param {goog.events.BrowserEvent} event Click event
-     * @protected
-     */
-    View.prototype.onStartButtonClick = function(event) {
-        this.dispatchEvent({
-             type: View.Event.BUTTON_START_CLICK
-         });
     };
 
     /**
@@ -81,10 +56,5 @@ goog.scope(function() {
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
-            this.dom.startButton,
-            View.Event.CLICK,
-            this.onStartButtonClick
-        );
     };
 });  // goog.scope

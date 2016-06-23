@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
@@ -34,7 +35,7 @@ sv.lSberVmeste.bStartPage.StartPage = function(view, opt_domHelper) {
      * @type {Object}
      * @private
      */
-    this.startButton_ = null;
+    //this.startButton_ = null;
 
 };
 goog.inherits(sv.lSberVmeste.bStartPage.StartPage, sv.lSberVmeste.iPage.Page);
@@ -42,6 +43,7 @@ goog.inherits(sv.lSberVmeste.bStartPage.StartPage, sv.lSberVmeste.iPage.Page);
 
 goog.scope(function() {
     var StartPage = sv.lSberVmeste.bStartPage.StartPage,
+    StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
     Route = sv.lSberVmeste.iRouter.Route,
     Router = sv.lSberVmeste.iRouter.Router,
     View = sv.lSberVmeste.bStartPage.View;
@@ -57,11 +59,6 @@ goog.scope(function() {
             'StartBlock',
             this.getView().getDom().startBlock
         );
-        debugger;
-        this.startButton_ = this.decorateChild(
-            'ButtonSber',
-            this.getView().getDom().startButton
-        );
     };
 
     /**
@@ -70,17 +67,19 @@ goog.scope(function() {
     StartPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
         debugger;
-        this.viewListen(View.Event.BUTTON_START_CLICK,
-            this.onStartButtonClick
-        );
+        this.getHandler().listen(
+            this.startBlock_,
+            StartBlock.Event.CHANGE_PAGE,
+            this.onChangePage
+            );
     };
 
     /**
-     * Handles start button CLICK
+     * Handles start button CLICK and redirect to TestPage
      * @param {goog.events.BrowserEvent} event Click event
      * @protected
      */
-    StartPage.prototype.onStartButtonClick = function(event) {
+    StartPage.prototype.onChangePage = function(event) {
 
         Router.getInstance().changeLocation(Route.TEST);
     };
