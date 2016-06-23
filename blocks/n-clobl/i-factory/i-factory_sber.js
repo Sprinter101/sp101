@@ -10,6 +10,8 @@ goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
+goog.require('sv.lSberVmeste.bStartBlock.View');
 goog.require('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.SberVmeste');
@@ -46,6 +48,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('StartPage', {
             control: sv.lSberVmeste.bStartPage.StartPage,
             view: sv.lSberVmeste.bStartPage.View
+        })
+        .setControlListItem('StartBlock', {
+            control: sv.lSberVmeste.bStartBlock.StartBlock,
+            view: sv.lSberVmeste.bStartBlock.View
         })
         .setControlListItem('TestPage', {
             control: sv.gTestPage.TestPage,
