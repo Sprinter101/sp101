@@ -1,0 +1,24 @@
+{namespace sv.lSberVmeste.bCardList.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .cardList}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__cards"></div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-card-list
+{/template}
