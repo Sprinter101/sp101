@@ -1,0 +1,36 @@
+$error_color: #F76464;
+
+.g-input_sber {
+    display: inline-block;
+    font-family: SFUIDisplay;
+    text-align: center;
+    width: 290px;
+}
+
+.g-input__input {
+    width: 290px;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    background: none;
+    font-family: AndaleMono;
+    font-size: 62px;
+    font-weight: normal;
+    text-align: center;
+    color: #ffffff;
+
+    &:focus {
+        outline: 0;
+    }
+}
+
+.g-input__input_not-valid {
+    border-bottom: 2px solid $error_color;
+    color: $error_color;
+}
+
+.g-input__error-message-box {
+    margin-top: 10px;
+    display: inline-block;
+    width: 240px;
+    color: $error_color;
+}

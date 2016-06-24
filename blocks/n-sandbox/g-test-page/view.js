@@ -32,8 +32,8 @@ goog.scope(function() {
         ROOT: 'b-test-page',
         BUTTON: 'g-button_sber',
         TAB: 'g-tab_sber',
-        LIST: 'g-list_sber',
-        BUTTON: 'g-button_sber'
+        BUTTON: 'g-button_sber',
+        INPUT: 'g-input_sber'
     };
 
     /**
@@ -46,5 +46,7 @@ goog.scope(function() {
         this.dom.buttons = this.getElementsByClass(View.CssClass.BUTTON);
 
         this.dom.tabs = this.getElementsByClass(View.CssClass.TAB);
+
+        this.dom.input = this.getElementByClass(View.CssClass.INPUT);
     };
 });  // goog.scope

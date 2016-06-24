@@ -1,0 +1,69 @@
+{namespace sv.gInput.Template}
+
+
+
+/**
+* Input template
+ * @extends cl.gInput.Template
+ * @constructor
+ */
+{template .input}
+    {call .init data="all" /}
+{/template}
+
+/**
+ * Input template
+ * @param? params {{
+ *     data: {
+ *         inputType: ?string,
+ *         placeholder: ?string,
+ *         value: ?string,
+ *         name: ?string,
+ *         maxLength: ?number
+ *     }
+ * }}
+ */
+{template .inputTemplate}
+    <input class="{call .rootClass/}__input"
+        {if $params?.data?.inputType}
+            {sp}
+            type="{$params?.data?.inputType}"
+        {/if}
+        {if $params?.data?.placeholder}
+            {sp}
+            placeholder="{$params?.data?.placeholder}"
+        {/if}
+        {if $params?.data?.name}
+            {sp}
+            name="{$params?.data?.name}"
+        {/if}
+        {if $params?.data?.maxLength}
+            {sp}
+            maxlength="{$params.data.maxLength}"
+        {/if}
+        {sp}
+        value="{$params?.data?.value ? $params?.data?.value : ''}">
+    </input>
+    <div class="{call .rootClass/}__error-message-box i-utils__hidden"></div>
+{/template}
+
+/**
+ * @override
+ * @param? params {
+ *     config: {
+ *         validations: list<?string>
+ *         constraints: list<?string>
+ *     }
+ * }}
+ */
+{template .attributes kind="attributes"}
+    {let $data: [
+        'validations': $params?.config?.validations ?
+            $params?.config?.validations :
+            [],
+        'constraints': $params?.config?.constraints ?
+            $params?.config?.constraints :
+            []
+    ]/}
+    data-params="{call goog.json.serialize data="$data" /}"
+{/template}
