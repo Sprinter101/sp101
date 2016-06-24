@@ -33,6 +33,7 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-header-manager'
+
     };
 
     /**
