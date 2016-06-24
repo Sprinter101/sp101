@@ -12,7 +12,8 @@
  * @override
  * @param params {{
  *     config: {
- *         headerType: string
+ *         headerType: string,
+ *         category: ?string
  *     }
  *  }}
  */
@@ -87,6 +88,7 @@
                 </div>
                 {call .more /}
             {case 'card'}
+                {let $category: $params.config.category/}
                 <div class="{call .rootClass/}__icon_arrow_back-wrapper">
                     {call .renderChild}
                           {param params: [
@@ -100,7 +102,9 @@
                             ]/}
                         {/call}
                     </div>
-                    {call .cardCategory /}
+                    {call .cardCategory }
+                        {param category: $category /}
+                    {/call}
                     <div class="{call .rootClass/}__icon_share-wrapper">
                     {call .renderChild}
                       {param params: [
@@ -146,11 +150,16 @@
 {/template}
 
 /**
- * Div for cards filter category
+ * Div for cards' filter category
+ * @param category {string}
  */
 {template .cardCategory}
     <div class="{call .rootClass/}__card-category">
+        {if $category == 'theme'}
         ТЕМА
+        {else}
+        ФОНД
+        {/if}
     </div>
 {/template}
 

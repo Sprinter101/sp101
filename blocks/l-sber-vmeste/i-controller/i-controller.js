@@ -46,7 +46,7 @@ goog.scope(function() {
     */
     Controller.prototype.actionDisplayCategoryCard = function() {
         this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'card'}
+            'config' : {'headerType': 'card', 'category': 'theme'}
             });
         this.pageManager_.setCurrentPage('StartPage');
     };
