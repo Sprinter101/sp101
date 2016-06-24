@@ -17,6 +17,17 @@ sv.gInput.Input = function(view, opt_params, opt_domHelper) {
     goog.base(this, view, opt_params, opt_domHelper);
 
     /**
+     * Const enum
+     * @enum {number}
+     */
+    this.const = {
+        MAX_NUMBER: this.params.MAX_NUMBER ? 
+                            this.params.MAX_NUMBER : Infinity,
+        MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
+                            this.params.MAX_CHARACTERS : Infinity
+    };
+
+    /**
      * Possible validation type handlers
      * @type {Object}
      */
@@ -54,16 +65,6 @@ goog.scope(function() {
         INPUT: View.Event.INPUT,
         CHANGE: View.Event.CHANGE
     };
-
-    /**
-     * Const enum
-     * @enum {number}
-     */
-    Input.Const = {
-        MAX_DONATION_AMOUNT: 500000,
-        CHARACTERS_LIMIT: 6
-    };
-
 
     /**
      * @override
@@ -130,6 +131,22 @@ goog.scope(function() {
     };
 
     /**
+     * Execute a validation of given type and returns true
+     * if validation of given type not successful
+     * @param {string} validationType
+     * @return {boolean}
+     * @private
+     * @override
+     */
+    Input.prototype.doValidationType_ = function(validationType) {
+        var validationFunction =
+                this.validationTypeHandlers[validationType],
+            value = this.getValue();
+
+        return validationFunction ? !validationFunction.call(this, value) : false;
+    };
+
+    /**
     * Executes a constraint of given type
     * and assigns the returned string to the input value
     * @private
@@ -139,7 +156,7 @@ goog.scope(function() {
         var constraintFunction = this.constraintsHandlers[constraintType];
 
         var oldValue_ = this.getValue();
-        var newValue_ = constraintFunction(oldValue_);
+        var newValue_ = constraintFunction.call(this, oldValue_);
 
         this.setValue(newValue_);
     };
@@ -161,7 +178,7 @@ goog.scope(function() {
      * @return {boolean}
      */
     Input.prototype.constraintCharactersLimit_ = function(oldValue) {
-        return oldValue.slice(0, Input.Const.CHARACTERS_LIMIT);
+        return oldValue.slice(0, this.const.MAX_CHARACTERS);
     };
 
     /**
@@ -188,7 +205,7 @@ goog.scope(function() {
      */
     Input.prototype.validateMaxDonation_ = function(text) {
         var donationAmount = Number(text);
-        return !(donationAmount > Input.Const.MAX_DONATION_AMOUNT);
+        return !(donationAmount > this.const.MAX_NUMBER);
     };
 
 });  // goog.scope
