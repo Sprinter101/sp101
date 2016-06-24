@@ -63,7 +63,7 @@ gulp.task('fonts', function () {
 
 gulp.task('images', function () {
     return gulp.src([
-        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.png'),
+        path.join(__dirname + '/blocks/**/**/*.png'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')

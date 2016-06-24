@@ -127,11 +127,20 @@
                         'tabs': [
                             [
                                 'label': 'Темы',
-                                'content': 'Темы'
+                                'content': [
+                                    'childToRender': [
+                                        'type': 'CardList',
+                                        'renderParams': [
+                                            'data': []
+                                        ]
+                                    ]
+                                ],
                             ],
                             [
                                 'label': 'Фонды',
-                                'content': 'Фонды'
+                                'content': [
+                                    'text': 'Фонды'
+                                ]
                             ]
                         ]
                     ]
@@ -149,11 +158,15 @@
                         'tabs': [
                             [
                                 'label': '% от дохода',
-                                'content': '% от дохода'
+                                'content': [
+                                    'text': '% от дохода'
+                                ]
                             ],
                             [
                                 'label': 'Сумма',
-                                'content': 'Сумма'
+                                'content': [
+                                    'text': 'Сумма'
+                                ]
                             ]
                         ]
                     ],

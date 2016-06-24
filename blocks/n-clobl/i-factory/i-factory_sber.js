@@ -8,6 +8,8 @@ goog.require('sv.gTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
+goog.require('sv.lSberVmeste.bCardList.CardList');
+goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
@@ -66,7 +68,12 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('TabSber', {
             control: sv.gTab.Tab,
             view: sv.gTab.View
+        })
+        .setControlListItem('CardList', {
+            control: sv.lSberVmeste.bCardList.CardList,
+            view: sv.lSberVmeste.bCardList.View
         });
+
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
 goog.addSingletonGetter(sv.iFactory.FactorySber);
