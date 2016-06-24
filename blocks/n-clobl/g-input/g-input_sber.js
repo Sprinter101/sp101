@@ -44,7 +44,8 @@ sv.gInput.Input = function(view, opt_params, opt_domHelper) {
      */
     this.constraintsHandlers = {
         'digitsOnly': this.constraintDigitsOnly_,
-        'charactersLimit': this.constraintCharactersLimit_
+        'charactersLimit': this.constraintCharactersLimit_,
+        'noLeadingZero': this.constraintNoLeadingZero_
     };
 
 };
@@ -165,7 +166,7 @@ goog.scope(function() {
      * Removes all non-numeric characters from the string
      * @private
      * @param {string} oldValue
-     * @return {boolean}
+     * @return {string}
      */
     Input.prototype.constraintDigitsOnly_ = function(oldValue) {
         return oldValue.replace(/[\D]/g, '');
@@ -175,10 +176,20 @@ goog.scope(function() {
      * Removes all extra characters
      * @private
      * @param {string} oldValue
-     * @return {boolean}
+     * @return {string}
      */
     Input.prototype.constraintCharactersLimit_ = function(oldValue) {
         return oldValue.slice(0, this.const.MAX_CHARACTERS);
+    };
+
+    /**
+     * Removes zero if it's the only number in the input.
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintNoLeadingZero_ = function(oldValue) {
+        return oldValue.replace(/^0/, '');
     };
 
     /**
