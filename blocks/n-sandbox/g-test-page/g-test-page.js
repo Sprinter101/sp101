@@ -62,7 +62,10 @@ goog.scope(function() {
             this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
 
-        this.input_ = this.decorateChild('InputSber', domInput);
+        this.input_ = this.decorateChild('InputSber', domInput, {
+            MAX_NUMBER: 500000,
+            MAX_CHARACTERS: 6
+        });
     };
 
     /**

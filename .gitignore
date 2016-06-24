@@ -20,3 +20,6 @@
 
 # jshint config
 .jshintrc
+
+#for testing purposes
+app.js
