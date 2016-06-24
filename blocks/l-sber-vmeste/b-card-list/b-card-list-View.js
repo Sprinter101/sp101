@@ -23,4 +23,13 @@ goog.inherits(sv.lSberVmeste.bCardList.View, cl.iControl.View);
 goog.scope(function() {
     var View = sv.lSberVmeste.bCardList.View;
 
+    /**
+     * Css class enum
+     * @enum {string}
+     */
+    View.CssClass = {
+        ROOT: 'b-card-list',
+        CARDS_BLOCK: 'b-card-list__cards'
+    }
+
 });  // goog.scope
