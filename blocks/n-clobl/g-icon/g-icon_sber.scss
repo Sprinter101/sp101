@@ -10,20 +10,22 @@
 .g-icon_arrow-back_white {
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_white.png);
     background-size: contain;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .g-icon_arrow-back_grey {
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_grey.png);
     background-size: contain;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .g-icon_logo-sber {
-    display: inline-block;
-    float: left;
     width: 46px;
     height: 45px;
-    margin-left: 26px;
-    margin-top: 34px;
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_small.png);
     background-size: contain;
 }
