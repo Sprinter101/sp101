@@ -14,7 +14,10 @@ $buttonMeWidth: 56px;
     left: 0;
     overflow: hidden;
     height: 97px;
-    padding-bottom: 9px;
+}
+
+.b-header__wrapper_start {
+    height: 98px;
 }
 
 .b-header__wrapper_directions {
@@ -132,6 +135,9 @@ $buttonMeWidth: 56px;
     .b-header__wrapper {
         height: 110px;
     }
+    .b-header__wrapper_start {
+        height: 110px;
+    }
     .b-header__wrapper_directions {
     height: 110px;
     }
@@ -179,6 +185,9 @@ $buttonMeWidth: 56px;
 
 @include media-xl {
     .b-header__wrapper {
+        height: 107px;
+    }
+    .b-header__wrapper_start {
         height: 107px;
     }
     .b-header__wrapper_directions {
