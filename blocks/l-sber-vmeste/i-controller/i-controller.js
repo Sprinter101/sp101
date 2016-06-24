@@ -41,4 +41,24 @@ goog.scope(function() {
         this.pageManager_.setCurrentPage('TestPage');
     };
 
+    /**
+    * 'Display category card' action
+    */
+    Controller.prototype.actionDisplayCategoryCard = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'card'}
+            });
+        this.pageManager_.setCurrentPage('StartPage');
+    };
+
+    /**
+     * 'Donate' action
+     */
+    Controller.prototype.actionDonate = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'donate'}
+            });
+        this.pageManager_.setCurrentPage('StartPage');
+    };
+
 });  // goog.scope

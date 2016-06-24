@@ -17,52 +17,26 @@
  *  }}
  */
 {template .body}
-<div class="{call .rootClass/}__wrapper">
     {let $headerType: $params.config.headerType/}
-    {switch $headerType}
-        {case 'start'}
-            {call .renderChild}
-                {param params: [
-                    'type': 'IconSber',
-                    'renderParams': [
-                        'data': [],
-                        'config': [
-                        'iconStyles': ['logo-sber']
-                        ]
-                    ]
-                ]/}
-            {/call}
-            {call .renderChild}
-                {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': 'Я',
-                        ],
-                        'config': [
-                        'buttonStyles': 
-                        ['width_m', 'height_big', 'font_SFUI'],
-                        'customClasses': 
-                            ['b-header__button_me']
-                        ]
-                    ]
-                ]/}
-            {/call}
-            {call .more /}
-        {case 'directions'}
-            {call .renderChild}
-                {param params: [
-                    'type': 'IconSber',
-                    'renderParams': [
-                        'data': [],
-                        'config': [
-                            'iconStyles': ['arrow-back_white']
-                        ]
-                    ]
-                ]/}
-            {/call}
-            {call .renderChild}
-                      {param params: [
+    <div class="{call .rootClass/}__wrapper{sp}{call .rootClass/}__wrapper_{$headerType}">
+        {switch $headerType}
+            {case 'start'}
+                <div class="{call .rootClass/}__logo-wrapper">
+                    {call .renderChild}
+                        {param params: [
+                            'type': 'IconSber',
+                            'renderParams': [
+                                'data': [],
+                                'config': [
+                                'iconStyles': ['logo-sber']
+                                ]
+                            ]
+                        ]/}
+                    {/call}
+                </div>
+                <div class="{call .rootClass/}__button_me-wrapper">
+                    {call .renderChild}
+                        {param params: [
                             'type': 'ButtonSber',
                             'renderParams': [
                                 'data': [
@@ -76,48 +50,88 @@
                                 ]
                             ]
                         ]/}
-            {/call}
-            {call .more /}
-        {case 'card'}
-            {call .renderChild}
-                  {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['arrow-back_grey']
+                    {/call}
+                </div>
+                {call .more /}
+            {case 'directions'}
+                <div class="{call .rootClass/}__icon_arrow_back-wrapper">
+                    {call .renderChild}
+                        {param params: [
+                            'type': 'IconSber',
+                            'renderParams': [
+                                'data': [],
+                                'config': [
+                                    'iconStyles': ['arrow-back_white']
+                                ]
                             ]
-                        ]
-                    ]/}
-                {/call}
-                {call .cardCategory /}
+                        ]/}
+                    {/call}
+                </div>
+                <div class="{call .rootClass/}__button_me-wrapper">
+                    {call .renderChild}
+                              {param params: [
+                                    'type': 'ButtonSber',
+                                    'renderParams': [
+                                        'data': [
+                                            'content': 'Я',
+                                        ],
+                                        'config': [
+                                        'buttonStyles': 
+                                        ['width_m', 'height_big', 'font_SFUI'],
+                                        'customClasses': 
+                                            ['b-header__button_me']
+                                        ]
+                                    ]
+                                ]/}
+                    {/call}
+                </div>
+                {call .more /}
+            {case 'card'}
+                <div class="{call .rootClass/}__icon_arrow_back-wrapper">
+                    {call .renderChild}
+                          {param params: [
+                                'type': 'IconSber',
+                                'renderParams': [
+                                    'data': [],
+                                    'config': [
+                                        'iconStyles': ['arrow-back_grey']
+                                    ]
+                                ]
+                            ]/}
+                        {/call}
+                    </div>
+                    {call .cardCategory /}
+                    <div class="{call .rootClass/}__icon_share-wrapper">
+                    {call .renderChild}
+                      {param params: [
+                            'type': 'IconSber',
+                            'renderParams': [
+                                'data': [],
+                                'config': [
+                                    'iconStyles': ['share']
+                                ]
+                            ]
+                        ]/}
+                    {/call}
+                    </div>
+            {case 'donate'}
+            <div class="{call .rootClass/}__icon_arrow_back-wrapper">
                 {call .renderChild}
-                  {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['share']
+                      {param params: [
+                            'type': 'IconSber',
+                            'renderParams': [
+                                'data': [],
+                                'config': [
+                                    'iconStyles': ['arrow-back_white']
+                                ]
                             ]
-                        ]
-                    ]/}
+                        ]/}
                 {/call}
-        {case 'budget'}
-            {call .renderChild}
-                  {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['arrow-back_white']
-                            ]
-                        ]
-                    ]/}
-            {/call}
-            {call .tip /}
-            {call .infoLink /}
-    {/switch}
-</div>
+            </div>
+                {call .donate__type /}
+                {call .donate__tip /}
+        {/switch}
+    </div>
 {/template}
 
 /**
@@ -135,27 +149,27 @@
  * Div for cards filter category
  */
 {template .cardCategory}
-    <div class="{call .rootClass/}__category">
+    <div class="{call .rootClass/}__card-category">
         ТЕМА
     </div>
 {/template}
 
 /**
- * Div for cards filter category
+ * Template for donate type offer
  */
-{template .tip}
-    <div class="{call .rootClass/}__tip">
-        Выберите напрпавления или фонды, которым Вы готовы помогать
+{template .donate__type}
+    <div class="{call .rootClass/}__donate-type">
+        Выберите тип финансирования
     </div>
 {/template}
 
 /**
- * Div for 'what's it? link
+ * Div for tip about donate type
  */
-{template .infoLink}
-    <div class="{call .rootClass/}__info-link">
-        <div class="{call .rootClass/}__info-link-text">
-            Что это?
+{template .donate__tip}
+    <div class="{call .rootClass/}__donate-tip">
+        <div class="{call .rootClass/}__donate-tip-text">
+            Что делать?
         </div>
     </div>
 {/template}
