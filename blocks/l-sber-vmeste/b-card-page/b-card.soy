@@ -1,0 +1,77 @@
+{namespace sv.lSberVmeste.bCardPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass /}__top">
+        <div class="{call .rootClass /}__top-wrapper">
+            <div class="{call .rootClass /}__icon">
+                <div class="{call .rootClass /}__icon-image-wrapper">
+                    <img src="images/icon_345.png" alt="" class="{call .rootClass /}__icon-image">
+                </div>
+                <div class="{call .rootClass /}__icon-text">ПОМОЩЬ ДЕТЯМ</div>
+            </div>{sp}
+            <div class="{call .rootClass /}__card-info">
+                <div class="{call .rootClass /}__donations"> Ежемесячно 289 человек перечисляет</div>
+                <div class="{call .rootClass /}__amount">11 378 рублей</div>
+                {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Помогать',
+                            ],
+                            'config': [
+                                'buttonStyles': [
+                                    'background_transparent',
+                                    'border_green',
+                                    'border_thick'
+                                    ]
+                            ]
+                        ]
+                    ]/}
+                {/call}
+            </div>
+        </div>
+    </div>
+
+    <div class="{call .rootClass /}__description">
+        <div class="{call .rootClass /}__description-wrapper">
+            <div class="{call .rootClass /}__text-title">Помощь детям</div>
+            <div class="{call .rootClass /}__text">«Дорогие друзья! На сегодняшний день благотворительность — это, пожалуй, единственная территория, где люди не пытаются реализовывать свои амбиции и достигать каких-либо целей, кроме одной — бескорыстная помощь человеку. Деятельность нашего Фонда направлена на спасение детей с заболеваниями головного мозга. Любой, даже самый скромный ваш вклад очень важен. Ведь каждая спасенная жизнь — бесценна!»</div>
+        </div>
+    </div>
+
+    <div class="{call .rootClass /}__bottom">
+        <div class="{call .rootClass /}__bottom-wrapper">
+            <div class="{call .rootClass /}__directions-count">3 Направления</div>
+            <div class="{call .rootClass /}__directions">
+                {call .renderChild}
+                  {param params: [
+                        'type': 'CardList',
+                        'renderParams': [
+                            'data': []
+                        ]
+                    ]/}
+                {/call}
+            </div>
+        </div>
+    </div>
+
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-card-page
+{/template}

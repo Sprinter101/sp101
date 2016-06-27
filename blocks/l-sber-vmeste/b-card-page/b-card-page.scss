@@ -1,0 +1,131 @@
+@import '../../l-sber-vmeste/i-media/i-media.scss';
+
+.b-card-page {
+    background: #fff; 
+    font-family: AndaleMono;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 15px;
+}
+
+.b-card-page__top-wrapper,
+.b-card-page__description-wrapper,
+.b-card-page__bottom-wrapper {
+    padding: 30px 8% 30px 8%;
+}
+
+.b-card-page__top {
+    box-shadow: 0 2px 2px -1px gray;
+}
+
+.b-card-page__icon {
+    width: 180px;
+    margin-bottom: 30px;
+    vertical-align: bottom;
+    display: inline-block;
+}
+
+.b-card-page__icon-image-wrapper {
+    display: inline-block;
+}
+
+.b-card-page__icon-image {
+    display: block;
+}
+
+.b-card-page__icon-text {
+    margin-top: 17px;
+    font-size: 25px;
+}
+
+.b-card-page__donations {
+    line-height: 1.47;
+    color: #585858;
+}
+
+.b-card-page__amount {
+    margin-top: 5px;
+    margin-bottom: 30px;
+    font-size: 25px;
+}
+
+.b-card-page__description {
+    border-bottom: 2px solid #EBEBEB;
+}
+
+.b-card-page__text-title {
+    font-family: AffectBold;
+    color: #565656;
+} 
+
+.b-card-page__text {
+    text-align: left;
+    margin-top: 17px;
+
+}
+
+.b-card-page__directions-count {
+    font-family: AffectBold;
+    color: #565656;
+}
+
+.b-card-page__directions {
+    margin-top: 17px;
+}
+
+
+@include media-m {
+    .b-card-page {
+        width: 768px;
+        text-align: left;
+    }
+
+    .b-card-page__top-wrapper,
+    .b-card-page__description-wrapper,
+    .b-card-page__bottom-wrapper {
+        padding: 50px 130px 30px 130px;
+    }
+
+    .b-card-page__top-wrapper {
+        &:after {
+            content: '';
+            display: inline-block;
+            width: 100%;
+        }
+    }
+
+    .b-card-page__top {
+        text-align: justify;
+        box-shadow: 0 3px 2px -2px gray;
+    }
+    
+    .b-card-page__icon, 
+    .b-card-page__card-info {
+        display: inline-block;
+    }
+
+    .b-card-page__icon {
+        text-align: center;
+        margin: 0;
+    }
+
+    .b-card-page__card-info {
+        width: 200px;
+    }
+
+    .b-card-page__amount {
+        margin-top: 12px;
+    }
+
+    .b-card-page__text-title {
+        margin-left: 10px;
+    }
+
+    .b-card-page__directions-count {
+        margin-left: 10px;
+    }
+
+    .b-card-page__card-info {
+        margin-left: 30px;
+    }
+}
