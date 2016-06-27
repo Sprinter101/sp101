@@ -76,6 +76,4 @@ goog.scope(function() {
         );
     };
 
-     
-
 });  // goog.scope

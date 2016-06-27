@@ -14,8 +14,7 @@ goog.require('sv.lSberVmeste.bHeader.View');
  * @extends {cl.iControl.View}
  */
 sv.lSberVmeste.bHeaderManager.View = function(opt_params, 
-                                                opt_temp, 
-                                                opt_modifier)
+    opt_temp, opt_modifier)
 {
     goog.base(this, opt_params, opt_temp, opt_modifier);
 
@@ -34,6 +33,7 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-header-manager'
+
     };
 
     /**

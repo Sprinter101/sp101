@@ -13,17 +13,19 @@
  */
 {template .body autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__inner-wrap">
-        {call .renderChild}
-                  {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                            'iconStyles': ['logo-userfund']
+        <div class="{call .rootClass/}__icon_logo-userfund-wrapper">
+            {call .renderChild}
+                      {param params: [
+                            'type': 'IconSber',
+                            'renderParams': [
+                                'data': [],
+                                'config': [
+                                'iconStyles': ['logo-userfund']
+                                ]
                             ]
-                        ]
-                    ]/}
-        {/call}
+                        ]/}
+            {/call}
+        </div>
         {call .userFund /}
         {call .slogan /}
         {call .renderChild}

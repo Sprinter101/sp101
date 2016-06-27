@@ -25,8 +25,9 @@ goog.scope(function() {
      * 'Start' action
      */
     Controller.prototype.actionStart = function() {
-        this.headerManager_.setCurrentHeader('Header');
-        this.headerManager_.show();
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'start'}
+            });
         this.pageManager_.setCurrentPage('StartPage');
     };
 
@@ -34,7 +35,40 @@ goog.scope(function() {
     * 'Buttons test' action
     */
     Controller.prototype.actionTest = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'directions'}
+            });
         this.pageManager_.setCurrentPage('TestPage');
+    };
+
+    /**
+    * 'choose directions/theme/funds' action
+    */
+    Controller.prototype.actionChooseDirections = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'directions'}
+            });
+        this.pageManager_.setCurrentPage('StartPage');
+    };
+
+    /**
+    * 'Display category card' action
+    */
+    Controller.prototype.actionDisplayCategoryCard = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'card', 'category': 'theme'}
+            });
+        this.pageManager_.setCurrentPage('StartPage');
+    };
+
+    /**
+     * 'Donate' action
+     */
+    Controller.prototype.actionDonate = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'donate'}
+            });
+        this.pageManager_.setCurrentPage('StartPage');
     };
 
 });  // goog.scope

@@ -1,5 +1,11 @@
 @import "../i-media/i-media";
 
+.b-start-block__icon_logo-userfund-wrapper {
+    display: block;
+    width: 60px;
+    margin: 87px auto 0;
+}
+
 .b-start-block__userfund-name {
     margin: 49.5px auto 0;
     font-family: AndaleMono;
@@ -21,23 +27,28 @@
 
 .b-start-block__button_start {
     display: block;
-    margin: 29px auto 0;
+    margin: 29px auto 5px;
 }
 
 @include media-m {
+    .b-start-block__icon_logo-userfund-wrapper {
+        margin: 128px auto 0;
+    }
     .b-start-block__userfund-name {
-        margin: 26px auto;
+        margin: 26px auto 0;
     }
     .b-start-block__slogan {
-    margin: 26px auto;
+    margin: 26px auto 0;
     }
     .b-start-block__button_start {
-    margin: 48px auto;
+    margin: 48px auto 0;
     }
 }
 
 @include media-xl {
-
+    .b-start-block__icon_logo-userfund-wrapper {
+        margin: 86px auto 0;
+    }
     .b-start-block__userfund-name {
         margin: 33px auto 0;
     }

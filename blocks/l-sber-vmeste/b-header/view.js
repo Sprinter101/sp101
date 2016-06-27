@@ -3,7 +3,6 @@ goog.provide('sv.lSberVmeste.bHeader.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
-goog.require('sv.iUtils.Utils');
 
 
 
@@ -24,15 +23,15 @@ sv.lSberVmeste.bHeader.View = function(opt_params, opt_template, opt_modifier) {
 goog.inherits(sv.lSberVmeste.bHeader.View, cl.iControl.View);
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bHeader.View,
-        Utils = sv.iUtils.Utils;
+    var View = sv.lSberVmeste.bHeader.View;
 
     /**
      * Css class enum
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-header'
+        ROOT: 'b-header',
+        ARROW_BACK: 'g-icon_arrow-back'
     };
 
     /**
@@ -40,7 +39,7 @@ goog.scope(function() {
      * @enum {string}
      */
     View.Event = {
-
+        ARROW_BACK_CLICK: 'arrow-back-click'
     };
 
     /**
@@ -50,28 +49,34 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.dom.arrowBack = this.getElementByClass(
+            View.CssClass.ARROW_BACK
+        );
+
         };
+
+    /**
+     * Handles 'back' icon CLICK
+     * @param {goog.events.BrowserEvent} event Click event
+     * @protected
+     */
+    View.prototype.onArrowBackClick = function(event) {
+        this.dispatchEvent({
+             type: View.Event.ARROW_BACK_CLICK
+         });
+    };
 
     /**
      * @override
      */
-    /*View.prototype.enterDocument = function() {
+    View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-    };*/
-
-    /**
-     * Show header
-     */
-    View.prototype.show = function() {
-        goog.dom.classlist.remove(this.getElement(), Utils.CssClass.HIDDEN);
-    };
-
-    /**
-     * Hide header
-     */
-    View.prototype.hide = function() {
-        goog.dom.classlist.add(this.getElement(), Utils.CssClass.HIDDEN);
+        this.getHandler().listen(
+            this.dom.arrowBack,
+            goog.events.EventType.CLICK,
+            this.onArrowBackClick
+        );
     };
 
 });  // goog.scope
