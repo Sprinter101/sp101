@@ -41,7 +41,6 @@ goog.scope(function() {
      * @enum {string}
      */
     Header.Event = {
-        GO_TO_PREVIOUS_PAGE: 'go-to-previous-page'
     };
 
     /**
@@ -64,9 +63,6 @@ goog.scope(function() {
      */
     Header.prototype.onArrowBackClick = function(event) {
         Router.getInstance().returnLocation();
-        /*this.dispatchEvent({
-            type: Header.Event.GO_TO_PREVIOUS_PAGE
-           });*/
     };
 
     /**

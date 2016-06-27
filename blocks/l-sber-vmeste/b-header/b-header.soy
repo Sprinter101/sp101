@@ -39,8 +39,10 @@
             </div>
         {if $headerType == 'start'}
             <div class="{call .rootClass/}__icon_arrow_back-wrapper{sp}{call .hidden/}">
-        {else}
+        {elseif $headerType != 'card'}
             <div class="{call .rootClass/}__icon_arrow_back-wrapper">
+        {else}
+            <div class="{call .rootClass/}__icon_arrow_back-wrapper_white-header">
         {/if}
             {let $arrowColor: ($headerType == 'card') ? 'arrow-back_grey' : 'arrow-back_white'/}
                 {call .renderChild}
