@@ -37,4 +37,11 @@ goog.scope(function() {
         this.pageManager_.setCurrentPage('TestPage');
     };
 
+    /**
+    * 'Buttons test' action
+    */
+    Controller.prototype.actionListPage = function() {
+        this.pageManager_.setCurrentPage('ListPage');
+    };
+
 });  // goog.scope
