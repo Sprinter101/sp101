@@ -49,7 +49,7 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.arrowBack  = this.getElementByClass(
+        this.dom.arrowBack = this.getElementByClass(
             View.CssClass.ARROW_BACK
         );
 
