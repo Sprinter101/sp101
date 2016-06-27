@@ -8,5 +8,8 @@ goog.provide('sv.lSberVmeste.iRouter.Route');
 sv.lSberVmeste.iRouter.Route = {
     START: 'start',
     TEST: 'test',
-    'LIST_PAGE': 'listPage'
+    LIST_PAGE: 'listPage',
+    DIRECTIONS: 'directions',
+    CARD: 'card',
+    DONATE: 'donate'
 };

@@ -46,24 +46,9 @@ goog.scope(function() {
             this.getView().getDom().header
         );
 
-        this.headerType_ = 'Header';
+        this.headerType_ = 'start';
     };
 
-    /**
-     * Show header
-     * @protected
-     */
-    Manager.prototype.show = function() {
-        this.header_.show();
-    };
-
-    /**
-     * Hide header
-     * @protected
-     */
-    Manager.prototype.hide = function() {
-        this.header_.hide();
-    };
     /**
      * Set title
      * @protected
@@ -77,19 +62,28 @@ goog.scope(function() {
 
     /**
      * Change header
-     * @param {string} headerType
+     * @param {string} controlItem
      * @param {Object=} opt_params
      * @return {Object} Returns current header
      * @protected
      */
-    Manager.prototype.setCurrentHeader = function(headerType, opt_params) {
+    Manager.prototype.setCurrentHeader = function(controlItem, opt_params) {
+        var headerType = opt_params.config.headerType;
         if (headerType != this.headerType_) {
             this.removeChild(this.header_, true);
             this.headerType_ = headerType;
-            this.header_ = this.renderChild(headerType,
+            this.header_ = this.renderChild(controlItem,
                 this.getElement(), opt_params);
         }
 
+        return this.header_;
+    };
+
+    /**
+     * Return current header
+     * @return {sv.lSberVmeste.bHeader.Header}
+     */
+    Manager.prototype.getCurrentHeader = function() {
         return this.header_;
     };
 });  // goog.scope

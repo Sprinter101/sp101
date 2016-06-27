@@ -1,6 +1,6 @@
 @import '../i-media/i-media';
 
-$buttonWidth: 56px;
+$buttonMeWidth: 56px;
 
 .b-header {
     box-sizing: border-box;
@@ -13,30 +13,43 @@ $buttonWidth: 56px;
     top: 0;
     left: 0;
     overflow: hidden;
-    padding-bottom: 9px;
+    height: 97px;
 }
 
-.b-header__button_me {
+.b-header__wrapper_start {
+    height: 98px;
+}
+
+.b-header__wrapper_directions {
+    height: 121px;
+}
+
+.b-header__wrapper_card {
+    height: 84px;
+    background-color: #FFFFFF;
+}
+
+.b-header__wrapper_donate {
+    height: 104px;
+}
+
+.b-header__logo-wrapper {
+    display: inline-block;
+    float: left;
+    margin-left: 26px;
+    margin-top: 34px;
+}
+
+.b-header__button_me-wrapper {
     position: absolute;
     top: 30px;
     left: 50%;
     display: inline-block;
-    width: $buttonWidth;
-    height: $buttonWidth;
-    margin-left: -($buttonWidth / 2);
-    border: 1px solid #FFFFFF;
-
+    margin-left: -($buttonMeWidth / 2);
 }
 
-.b-header__button_plus {
-    position: absolute;
-    top: 41px;
-    left: 50%;
-    display: inline-block;
-    width: 13px;
-    height: 13px;
-    margin-left: 16px + $buttonWidth;
-    border: 1px solid #FFFFFF;
+.b-header__button_me {
+
 }
 
 .b-header__more-link {
@@ -57,43 +70,171 @@ $buttonWidth: 56px;
     color: #e7f038;
 }
 
+.b-header__icon_arrow_back-wrapper {
+    display: inline-block;
+    float: left;
+    margin-left: 28px;
+    margin-top: 36px;
+}
+
+.b-header__card-category {
+    position: absolute;
+    top: 42px;
+    left: 50%;
+    display: inline-block;
+    width: 41px;
+    height: 15px;
+    margin-left: -(41px /2);
+    font-family: AffectBold;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ff6666;
+}
+
+.b-header__donate-type {
+    position: absolute;
+    top: 41px;
+    left: 50%;
+    display: inline-block;
+    margin-left: -(190px / 2);
+    width: 190px;
+    height: 57px;
+    font-family: AndaleMono;
+    font-size: 17px;
+    font-weight: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.b-header__donate-tip {
+    display: inline-block;
+    float: right;
+    width: 86px;
+    height: 15px;
+    margin-top: 46px;
+    margin-right: 4px;
+    cursor: pointer;
+}
+
+.b-header__donate-tip-text {
+    font-family: AndaleMono, Arial, sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    text-align: center;
+    color: #e7f038;
+}
+
+.b-header__icon_share-wrapper {
+    display: inline-block;
+    float: right;
+    margin-right: 13px;
+    margin-top: 30px;
+}
+
 @include media-m {
+    .b-header__wrapper {
+        height: 110px;
+    }
+    .b-header__wrapper_start {
+        height: 110px;
+    }
+    .b-header__wrapper_directions {
+    height: 110px;
+    }
+    .b-header__wrapper_card {
+    height: 110px;
+    }
+    .b-header__wrapper_donate {
+        height: 102px;
+    }
     .b-header__logo-wrap {
         width: 207px;
         height: 50px;
         margin-left: 38px;
         margin-top: 39px;
     }
-    .b-header__button_me {
+    .b-header__button_me-wrapper {
         top: 32px;
     }
-    .b-header__button_plus {
-        top: 43px;
-    }
-    b-header__more-link {
+    .b-header__more-link {
         width: 86px;
         margin-top: 45px;
         margin-right: 40px;
     }
+    .b-header__icon_arrow_back-wrapper {
+        margin-left: 57px;
+    }
+    .b-header__card-category {
+        top: 46px;
+        width: 38px;
+        margin-left: -(38px /2);
+    }
+    .b-header__donate-type {
+        top: 42px;
+        width: 290px;
+        margin-left: -(290px /2);
+    }
+    .b-header__donate-tip {
+        margin-top: 45px;
+        margin-right: 40px;
+    }
+    .b-header__icon_share-wrapper {
+        margin-right: 45px;
+    }
 }
 
 @include media-xl {
+    .b-header__wrapper {
+        height: 107px;
+    }
+    .b-header__wrapper_start {
+        height: 107px;
+    }
+    .b-header__wrapper_directions {
+    height: 110px;
+    }
+    .b-header__wrapper_card {
+        width: 759px;
+        height: 116px;
+        margin: 0 auto;
+        border-radius: 7px 7px 0 0;
+    }
+    .b-header__wrapper_donate {
+        height: 102px;
+    }
     .b-header__logo-wrap {
         width: 207px;
         height: 50px;
         margin-left: 38px;
         margin-top: 39px;
     }
-    .b-header__button_me {
+    .b-header__button_me-wrapper {
         top: 35px;
-    }
-    .b-header__button_plus {
-        top: 46px;
     }
     .b-header__more-link {
         width: 215px;
         margin-top: 56px;
         margin-right: 0;
     }
-  
+    .b-header__icon_arrow_back-wrapper {
+        margin-left: 175px;
+    }
+    .b-header__card-category {
+        top: 41px;
+        width: 38px;
+        margin-left: -(38px /2);
+    }
+    .b-header__donate-type {
+        top: 42px;
+        width: 300px;
+        margin-left: -(320px / 2);
+    }
+    .b-header__donate-tip {
+        margin-top: 45px;
+        margin-right: 77px
+    }
+    .b-header__icon_share-wrapper {
+        margin-top: 25px;
+        margin-right: 42px;
+    }
 }
