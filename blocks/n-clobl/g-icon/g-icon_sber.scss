@@ -16,11 +16,17 @@
 .g-icon_arrow-back_white {
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_white.png);
     background-size: contain;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .g-icon_arrow-back_grey {
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_grey.png);
     background-size: contain;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .g-icon_logo-sber {
