@@ -24,7 +24,7 @@
     border-radius: 8px;
 }
 
-.b-page-start__userfunds-info {
+.b-page-start__userfunds-info-phrase {
     margin: 17px auto 0;
     opacity: 0.55;
     font-family: AndaleMono;
@@ -34,9 +34,14 @@
     color: #FFFFFF;
 }
 
-.b-page-start__button_userfunds-count {
+.b-page-start__userfunds-info-count {
     display: block;
     margin: 8px auto 0;
+    text-align: center;
+}
+
+.b-page-start__button_userfunds-count {
+
 }
 
 @include media-m {
