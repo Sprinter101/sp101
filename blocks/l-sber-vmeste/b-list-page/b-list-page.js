@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bListPage.ListPage');
 
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
+goog.require('sv.lSberVmeste.iRequest.Request');
 
 
 
