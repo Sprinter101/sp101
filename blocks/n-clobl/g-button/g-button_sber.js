@@ -7,14 +7,14 @@ goog.require('sv.gButton.View');
 
 /**
  * Button control
- * @param {Object} view
- * @param {Object=} opt_params
- * @param {Object=} opt_domHelper
+ * @param {sv.gButton.View} view View used to render or
+ *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  * @constructor
  * @extends {cl.gButton.Button}
  */
-sv.gButton.Button = function(view, opt_params, opt_domHelper) {
-    goog.base(this, view, opt_params, opt_domHelper);
+sv.gButton.Button = function(view, opt_domHelper) {
+    goog.base(this, view, opt_domHelper);
 
     this.setAllowTextSelection(false);
 };

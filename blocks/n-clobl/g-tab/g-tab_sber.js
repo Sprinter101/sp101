@@ -7,14 +7,14 @@ goog.require('sv.gTab.View');
 
 /**
  * Tab control
- * @param {Object} view
- * @param {Object=} opt_params
- * @param {Object=} opt_domHelper
+ * @param {sv.gTab.View} view View used to render or
+ *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  * @constructor
  * @extends {cl.gTab.Tab}
  */
-sv.gTab.Tab = function(view, opt_params, opt_domHelper) {
-    goog.base(this, view, opt_params, opt_domHelper);
+sv.gTab.Tab = function(view, opt_domHelper) {
+    goog.base(this, view, opt_domHelper);
 
     this.setAllowTextSelection(false);
 };
@@ -32,5 +32,5 @@ goog.scope(function() {
     Tab.Event = {
         TAB_SELECT: View.Event.TAB_SELECT
     };
-    
+
 });  // goog.scope
