@@ -65,7 +65,7 @@ goog.scope(function() {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'card', 'category': 'theme'}
             });
-        this.pageManager_.setCurrentPage('StartPage');
+        this.pageManager_.setCurrentPage('CardPage');
     };
 
     /**
