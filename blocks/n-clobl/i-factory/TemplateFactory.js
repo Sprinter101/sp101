@@ -10,6 +10,7 @@ goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
+goog.require('sv.lSberVmeste.bListPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
@@ -72,6 +73,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'InputSber',
             sv.gInput.Template.input
+        )
+        .setTemplateListItem(
+            'ListPage',
+            sv.lSberVmeste.bListPage.Template.page
         );
 
 };

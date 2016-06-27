@@ -42,6 +42,13 @@ goog.scope(function() {
     };
 
     /**
+    * 'List page' action
+    */
+    Controller.prototype.actionListPage = function() {
+        this.pageManager_.setCurrentPage('ListPage');
+    }
+
+    /**
     * 'choose directions/theme/funds' action
     */
     Controller.prototype.actionChooseDirections = function() {

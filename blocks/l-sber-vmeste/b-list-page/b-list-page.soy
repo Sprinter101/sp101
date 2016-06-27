@@ -1,0 +1,73 @@
+{namespace sv.lSberVmeste.bListPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+        {call .pathLine /}
+        <div class="{call .rootClass/}__content">
+            <div class="{call .rootClass/}__page-title">Выберите направления или фонды, которым Вы готовы помогать</div>
+            <div class="{call .rootClass/}__tab">
+                {call .renderChild}
+                  {param params: [
+                        'type': 'TabSber',
+                        'renderParams': [
+                            'data': [
+                                'tabs': [
+                                    [
+                                        'label': 'Темы',
+                                        'content': [
+                                            'childToRender': [
+                                                'type': 'CardList',
+                                                'renderParams': [
+                                                    'data': []
+                                                ]
+                                            ]
+                                        ],
+                                    ],
+                                    [
+                                        'label': 'Фонды',
+                                        'content': [
+                                            'childToRender': [
+                                                'type': 'CardList',
+                                                'renderParams': [
+                                                    'data': []
+                                                ]
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]/}
+                {/call}
+            </div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-list-page
+{/template}
+
+

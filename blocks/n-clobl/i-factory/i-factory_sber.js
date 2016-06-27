@@ -3,6 +3,8 @@ goog.provide('sv.iFactory.FactorySber');
 goog.require('cl.iFactory.Factory');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
+goog.require('sv.gInput.Input');
+goog.require('sv.gInput.View');
 goog.require('sv.gTab.Tab');
 goog.require('sv.gTab.View');
 goog.require('sv.gTestPage.TestPage');
@@ -12,6 +14,8 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
+goog.require('sv.lSberVmeste.bListPage.ListPage');
+goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
@@ -20,8 +24,6 @@ goog.require('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
-goog.require('sv.gInput.Input');
-goog.require('sv.gInput.View');
 
 
 
@@ -78,6 +80,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('InputSber', {
             control: sv.gInput.Input,
             view: sv.gInput.View
+        })
+        .setControlListItem('ListPage', {
+            control: sv.lSberVmeste.bListPage.ListPage,
+            view: sv.lSberVmeste.bListPage.View
         });
 
 };
