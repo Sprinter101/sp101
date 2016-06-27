@@ -70,7 +70,7 @@ goog.scope(function() {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'donate'}
             });
-        this.pageManager_.setCurrentPage('StartPage');
+        this.pageManager_.setCurrentPage('DonatePage');
     };
 
 });  // goog.scope

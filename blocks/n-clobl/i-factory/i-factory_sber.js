@@ -84,8 +84,8 @@ sv.iFactory.FactorySber = function() {
             view: sv.gButton.View
         })
         .setControlListItem('TabSber', {
-            control: cl.gTab.Tab,
-            view: cl.gTab.View
+            control: sv.gTab.Tab,
+            view: sv.gTab.View
         })
         .setControlListItem('CardList', {
             control: sv.lSberVmeste.bCardList.CardList,

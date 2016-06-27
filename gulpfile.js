@@ -2,8 +2,8 @@ const gulp = require('gulp');
 const util = require('gulp-util');
 const path = require('path');
 const args  = require('yargs').argv;
-//const livereload = require('gulp-livereload');
-//livereload({ start: true });
+const livereload = require('gulp-livereload');
+livereload({ start: true });
 
 
 const modulesPath = args.modulesPath || path.join(__dirname, 'node_modules');

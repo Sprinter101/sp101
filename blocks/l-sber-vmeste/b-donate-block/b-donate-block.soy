@@ -1,0 +1,127 @@
+{namespace sv.lSberVmeste.bDonateBlock.Template} 
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .block}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ * @param params {{
+ *     config: {
+ *         sumType: string
+ *     }
+ *  }}
+ */
+{template .body autoescape="strict" kind="html"}
+    {let $sumType: $params.config.sumType/}
+    <div class="{call .rootClass/}__inner-wrap">
+        {call .inputTip}
+            {param sumType: $sumType /}
+        {/call}
+         <div class="{call .rootClass/}__donation-choice">
+            {call .donation_choice}
+                {param sumType: $sumType /}
+            {/call}
+        </div>
+    </div>
+{/template}
+
+/**
+ * template for input's tip
+ * @param sumType string
+ */
+{template .inputTip autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__input-tip">
+    {if $sumType == 'fixedSum'}
+         Сумма ежемесячного пожертвования
+    {else}
+        Укажите свой месячный доход
+    {/if}
+    </div>
+{/template}
+
+/**
+ * template for choosing donation type
+ * @param sumType string
+ */
+{template .donation_choice autoescape="strict" kind="html"}
+    {if $sumType == 'fixedSum'}
+    <div class="{call .rootClass/}__input">
+    {else}
+    <div class="{call .rootClass/}__input{sp}{call .hidden/}">
+    {/if}
+         {call .renderChild}
+              {param params: [
+                    'type': 'InputSber',
+                    'renderParams': [
+                        'data': [
+                            'inputType': 'text',
+                            'placeholder': '0'
+                        ],
+                        'config': [
+                            'validations': [
+                                'notEmpty',
+                                'digits',
+                                'maxDonation'
+                            ],
+                            'constraints': [
+                                'digitsOnly',
+                                'charactersLimit',
+                                'noLeadingZero'
+                            ],
+                            'customClasses': ['b-donate-block__input-fixed-sum']
+                        ]
+                    ]
+                ]/}
+        {/call}
+    </div>
+    {if $sumType == 'fixedSum'}
+     <div class="{call .rootClass/}__slider{sp}{call .hidden/}">
+     {else}
+    <div class="{call .rootClass/}__slider">
+    {/if}
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': '0'
+                    ],
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'digits',
+                            'maxDonation'
+                        ],
+                        'constraints': [
+                            'digitsOnly',
+                            'charactersLimit',
+                            'noLeadingZero'
+                        ],
+                        'customClasses': ['b-donate-block__input-income']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-donate-block
+{/template}
+
+/**
+ * Additional class for hiding unwanted 
+ * element for this tab content
+ */
+{template .hidden}
+    i-utils__hidden
+{/template}
