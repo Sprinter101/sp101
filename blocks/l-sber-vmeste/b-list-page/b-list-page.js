@@ -36,7 +36,7 @@ goog.scope(function() {
 
         var domTabSber = this.getView().getDom().tabSber;
 
-        this.tabSber_ = this.decorateChild('TabSber', domTabSber)
+        this.tabSber_ = this.decorateChild('TabSber', domTabSber);
 
     };
 

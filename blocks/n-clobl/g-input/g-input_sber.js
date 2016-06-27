@@ -7,21 +7,21 @@ goog.require('sv.gInput.View');
 
 /**
  * Input control
- * @param {Object} view
- * @param {Object=} opt_params
- * @param {Object=} opt_domHelper
+ * @param {sv.gInput.View} view View used to render or
+ *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  * @constructor
  * @extends {cl.gInput.Input}
  */
-sv.gInput.Input = function(view, opt_params, opt_domHelper) {
-    goog.base(this, view, opt_params, opt_domHelper);
+sv.gInput.Input = function(view, opt_domHelper) {
+    goog.base(this, view, opt_domHelper);
 
     /**
      * Const enum
      * @enum {number}
      */
     this.const = {
-        MAX_NUMBER: this.params.MAX_NUMBER ? 
+        MAX_NUMBER: this.params.MAX_NUMBER ?
                             this.params.MAX_NUMBER : Infinity,
         MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
                             this.params.MAX_CHARACTERS : Infinity
@@ -137,14 +137,14 @@ goog.scope(function() {
      * @param {string} validationType
      * @return {boolean}
      * @private
-     * @override
      */
     Input.prototype.doValidationType_ = function(validationType) {
         var validationFunction =
                 this.validationTypeHandlers[validationType],
             value = this.getValue();
 
-        return validationFunction ? !validationFunction.call(this, value) : false;
+        return validationFunction ?
+                        !validationFunction.call(this, value) : false;
     };
 
     /**

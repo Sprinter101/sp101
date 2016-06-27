@@ -46,7 +46,7 @@ goog.scope(function() {
     */
     Controller.prototype.actionListPage = function() {
         this.pageManager_.setCurrentPage('ListPage');
-    }
+    };
 
     /**
     * 'choose directions/theme/funds' action
