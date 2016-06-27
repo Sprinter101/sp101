@@ -25,7 +25,7 @@ $buttonMeWidth: 56px;
 }
 
 .b-header__wrapper_card {
-    height: 84px;
+    height: 68px;
     background-color: #FFFFFF;
 }
 
@@ -71,6 +71,13 @@ $buttonMeWidth: 56px;
 }
 
 .b-header__icon_arrow_back-wrapper {
+    display: inline-block;
+    float: left;
+    margin-left: 28px;
+    margin-top: 36px;
+}
+
+.b-header__icon_arrow_back-wrapper_white-header {
     display: inline-block;
     float: left;
     margin-left: 28px;
@@ -142,7 +149,9 @@ $buttonMeWidth: 56px;
     height: 110px;
     }
     .b-header__wrapper_card {
-    height: 110px;
+        width: 768px;
+        height: 68px;
+        margin: 0 auto;
     }
     .b-header__wrapper_donate {
         height: 102px;
@@ -164,6 +173,9 @@ $buttonMeWidth: 56px;
     .b-header__icon_arrow_back-wrapper {
         margin-left: 57px;
     }
+    .b-header__icon_arrow_back-wrapper_white-header {
+        margin-left: 49px;
+    }
     .b-header__card-category {
         top: 46px;
         width: 38px;
@@ -183,6 +195,21 @@ $buttonMeWidth: 56px;
     }
 }
 
+@include media-l {
+    .b-header__wrapper {
+        height: 107px;
+    }
+    .b-header__wrapper_card {
+        width: 768px;
+        height: 68px;
+        margin: 0 auto;
+        border-radius: 7px 7px 0 0;
+    }
+    .b-header__icon_arrow_back-wrapper_white-header {
+        margin-left: 49px;
+    }
+}
+
 @include media-xl {
     .b-header__wrapper {
         height: 107px;
@@ -194,8 +221,8 @@ $buttonMeWidth: 56px;
     height: 110px;
     }
     .b-header__wrapper_card {
-        width: 759px;
-        height: 116px;
+        width: 768px;
+        height: 66px;
         margin: 0 auto;
         border-radius: 7px 7px 0 0;
     }
@@ -218,6 +245,9 @@ $buttonMeWidth: 56px;
     }
     .b-header__icon_arrow_back-wrapper {
         margin-left: 175px;
+    }
+    .b-header__icon_arrow_back-wrapper_white-header {
+        margin-left: 42.5px;
     }
     .b-header__card-category {
         top: 41px;
