@@ -81,7 +81,7 @@ goog.scope(function() {
      */
     StartPage.prototype.onChangePage = function(event) {
 
-        Router.getInstance().changeLocation(Route.TEST);
+        Router.getInstance().changeLocation(Route.DIRECTIONS);
     };
 
 });  // goog.scope

@@ -42,6 +42,16 @@ goog.scope(function() {
     };
 
     /**
+    * 'choose directions/theme/funds' action
+    */
+    Controller.prototype.actionChooseDirections = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'directions'}
+            });
+        this.pageManager_.setCurrentPage('StartPage');
+    };
+
+    /**
     * 'Display category card' action
     */
     Controller.prototype.actionDisplayCategoryCard = function() {
