@@ -5,7 +5,7 @@ goog.require('cl.gTab.View');
 
 
 /**
- * Button View
+ * Tab View
  * @param {Object=} opt_params
  * @param {Function=} opt_template
  * @param {string=} opt_modifier
@@ -41,4 +41,18 @@ goog.scope(function() {
     View.Event = {
         TAB_SELECT: 'tab-select'
     };
+
+    /**
+     * @override
+     * @param {Element} element
+     */
+    View.prototype.decorateInternal = function(element) {
+        goog.base(this, 'decorateInternal', element);
+        
+        this.dom.contentTabs = this.getElementsByClass(
+            View.CssClass.CONTENT,
+            this.getElement()
+        );
+    };
+
 });  // goog.scope
