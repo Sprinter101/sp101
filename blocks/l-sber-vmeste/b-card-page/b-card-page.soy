@@ -16,30 +16,15 @@
         <div class="{call .rootClass /}__top-wrapper">
             <div class="{call .rootClass /}__icon">
                 <div class="{call .rootClass /}__icon-image-wrapper">
-                    <img src="images/icon_345.png" alt="" class="{call .rootClass /}__icon-image">
+                    <img src="images/l-sber-vmeste/b-card-page/icon_345.png" alt="" class="{call .rootClass /}__icon-image">
                 </div>
                 <div class="{call .rootClass /}__icon-text">ПОМОЩЬ ДЕТЯМ</div>
             </div>{sp}
             <div class="{call .rootClass /}__card-info">
                 <div class="{call .rootClass /}__donations"> Ежемесячно 289 человек перечисляет</div>
                 <div class="{call .rootClass /}__amount">11 378 рублей</div>
-                {call .renderChild}
-                  {param params: [
-                        'type': 'ButtonSber',
-                        'renderParams': [
-                            'data': [
-                                'content': 'Помогать',
-                            ],
-                            'config': [
-                                'buttonStyles': [
-                                    'background_transparent',
-                                    'border_green',
-                                    'border_thick'
-                                    ]
-                            ]
-                        ]
-                    ]/}
-                {/call}
+                <div class="{call .rootClass /}__card-button"></div>
+                <div class="{call .rootClass /}__stop-helping i-utils__hidden">Остановить</div>
             </div>
         </div>
     </div>
