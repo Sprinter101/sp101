@@ -27,6 +27,24 @@
                 {param sumType: $sumType /}
             {/call}
         </div>
+        <div class="{call .rootClass/}__button-wrapper">
+            {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Продолжить',
+                            ],
+                            'config': ['customClasses': 
+                                ['b-donate-block__button_continue']
+                            ]
+                        ]
+                    ]/}
+            {/call}
+        </div>
+        {call .result}
+            {param sumType: $sumType /}
+        {/call}
     </div>
 {/template}
 
@@ -49,11 +67,7 @@
  * @param sumType string
  */
 {template .donation_choice autoescape="strict" kind="html"}
-    {if $sumType == 'fixedSum'}
-    <div class="{call .rootClass/}__input">
-    {else}
-    <div class="{call .rootClass/}__input{sp}{call .hidden/}">
-    {/if}
+    <div class="{call .rootClass/}__input-fixed{if $sumType != 'fixedSum'}{sp}{call .hidden/}{/if}">
          {call .renderChild}
               {param params: [
                     'type': 'InputSber',
@@ -79,11 +93,7 @@
                 ]/}
         {/call}
     </div>
-    {if $sumType == 'fixedSum'}
-     <div class="{call .rootClass/}__slider{sp}{call .hidden/}">
-     {else}
-    <div class="{call .rootClass/}__slider">
-    {/if}
+    <div class="{call .rootClass/}__input-income{if $sumType != 'income'}{sp}{call .hidden/}{/if}">
         {call .renderChild}
             {param params: [
                 'type': 'InputSber',
@@ -109,7 +119,24 @@
             ]/}
         {/call}
     </div>
+     <div class="{call .rootClass/}__slider{if $sumType != 'income'}{sp}{call .hidden/}{/if}">
+        ПОЛЗУНОК
+    </div>
 {/template}
+
+/**
+ * template for result's phrase
+ * @param sumType string
+ */
+{template .result autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__result{if $sumType != 'income'}{sp}{call .hidden/}{/if}">
+        Итого в месяц
+        <div class="{call .rootClass/}__result-sum">
+            370 рублей
+        </div>
+    </div>
+{/template}
+
 
 /**
  * @override

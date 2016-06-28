@@ -29,8 +29,9 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
     */
     this.donationTabs = null;
 
-    this.donateBlock_ = null;
-
+    //this.donateBlock_ = null;
+    this.donateBlockFixedSum_ = null;
+    this.donateBlockMonthlyIncome_ = null;
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
@@ -52,9 +53,16 @@ goog.scope(function() {
         this.donationTabs_ = this.decorateChild('TabSber',
         donationTabs);
 
-        this.donateBlock_ = this.decorateChild('DonateBlock',
+        this.donateBlockFixedSum_ = this.decorateChild('DonateBlock',
+            this.getView().getDom().donateBlockFixedSum);
+        //console.log(this.donateBlock_);
+        this.donateBlockMonthlyIncome_ = this.decorateChild('DonateBlock',
+            this.getView().getDom().donateBlockMonthlyIncome);
+            console.log(this.donateBlockMonthlyIncome_);
+
+        /*this.donateBlock_ = this.decorateChild('DonateBlock',
             this.getView().getDom().donateBlock);
-        console.log(this.donateBlock_);
+        console.log(this.donateBlock_);*/
 
     };
 
