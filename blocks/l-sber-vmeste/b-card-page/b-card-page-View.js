@@ -1,6 +1,8 @@
 goog.provide('sv.lSberVmeste.bCardPage.View');
 
 goog.require('cl.iControl.Control');
+goog.require('goog.dom.classlist');
+goog.require('sv.iUtils.Utils');
 
 
 
@@ -12,9 +14,8 @@ goog.require('cl.iControl.Control');
  * @constructor
  * @extends {cl.iControl.View}
 */
-sv.lSberVmeste.bCardPage.View = function(opt_params, 
-                                            opt_template, 
-                                            opt_modifier) {
+sv.lSberVmeste.bCardPage.View = function(opt_params, opt_template, 
+    opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.lSberVmeste.bCardPage.View.CssClass.ROOT);
@@ -30,8 +31,10 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-card-page',
-        START_HELPING_BUTTON: 'g-button_sber',
+        BUTTON_CONTAINER: 'b-card-page__card-button',
         CARD_LIST: 'b-card-list',
+        STOP_HELPING_LINK: 'b-card-page__stop-helping',
+        HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN,
     };
 
     /**
@@ -41,9 +44,32 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.startHelpingButton = this.getElementByClass(
-                                View.CssClass.START_HELPING_BUTTON);
-        this.dom.cardList = this.getElementByClass(View.CssClass.CARD_LIST);
+        this.dom.buttonContainer = this.getElementByClass(
+            View.CssClass.BUTTON_CONTAINER);
+        this.dom.cardList = this.getElementByClass(
+            View.CssClass.CARD_LIST);
+        this.dom.stopHelpingLink = this.getElementByClass(
+            View.CssClass.STOP_HELPING_LINK);
+    };
+
+    /**
+    * Shows stop helping link
+    */
+    View.prototype.showStopHelpingLink = function() {
+        goog.dom.classlist.remove(
+            this.dom.stopHelpingLink,
+            View.CssClass.HIDDEN
+        );
+    };
+
+    /**
+    * Hides stop helping link
+    */
+    View.prototype.hideStopHelpingLink = function() {
+        goog.dom.classlist.add(
+            this.dom.stopHelpingLink,
+            View.CssClass.HIDDEN
+        );
     };
 
 });  // goog.scope

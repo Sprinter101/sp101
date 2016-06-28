@@ -6,10 +6,8 @@ goog.require('sv.gButton.Button');
 
 
 /**
- * @param {sv.lSberVmeste.bCardPage.View} view View used to render or
- *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
- *     document interaction.
+ * @param {sv.lSberVmeste.bCardPage.View} view 
+ * @param {goog.dom.DomHelper=} opt_domHelper 
  * @constructor
  * @extends {cl.iControl.Control}
  */
@@ -17,10 +15,16 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
+    * @type {Boolean}
+    * @private
+    */
+    this.isUserHelping_ = true;
+
+    /**
     * @type {sv.gButton.Button}
     * @private
     */
-    this.startHelpingButton_ = null;
+    this.cardButton_ = null;
 
     /**
     * @type {sv.lSberVmeste.bCardList.CardList}
@@ -42,13 +46,15 @@ goog.scope(function() {
     CardPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domStartHelpingButton = this.getView()
-                                        .getDom().startHelpingButton,
-            domCardList = this.getView().getDom().cardList;
+        var domCardList = this.getView().getDom().cardList;
 
-        this.startHelpingButton_ = this.decorateChild(
-                                            'ButtonSber',
-                                             domStartHelpingButton);
+        if (this.isUserHelping_) {
+            this.setHelpingButton_();
+            this.getView().showStopHelpingLink();
+        } else {
+            this.setStartHelpingButton_();
+        }
+
         this.cardList_ = this.decorateChild('CardList', domCardList);
     };
 
@@ -59,19 +65,142 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         goog.events.listen(
-            this.startHelpingButton_,
-            Button.Event.CLICK,
-            this.onButtonClick_
+            this.getView().getDom().stopHelpingLink,
+            goog.events.EventType.CLICK,
+            this.onStopHelpingLinkClick_,
+            null,
+            this
         );
     };
 
     /**
-    * Button click handler
-    * @param {Event} event
+    * Start helping button click handler
     * @private
     */
-    CardPage.prototype.onButtonClick_ = function(event) {
-        console.log(event.target.element_);
+    CardPage.prototype.onStartHelpingButtonClick_ = function() {
+        this.setThanksButton_();
+
+        this.getView().showStopHelpingLink();
+    };
+
+    /**
+    * Stop helping link clikc handler
+    * @private
+    */
+    CardPage.prototype.onStopHelpingLinkClick_ = function() {
+        this.setStartHelpingButton_();
+
+        this.getView().hideStopHelpingLink();
+    };
+
+    /**
+    * renders Start helping buttons
+    * @private
+    */
+    CardPage.prototype.setStartHelpingButton_ = function() {
+        this.disposeButton_();
+
+        var buttonConfig = {
+            'data': {
+                'content': 'Помогать',
+            },
+            'config': {
+                'buttonStyles': [
+                    'background_transparent',
+                    'border_green',
+                    'border_thick'
+                ]
+            }
+        };
+
+        this.renderButton_(buttonConfig);
+
+        goog.events.listen(
+            this.cardButton_,
+            Button.Event.CLICK,
+            this.onStartHelpingButtonClick_,
+            null,
+            this
+        );
+    };
+
+    /**
+    * renders helping button
+    * @private
+    */
+    CardPage.prototype.setHelpingButton_ = function() {
+        this.disposeButton_();
+
+        var buttonConfig = {
+            'data': {
+                'content': 'Помогаете 4 месяцa',
+            },
+            'config': {
+                'buttonStyles': [
+                    'background_green',
+                    'border_green',
+                    'border_thick',
+                    'font-size_smaller',
+                    'width_l'
+                ]
+            }
+        };
+
+        this.renderButton_(buttonConfig);
+    };
+
+    /**
+    * renders Thanks button
+    * @private
+    */
+    CardPage.prototype.setThanksButton_ = function() {
+        this.disposeButton_();
+
+        var buttonConfig = {
+            'data': {
+                'content': 'Спасибо!',
+            },
+            'config': {
+                'buttonStyles': [
+                    'background_green',
+                    'border_green',
+                    'border_thick'
+                ]
+            }
+        };
+
+        this.renderButton_(buttonConfig);
+    };
+
+    /**
+    * Button renderer
+    * @param {{
+    *   data {{
+    *       content {string}
+    *   }},
+    *   config {{
+    *       buttonStyles {Array}
+    *   }}
+    * }} buttonConfig
+    * @private
+    */
+    CardPage.prototype.renderButton_ = function(buttonConfig) {
+        var domButtonContainer = this.getView().getDom().buttonContainer;
+
+        this.cardButton_ = this.renderChild('ButtonSber',
+                                             domButtonContainer,
+                                             buttonConfig);
+    };
+
+    /**
+    * Removes the current button
+    * @private
+    */
+    CardPage.prototype.disposeButton_ = function() {
+        if (this.cardButton_) {
+            this.cardButton_.dispose();
+            this.cardButton_ = null;
+        }
     };
 
 });  // goog.scope
