@@ -41,4 +41,28 @@ goog.scope(function() {
     View.Event = {
         TAB_SELECT: 'tab-select'
     };
+
+    /**
+     * @override
+     * @param {Element} element
+     */
+    View.prototype.decorateInternal = function(element) {
+        goog.base(this, 'decorateInternal', element);
+
+        this.dom.contentElements = this.getElementsByClass(
+                                                View.CssClass.CONTENT
+                                    );
+    };
+
+    /**
+     * Get child block params
+     * @param {Element} childBlock
+     * @return {Object}
+     */
+    View.prototype.getChildParams = function(childBlock) {
+        var dataParams = JSON.parse(goog.dom.dataset.get(childBlock,
+                                                        'params'));
+        return dataParams;
+    };
+
 });  // goog.scope

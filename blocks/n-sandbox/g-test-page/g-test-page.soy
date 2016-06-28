@@ -18,8 +18,6 @@
     {call .icons_ /}
     <div class="{call .rootClass /}__title">Табы</div>
     {call .tab_ /}
-    <div class="{call .rootClass /}__title">Инпут</div>
-    {call .input_ /}
 {/template}
 
 /**
@@ -131,9 +129,27 @@
                                 'label': 'Темы',
                                 'content': [
                                     'childToRender': [
-                                        'type': 'CardList',
-                                        'renderParams': [
-                                            'data': []
+                                        'type': 'InputSber',
+                                        'soyParams': [
+                                            'data': [
+                                                'inputType': 'text'
+                                            ],
+                                            'config': [
+                                                'validations': [
+                                                    'notEmpty',
+                                                    'digits',
+                                                    'maxDonation'
+                                                ],
+                                                'constraints': [
+                                                    'digitsOnly',
+                                                    'charactersLimit',
+                                                    'noLeadingZero'
+                                                ]
+                                            ]
+                                        ],
+                                        'jsParams': [
+                                            'MAX_NUMBER': 500000,
+                                            'MAX_CHARACTERS': 6
                                         ]
                                     ]
                                 ],
@@ -145,32 +161,6 @@
                                 ]
                             ]
                         ]
-                    ]
-                ]
-            ]/}
-        {/call}
-    </div>
-
-    <div class="{call .rootClass /}__element">
-        {call .renderChild}
-          {param params: [
-                'type': 'TabSber',
-                'renderParams': [
-                    'data': [
-                        'tabs': [
-                            [
-                                'label': '% от дохода',
-                                'content': [
-                                    'text': '% от дохода'
-                                ]
-                            ],
-                            [
-                                'label': 'Сумма',
-                                'content': [
-                                    'text': 'Сумма'
-                                ]
-                            ]
-                        ]
                     ],
                     'config': [
                         'tabClasses': [
@@ -178,36 +168,8 @@
                         ]
                     ]
                 ]
-            ]
-        /}
+            ]/}
         {/call}
     </div>
-{/template}
 
-/**
-* Input template
-*/
-{template .input_ autoescape="strict" kind="html"}
-    {call .renderChild}
-      {param params: [
-            'type': 'InputSber',
-            'renderParams': [
-                'data': [
-                    'inputType': 'text'
-                ],
-                'config': [
-                    'validations': [
-                        'notEmpty',
-                        'digits',
-                        'maxDonation'
-                    ],
-                    'constraints': [
-                        'digitsOnly',
-                        'charactersLimit',
-                        'noLeadingZero'
-                    ]
-                ]
-            ]
-        ]/}
-    {/call}
 {/template}

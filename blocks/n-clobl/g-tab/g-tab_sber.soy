@@ -19,7 +19,8 @@
  *             content: {
  *                  childToRender: {
  *                      type: string,
- *                      renderParams: list
+ *                      soyParams: Object,
+ *                      jsParams: Object
  *                  },
  *                  text: ?string
  *             }
@@ -52,13 +53,27 @@
 /**
  * Content template
  * @param params {{
- *     hidden: ?bool
+ *     hidden: ?bool,
+ *     content: {
+ *         childToRender: {
+ *             type: string
+ *         }
+ *     }
  * }}
  * @override
  */
 {template .content}
+    {let $type: $params.content?.childToRender?.type /}
     <div class="{call .rootClass/}__content
-        {$params?.hidden ? ' i-utils__hidden' : ''}{call .contentClasses data="all" /}">
+        {$params?.hidden ? ' i-utils__hidden' : ''}{call .contentClasses data="all" /}"
+        {if $type}
+            {let $data: [
+                'type': $params.content.childToRender.type,
+                'jsParams': $params.content.childToRender.jsParams
+            ]/}
+            {sp}data-params="{call goog.json.serialize data="$data" /}"
+        {/if}
+        >
         {call .innerContent data="all"/}
     </div>
 {/template}
@@ -80,7 +95,7 @@
  * @param params {{
  *          childToRender: {
  *              type: string,
- *              renderParams: list
+ *              soyParams: list
  *          },
  *          text: ?string
  *     }
@@ -100,7 +115,7 @@
  * @param params {{
  *          childToRender: {
  *              type: string,
- *              renderParams: list
+ *              soyParams: list
  *          },
  *          text: ?string
  *     }
@@ -108,11 +123,11 @@
  */
 {template .renderInnerContent_ autoescape="strict" kind="html"}
     {let $type: $params.content.childToRender.type /}
-    {let $renderParams: $params.content.childToRender.renderParams /}
+    {let $soyParams: $params.content.childToRender.soyParams /}
     {call .renderChild}
       {param params: [
             'type': $type,
-            'renderParams': $renderParams
+            'renderParams': $soyParams
         ]/}
     {/call}
 {/template}
