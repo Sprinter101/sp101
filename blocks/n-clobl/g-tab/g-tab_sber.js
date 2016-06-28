@@ -15,8 +15,6 @@ goog.require('sv.gTab.View');
  */
 sv.gTab.Tab = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
-
-    this.setAllowTextSelection(false);
 };
 goog.inherits(sv.gTab.Tab, cl.gTab.Tab);
 

@@ -16,13 +16,7 @@
  *     data: {
  *         tabs: list<{
  *             label: ?string,
- *             content: {
- *                  childToRender: {
- *                      type: string,
- *                      renderParams: list
- *                  },
- *                  text: ?string
- *             }
+ *             text: ?string
  *         }>,
  *         selectedTabId: ?number
  *     },
@@ -78,41 +72,13 @@
 /**
  * Inner content template
  * @param params {{
- *          childToRender: {
- *              type: string,
- *              renderParams: list
- *          },
  *          text: ?string
- *     }
  * }}
  * @override
  */
 {template .innerContent}
-    {if $params?.content?.childToRender}
-        {call .renderInnerContent_ data="all" /}
-    {else}
-        {$params?.content?.text}
+    {let $text: $params?.content?.text /}
+    {if $text}
+        {$text}
     {/if}
-{/template}
-
-/**
- * Renders inner content
- * @param params {{
- *          childToRender: {
- *              type: string,
- *              renderParams: list
- *          },
- *          text: ?string
- *     }
- * }}
- */
-{template .renderInnerContent_ autoescape="strict" kind="html"}
-    {let $type: $params.content.childToRender.type /}
-    {let $renderParams: $params.content.childToRender.renderParams /}
-    {call .renderChild}
-      {param params: [
-            'type': $type,
-            'renderParams': $renderParams
-        ]/}
-    {/call}
 {/template}
