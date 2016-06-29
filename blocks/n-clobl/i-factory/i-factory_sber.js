@@ -20,6 +20,12 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
+goog.require('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
+goog.require('sv.lSberVmeste.bDonationFixedBlock.View');
+goog.require('sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock');
+goog.require('sv.lSberVmeste.bDonationPercentBlock.View');
+goog.require('sv.lSberVmeste.bDonatePage.DonatePage');
+goog.require('sv.lSberVmeste.bDonatePage.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
@@ -111,13 +117,43 @@ sv.iFactory.FactorySber = function() {
             control: sv.gTab.gListTab.Tab,
             view: sv.gTab.gListTab.View
         })
-        .setControlListItem('IconSber', {
+         .setControlListItem('IconSber', {
             control: cl.gIcon.Icon,
             view: cl.gIcon.View
         })
-        .setControlListItem('ListPageUserBlock', {
+	 .setControlListItem('ListPageUserBlock', {
             control: sv.lSberVmeste.bUserBlock.UserBlock,
             view: sv.lSberVmeste.bUserBlock.View
+        })
+	  .setControlListItem('DonatePage', {
+            control: sv.lSberVmeste.bDonatePage.DonatePage,
+            view: sv.lSberVmeste.bDonatePage.View
+        .setControlListItem('CardPage', {
+            control: sv.lSberVmeste.bCardPage.CardPage,
+            view: sv.lSberVmeste.bCardPage.View
+        })
+        .setControlListItem('Card', {
+            control: sv.lSberVmeste.bCard.Card,
+            view: sv.lSberVmeste.bCard.View
+        })
+        .setControlListItem('ListTab', {
+            control: sv.gTab.gListTab.Tab,
+            view: sv.gTab.gListTab.View
+        })
+         .setControlListItem('IconSber', {
+            control: cl.gIcon.Icon,
+            view: cl.gIcon.View
+        })
+	  .setControlListItem('DonatePage', {
+            control: sv.lSberVmeste.bDonatePage.DonatePage,
+            view: sv.lSberVmeste.bDonatePage.View
+	.setControlListItem('DonationFixedBlock', {
+            control: sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
+            view: sv.lSberVmeste.bDonationFixedBlock.View
+        })
+        .setControlListItem('DonationPercentBlock', {
+            control: sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock,
+            view: sv.lSberVmeste.bDonationPercentBlock.View
         });
 
 };

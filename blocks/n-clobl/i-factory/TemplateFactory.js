@@ -11,6 +11,9 @@ goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
+goog.require('sv.lSberVmeste.bDonationFixedBlock.Template');
+goog.require('sv.lSberVmeste.bDonationPercentBlock.Template');
+goog.require('sv.lSberVmeste.bDonatePage.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
@@ -19,7 +22,6 @@ goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.Template');
-//goog.require('sv.lSberVmeste.bSlider.Template');
 
 
 
@@ -102,6 +104,18 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'ListPageUserBlock',
             sv.lSberVmeste.bUserBlock.Template.userBlock
+        )
+	.setTemplateListItem(
+            'DonatePage',
+            sv.lSberVmeste.bDonatePage.Template.page
+        )
+        .setTemplateListItem(
+            'DonationFixedBlock',
+            sv.lSberVmeste.bDonationFixedBlock.Template.block
+        )
+        .setTemplateListItem(
+            'DonationPercentBlock',
+            sv.lSberVmeste.bDonationPercentBlock.Template.block
         );
 
 };

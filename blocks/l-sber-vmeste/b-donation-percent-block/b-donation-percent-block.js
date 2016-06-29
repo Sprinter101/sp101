@@ -1,38 +1,31 @@
-goog.provide('sv.lSberVmeste.bDonateBlock.DonateBlock');
+goog.provide('sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock');
 
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.gInput.Input');
 goog.require('sv.gButton.Button');
-goog.require('sv.lSberVmeste.bDonateBlock.View');
+goog.require('sv.lSberVmeste.bDonationPercentBlock.View');
 
 
 
 /**
- * sv.lSberVmeste.bDonateBlock.DonateBlock control
- * @param {sv.lSberVmeste.bDonateBlock.View} view View used to render or
+ * sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock control
+ * @param {sv.lSberVmeste.bDonationPercentBlock.View} view View used to render or
  *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  *     document interaction.
  * @constructor
  * @extends {'cl.iControl.Control'}
  */
-sv.lSberVmeste.bDonateBlock.DonateBlock = function(view, opt_domHelper) {
+sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
     * @type {sv.gInput.Input}
     * @private
     */
-    this.fixedSum_ = null;
-
-    /**
-    * input for donator's monthly revenue
-    * @type {sv.gInput.Input}
-    * @private
-    */
-    this.monthlyIncome_ = null;
+    this.monthlyIncome = null;
 
     /**
     * @type {sv.gButton.Button}
@@ -41,12 +34,12 @@ sv.lSberVmeste.bDonateBlock.DonateBlock = function(view, opt_domHelper) {
     this.buttonReady_ = null;
 
 };
-goog.inherits(sv.lSberVmeste.bDonateBlock.DonateBlock, cl.iControl.Control);
+goog.inherits(sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock, cl.iControl.Control);
 
 
 goog.scope(function() {
-    var DonateBlock = sv.lSberVmeste.bDonateBlock.DonateBlock,
-        View = sv.lSberVmeste.bDonateBlock.View,
+    var DonationPercentBlock = sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock,
+        View = sv.lSberVmeste.bDonationPercentBlock.View,
         Input = sv.gInput.Input,
         Button = sv.gButton.Button;
 
@@ -54,7 +47,7 @@ goog.scope(function() {
      * Event enum
      * @enum {string}
      */
-    DonateBlock.Event = {
+    DonationPercentBlock.Event = {
         INPUT_FOCUS: 'input-focus',
         INPUT_CHANGE: 'input-change',
         SLIDER_MOVE: 'slider-move',
@@ -66,20 +59,13 @@ goog.scope(function() {
     * @override
     * @param {Element} element
     */
-    DonateBlock.prototype.decorateInternal = function(element) {
+    DonationPercentBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-        this.fixedSum_ = this.decorateChild('InputSber',
-            this.getView().getDom().fixedSum, {
+        this.monthlyIncome_ = this.decorateChild('InputSber',
+            this.getView().getDom().input, {
             MAX_NUMBER: 500000,
             MAX_CHARACTERS: 6
         });
-
-         this.monthlyIncome_ = this.decorateChild('InputSber',
-            this.getView().getDom().income, {
-            MAX_NUMBER: 500000,
-            MAX_CHARACTERS: 76
-        });
-        console.log("monthly income input: ", this.monthlyIncome_);
 
         this.buttonReady_ = this.decorateChild('ButtonSber',
             this.getView().getDom().buttonReady
@@ -89,38 +75,28 @@ goog.scope(function() {
     /**
     * @override
     */
-    DonateBlock.prototype.enterDocument = function() {
+    DonationPercentBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
         this.getHandler()
             .listen(
-                this.fixedSum_,
+                this.monthlyIncome_,
                 Input.Event.FOCUS,
-                this.onfixedSumFocus
+                this.onMonthlyIncomeFocus
             ).listen(
-                this.fixedSum_,
+                this.monthlyIncome_,
                 Input.Event.BLUR,
-                this.onfixedSumBlur
+                this.onMonthlyIncomeBlur
             )
             .listen(
-                this.fixedSum_,
+                this.monthlyIncome_,
                 Input.Event.CHANGE,
-                this.onfixedSumChange
+                this.onMonthlyIncomeChange
             )
             .listen(
                 this.buttonReady_,
                 Button.Event.CLICK,
                 this.onButtonReadyClick
-            )
-            .listen(
-                this.monthlyIncome_,
-                Input.Event.FOCUS,
-                this.onMonthlyIncomeFocus
-                )
-            .listen(
-                this.monthlyIncome_,
-                Input.Event.CHANGE,
-                this.onMonthlyIncomeChange
             );
 
 
@@ -130,7 +106,7 @@ goog.scope(function() {
      * Focus event handler
      * @param {sv.gInput.Event.Focus} event
      */
-    DonateBlock.prototype.onfixedSumFocus = function(event) {
+    DonationPercentBlock.prototype.onMonthlyIncomeFocus = function(event) {
         var input = this.getElementByClass('g-input__input', this);
         goog.dom.setProperties(input, {'placeholder': ""});
     };
@@ -139,7 +115,7 @@ goog.scope(function() {
      * Blur event handler
      * @param {sv.gInput.Input.Event.Blur} event
      */
-    DonateBlock.prototype.onfixedSumBlur = function(event) {
+    DonationPercentBlock.prototype.onMonthlyIncomeBlur = function(event) {
         console.log('blur');
         var input = this.getElementByClass('g-input__input', this);
         goog.dom.setProperties(input, {'placeholder': "0"});
@@ -149,37 +125,20 @@ goog.scope(function() {
      * Change event handler
      * @param {sv.gInput.Input.Event.Change} event
      */
-     DonateBlock.prototype.onfixedSumChange = function(event) {
+     DonationPercentBlock.prototype.onMonthlyIncomeChange = function(event) {
         console.log('changed');
     };
 
      /**
-     * Focus event handler
-     * @param {sv.gInput.Event.Focus} event
-     */
-    DonateBlock.prototype.onMonthlyIncomeFocus = function(event) {
-        var input = this.getElementByClass('g-input__input', this);
-        goog.dom.setProperties(input, {'placeholder': ""});
-    };
-
-    /**
-     * Change event handler
-     * @param {sv.gInput.Input.Event.Change} event
-     */
-     DonateBlock.prototype.onMonthlyIncomeChange = function(event) {
-        console.log('changed');
-    };
-
-    /**
      * Handles ready button CLICK
      * @param {sv.gButton.Button.Event.CLICK} event
      * @protected
      */
-    DonateBlock.prototype.onButtonReadyClick = function(event) {
+    DonationPercentBlock.prototype.onButtonReadyClick = function(event) {
         console.log("Ready button click");
-        this.fixedSum_.onBlur();
+        this.monthlyIncome_.onBlur();
         this.dispatchEvent({
-             type: DonateBlock.Event.BUTTON_READY_CLICK
+             type: DonationPercentBlock.Event.BUTTON_READY_CLICK
          });
     };
 

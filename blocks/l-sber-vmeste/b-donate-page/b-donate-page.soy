@@ -23,12 +23,11 @@
                                 'label': 'Сумма',
                                 'content': [
                                     'childToRender': [
-                                        'type': 'DonateBlock',
+                                        'type': 'DonationFixedBlock',
                                         'renderParams': [
                                             'data': [],
                                             'config': [
-                                                'sumType': 'fixedSum',
-                                                'customClasses': ['b-page-donate__fixed-sum-block']
+                                                'customClasses': ['b-page-donate__fixed-block']
                                             ]
                                         ]
                                     ]
@@ -38,12 +37,11 @@
                                 'label': '% от дохода',
                                  'content': [
                                     'childToRender': [
-                                        'type': 'DonateBlock',
+                                        'type': 'DonationPercentBlock',
                                         'renderParams': [
                                             'data': [],
                                             'config': [
-                                                'sumType': 'income',
-                                                'customClasses': ['b-page-donate__monthly-income-block']
+                                               'customClasses': ['b-page-donate__percent-block']
                                             ]
                                         ]
                                     ]

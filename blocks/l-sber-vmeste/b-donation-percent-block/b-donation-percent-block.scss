@@ -1,48 +1,23 @@
 @import '../i-media/i-media';
 
-.b-donate-block__inner-wrap {
-    //border: 1px solid red;
-
-}
-
-.b-donate-block__choice__fixed-sum {
-    display: block;
-    margin: 43px auto 0;
-}
-
-.b-donate-block__choice__income-percent {
+.b-donation-percent-block__choice__income-percent {
     display: block;
     margin: 43px auto 0;
     border: 1px solid green;
 }
 
-.b-donate-block__user-income {
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    border: 1px solid blue;
-}
-
-.b-donate-block__input_income {
+.b-donation-percent-block__input {
     display: inline-block;
     //margin: 0 auto;
 }
 
-.b-donate-block__input-tip {
-    
-    text-align: center;
-    color: #FFFFFF;
-    font-family: SFUIDisplay;
-    font-size: 14px;
-}
-
-.b-donate-block__donation-percent {
+.b-donation-percent-block__donation-percent {
     display: block;
     margin-top: 43px;
     text-align: center;
 }
 
-.b-donate-block__slider-tip {
+.b-donation-percent-block__slider-tip {
     display: none;
     color: #FFFFFF;
     font-family: SFUIDisplay;
@@ -52,7 +27,7 @@
     line-height: 1em;
 }
 
-.b-donate-block__slider {
+.b-donation-percent-block__slider {
     display: block;
     width: 290px;
     margin: 0 auto;
@@ -63,11 +38,11 @@
      line-height: 1em;
 }
 
-.b-donate-block__result {
+.b-donation-percent-block__result {
     margin-top: 71px;
 }
 
-.b-donate-block__result-phrase {
+.b-donation-percent-block__result-phrase {
     text-align: center;
     color: #e7f038;
     font-family: SFUIDisplay;
@@ -75,7 +50,7 @@
     font-weight: normal;
 }
 
-.b-donate-block__result-sum {
+.b-donation-percent-block__result-sum {
     text-align: center;
     color: #e7f038;
     font-family: AndaleMono;
@@ -85,80 +60,80 @@
     line-height: 1em;
 }
 
-.b-donate-block__button-wrapper {
+.b-donation-percent-block__button-wrapper {
     margin-top: 43px;
     text-align: center;
 }
 
 @include media-m {
-    .b-donate-block__choice__income-percent {
+    .b-donation-percent-block__choice__income-percent {
         display: block;
         margin: 0 auto;
     }
-    .b-donate-block__user-income {
+    .b-donation-percent-block__user-income {
         display: inline-block;
         margin: 96px 59px 0 58px;
         text-align: center;
     }
-    .b-donate-block__donation-percent {
+    .b-donation-percent-block__donation-percent {
         display: inline-block;
         margin-top: 96px;
         text-align: center;
     }
-    .b-donate-block__slider-tip {
+    .b-donation-percent-block__slider-tip {
         display: block;
     //margin-top: 96px;
     }
-    .b-donate-block__slider {
+    .b-donation-percent-block__slider {
         display: block;
         
     }
-    .b-donate-block__result {
+    .b-donation-percent-block__result {
         margin-top: 119px;
     }
 }
 
 @include media-l {
-    .b-donate-block__choice__income-percent {
+    .b-donation-percent-block__choice__income-percent {
         display: block;
         margin: 0 auto;
     }
-    .b-donate-block__user-income {
+    .b-donation-percent-block__user-income {
         display: inline-block;
         margin: 96px 59px 0 58px;
         text-align: center;
     }
-    .b-donate-block__donation-percent {
+    .b-donation-percent-block__donation-percent {
         display: inline-block;
         margin-top: 96px;
         text-align: center;
     }
-    .b-donate-block__slider-tip {
+    .b-donation-percent-block__slider-tip {
         display: block;
     //margin-top: 96px;
     }
 }
 
     @include media-xl {
-        .b-donate-block__choice__income-percent {
+        .b-donation-percent-block__choice__income-percent {
         display: block;
         margin: 0 auto;
         }
-        .b-donate-block__user-income {
+        .b-donation-percent-block__user-income {
             display: inline-block;
             margin: 96px 59px 0 194px;
             text-align: center;
         }
-        .b-donate-block__donation-percent {
+        .b-donation-percent-block__donation-percent {
             display: inline-block;
             margin-top: 96px;
             text-align: center;
         }
-        .b-donate-block__slider-tip {
+        .b-donation-percent-block__slider-tip {
             display: block;
         //margin-top: 96px;
         }
-        .b-donate-block__slider {
+        .b-donation-percent-block__slider {
             display: block;
             //margin: 50px auto 0;
         }

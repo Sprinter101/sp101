@@ -1,4 +1,4 @@
-goog.provide('sv.lSberVmeste.bDonateBlock.View');
+goog.provide('sv.lSberVmeste.bDonationPercentBlock.View');
 
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
@@ -7,24 +7,24 @@ goog.require('goog.events.EventType');
 
 
 /**
- * sv.lSberVmeste.bDonateBlock.View
+ * sv.lSberVmeste.bDonationPercentBlock.View
  * @param {Object=} opt_params
  * @param {Function=} opt_template
  * @param {string=} opt_modifier
  * @constructor
  * @extends {'cl.iControl.View'}
  */
-sv.lSberVmeste.bDonateBlock.View = function(opt_params,
+sv.lSberVmeste.bDonationPercentBlock.View = function(opt_params,
     opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
-    this.setCssClass(sv.lSberVmeste.bDonateBlock.View.CssClass.ROOT);
+    this.setCssClass(sv.lSberVmeste.bDonationPercentBlock.View.CssClass.ROOT);
 };
-goog.inherits(sv.lSberVmeste.bDonateBlock.View, cl.iControl.View);
+goog.inherits(sv.lSberVmeste.bDonationPercentBlock.View, cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bDonateBlock.View;
+    var View = sv.lSberVmeste.bDonationPercentBlock.View;
 
 
     /**
@@ -33,9 +33,8 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-donate-block',
-        FIXED_SUM: 'b-donate-block__input_fixed-sum',
-        MONTHLY_INCOME: 'b-donate-block__input_income',
-        BUTTON_READY: 'b-donate-block__button_ready'
+        MONTHLY_INCOME: 'b-donation-percent-block__input',
+        BUTTON_READY: 'b-donation-percent-block__button_ready'
     };
 
     /**
@@ -56,10 +55,7 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.fixedSum = this.getElementByClass(
-            View.CssClass.FIXED_SUM, element
-        );
-        this.dom.income = this.getElementByClass(
+        this.dom.input = this.getElementByClass(
             View.CssClass.MONTHLY_INCOME, element
         );
         console.log("income input: ", this.dom.income);

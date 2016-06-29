@@ -35,8 +35,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-page-donate',
         TAB: 'g-tab_sber',
-        DONATE_BLOCK_FIXED_SUM: 'b-page-donate__fixed-sum-block',
-        DONATE_BLOCK_MONTHLY_INCOME: 'b-page-donate__monthly-income-block'
+        DONATE_BLOCK_FIXED_SUM: 'b-page-donate__fixed-block',
+        DONATE_BLOCK_PERCENT: 'b-page-donate__percent-block'
     };
 
     /**
@@ -52,8 +52,8 @@ goog.scope(function() {
         this.dom.donateBlockFixedSum = this.getElementByClass(
             View.CssClass.DONATE_BLOCK_FIXED_SUM, element
         );
-        this.dom.donateBlockMonthlyIncome = this.getElementByClass(
-            View.CssClass.DONATE_BLOCK_MONTHLY_INCOME, element
+        this.dom.donateBlockPercent = this.getElementByClass(
+            View.CssClass.DONATE_BLOCK_PERCENT, element
         );
     };
 

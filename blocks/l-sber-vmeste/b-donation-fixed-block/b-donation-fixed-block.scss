@@ -1,0 +1,31 @@
+@import '../i-media/i-media';
+
+.b-donation-fixed-block__inner-wrap {
+    //border: 1px solid red;
+
+}
+
+.b-donation-fixed-block__input-tip {
+    
+    text-align: center;
+    color: #FFFFFF;
+    font-family: SFUIDisplay;
+    font-size: 14px;
+}
+
+.b-donate-block__button-wrapper {
+    margin-top: 43px;
+    text-align: center;
+}
+
+@include media-m {
+   
+}
+
+@include media-l {
+    
+}
+
+    @include media-xl {
+        
+}
