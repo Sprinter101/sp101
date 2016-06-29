@@ -19,7 +19,7 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     * @type {sv.gTab.Tab}
     * @private
     */
-    this.tabSber_ = null;
+    this.listTab_ = null;
 };
 goog.inherits(sv.lSberVmeste.bListPage.ListPage, sv.lSberVmeste.iPage.Page);
 
@@ -34,17 +34,10 @@ goog.scope(function() {
     ListPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domTabSber = this.getView().getDom().tabSber;
+        var domListTab = this.getView().getDom().listTab;
 
-        this.tabSber_ = this.decorateChild('TabSber', domTabSber);
+        this.listTab_ = this.decorateChild('ListTab', domListTab);
 
-    };
-
-    /**
-    * @override
-    */
-    ListPage.prototype.enterDocument = function() {
-        goog.base(this, 'enterDocument');
     };
 
 });  // goog.scope
