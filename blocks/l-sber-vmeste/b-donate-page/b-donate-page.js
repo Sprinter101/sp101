@@ -1,4 +1,4 @@
-goog.provide('sv.lSberVmeste.bDonatePage.DonatePage'); 
+goog.provide('sv.lSberVmeste.bDonatePage.DonatePage');
 
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
@@ -25,12 +25,21 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
      /**
     * tab for choosing donation type
     * @type {sv.gTab.Tab}
-    * @private
     */
     this.donationTabs = null;
 
-    //this.donateBlock_ = null;
+    /**
+    * donation block for fixed sum
+    * @type {sv.bDonateBlock.DonateBlock}
+    * @private
+    */
     this.donateBlockFixedSum_ = null;
+
+    /**
+    * donation block for user's income precent
+    * @type {sv.bDonateBlock.DonateBlock}
+    * @private
+    */
     this.donateBlockMonthlyIncome_ = null;
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
@@ -38,9 +47,9 @@ goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
 goog.scope(function() {
     var DonatePage = sv.lSberVmeste.bDonatePage.DonatePage,
-    Route = sv.lSberVmeste.iRouter.Route,
-    Router = sv.lSberVmeste.iRouter.Router,
-    View = sv.lSberVmeste.bDonatePage.View;
+        Route = sv.lSberVmeste.iRouter.Route,
+        Router = sv.lSberVmeste.iRouter.Router,
+        View = sv.lSberVmeste.bDonatePage.View;
 
     /**
     * @override
@@ -55,15 +64,9 @@ goog.scope(function() {
 
         this.donateBlockFixedSum_ = this.decorateChild('DonateBlock',
             this.getView().getDom().donateBlockFixedSum);
-        //console.log(this.donateBlock_);
+
         this.donateBlockMonthlyIncome_ = this.decorateChild('DonateBlock',
             this.getView().getDom().donateBlockMonthlyIncome);
-            console.log(this.donateBlockMonthlyIncome_);
-
-        /*this.donateBlock_ = this.decorateChild('DonateBlock',
-            this.getView().getDom().donateBlock);
-        console.log(this.donateBlock_);*/
-
     };
 
     /**

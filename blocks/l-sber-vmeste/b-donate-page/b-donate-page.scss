@@ -1,3 +1,5 @@
 .b-page-donate__tabs_money {
-    text-align: center;
+    &:first-child {
+        text-align: center;
+    }
 }

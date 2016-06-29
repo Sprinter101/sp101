@@ -73,5 +73,20 @@
 
     .g-tab__content_transparent {
         padding: 0;
+        width: 100%;
+    }
+}
+
+@include media-l {
+    .g-tab__content_transparent {
+        padding: 0;
+        width: 100%;
+    }
+}
+
+@include media-xl {
+    .g-tab__content_transparent {
+        padding: 0;
+        width: 100%;
     }
 }

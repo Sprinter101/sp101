@@ -26,15 +26,27 @@ goog.inherits(sv.lSberVmeste.bDonateBlock.View, cl.iControl.View);
 goog.scope(function() {
     var View = sv.lSberVmeste.bDonateBlock.View;
 
+
     /**
      * Css class enum
      * @enum {string}
      */
     View.CssClass = {
         ROOT: 'b-donate-block',
-        //INPUT: 'g-input_sber',
-        FIXED_SUM: 'b-donate-block__input-fixed-sum',
-        MONTHLY_INCOME: 'b-donate-block__input-income'
+        FIXED_SUM: 'b-donate-block__input_fixed-sum',
+        MONTHLY_INCOME: 'b-donate-block__input_income',
+        BUTTON_READY: 'b-donate-block__button_ready'
+    };
+
+    /**
+     * Event enum
+     * @enum {string}
+     */
+    View.Event = {
+        INPUT_FOCUS: 'input-focus',
+        INPUT_CHANGE: 'input-change',
+        SLIDER_MOVE: 'slider-move',
+        BUTTON_READY_CLICK: 'button-ready-click'
     };
 
     /**
@@ -44,10 +56,16 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        //this.dom.input = this.getElementByClass(View.CssClass.INPUT);
-        this.dom.fixedSum = this.getElementByClass(View.CssClass.FIXED_SUM);
-        this.dom.income = this.getElementByClass(View.CssClass.MONTHLY_INCOME);
-
+        this.dom.fixedSum = this.getElementByClass(
+            View.CssClass.FIXED_SUM, element
+        );
+        this.dom.income = this.getElementByClass(
+            View.CssClass.MONTHLY_INCOME, element
+        );
+        console.log("income input: ", this.dom.income);
+        this.dom.buttonReady = this.getElementByClass(
+            View.CssClass.BUTTON_READY, element
+        );
     };
 
     /**
@@ -57,6 +75,5 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
     };
-
 
 });  // goog.scope

@@ -67,7 +67,8 @@ goog.scope(function() {
         NOT_VALID: 'notValid',
         BLUR: View.Event.BLUR,
         INPUT: View.Event.INPUT,
-        CHANGE: View.Event.CHANGE
+        CHANGE: View.Event.CHANGE,
+        FOCUS: View.Event.FOCUS
     };
 
     /**
@@ -87,6 +88,7 @@ goog.scope(function() {
         );
 
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
+        this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
     };
 
     /**
@@ -121,6 +123,7 @@ goog.scope(function() {
         }
         return isValid;
     };
+
 
     /**
      * Input handler
