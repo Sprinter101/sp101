@@ -16,6 +16,8 @@ goog.require('sv.lSberVmeste.bCard.View');
  */
 sv.lSberVmeste.bCard.Card = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
+
+    this.cardId_ = this.params.cardId;
 };
 goog.inherits(sv.lSberVmeste.bCard.Card, cl.iControl.Control);
 
@@ -46,10 +48,12 @@ goog.scope(function() {
     * @private
     */
     Card.prototype.onCardClick_ = function(event) {
-        console.log('click');
+        var customEvent = new goog.events.Event(Card.Event.CLICK, this);
 
-        this.dispatchEvent({
-            type: Card.Event.CLICK
-        });
+        customEvent.payload = {
+            cardId: this.params.cardId
+        };
+
+        this.dispatchEvent(customEvent);
     };
 });  // goog.scope
