@@ -7,6 +7,7 @@ goog.require('sv.gIcon.Template');
 goog.require('sv.gInput.Template');
 goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
+goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
@@ -86,6 +87,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'ListTab',
             sv.gTab.Template.tab
+        )
+        .setTemplateListItem(
+            'Card',
+            sv.lSberVmeste.bCard.Template.main
         );
 
 };

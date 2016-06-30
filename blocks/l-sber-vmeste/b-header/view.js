@@ -18,7 +18,6 @@ sv.lSberVmeste.bHeader.View = function(opt_params, opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.lSberVmeste.bHeader.View.CssClass.ROOT);
-
 };
 goog.inherits(sv.lSberVmeste.bHeader.View, cl.iControl.View);
 
@@ -52,8 +51,7 @@ goog.scope(function() {
         this.dom.arrowBack = this.getElementByClass(
             View.CssClass.ARROW_BACK
         );
-
-        };
+    };
 
     /**
      * Handles 'back' icon CLICK
@@ -62,8 +60,8 @@ goog.scope(function() {
      */
     View.prototype.onArrowBackClick = function(event) {
         this.dispatchEvent({
-             type: View.Event.ARROW_BACK_CLICK
-         });
+            type: View.Event.ARROW_BACK_CLICK
+        });
     };
 
     /**
