@@ -12,9 +12,8 @@ goog.require('sv.lSberVmeste.iPage.View');
  * @constructor
  * @extends {sv.lSberVmeste.iPage.View}
  */
-sv.lSberVmeste.bListPage.View = function(opt_params,
-                                            opt_template,
-                                            opt_modifier)
+sv.lSberVmeste.bListPage.View = function(opt_params, opt_template,
+    opt_modifier)
 {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
@@ -33,7 +32,7 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-list-page',
-        TAB: 'g-tab_sber'
+        LIST_TAB: 'g-tab_sber'
     };
 
     /**
@@ -43,13 +42,10 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.tabSber = this.getElementByClass(View.CssClass.TAB);
+        this.dom.listTab = this.getElementByClass(
+            View.CssClass.LIST_TAB,
+            this.getElement()
+        );
     };
 
-    /**
-     * @override
-     */
-    View.prototype.enterDocument = function() {
-        goog.base(this, 'enterDocument');
-    };
 });  // goog.scope
