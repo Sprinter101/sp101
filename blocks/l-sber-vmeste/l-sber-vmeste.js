@@ -1,8 +1,8 @@
 goog.provide('sv.lSberVmeste.SberVmeste');
 
 goog.require('cl.iControl.Control');
-goog.require('sv.lSberVmeste.iController.Controller');
 goog.require('cl.iRequest.Request');
+goog.require('sv.lSberVmeste.iController.Controller');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 

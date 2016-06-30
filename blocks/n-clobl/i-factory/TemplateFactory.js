@@ -87,6 +87,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'Card',
             sv.lSberVmeste.bCard.Template.main
+        )
+        .setTemplateListItem(
+            'ListTab',
+            sv.gTab.Template.tab
         );
 
 };
