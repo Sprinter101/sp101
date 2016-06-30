@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bCardList.CardList');
 
 goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
+goog.require('sv.lSberVmeste.bCard.Card');
 
 
 
@@ -33,7 +34,8 @@ goog.inherits(sv.lSberVmeste.bCardList.CardList, cl.iControl.Control);
 
 goog.scope(function() {
     var CardList = sv.lSberVmeste.bCardList.CardList,
-        request = cl.iRequest.Request.getInstance();
+        request = cl.iRequest.Request.getInstance(),
+        Card = sv.lSberVmeste.bCard.Card;
 
     /**
      * Card list events
@@ -41,7 +43,7 @@ goog.scope(function() {
      */
     CardList.Event = {
         USER_CHOICE_PRESENT: 'user-choice-present'
-    }
+    };
 
     /**
      * @override
@@ -79,20 +81,34 @@ goog.scope(function() {
      */
     CardList.prototype.renderCards = function(cards) {
         var domCardsBlock = this.getView().getDom().cardsBlock;
+        console.log(cards);
 
         for (var i = 0; i < cards.length; i++) {
-            var cardTitle = cards[i].title;
-            var el = goog.dom.createElement('div');
-            el.innerText = cardTitle;
-            this.cards_.push(el);
-            goog.dom.appendChild(domCardsBlock, el);
-        };
+
+            var card = cards[i];
+
+            cardParams = {
+                data: {
+                    logoSrc: 'http://lorempixel.com/79/87/?hash' +
+                        i + card.type,
+                    title: card.title
+                }
+            };
+
+            this.cards_.push(this.renderChild(
+                'Card',
+                domCardsBlock,
+                cardParams
+            ));
+        }
 
         for (var i = 0; i < this.cards_.length; i++) {
+
             var card = this.cards_[i];
+
             goog.events.listen(
                 card,
-                goog.events.EventType.CLICK,
+                Card.Event.CLICK,
                 this.onCardClick_.bind(this, i)
             );
         }
@@ -100,9 +116,17 @@ goog.scope(function() {
 
     /**
      * @param {number} cardId
+     * @private
      */
     CardList.prototype.onCardClick_ = function(cardId) {
         this.dispatchEvent(CardList.Event.USER_CHOICE_PRESENT);
-    }
+    };
+
+    /**
+    * Checks if the list has at least one card, chosen by the user
+    */
+    CardList.prototype.hasChosenCards = function() {
+        this.dispatchEvent(CardList.Event.USER_CHOICE_PRESENT);
+    };
 
 });  // goog.scope

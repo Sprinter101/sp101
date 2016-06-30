@@ -5,6 +5,7 @@ goog.require('goog.dom.classlist');
 goog.require('sv.iUtils.Utils');
 
 
+
 /**
  * List tab View
  * @param {Object=} opt_params
@@ -34,7 +35,7 @@ goog.scope(function() {
         TAB: 'g-tab__tab',
         SELECTED_TAB: 'g-tab__tab_selected',
         CONTENT: 'g-tab__content',
-        ICON_CHECKED: 'g-tab__icon-checked',
+        TAB_ICON: 'g-tab__icon-checked',
         ICON_INACTIVE: 'g-tab__icon_inactive',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
@@ -80,65 +81,65 @@ goog.scope(function() {
     * Removes ICON_INACTIVE class from a tab icon
     * @param {number} tabId
     */
-    View.prototype.activateCheckedIcon = function(tabId) {
+    View.prototype.activateTabIcon = function(tabId) {
         var tab = this.dom.tabs[tabId];
 
-        var iconChecked = this.getElementByClass(
-            View.CssClass.ICON_CHECKED,
+        var tabIcon = this.getElementByClass(
+            View.CssClass.TAB_ICON,
             tab
         );
 
         goog.dom.classlist.remove(
-            iconChecked,
+            tabIcon,
             View.CssClass.ICON_INACTIVE
         );
 
         goog.dom.classlist.add(
-            iconChecked,
+            tabIcon,
             View.IconCheckedClasses[tabId]
         );
 
         if (!this.isSelectedTab(tab))
         {
-            this.showCheckedIcon(tab);
+            this.showTabIcon(tab);
         }
-    }
+    };
 
     /**
-    * 
+    * Shows tab icon
     * @param {element} tab
     */
-    View.prototype.showCheckedIcon = function(tab) {
-        var iconChecked = this.getElementByClass(
-            View.CssClass.ICON_CHECKED,
+    View.prototype.showTabIcon = function(tab) {
+        var tabIcon = this.getElementByClass(
+            View.CssClass.TAB_ICON,
             tab
         );
 
-        if (!this.isIconInactive(iconChecked)) {
+        if (!this.isIconInactive(tabIcon)) {
             goog.dom.classlist.remove(
-                iconChecked,
+                tabIcon,
                 View.CssClass.HIDDEN
             );
         }
-    }
+    };
 
     /**
-    * 
+    * Hides tab icon
     * @param {element} tab
     */
-    View.prototype.hideCheckedIcon = function(tab) {
-        var iconChecked = this.getElementByClass(
-            View.CssClass.ICON_CHECKED,
+    View.prototype.hideTabIcon = function(tab) {
+        var tabIcon = this.getElementByClass(
+            View.CssClass.TAB_ICON,
             tab
         );
-        
-        if (!this.isIconInactive(iconChecked)) {
+
+        if (!this.isIconInactive(tabIcon)) {
             goog.dom.classlist.add(
-                iconChecked,
+                tabIcon,
                 View.CssClass.HIDDEN
             );
         }
-    }
+    };
 
     /**
      * Hide tab
@@ -158,7 +159,7 @@ goog.scope(function() {
 
         if (!this.isSelectedTab(tab))
         {
-            this.showCheckedIcon(tab);
+            this.showTabIcon(tab);
         }
     };
 
@@ -180,7 +181,7 @@ goog.scope(function() {
 
         if (this.isSelectedTab(tab))
         {
-            this.hideCheckedIcon(tab);
+            this.hideTabIcon(tab);
         }
     };
 
@@ -190,7 +191,7 @@ goog.scope(function() {
     * @return {boolean}
     */
     View.prototype.isSelectedTab = function(tab) {
-        return !!goog.dom.classlist.contains(tab, 
+        return !!goog.dom.classlist.contains(tab,
             View.CssClass.SELECTED_TAB);
     };
 
@@ -200,8 +201,8 @@ goog.scope(function() {
     * @return {boolean}
     */
     View.prototype.isIconInactive = function(icon) {
-        return !!goog.dom.classlist.contains(icon, 
+        return !!goog.dom.classlist.contains(icon,
             View.CssClass.ICON_INACTIVE);
-    }
+    };
 
 });  // goog.scope

@@ -90,7 +90,7 @@ goog.scope(function() {
      * @private
      */
     Tab.prototype.onUserChoicePresent_ = function(tabId) {
-        this.getView().activateCheckedIcon(tabId);
-    }
+        this.getView().activateTabIcon(tabId);
+    };
 
 });  // goog.scope
