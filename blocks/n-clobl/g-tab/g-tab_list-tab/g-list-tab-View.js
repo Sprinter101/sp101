@@ -1,6 +1,7 @@
 goog.provide('sv.gTab.gListTab.View');
 
 goog.require('cl.gTab.View');
+goog.require('goog.dom.classlist');
 goog.require('sv.iUtils.Utils');
 
 
@@ -34,7 +35,7 @@ goog.scope(function() {
         SELECTED_TAB: 'g-tab__tab_selected',
         CONTENT: 'g-tab__content',
         ICON_CHECKED: 'g-tab__icon-checked',
-        ICON_INACTIVE: 'g-tab__icon_inactive'
+        ICON_INACTIVE: 'g-tab__icon_inactive',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
 
@@ -76,7 +77,8 @@ goog.scope(function() {
     };
 
     /**
-    * 
+    * Removes ICON_INACTIVE class from a tab icon
+    * @param {number} tabId
     */
     View.prototype.activateCheckedIcon = function(tabId) {
         var iconChecked = this.getElementByClass(
@@ -94,11 +96,12 @@ goog.scope(function() {
             View.IconCheckedClasses[tabId]
         );
 
-        this.showCheckedIcon();
+        this.showCheckedIcon(tabId);
     }
 
     /**
     * 
+    * @param {number} tabId
     */
     View.prototype.showCheckedIcon = function(tabId) {
         var tab = this.dom.tabs[tabId]
@@ -121,6 +124,7 @@ goog.scope(function() {
 
     /**
     * 
+    * @param {number} tabId
     */
     View.prototype.hideCheckedIcon = function(tabId) {
         var tab = this.dom.tabs[tabId]
@@ -129,12 +133,12 @@ goog.scope(function() {
             View.CssClass.ICON_CHECKED,
             tab
         );
-        if (!goog.dom.classlist.contains( tab,
+        if (goog.dom.classlist.contains( tab,
             View.CssClass.SELECTED_TAB) && 
             !goog.dom.classlist.contains( iconChecked,
             View.CssClass.ICON_INACTIVE)) {
 
-            goog.dom.classlist.remove(
+            goog.dom.classlist.add(
                 iconChecked,
                 View.CssClass.HIDDEN
             );
@@ -143,36 +147,36 @@ goog.scope(function() {
 
     /**
      * Hide tab
-     * @param {number} id
+     * @param {number} tabId
      */
-    View.prototype.closeTab = function(id) {
+    View.prototype.closeTab = function(tabId) {
         goog.dom.classlist.add(
-            this.dom.contents[id],
-            Utils.CssClass.HIDDEN
+            this.dom.contents[tabId],
+            View.CssClass.HIDDEN
         );
         goog.dom.classlist.remove(
-            this.dom.tabs[id],
+            this.dom.tabs[tabId],
             View.CssClass.SELECTED_TAB
         );
 
-        this.showCheckedIcon(id);
+        this.showCheckedIcon(tabId);
     };
 
     /**
      * Show tab
-     * @param {number} id
+     * @param {number} tabId
      */
-    View.prototype.openTab = function(id) {
+    View.prototype.openTab = function(tabId) {
         goog.dom.classlist.remove(
-            this.dom.contents[id],
-            Utils.CssClass.HIDDEN
+            this.dom.contents[tabId],
+            View.CssClass.HIDDEN
         );
         goog.dom.classlist.add(
-            this.dom.tabs[id],
+            this.dom.tabs[tabId],
             View.CssClass.SELECTED_TAB
         );
 
-        this.hideCheckedIcon(id);
+        this.hideCheckedIcon(tabId);
     };
 
 });  // goog.scope

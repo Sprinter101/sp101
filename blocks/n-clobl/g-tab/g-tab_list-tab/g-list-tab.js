@@ -22,12 +22,6 @@ sv.gTab.gListTab.Tab = function(view, opt_domHelper) {
     */
     this.cardLists_ = [];
 
-    /**
-    * @type {Array}
-    * @private
-    */
-    this.activeIcons_ = [];
-
 };
 goog.inherits(sv.gTab.gListTab.Tab, cl.gTab.Tab);
 
@@ -64,13 +58,13 @@ goog.scope(function() {
         var domContentTabs = this.getView().getDom().contentTabs;
 
         for (var i = 0; i < domContentTabs.length; i++) {
-            this.cardLists_.push(this.decorateChild(
-                'CardList',
-                domContentTabs[i].firstChild,
-                {
-                    cardsType: Tab.Map[i]
-                }
-            ));
+            this.cardLists_.push(
+                this.decorateChild(
+                    'CardList',
+                    domContentTabs[i].firstChild,
+                    { cardsType: Tab.Map[i] }
+                )
+            );
         }
     };
 
@@ -91,7 +85,8 @@ goog.scope(function() {
     };
 
     /**
-     * User choice present event handler
+     * Activates tab icon if there is a user-chosen card in a card list
+     * @param {number} tabId
      * @private
      */
     Tab.prototype.onUserChoicePresent_ = function(tabId) {
