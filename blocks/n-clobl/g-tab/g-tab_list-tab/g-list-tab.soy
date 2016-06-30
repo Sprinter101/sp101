@@ -1,0 +1,33 @@
+{namespace sv.gListTab.Template}
+
+
+/**
+ * List tab template
+ * @extends sv.gTab.Template
+ * @constructor
+ */
+{template .listTab}
+    {call .init data="all" /}
+{/template}
+
+/**
+ * Label template
+ * @param params {{
+ *     label: ?any
+ * }}
+ */
+{template .labelContent}
+    {$params?.label}
+    <div class="{call .rootClass /}__icon i-utils__hidden">
+        {call .renderChild}
+          {param params: [
+                'type': 'IconSber',
+                'renderParams': [
+                    'config': [
+                        'iconStyles': ['check-mark']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+{/template}

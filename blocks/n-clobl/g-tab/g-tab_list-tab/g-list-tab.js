@@ -66,6 +66,7 @@ goog.scope(function() {
                     { cardsType: Tab.Map[i] }
                 )
             );
+
         }
     };
 
@@ -83,7 +84,7 @@ goog.scope(function() {
                 .listenOnce(
                     cardList,
                     CardList.Event.SELECTED_CARDS_PRESENT,
-                    this.onUserChoicePresent_.bind(this, i)
+                    this.onSelectedCardsPresent_.bind(this, i)
                 )
                 .listen(
                     cardList,
@@ -100,10 +101,9 @@ goog.scope(function() {
      * @param {number} tabId
      * @private
      */
-    Tab.prototype.onUserChoicePresent_ = function(tabId) {
+    Tab.prototype.onSelectedCardsPresent_ = function(tabId) {
         this.getView().activateTabIcon(tabId);
     };
-
 
     /**
      * Activates tab icon if there is a user-chosen card in a card list

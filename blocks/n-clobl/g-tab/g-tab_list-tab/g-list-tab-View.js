@@ -35,7 +35,7 @@ goog.scope(function() {
         TAB: 'g-tab__tab',
         SELECTED_TAB: 'g-tab__tab_selected',
         CONTENT: 'g-tab__content',
-        TAB_ICON: 'g-tab__icon-checked',
+        TAB_ICON: 'g-tab__icon',
         ICON_INACTIVE: 'g-tab__icon_inactive',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
@@ -52,9 +52,9 @@ goog.scope(function() {
     * Icon classes enum
     * @enum {string}
     */
-    View.IconCheckedClasses = {
-        0: 'g-tab__icon-checked_align_left',
-        1: 'g-tab__icon-checked_align_right'
+    View.IconClasses = {
+        0: 'g-tab__icon_align_left',
+        1: 'g-tab__icon_align_right'
     };
 
     /**
@@ -96,7 +96,7 @@ goog.scope(function() {
 
         goog.dom.classlist.add(
             tabIcon,
-            View.IconCheckedClasses[tabId]
+            View.IconClasses[tabId]
         );
 
         if (!this.isSelectedTab(tab))

@@ -5,6 +5,7 @@ goog.require('cl.iFactory.TemplateFactory');
 goog.require('sv.gButton.Template');
 goog.require('sv.gIcon.Template');
 goog.require('sv.gInput.Template');
+goog.require('sv.gListTab.Template');
 goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bCard.Template');
@@ -90,7 +91,7 @@ sv.iFactory.TemplateFactory = function() {
         )
         .setTemplateListItem(
             'ListTab',
-            sv.gTab.Template.tab
+            sv.gListTab.Template.listTab
         );
 
 };
