@@ -4,7 +4,6 @@
     display: block;
     width: 30px;
     height: 30px;
-
 }
 
 .g-icon_arrow-back {
@@ -34,6 +33,14 @@
     height: 45px;
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_small.png);
     background-size: contain;
+}
+
+.g-icon_check-mark {
+    width: 25px;
+    height: 25px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_check-mark.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .g-icon_logo-userfund {

@@ -53,7 +53,7 @@ goog.scope(function() {
         this.arrowBack_ = this.decorateChild(
             'IconSber',
             this.getView().getDom().arrowBack
-            );
+        );
     };
 
     /**

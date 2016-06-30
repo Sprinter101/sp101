@@ -14,6 +14,8 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
+goog.require('sv.lSberVmeste.bCard.Card');
+goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bListPage.ListPage');
@@ -90,6 +92,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('CardPage', {
             control: sv.lSberVmeste.bCardPage.CardPage,
             view: sv.lSberVmeste.bCardPage.View
+        })
+        .setControlListItem('Card', {
+            control: sv.lSberVmeste.bCard.Card,
+            view: sv.lSberVmeste.bCard.View
         });
 
 };
