@@ -18,8 +18,8 @@
             <div class="{call .rootClass/}__page-title">Выберите направления или фонды, которым Вы готовы помогать</div>
             <div class="{call .rootClass/}__tab">
                 {call .renderChild}
-                    {param params: [
-                        'type': 'TabSber',
+                  {param params: [
+                        'type': 'ListTab',
                         'renderParams': [
                             'data': [
                                 'tabs': [
@@ -32,7 +32,7 @@
                                                     'data': []
                                                 ]
                                             ]
-                                        ],
+                                        ]
                                     ],
                                     [
                                         'label': 'Фонды',
@@ -43,7 +43,7 @@
                                                     'data': []
                                                 ]
                                             ]
-                                        ],
+                                        ]
                                     ]
                                 ]
                             ]
