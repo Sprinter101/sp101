@@ -5,8 +5,8 @@ goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
 goog.require('sv.gInput.Input');
 goog.require('sv.gInput.View');
-goog.require('sv.gTab.Tab');
-goog.require('sv.gTab.View');
+goog.require('sv.gTab.gListTab.Tab');
+goog.require('sv.gTab.gListTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
@@ -72,8 +72,8 @@ sv.iFactory.FactorySber = function() {
             view: sv.gButton.View
         })
         .setControlListItem('TabSber', {
-            control: sv.gTab.Tab,
-            view: sv.gTab.View
+            control: cl.gTab.Tab,
+            view: cl.gTab.View
         })
         .setControlListItem('CardList', {
             control: sv.lSberVmeste.bCardList.CardList,
@@ -90,6 +90,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('CardPage', {
             control: sv.lSberVmeste.bCardPage.CardPage,
             view: sv.lSberVmeste.bCardPage.View
+        })
+        .setControlListItem('ListTab', {
+            control: sv.gTab.gListTab.Tab,
+            view: sv.gTab.gListTab.View
         });
 
 };
