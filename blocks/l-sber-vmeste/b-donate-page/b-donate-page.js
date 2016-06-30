@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bDonatePage.DonatePage');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
 goog.require('sv.lSberVmeste.bDonatePage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
@@ -47,6 +48,7 @@ goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
 goog.scope(function() {
     var DonatePage = sv.lSberVmeste.bDonatePage.DonatePage,
+        DonationFixedBlock = sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         View = sv.lSberVmeste.bDonatePage.View;
@@ -74,6 +76,17 @@ goog.scope(function() {
     */
     DonatePage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.getHandler().listen(
+            this.donateBlockFixedSum_,
+            DonationFixedBlock.Event.DONATION_FIXED_READY_CLICK,
+            this.onDonationFixedReady
+        );
+    };
+
+    DonatePage.prototype.onDonationFixedReady = function(event) {
+        console.log(event);
+        Router.getInstance().changeLocation(Route.PHONE_NUMBER);
     };
 
 });  // goog.scope

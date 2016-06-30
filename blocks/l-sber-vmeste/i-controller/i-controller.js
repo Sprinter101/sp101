@@ -73,4 +73,15 @@ goog.scope(function() {
         this.pageManager_.setCurrentPage('DonatePage');
     };
 
+    /**
+     * 'Phone number' action
+     * page where we check user's authorization
+     */
+    Controller.prototype.actionPhoneNumber = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'start'}
+            });
+        this.pageManager_.setCurrentPage('PhoneNumberPage');
+    };
+
 });  // goog.scope

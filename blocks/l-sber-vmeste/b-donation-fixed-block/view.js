@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bDonationFixedBlock.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('sv.gButton.View');
 
 
 
@@ -24,7 +25,8 @@ goog.inherits(sv.lSberVmeste.bDonationFixedBlock.View, cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bDonationFixedBlock.View;
+    var View = sv.lSberVmeste.bDonationFixedBlock.View,
+        ButtonView = sv.gButton.View;
 
 
     /**
@@ -34,18 +36,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-donate-block',
         FIXED_SUM: 'b-donation-fixed-block__input',
+        INPUT_INPUT: 'g-input__input',
         BUTTON_READY: 'b-donation-fixed-block__button_ready'
-    };
-
-    /**
-     * Event enum
-     * @enum {string}
-     */
-    View.Event = {
-        INPUT_FOCUS: 'input-focus',
-        INPUT_CHANGE: 'input-change',
-        SLIDER_MOVE: 'slider-move',
-        BUTTON_READY_CLICK: 'button-ready-click'
     };
 
     /**
@@ -55,10 +47,14 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.input = this.getElementByClass(
+        this.dom.inputControl = this.getElementByClass(
             View.CssClass.FIXED_SUM, element
         );
 
+        this.dom.inputInput = this.getElementByClass(
+            View.CssClass.INPUT_INPUT, element
+        );
+        
         this.dom.buttonReady = this.getElementByClass(
             View.CssClass.BUTTON_READY, element
         );

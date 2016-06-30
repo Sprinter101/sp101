@@ -5,6 +5,10 @@
 
 }
 
+.b-donation-fixed-block__choice_fixed-sum {
+    margin-top: 43px;
+}
+
 .b-donation-fixed-block__input-tip {
     
     text-align: center;
@@ -13,19 +17,34 @@
     font-size: 14px;
 }
 
-.b-donate-block__button-wrapper {
+.b-donation-fixed-block__button-wrapper {
     margin-top: 43px;
     text-align: center;
 }
 
 @include media-m {
-   
+   .b-donation-fixed-block__choice___fixed-sum {
+    margin-top: 71px;
+    }
+    .b-donation-fixed-block__button-wrapper {
+    margin-top: 71px;
+    }
 }
 
 @include media-l {
-    
+    .b-donation-fixed-block__choice___fixed-sum {
+    margin-top: 96px;
+    }
+    .b-donation-fixed-block__button-wrapper {
+    margin-top: 96px;
+    }
 }
 
     @include media-xl {
-        
+        .b-donation-fixed-block__choice___fixed-sum {
+    margin-top: 96px;
+    }
+    .b-donation-fixed-block__button-wrapper {
+    margin-top: 96px;
+    }
 }

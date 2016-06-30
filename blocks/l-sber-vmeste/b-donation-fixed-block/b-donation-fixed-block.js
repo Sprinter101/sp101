@@ -51,7 +51,7 @@ goog.scope(function() {
         INPUT_FOCUS: 'input-focus',
         INPUT_CHANGE: 'input-change',
         SLIDER_MOVE: 'slider-move',
-        BUTTON_READY_CLICK: 'button-ready-click'
+        DONATION_FIXED_READY_CLICK: 'donation-fixed-ready-click'
     };
 
 
@@ -62,7 +62,7 @@ goog.scope(function() {
     DonationFixedBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
         this.fixedSum_ = this.decorateChild('InputSber',
-            this.getView().getDom().input, {
+            this.getView().getDom().inputControl, {
             MAX_NUMBER: 500000,
             MAX_CHARACTERS: 6
         });
@@ -98,8 +98,6 @@ goog.scope(function() {
                 Button.Event.CLICK,
                 this.onButtonReadyClick
             );
-
-
     };
 
     /**
@@ -116,7 +114,6 @@ goog.scope(function() {
      * @param {sv.gInput.Input.Event.Blur} event
      */
     DonationFixedBlock.prototype.onfixedSumBlur = function(event) {
-        console.log('blur');
         var input = this.getElementByClass('g-input__input', this);
         goog.dom.setProperties(input, {'placeholder': "0"});
     };
@@ -129,17 +126,33 @@ goog.scope(function() {
         console.log('changed');
     };
 
+    /**
+     * checks if input sum is valid
+     * @protected
+     */
+    DonationFixedBlock.prototype.checkInputSum = function() {
+        var inputInput = this.getView().getDom().inputInput;
+        inputInput.blur();
+        return this.fixedSum_.validate();
+    };
+
      /**
      * Handles ready button CLICK
      * @param {sv.gButton.Button.Event.CLICK} event
      * @protected
      */
     DonationFixedBlock.prototype.onButtonReadyClick = function(event) {
-        console.log("Ready button click");
-        this.fixedSum_.onBlur();
-        this.dispatchEvent({
-             type: DonationFixedBlock.Event.BUTTON_READY_CLICK
-         });
+
+        var customEvent = new goog.events.Event(DonationFixedBlock.Event.DONATION_FIXED_READY_CLICK, this);
+
+        if (this.checkInputSum()) {
+            var inputInput = this.getView().getDom().inputInput;
+            var sumValue = inputInput.value;
+                customEvent.payload = {
+                fixedSum: sumValue
+                };
+            this.dispatchEvent(customEvent);
+        }
     };
 
 });  // goog.scope

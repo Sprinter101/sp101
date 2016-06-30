@@ -34,6 +34,8 @@ goog.require('sv.lSberVmeste.bListPage.ListPage');
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.bPhoneNumberPage.PhoneNumberPage');
+goog.require('sv.lSberVmeste.bPhoneNumberPage.View');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartBlock.View');
 goog.require('sv.lSberVmeste.bStartPage.StartPage');
@@ -154,6 +156,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('DonationPercentBlock', {
             control: sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock,
             view: sv.lSberVmeste.bDonationPercentBlock.View
+        })
+        .setControlListItem('PhoneNumberPage', {
+            control: sv.lSberVmeste.bPhoneNumberPage.PhoneNumberPage,
+            view: sv.lSberVmeste.bPhoneNumberPage.View
         });
 
 };
