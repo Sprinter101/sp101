@@ -1,6 +1,7 @@
 @import '../../l-sber-vmeste/i-media/i-media.scss';
 
 .g-tab__tab {
+    position: relative;
     font-family: SFUIDisplay;
 
     width: 40%;
@@ -29,6 +30,19 @@
     }
 }
 
+.g-tab__icon-checked {
+    position: absolute;
+    top: 4px;
+}
+
+.g-tab__icon-checked_align_left {
+    left: 6px;
+}
+
+.g-tab__icon-checked_align_right {
+    right: 6px;
+}
+
 .g-tab__tab_selected {
     color: #000;
     background-color: #fff;
@@ -43,6 +57,7 @@
 }
 
 .g-tab__content_transparent {
+    margin: 0 auto;
     background: none;
     color: white;
     padding: 0;

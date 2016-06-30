@@ -30,10 +30,10 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     this.tabs_ = [];
 
     /**
-    * @type {sv.gInput.Input}
+    * @type {Array}
     * @private
     */
-    this.input_ = null;
+    this.inputs_ = [];
 
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
@@ -52,7 +52,7 @@ goog.scope(function() {
 
         var domButtons = this.getView().getDom().buttons,
             domTabs = this.getView().getDom().tabs,
-            domInput = this.getView().getDom().input;
+            domInputs = this.getView().getDom().inputs;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
@@ -62,10 +62,16 @@ goog.scope(function() {
             this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
 
-        this.input_ = this.decorateChild('InputSber', domInput, {
-            MAX_NUMBER: 500000,
-            MAX_CHARACTERS: 6
-        });
+        for (var i = 0; i < domInputs.length; i++) {
+            this.inputs_.push(this.decorateChild('InputSber',
+                domInputs[i],
+                {
+                    MAX_NUMBER: 500000,
+                    MAX_CHARACTERS: 6
+                }
+            ));
+        }
+
     };
 
     /**
