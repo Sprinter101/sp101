@@ -33,16 +33,6 @@ goog.scope(function() {
 
     /**
     * @override
-    * @param {Element} element
-    */
-    Card.prototype.decorateInternal = function(element) {
-        goog.base(this, 'decorateInternal', element);
-
-        this.card_ = this.decorateChild('Card', element);
-    };
-
-    /**
-    * @override
     */
     Card.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
