@@ -16,7 +16,13 @@
  *     data: {
  *         tabs: list<{
  *             label: ?string,
- *             text: ?string
+ *             content: {
+ *                  childToRender: {
+ *                      type: string,
+ *                      renderParams: list
+ *                  },
+ *                  text: ?string
+ *             }
  *         }>,
  *         selectedTabId: ?number
  *     },
@@ -41,6 +47,19 @@
         {/call}
     {/for}
     {call .placeholder data="all"/}
+{/template}
+
+/**
+ * Label template
+ * @param params {{
+ *     label: ?any
+ * }}
+ */
+{template .labelContent}
+    {$params?.label}
+    <img src="images/n-clobl/g-tab/g-list-tab/icon-checked.png" 
+    alt="" 
+    class="{call .rootClass /}__icon-checked i-utils__hidden g-tab__icon_inactive">
 {/template}
 
 /**
@@ -72,13 +91,41 @@
 /**
  * Inner content template
  * @param params {{
+ *          childToRender: {
+ *              type: string,
+ *              renderParams: list
+ *          },
  *          text: ?string
+ *     }
  * }}
  * @override
  */
 {template .innerContent}
-    {let $text: $params?.content?.text /}
-    {if $text}
-        {$text}
+    {if $params?.content?.childToRender}
+        {call .renderInnerContent_ data="all" /}
+    {else}
+        {$params?.content?.text}
     {/if}
+{/template}
+
+/**
+ * Renders inner content
+ * @param params {{
+ *          childToRender: {
+ *              type: string,
+ *              renderParams: list
+ *          },
+ *          text: ?string
+ *     }
+ * }}
+ */
+{template .renderInnerContent_ autoescape="strict" kind="html"}
+    {let $type: $params.content.childToRender.type /}
+    {let $renderParams: $params.content.childToRender.renderParams /}
+    {call .renderChild}
+      {param params: [
+            'type': $type,
+            'renderParams': $renderParams
+        ]/}
+    {/call}
 {/template}
