@@ -3,7 +3,6 @@ goog.provide('sv.lSberVmeste.bDonationFixedBlock.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
-goog.require('sv.gButton.View');
 
 
 
@@ -25,8 +24,7 @@ goog.inherits(sv.lSberVmeste.bDonationFixedBlock.View, cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bDonationFixedBlock.View,
-        ButtonView = sv.gButton.View;
+    var View = sv.lSberVmeste.bDonationFixedBlock.View;
 
 
     /**
@@ -54,7 +52,7 @@ goog.scope(function() {
         this.dom.inputInput = this.getElementByClass(
             View.CssClass.INPUT_INPUT, element
         );
-        
+
         this.dom.buttonReady = this.getElementByClass(
             View.CssClass.BUTTON_READY, element
         );

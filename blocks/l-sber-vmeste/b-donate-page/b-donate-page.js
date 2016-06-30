@@ -3,8 +3,9 @@ goog.provide('sv.lSberVmeste.bDonatePage.DonatePage');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
-goog.require('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
 goog.require('sv.lSberVmeste.bDonatePage.View');
+goog.require('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
+goog.require('sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
@@ -48,7 +49,10 @@ goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
 goog.scope(function() {
     var DonatePage = sv.lSberVmeste.bDonatePage.DonatePage,
-        DonationFixedBlock = sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
+        DonationFixedBlock = sv.lSberVmeste.bDonationFixedBlock.
+            DonationFixedBlock,
+        DonationPercentBlock = sv.lSberVmeste.bDonationPercentBlock.
+            DonationPercentBlock,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         View = sv.lSberVmeste.bDonatePage.View;
@@ -79,14 +83,37 @@ goog.scope(function() {
 
         this.getHandler().listen(
             this.donateBlockFixedSum_,
-            DonationFixedBlock.Event.DONATION_FIXED_READY_CLICK,
+            DonationFixedBlock.Event.DONATION_FIXED_READY,
             this.onDonationFixedReady
+        )
+        .listen(this.donateBlockPercent_,
+            DonationPercentBlock.Event.DONATION_PERCENT_READY,
+            this.onDonationPercentReady
         );
     };
 
+     /**
+     * Handles fixed donation ready event
+     * @param {DonationFixedBlock.Event.DONATION_FIXED_READY} event
+     * @protected
+     */
     DonatePage.prototype.onDonationFixedReady = function(event) {
         console.log(event);
-        Router.getInstance().changeLocation(Route.PHONE_NUMBER);
+        var sumValue = event.payload.fixedSum;
+        Router.getInstance().changeLocation(Route.PHONE_NUMBER, null, {
+            'sumValue': sumValue});
+    };
+
+     /**
+     * Handles percent donation ready event
+     * @param {DonationPercentBlock.Event.DONATION_PERCENT_READY} event
+     * @protected
+     */
+    DonatePage.prototype.onDonationPercentReady = function(event) {
+        console.log(event);
+        var sumValue = event.payload.percentSum;
+        Router.getInstance().changeLocation(Route.PHONE_NUMBER, null, {
+            'sumValue': sumValue});
     };
 
 });  // goog.scope

@@ -34,6 +34,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-donate-block',
         MONTHLY_INCOME: 'b-donation-percent-block__input',
+        SLIDER_INPUT: 'b-donation-percent-block__slider-input',
+        RESULT_SUM: 'b-donation-percent-block__result-sum',
         BUTTON_READY: 'b-donation-percent-block__button_ready'
     };
 
@@ -44,8 +46,7 @@ goog.scope(function() {
     View.Event = {
         INPUT_FOCUS: 'input-focus',
         INPUT_CHANGE: 'input-change',
-        SLIDER_MOVE: 'slider-move',
-        BUTTON_READY_CLICK: 'button-ready-click'
+        SLIDER_MOVE: 'slider-move'
     };
 
     /**
@@ -55,10 +56,24 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.input = this.getElementByClass(
+        this.dom.inputControl = this.getElementByClass(
             View.CssClass.MONTHLY_INCOME, element
         );
-        console.log("income input: ", this.dom.income);
+
+        this.dom.inputControlInput = goog.dom.getChildren(
+            this.dom.inputControl)[0];
+
+        this.dom.sliderInput = this.getElementByClass(
+            View.CssClass.SLIDER_INPUT, element
+        );
+
+        this.dom.inputSliderInput = goog.dom.getChildren(
+            this.dom.sliderInput)[0];
+
+        this.dom.resultSumContainer = this.getElementByClass(
+            View.CssClass.RESULT_SUM, element
+        );
+
         this.dom.buttonReady = this.getElementByClass(
             View.CssClass.BUTTON_READY, element
         );
@@ -70,6 +85,14 @@ goog.scope(function() {
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+    };
+
+    /**
+     * show result sum of donation
+     * @param {string} resultSum
+     */
+    View.prototype.showResultSym = function(resultSum) {
+        this.dom.resultSumContainer.innerHTML = resultSum + 'Р';
     };
 
 });  // goog.scope

@@ -76,12 +76,16 @@ goog.scope(function() {
     /**
      * 'Phone number' action
      * page where we check user's authorization
+     * @param {Object} params
      */
-    Controller.prototype.actionPhoneNumber = function() {
+    Controller.prototype.actionPhoneNumber = function(params) {
+        console.log("Params: ", params);
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'start'}
             });
-        this.pageManager_.setCurrentPage('PhoneNumberPage');
+        this.pageManager_.setCurrentPage('PhoneNumberPage', {
+            'data': params, 'config': {}
+        });
     };
 
 });  // goog.scope

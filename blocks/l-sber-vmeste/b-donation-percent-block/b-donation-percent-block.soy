@@ -63,41 +63,59 @@
  * template for input
  */
 {template .input autoescape="strict" kind="html"}
-    <div class="{call .rootClass/}__input">
-        {call .renderChild}
-            {param params: [
-                'type': 'InputSber',
-                'renderParams': [
-                    'data': [
-                        'inputType': 'text',
-                        'placeholder': '0'
+    {call .renderChild}
+        {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'inputType': 'text',
+                    'placeholder': '0'
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty',
+                        'digits'
                     ],
-                    'config': [
-                        'validations': [
-                            'notEmpty',
-                            'digits',
-                            'maxDonation'
-                        ],
-                        'constraints': [
-                            'digitsOnly',
-                            'charactersLimit',
-                            'noLeadingZero'
-                        ],
-                        'customClasses': ['b-donation-percent-block__input']
-                    ]
+                    'constraints': [
+                        'digitsOnly',
+                        'charactersLimit',
+                        'noLeadingZero'
+                    ],
+                    'customClasses': ['b-donation-percent-block__input']
                 ]
-            ]/}
-        {/call}
-    </div>
+            ]
+        ]/}
+    {/call}
 {/template}
 
 /**
  * temporary template for donation slider
  */
 {template .slider autoescape="strict" kind="html"}
-    <div class="{call .rootClass/}__slider">
-        ПОЛЗУНОК
-    </div>
+     {call .renderChild}
+        {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'inputType': 'text',
+                    'placeholder': '0'
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty',
+                        'digits',
+                        'maxDonation'
+                    ],
+                    'constraints': [
+                        'digitsOnly',
+                        'charactersLimit',
+                        'noLeadingZero'
+                    ],
+                    'customClasses': ['b-donation-percent-block__slider-input']
+                ]
+            ]
+        ]/}
+    {/call}
 {/template}
 
 /**
@@ -109,8 +127,7 @@
         Итого в месяц
         </div>
         <div class="{call .rootClass/}__result-sum">
-            370Р
-        </div>
+        0 Р</div>
     </div>
 {/template}
 

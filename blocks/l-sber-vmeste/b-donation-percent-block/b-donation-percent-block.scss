@@ -1,19 +1,24 @@
 @import '../i-media/i-media';
 
-.b-donation-percent-block__choice__income-percent {
+.b-donation-percent-block__inner-wrap {
+    //text-align: center;
+}
+
+.b-donation-percent-block__user-income {
     display: block;
     margin: 43px auto 0;
-    border: 1px solid green;
+    //border: 1px solid green;
+    text-align: center;
 }
 
 .b-donation-percent-block__input {
-    display: inline-block;
-    //margin: 0 auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .b-donation-percent-block__donation-percent {
-    display: block;
-    margin-top: 43px;
+    display: inline-block;
+    margin-top: 23px;
     text-align: center;
 }
 
@@ -27,19 +32,13 @@
     line-height: 1em;
 }
 
-.b-donation-percent-block__slider {
+.b-donation-percent-block__slider-input {
     display: block;
-    width: 290px;
-    margin: 0 auto;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-    font-family: AndaleMono;
-    font-size: 62px;
-    font-weight: normal;
-     line-height: 1em;
+    //margin: 0 auto;
 }
 
 .b-donation-percent-block__result {
-    margin-top: 71px;
+    margin-top: 31px;
 }
 
 .b-donation-percent-block__result-phrase {
@@ -66,9 +65,8 @@
 }
 
 @include media-m {
-    .b-donation-percent-block__choice__income-percent {
-        display: block;
-        margin: 0 auto;
+    .b-donation-percent-block__inner-wrap {
+        //text-align: center;
     }
     .b-donation-percent-block__user-income {
         display: inline-block;
@@ -94,10 +92,6 @@
 }
 
 @include media-l {
-    .b-donation-percent-block__choice__income-percent {
-        display: block;
-        margin: 0 auto;
-    }
     .b-donation-percent-block__user-income {
         display: inline-block;
         margin: 96px 59px 0 58px;
@@ -115,10 +109,6 @@
 }
 
     @include media-xl {
-        .b-donation-percent-block__choice__income-percent {
-        display: block;
-        margin: 0 auto;
-        }
         .b-donation-percent-block__user-income {
             display: inline-block;
             margin: 96px 59px 0 194px;

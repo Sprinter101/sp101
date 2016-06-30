@@ -9,11 +9,23 @@
 {/template}
 
 /**
- * @override
+ * Content
+ * @param? params {{
+ *     data: {
+ *         sumValue: string
+ *     },
+ *     config: ?list<string>
+ * }}
  */
 {template .body}
-    <div class="{call .rootClass/}__wrapper">
-    Введите Ваш номер телефона:
+    {let $sumValue: [
+        'sumValue': $params?.data?.sumValue
+    ] /}
+        <div class="{call .rootClass/}"
+            data-params="{call goog.json.serialize data="$sumValue" /}">
+        <div class="{call .rootClass/}__wrapper">
+        Введите Ваш номер телефона:
+        </div>
     </div>
 {/template}
 

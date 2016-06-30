@@ -3,8 +3,8 @@ goog.provide('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
-goog.require('sv.gInput.Input');
 goog.require('sv.gButton.Button');
+goog.require('sv.gInput.Input');
 goog.require('sv.lSberVmeste.bDonationFixedBlock.View');
 
 
@@ -18,8 +18,8 @@ goog.require('sv.lSberVmeste.bDonationFixedBlock.View');
  * @constructor
  * @extends {'cl.iControl.Control'}
  */
-sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock = function(view, opt_domHelper) {
-    goog.base(this, view, opt_domHelper);
+sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock = function(
+    view, opt_domHelper) {goog.base(this, view, opt_domHelper);
 
     /**
     * @type {sv.gInput.Input}
@@ -34,11 +34,13 @@ sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock = function(view, opt_domHe
     this.buttonReady_ = null;
 
 };
-goog.inherits(sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock, cl.iControl.Control);
+goog.inherits(sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
+    cl.iControl.Control);
 
 
 goog.scope(function() {
-    var DonationFixedBlock = sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
+    var DonationFixedBlock = sv.lSberVmeste.bDonationFixedBlock
+        .DonationFixedBlock,
         View = sv.lSberVmeste.bDonationFixedBlock.View,
         Input = sv.gInput.Input,
         Button = sv.gButton.Button;
@@ -51,7 +53,7 @@ goog.scope(function() {
         INPUT_FOCUS: 'input-focus',
         INPUT_CHANGE: 'input-change',
         SLIDER_MOVE: 'slider-move',
-        DONATION_FIXED_READY_CLICK: 'donation-fixed-ready-click'
+        DONATION_FIXED_READY: 'donation-fixed-ready'
     };
 
 
@@ -106,7 +108,7 @@ goog.scope(function() {
      */
     DonationFixedBlock.prototype.onfixedSumFocus = function(event) {
         var input = this.getElementByClass('g-input__input', this);
-        goog.dom.setProperties(input, {'placeholder': ""});
+        goog.dom.setProperties(input, {'placeholder': ''});
     };
 
     /**
@@ -115,7 +117,7 @@ goog.scope(function() {
      */
     DonationFixedBlock.prototype.onfixedSumBlur = function(event) {
         var input = this.getElementByClass('g-input__input', this);
-        goog.dom.setProperties(input, {'placeholder': "0"});
+        goog.dom.setProperties(input, {'placeholder': '0'});
     };
 
     /**
@@ -128,6 +130,7 @@ goog.scope(function() {
 
     /**
      * checks if input sum is valid
+     * @return {bool} if sum is valid
      * @protected
      */
     DonationFixedBlock.prototype.checkInputSum = function() {
@@ -143,7 +146,8 @@ goog.scope(function() {
      */
     DonationFixedBlock.prototype.onButtonReadyClick = function(event) {
 
-        var customEvent = new goog.events.Event(DonationFixedBlock.Event.DONATION_FIXED_READY_CLICK, this);
+        var customEvent = new goog.events.Event(DonationFixedBlock.Event
+            .DONATION_FIXED_READY, this);
 
         if (this.checkInputSum()) {
             var inputInput = this.getView().getDom().inputInput;

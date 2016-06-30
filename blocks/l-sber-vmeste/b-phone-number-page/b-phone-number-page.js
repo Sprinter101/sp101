@@ -15,8 +15,9 @@ goog.require('goog.events.EventType');
  * @constructor
  * @extends {sv.lSberVmeste.iPage.Page}
  */
-sv.lSberVmeste.bPhoneNumberPage.PhoneNumberPage = function(view, opt_domHelper) {
-    goog.base(this, view, opt_domHelper);
+sv.lSberVmeste.bPhoneNumberPage.PhoneNumberPage = function(
+    view, opt_domHelper) {goog.base(this, view, opt_domHelper);
 
 };
-goog.inherits(sv.lSberVmeste.bPhoneNumberPage.PhoneNumberPage, sv.lSberVmeste.iPage.Page);
+goog.inherits(sv.lSberVmeste.bPhoneNumberPage.PhoneNumberPage,
+    sv.lSberVmeste.iPage.Page);
