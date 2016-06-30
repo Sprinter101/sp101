@@ -63,7 +63,7 @@ gulp.task('fonts', function () {
 
 gulp.task('images', function () {
     return gulp.src([
-        path.join(__dirname + '/blocks/**/**/*.png'),
+        path.join(__dirname + '/blocks/**/**/*.{png,jpg}'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
@@ -73,7 +73,7 @@ gulp.task('images', function () {
 
 gulp.task('styles', ['images', 'fonts'], function () {
     return gulpHelper.css.build({
-    }).pipe(livereload());;
+    }).pipe(livereload());
 });
 
 gulp.task('html', ['scripts'], function() {
