@@ -81,9 +81,11 @@ goog.scope(function() {
     * @param {number} tabId
     */
     View.prototype.activateCheckedIcon = function(tabId) {
+        var tab = this.dom.tabs[tabId];
+
         var iconChecked = this.getElementByClass(
             View.CssClass.ICON_CHECKED,
-            this.dom.tabs[tabId]
+            tab
         );
 
         goog.dom.classlist.remove(
@@ -96,25 +98,23 @@ goog.scope(function() {
             View.IconCheckedClasses[tabId]
         );
 
-        this.showCheckedIcon(tabId);
+        if (!this.isSelectedTab(tab))
+        {
+            this.showCheckedIcon(tab);
+        }
     }
 
     /**
     * 
-    * @param {number} tabId
+    * @param {element} tab
     */
-    View.prototype.showCheckedIcon = function(tabId) {
-        var tab = this.dom.tabs[tabId]
-
+    View.prototype.showCheckedIcon = function(tab) {
         var iconChecked = this.getElementByClass(
             View.CssClass.ICON_CHECKED,
             tab
         );
-        if (!goog.dom.classlist.contains( tab,
-            View.CssClass.SELECTED_TAB) && 
-            !goog.dom.classlist.contains( iconChecked,
-            View.CssClass.ICON_INACTIVE)) {
 
+        if (!this.isIconInactive(iconChecked)) {
             goog.dom.classlist.remove(
                 iconChecked,
                 View.CssClass.HIDDEN
@@ -124,20 +124,15 @@ goog.scope(function() {
 
     /**
     * 
-    * @param {number} tabId
+    * @param {element} tab
     */
-    View.prototype.hideCheckedIcon = function(tabId) {
-        var tab = this.dom.tabs[tabId]
-
+    View.prototype.hideCheckedIcon = function(tab) {
         var iconChecked = this.getElementByClass(
             View.CssClass.ICON_CHECKED,
             tab
         );
-        if (goog.dom.classlist.contains( tab,
-            View.CssClass.SELECTED_TAB) && 
-            !goog.dom.classlist.contains( iconChecked,
-            View.CssClass.ICON_INACTIVE)) {
-
+        
+        if (!this.isIconInactive(iconChecked)) {
             goog.dom.classlist.add(
                 iconChecked,
                 View.CssClass.HIDDEN
@@ -150,16 +145,21 @@ goog.scope(function() {
      * @param {number} tabId
      */
     View.prototype.closeTab = function(tabId) {
+        var tab = this.dom.tabs[tabId];
+
         goog.dom.classlist.add(
             this.dom.contents[tabId],
             View.CssClass.HIDDEN
         );
         goog.dom.classlist.remove(
-            this.dom.tabs[tabId],
+            tab,
             View.CssClass.SELECTED_TAB
         );
 
-        this.showCheckedIcon(tabId);
+        if (!this.isSelectedTab(tab))
+        {
+            this.showCheckedIcon(tab);
+        }
     };
 
     /**
@@ -167,16 +167,41 @@ goog.scope(function() {
      * @param {number} tabId
      */
     View.prototype.openTab = function(tabId) {
+        var tab = this.dom.tabs[tabId];
+
         goog.dom.classlist.remove(
             this.dom.contents[tabId],
             View.CssClass.HIDDEN
         );
         goog.dom.classlist.add(
-            this.dom.tabs[tabId],
+            tab,
             View.CssClass.SELECTED_TAB
         );
 
-        this.hideCheckedIcon(tabId);
+        if (this.isSelectedTab(tab))
+        {
+            this.hideCheckedIcon(tab);
+        }
     };
+
+    /**
+    * Checks if a tab is selected
+    * @param {element} tab
+    * @return {boolean}
+    */
+    View.prototype.isSelectedTab = function(tab) {
+        return !!goog.dom.classlist.contains(tab, 
+            View.CssClass.SELECTED_TAB);
+    };
+
+    /**
+    * Checks if an icon is inactive
+    * @param {element} icon
+    * @return {boolean}
+    */
+    View.prototype.isIconInactive = function(icon) {
+        return !!goog.dom.classlist.contains(icon, 
+            View.CssClass.ICON_INACTIVE);
+    }
 
 });  // goog.scope
