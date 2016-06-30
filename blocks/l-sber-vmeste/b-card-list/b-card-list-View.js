@@ -12,9 +12,8 @@ goog.require('cl.iControl.View');
  * @constructor
  * @extends {cl.iControl.View}
  */
-sv.lSberVmeste.bCardList.View = function(opt_params,
-                                        opt_template,
-                                        opt_modifier) {
+sv.lSberVmeste.bCardList.View = function(opt_params, opt_template,
+    opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.lSberVmeste.bCardList.View.CssClass.ROOT);
@@ -32,6 +31,19 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-card-list',
         CARDS_BLOCK: 'b-card-list__cards'
+    };
+
+    /**
+     * @override
+     * @param {Element} element
+     */
+    View.prototype.decorateInternal = function(element) {
+        goog.base(this, 'decorateInternal', element);
+
+        this.dom.cardsBlock = this.getElementByClass(
+            View.CssClass.CARDS_BLOCK,
+            this.getElement()
+        );
     };
 
 });  // goog.scope
