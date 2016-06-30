@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
@@ -51,11 +52,12 @@ goog.inherits(sv.lSberVmeste.bStartPage.StartPage, sv.lSberVmeste.iPage.Page);
 
 goog.scope(function() {
     var StartPage = sv.lSberVmeste.bStartPage.StartPage,
-    StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
-    Request = sv.lSberVmeste.iRequest.Request,
-    Route = sv.lSberVmeste.iRouter.Route,
-    Router = sv.lSberVmeste.iRouter.Router,
-    View = sv.lSberVmeste.bStartPage.View;
+        StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
+        Button = sv.gButton.Button,
+        Request = sv.lSberVmeste.iRequest.Request,
+        Route = sv.lSberVmeste.iRouter.Route,
+        Router = sv.lSberVmeste.iRouter.Router,
+        View = sv.lSberVmeste.bStartPage.View;
 
     /**
     * @override
@@ -121,10 +123,11 @@ goog.scope(function() {
     /**
     * Parses count string and applies correct grammar
     * to info phrase content
+    * Also enters button into document
     * @param {Object} data - number of new opened userfunds
     * @protected
      */
-    StartPage.prototype.prepareUserfundsCountInfo =
+    StartPage.prototype.prepareUserfundsCountPhrase =
     function(data) {
         var userfundsCount = data.count;
         var infoPhrase = 'Сегодня ';
@@ -137,6 +140,11 @@ goog.scope(function() {
         }
         this.prepareUserfundsCountButton(data);
         this.renderUserfundsCountInfo(infoPhrase);
+        this.getHandler().listen(
+            this.userfundsCountButton_,
+            Button.Event.CLICK,
+            this.onFundsCountButtonClick
+            );
     };
 
     /**
@@ -205,6 +213,15 @@ goog.scope(function() {
     StartPage.prototype.onChangePage = function(event) {
 
         Router.getInstance().changeLocation(Route.DIRECTIONS);
+    };
+
+    /**
+     * Handles userfunds count button CLICK
+     * @param {sv.gButton.Button.Event.CLICK} event Click event
+     * @protected
+     */
+    StartPage.prototype.onFundsCountButtonClick = function(event) {
+        Router.getInstance().changeLocation(Route.LIST_PAGE);
     };
 
 });  // goog.scope

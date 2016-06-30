@@ -45,6 +45,9 @@ goog.scope(function() {
     * 'List page' action
     */
     Controller.prototype.actionListPage = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'directions'}
+            });
         this.pageManager_.setCurrentPage('ListPage');
     };
 

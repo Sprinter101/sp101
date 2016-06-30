@@ -66,4 +66,5 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
     };
+
 });  // goog.scope
