@@ -78,7 +78,7 @@ goog.scope(function() {
             var cardList = this.cardLists_[i];
             goog.events.listen(
                 cardList,
-                CardList.Event.USER_CHOICE_PRESENT,
+                CardList.Event.SELECTED_CARDS_PRESENT,
                 this.onUserChoicePresent_.bind(this, i)
             );
         }

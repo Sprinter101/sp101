@@ -42,7 +42,7 @@ goog.scope(function() {
      * @enum {string}
      */
     CardList.Event = {
-        USER_CHOICE_PRESENT: 'user-choice-present'
+        SELECTED_CARDS_PRESENT: 'user-choice-present'
     };
 
     /**
@@ -60,7 +60,7 @@ goog.scope(function() {
     };
 
     /**
-    * Ajax response handler
+    * Ajax successful response handler
     * @param {Object} response
     */
     CardList.prototype.handleResponse = function(response) {
@@ -68,7 +68,7 @@ goog.scope(function() {
     };
 
     /**
-    * Ajax response handler
+    * Ajax rejection handler
     * @param {Object} err
     */
     CardList.prototype.handleRejection = function(err) {
@@ -81,11 +81,16 @@ goog.scope(function() {
      */
     CardList.prototype.renderCards = function(cards) {
         var domCardsBlock = this.getView().getDom().cardsBlock;
-        console.log(cards);
 
         for (var i = 0; i < cards.length; i++) {
 
             var card = cards[i];
+
+            if (card.isSelected) {
+                this.dispatchEvent(
+                    CardList.Event.SELECTED_CARDS_PRESENT
+                );
+            }
 
             cardParams = {
                 data: {
@@ -101,32 +106,6 @@ goog.scope(function() {
                 cardParams
             ));
         }
-
-        for (var i = 0; i < this.cards_.length; i++) {
-
-            var card = this.cards_[i];
-
-            goog.events.listen(
-                card,
-                Card.Event.CLICK,
-                this.onCardClick_.bind(this, i)
-            );
-        }
-    };
-
-    /**
-     * @param {number} cardId
-     * @private
-     */
-    CardList.prototype.onCardClick_ = function(cardId) {
-        this.dispatchEvent(CardList.Event.USER_CHOICE_PRESENT);
-    };
-
-    /**
-    * Checks if the list has at least one card, chosen by the user
-    */
-    CardList.prototype.hasChosenCards = function() {
-        this.dispatchEvent(CardList.Event.USER_CHOICE_PRESENT);
     };
 
 });  // goog.scope
