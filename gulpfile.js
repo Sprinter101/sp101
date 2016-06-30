@@ -2,8 +2,8 @@ const gulp = require('gulp');
 const util = require('gulp-util');
 const path = require('path');
 const args  = require('yargs').argv;
-const livereload = require('gulp-livereload');
-livereload({ start: true });
+//const livereload = require('gulp-livereload');
+//livereload({ start: true });
 
 
 const modulesPath = args.modulesPath || path.join(__dirname, 'node_modules');
@@ -73,7 +73,7 @@ gulp.task('images', function () {
 
 gulp.task('styles', ['images', 'fonts'], function () {
     return gulpHelper.css.build({
-    }).pipe(livereload());;
+    });
 });
 
 gulp.task('html', ['scripts'], function() {
@@ -89,7 +89,7 @@ gulp.task('html', ['scripts'], function() {
 });
 
 gulp.task('watch', function () {
-    livereload.listen();
+    //livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
         path.join(__dirname, 'blocks', '/**/*.css')
