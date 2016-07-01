@@ -10,6 +10,7 @@ $error_color: #F76464;
 .g-input__input {
     width: 290px;
     border: 0;
+    padding: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     background: none;
     font-family: AndaleMono;
@@ -24,13 +25,15 @@ $error_color: #F76464;
 }
 
 .g-input__input_not-valid {
-    border-bottom: 2px solid $error_color;
+    border-bottom: 1px solid $error_color;
     color: $error_color;
 }
 
 .g-input__error-message-box {
+    vertical-align: bottom;
     margin-top: 10px;
     display: inline-block;
     width: 240px;
+    height: 60px;
     color: $error_color;
 }

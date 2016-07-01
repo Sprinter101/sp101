@@ -66,6 +66,7 @@ goog.scope(function() {
                     { cardsType: Tab.Map[i] }
                 )
             );
+
         }
     };
 
@@ -96,12 +97,39 @@ goog.scope(function() {
     };
 
     /**
+     * Creates icon and appends it into a tab
+     * @param {number} tabId
+     */
+    Tab.prototype.createIcon = function(tabId) {
+        var tab = this.getView().getDom().tabs[tabId],
+            iconContainer = goog.dom.createDom('div',
+                ['g-tab__icon', 
+                View.CssClass.HIDDEN,
+                View.IconClasses[tabId]
+                ]
+            );
+
+        this.renderChild('IconSber', iconContainer,
+            {
+                'config': { 'iconStyles': ['check-mark']}
+            }
+        );
+
+        goog.dom.appendChild(tab, iconContainer);
+
+        if (tabId != this.getView().getCurrentTabId())
+        {
+            this.getView().showTabIcon(tab);
+        }
+    };
+
+    /**
      * Gets called if there is a user-chosen card in a card list
      * @param {number} tabId
      * @private
      */
     Tab.prototype.onUserChoicePresent_ = function(tabId) {
-        this.getView().activateTabIcon(tabId);
+        this.createIcon(tabId);
     };
 
 
