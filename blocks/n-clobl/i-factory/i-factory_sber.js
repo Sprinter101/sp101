@@ -1,6 +1,8 @@
 goog.provide('sv.iFactory.FactorySber');
 
 goog.require('cl.iFactory.Factory');
+goog.require('cl.gIcon.Icon');
+goog.require('cl.gIcon.View');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
 goog.require('sv.gInput.Input');
@@ -100,8 +102,11 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('ListTab', {
             control: sv.gTab.gListTab.Tab,
             view: sv.gTab.gListTab.View
+        })
+         .setControlListItem('IconSber', {
+            control: cl.gIcon.Icon,
+            view: cl.gIcon.View
         });
-
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
 goog.addSingletonGetter(sv.iFactory.FactorySber);
