@@ -76,6 +76,8 @@ goog.scope(function() {
     Tab.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        this.addWindowResizeListener();
+
         for (var i = 0; i < this.cardLists_.length; i++) {
 
             var cardList = this.cardLists_[i];
@@ -92,8 +94,16 @@ goog.scope(function() {
                     this.onCardListCardClick_,
                     null,
                     this
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARD_LOADED,
+                    this.onCardLoaded_,
+                    null,
+                    this
                 );
         }
+
     };
 
     /**
@@ -124,6 +134,18 @@ goog.scope(function() {
     };
 
     /**
+    * 
+    */
+    Tab.prototype.addWindowResizeListener = function() {
+        this.getHandler().listen(
+            window,
+            goog.events.EventType.RESIZE,
+            this.onResize_,
+            null,
+            this);
+    }
+
+    /**
      * Gets called if there is a user-chosen card in a card list
      * @param {number} tabId
      * @private
@@ -146,4 +168,19 @@ goog.scope(function() {
         });
     };
 
+    /**
+    * Window resize event handler
+    * @private
+    */
+    Tab.prototype.onResize_ = function() {
+        this.getView().resizeActiveTab();
+    }
+
+    /**
+    * Window resize event handler
+    * @private
+    */
+    Tab.prototype.onCardLoaded_ = function() {
+        this.getView().resizeActiveTab();
+    }
 });  // goog.scope
