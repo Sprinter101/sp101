@@ -1,0 +1,64 @@
+{namespace sv.lSberVmeste.bCard.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .main}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * Body
+ * @param? params {{
+ *    data: {
+ *        logoSrc: string,
+          title: string,
+          places: ?string
+ *    },
+ *    config: {
+ *        isSelected: ?bool
+ *        isLast: ?bool
+ *    }
+ * }}
+ * @override
+ * @doc
+ */
+{template .body}
+    <div class="b-card__logo">
+        <img src="{$params.data.logoSrc}" class="b-card__logo-url" alt="logo">
+    </div>
+    <div class="b-card__info">
+        <div class="b-card__title">{$params.data.title}</div>
+        {if $params.places}
+            <div class="b-card__places">{$params.data.places}</div>
+        {/if}
+    </div>
+    <div class="b-card__state">
+        <div class="b-card__arrow {$params.config.isSelected ? 'b-card__arrow_hide' : ''}">
+            {call sv.gIcon.Template.icon}
+               {param params: [
+                   'config': [
+                       'iconStyles': ['arrow-right']
+                   ]
+               ]/}
+           {/call}
+        </div>
+        <div class="b-card__check-mark {$params.config.isSelected ? 'b-card__check-mark_show' : ''}">
+            {call sv.gIcon.Template.icon}
+                {param params: [
+                    'config': [
+                        'iconStyles': ['check-mark']
+                    ]
+                ]/}
+            {/call}
+        </div>
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-card
+{/template}

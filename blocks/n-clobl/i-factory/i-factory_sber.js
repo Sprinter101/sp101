@@ -1,12 +1,14 @@
 goog.provide('sv.iFactory.FactorySber');
 
 goog.require('cl.iFactory.Factory');
+goog.require('cl.gIcon.Icon');
+goog.require('cl.gIcon.View');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
 goog.require('sv.gInput.Input');
 goog.require('sv.gInput.View');
-goog.require('sv.gTab.Tab');
-goog.require('sv.gTab.View');
+goog.require('sv.gTab.gListTab.Tab');
+goog.require('sv.gTab.gListTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
@@ -14,6 +16,8 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
+goog.require('sv.lSberVmeste.bCard.Card');
+goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bListPage.ListPage');
@@ -72,8 +76,8 @@ sv.iFactory.FactorySber = function() {
             view: sv.gButton.View
         })
         .setControlListItem('TabSber', {
-            control: sv.gTab.Tab,
-            view: sv.gTab.View
+            control: cl.gTab.Tab,
+            view: cl.gTab.View
         })
         .setControlListItem('CardList', {
             control: sv.lSberVmeste.bCardList.CardList,
@@ -90,8 +94,19 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('CardPage', {
             control: sv.lSberVmeste.bCardPage.CardPage,
             view: sv.lSberVmeste.bCardPage.View
+        })
+        .setControlListItem('Card', {
+            control: sv.lSberVmeste.bCard.Card,
+            view: sv.lSberVmeste.bCard.View
+        })
+        .setControlListItem('ListTab', {
+            control: sv.gTab.gListTab.Tab,
+            view: sv.gTab.gListTab.View
+        })
+         .setControlListItem('IconSber', {
+            control: cl.gIcon.Icon,
+            view: cl.gIcon.View
         });
-
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
 goog.addSingletonGetter(sv.iFactory.FactorySber);

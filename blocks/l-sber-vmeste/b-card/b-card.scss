@@ -1,0 +1,150 @@
+@import '../../l-sber-vmeste/i-media/i-media.scss';
+
+.b-card {
+    cursor: pointer;
+    position: relative;
+
+    display: inline-block;
+
+    width: 50%;
+    height: 90px;
+    margin: 0 auto;
+    padding: 10px 0;
+
+    text-align: left;
+    vertical-align: top;
+
+    border-bottom: solid 1px #979797;
+    background: #fff;
+
+    font-size: 15px;
+}
+
+.b-card_last {
+    border-bottom: none;
+}
+
+.b-card__logo {
+    position: relative;
+
+    display: inline-block;
+
+    width: 70px;
+    height: 100%;
+}
+
+.b-card__logo-url {
+    position: absolute;
+    top: 50%;
+
+    display: inline-block;
+
+    width: 100%;
+    margin: auto 0;
+
+    transform: translateY(-50%);
+    vertical-align: initial;
+}
+
+.b-card__info {
+    position: absolute;
+    top: 50%;
+
+    display: inline-block;
+
+    max-width: 193px;
+    margin-left: 10px;
+
+    transform: translateY(-50%);
+}
+
+.b-card__title {
+    text-transform: uppercase;
+
+    color: #000000;
+
+    font-family: AndaleMono, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 21px;
+}
+
+.b-card__places {
+    margin-top: 5px;
+
+    color: #ff6666;
+
+    font-family: AffectBold, sans-serif;
+    font-size: 15px;
+}
+
+.b-card__state {
+    position: absolute;
+    top: 0;
+    right: 1px;
+
+    width: 60px;
+    height: 100%;
+}
+
+.b-card__arrow,
+.b-card__check-mark {
+    position: absolute;
+    top: 50%;
+
+    width: 20px;
+    height: 20px;
+
+    transform: translateY(-50%);
+    display: none;
+}
+
+.b-card__arrow {
+    text-align: center;
+}
+.b-card__check-mark {
+    background-color: green;
+}
+
+.b-card__arrow_hide {
+    display: none !important;
+}
+.b-card__arrow_show,
+.b-card__check-mark_show {
+    display: inline-block;
+}
+
+
+
+
+@include media-s {
+    .b-card__arrow {
+        display: inline-block;
+    }
+
+    .b-card {
+        display: block;
+        width: 100%;
+    }
+
+    .b-card__arrow,
+    .b-card__check-mark {
+        left: 30px;
+    }
+}
+
+@include media-m {
+    .b-card__arrow {
+        display: none;
+    }
+
+    .b-card {
+        display: inline-block;
+        width: 50%;
+    }
+
+    .b-card__arrow,
+    .b-card__check-mark {
+        left: 0;
+    }
+}

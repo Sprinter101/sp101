@@ -1,8 +1,8 @@
 goog.provide('sv.lSberVmeste.SberVmeste');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('sv.lSberVmeste.iController.Controller');
-goog.require('sv.lSberVmeste.iRequest.Request');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 
@@ -24,7 +24,7 @@ goog.inherits(sv.lSberVmeste.SberVmeste, cl.iControl.Control);
 
 goog.scope(function() {
     var SberVmeste = sv.lSberVmeste.SberVmeste,
-        Request = sv.lSberVmeste.iRequest.Request,
+        Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         Controller = sv.lSberVmeste.iController.Controller;
@@ -79,7 +79,6 @@ goog.scope(function() {
         this.initRoute_(Route.START, controller.actionStart);
         this.initRoute_(Route.TEST, controller.actionTest);
         this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
-        this.initRoute_(Route.DIRECTIONS, controller.actionChooseDirections);
         this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
         this.initRoute_(Route.DONATE, controller.actionDonate);
     };
