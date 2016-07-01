@@ -87,7 +87,7 @@
         {elseif $headerType == 'donate'}
             {call .donate__type /}
         {/if}
-        {if $headerType == 'start' or $headerType == 'directions'}
+        {if $headerType == 'start' or $headerType == 'list'}
             {call .more /}
         {elseif $headerType == 'card'}
             <div class="{call .rootClass/}__icon_share-wrapper">
@@ -128,6 +128,8 @@
     <div class="{call .rootClass/}__card-category">
         {if $category == 'theme'}
         ТЕМА
+        {elseif $category == 'direction'}
+        НАПРРАВЛЕНИЕ
         {else}
         ФОНД
         {/if}

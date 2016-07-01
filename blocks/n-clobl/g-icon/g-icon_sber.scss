@@ -33,6 +33,11 @@
     height: 45px;
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_small.png);
     background-size: contain;
+
+    @include retina {
+      background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_small@2x.png);
+      background-size: contain;
+    }
 }
 
 .g-icon_check-mark {
@@ -48,6 +53,23 @@
     width: 60px;
     height: 80px;
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-userfund.png);
+
+    @include retina {
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-userfund@2x.png);
+        background-size: contain;
+    }
+}
+
+.g-icon_logo-userfund_authorized {
+    display: block;
+    width: 180px;
+    height: 154px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-userfund_authorized.png);
+
+    @include retina {
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-userfund_authorized@2x.png);
+        background-size: contain;
+    }
 }
 
 .g-icon_share {
@@ -62,24 +84,47 @@
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-right.png);
 }
 
+.g-icon_checked {
+    width: 22px;
+    height: 22px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_checked.png);
+}
+
 @include media-m {
     .g-icon_logo-sber {
-        width: 204px;
-        height: 48px;
-        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large3.png);
+        width: 205px;
+        height: 52px;
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large.png);
+        
+        @include retina {
+            background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large@2x.png);
+            background-size: contain;
+        }
     }
-    .g-icon_logo-userfund {
-        margin: 128px auto 0;
+}
+
+@include media-l {
+    .g-icon_logo-sber {
+        width: 205px;
+        height: 52px;
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large.png);
+        
+        @include retina {
+            background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large@2x.png);
+            background-size: contain;
+        }
     }
 }
 
 @include media-xl {
     .g-icon_logo-sber {
-        width: 204px;
-        height: 48px;
-        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large3.png);
-    }
-    .g-icon_logo-userfund {
-        margin: 86px auto 0;
+        width: 205px;
+        height: 52px;
+        background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large.png);
+        
+        @include retina {
+            background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_logo-sber_large@2x.png);
+            background-size: contain;
+        }
     }
 }

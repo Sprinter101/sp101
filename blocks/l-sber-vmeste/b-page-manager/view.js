@@ -44,5 +44,13 @@ goog.scope(function() {
         this.dom.startPage = this.getElementByClass(
             StartPageView.CssClass.ROOT);
     };
+
+     /**
+     * @override
+     */
+    View.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+    };
 });  // goog.scope
 

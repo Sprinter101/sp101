@@ -36,14 +36,6 @@ goog.scope(function() {
     };
 
     /**
-     * Event enum
-     * @enum {string}
-     */
-    View.Event = {
-        BUTTON_START_CLICK: 'start-button-click'
-    };
-
-    /**
      * @override
      * @param {Element} element
      */
@@ -56,26 +48,10 @@ goog.scope(function() {
     };
 
     /**
-     * Handles start button CLICK
-     * @param {goog.events.BrowserEvent} event Click event
-     * @protected
-     */
-    View.prototype.onStartButtonClick = function(event) {
-        this.dispatchEvent({
-             type: View.Event.BUTTON_START_CLICK
-         });
-    };
-
-    /**
      * @override
      */
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
-            this.dom.startButton,
-            goog.events.EventType.CLICK,
-            this.onStartButtonClick
-        );
     };
 });  // goog.scope
