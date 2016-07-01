@@ -126,6 +126,11 @@
         display: block;
         width: 100%;
     }
+
+    .b-card__arrow,
+    .b-card__check-mark {
+        left: 30px;
+    }
 }
 
 @include media-m {
@@ -136,5 +141,10 @@
     .b-card {
         display: inline-block;
         width: 50%;
+    }
+
+    .b-card__arrow,
+    .b-card__check-mark {
+        left: 0;
     }
 }
