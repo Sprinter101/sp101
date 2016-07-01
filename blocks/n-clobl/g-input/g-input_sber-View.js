@@ -140,11 +140,6 @@ goog.scope(function() {
     * @param {Array} failedValidations
     */
     View.prototype.showErrorMessage = function(failedValidations) {
-        goog.dom.classlist.remove(
-            this.dom.errorMessage,
-            View.CssClass.HIDDEN
-        );
-
         var errorMessageText = '';
 
         failedValidations.forEach(function(type) {
@@ -159,10 +154,7 @@ goog.scope(function() {
     * Hides error message
     */
     View.prototype.hideErrorMessage = function() {
-        goog.dom.classlist.add(
-            this.dom.errorMessage,
-            View.CssClass.HIDDEN
-        );
+        this.dom.errorMessage.textContent = '';
     };
 
     /**
