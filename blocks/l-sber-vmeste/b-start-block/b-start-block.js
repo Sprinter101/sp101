@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bStartBlock.View');
 
 
@@ -31,14 +32,15 @@ goog.inherits(sv.lSberVmeste.bStartBlock.StartBlock, cl.iControl.Control);
 
 goog.scope(function() {
     var StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
-        View = sv.lSberVmeste.bStartBlock.View;
+        View = sv.lSberVmeste.bStartBlock.View,
+        Button = sv.gButton.Button;
 
     /**
      * Event enum
      * @enum {string}
      */
     StartBlock.Event = {
-        CHANGE_PAGE: 'change-page'
+        START_CREATING_USERFUND: 'start-creating-userfund'
     };
 
     /**
@@ -59,9 +61,9 @@ goog.scope(function() {
      * to the start page
      * @param {View.Event.BUTTON_START_CLICK} event
      */
-    StartBlock.prototype.onViewEventClick = function(event) {
+    StartBlock.prototype.onStartButtonClick = function(event) {
         this.dispatchEvent({
-            type: StartBlock.Event.CHANGE_PAGE
+            'type': StartBlock.Event.START_CREATING_USERFUND
            });
     };
 
@@ -71,8 +73,10 @@ goog.scope(function() {
     StartBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.viewListen(View.Event.BUTTON_START_CLICK,
-            this.onViewEventClick
+        this.getHandler().listen(
+            this.startButton_,
+            Button.Event.CLICK,
+            this.onStartButtonClick
         );
     };
 

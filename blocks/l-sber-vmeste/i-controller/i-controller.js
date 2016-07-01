@@ -36,7 +36,7 @@ goog.scope(function() {
     */
     Controller.prototype.actionTest = function() {
         this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'directions'}
+            'config' : {'headerType': 'list'}
             });
         this.pageManager_.setCurrentPage('TestPage');
     };
@@ -46,19 +46,9 @@ goog.scope(function() {
     */
     Controller.prototype.actionListPage = function() {
         this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'directions'}
+            'config' : {'headerType': 'list'}
             });
         this.pageManager_.setCurrentPage('ListPage');
-    };
-
-    /**
-    * 'choose directions/theme/funds' action
-    */
-    Controller.prototype.actionChooseDirections = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'directions'}
-            });
-        this.pageManager_.setCurrentPage('StartPage');
     };
 
     /**

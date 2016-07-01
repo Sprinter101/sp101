@@ -83,9 +83,9 @@ goog.scope(function() {
 
         this.getHandler().listen(
             this.startBlock_,
-            StartBlock.Event.CHANGE_PAGE,
-            this.onChangePage
-            );
+            StartBlock.Event.START_CREATING_USERFUND,
+            this.onStartCreatingUserfund
+        );
     };
 
      /**
@@ -210,9 +210,8 @@ goog.scope(function() {
      * @param {goog.events.BrowserEvent} event Click event
      * @protected
      */
-    StartPage.prototype.onChangePage = function(event) {
-
-        Router.getInstance().changeLocation(Route.DIRECTIONS);
+    StartPage.prototype.onStartCreatingUserfund = function(event) {
+        Router.getInstance().changeLocation(Route.LIST_PAGE);
     };
 
     /**
