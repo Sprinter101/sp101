@@ -72,7 +72,8 @@ gulp.task('images', function () {
 });
 
 gulp.task('styles', ['images', 'fonts'], function () {
-    return gulpHelper.css.build({});
+     return gulpHelper.css.build({
+    }).pipe(livereload());
 });
 
 gulp.task('html', ['scripts'], function() {
@@ -88,7 +89,7 @@ gulp.task('html', ['scripts'], function() {
 });
 
 gulp.task('watch', function () {
-    //livereload.listen();
+    livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
         path.join(__dirname, 'blocks', '/**/*.css')

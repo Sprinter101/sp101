@@ -92,8 +92,8 @@ sv.iFactory.FactorySber = function() {
             view: sv.gButton.View
         })
         .setControlListItem('TabSber', {
-            control: sv.gTab.Tab,
-            view: sv.gTab.View
+            control: cl.gTab.Tab,
+            view: cl.gTab.View
         })
         .setControlListItem('CardList', {
             control: sv.lSberVmeste.bCardList.CardList,
@@ -127,9 +127,10 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.bUserBlock.UserBlock,
             view: sv.lSberVmeste.bUserBlock.View
         })
-	  .setControlListItem('DonatePage', {
+         .setControlListItem('DonatePage', {
             control: sv.lSberVmeste.bDonatePage.DonatePage,
             view: sv.lSberVmeste.bDonatePage.View
+        })
         .setControlListItem('CardPage', {
             control: sv.lSberVmeste.bCardPage.CardPage,
             view: sv.lSberVmeste.bCardPage.View
@@ -146,10 +147,11 @@ sv.iFactory.FactorySber = function() {
             control: cl.gIcon.Icon,
             view: cl.gIcon.View
         })
-	  .setControlListItem('DonatePage', {
+         .setControlListItem('DonatePage', {
             control: sv.lSberVmeste.bDonatePage.DonatePage,
             view: sv.lSberVmeste.bDonatePage.View
-	.setControlListItem('DonationFixedBlock', {
+        })
+        .setControlListItem('DonationFixedBlock', {
             control: sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
             view: sv.lSberVmeste.bDonationFixedBlock.View
         })

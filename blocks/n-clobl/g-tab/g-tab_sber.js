@@ -1,7 +1,7 @@
 goog.provide('sv.gTab.Tab');
 
 goog.require('cl.gTab.Tab');
-goog.require('sv.gTab.View');
+goog.require('cl.gTab.View');
 
 
 
@@ -21,8 +21,8 @@ goog.inherits(sv.gTab.Tab, cl.gTab.Tab);
 
 
 goog.scope(function() {
-    var Tab = sv.gTab.Tab,
-        View = sv.gTab.View;
+    var Tab = cl.gTab.Tab,
+        View = cl.gTab.View;
 
     /**
      * Event enum
