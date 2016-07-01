@@ -76,6 +76,15 @@ goog.scope(function() {
     Tab.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        this.addWindowResizeListener();
+
+        this.addListCardsListeners();
+    };
+
+    /**
+    * Adds event listeners to ListCards' events
+    */
+    Tab.prototype.addListCardsListeners = function() {
         for (var i = 0; i < this.cardLists_.length; i++) {
 
             var cardList = this.cardLists_[i];
@@ -92,8 +101,27 @@ goog.scope(function() {
                     this.onCardListCardClick_,
                     null,
                     this
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARD_LOADED,
+                    this.onCardLoaded_,
+                    null,
+                    this
                 );
         }
+    };
+
+    /**
+    * Adds event listener for 'resize' window event
+    */
+    Tab.prototype.addWindowResizeListener = function() {
+        this.getHandler().listen(
+            window,
+            goog.events.EventType.RESIZE,
+            this.onResize_,
+            null,
+            this);
     };
 
     /**
@@ -103,7 +131,7 @@ goog.scope(function() {
     Tab.prototype.createIcon = function(tabId) {
         var tab = this.getView().getDom().tabs[tabId],
             iconContainer = goog.dom.createDom('div',
-                ['g-tab__icon', 
+                ['g-tab__icon',
                 View.CssClass.HIDDEN,
                 View.IconClasses[tabId]
                 ]
@@ -146,4 +174,19 @@ goog.scope(function() {
         });
     };
 
+    /**
+    * Window resize event handler
+    * @private
+    */
+    Tab.prototype.onResize_ = function() {
+        this.getView().resizeActiveTab();
+    };
+
+    /**
+    * Event handler for CARD_LOADED event
+    * @private
+    */
+    Tab.prototype.onCardLoaded_ = function() {
+        this.getView().resizeActiveTab();
+    };
 });  // goog.scope

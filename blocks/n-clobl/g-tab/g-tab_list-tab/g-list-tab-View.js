@@ -73,8 +73,6 @@ goog.scope(function() {
             View.CssClass.CONTENT,
             this.getElement()
         );
-
-        this.initCurrentTabId();
     };
 
     /**
@@ -87,7 +85,7 @@ goog.scope(function() {
             tab
         );
 
-        if(tabIcon) {
+        if (tabIcon) {
             goog.dom.classlist.remove(
                 tabIcon,
                 View.CssClass.HIDDEN
@@ -105,12 +103,24 @@ goog.scope(function() {
             tab
         );
 
-        if(tabIcon) {
+        if (tabIcon) {
             goog.dom.classlist.add(
                 tabIcon,
                 View.CssClass.HIDDEN
             );
         }
+    };
+
+    /**
+     * Change tab
+     * @param {number} id
+     */
+    View.prototype.changeTab = function(id) {
+        this.closeTab(this.currentTabId_);
+        this.openTab(id);
+
+        this.currentTabId_ = id;
+        this.resizeActiveTab();
     };
 
     /**
@@ -149,6 +159,22 @@ goog.scope(function() {
         );
 
         this.hideTabIcon(tab);
+    };
+
+    /**
+     * resizes Active content tab
+     */
+    View.prototype.resizeActiveTab = function() {
+        var contentTab = this.dom.contentTabs[this.getCurrentTabId()],
+            documentHeight = goog.dom.getDocumentHeight(),
+            contentTabHeight = contentTab.offsetHeight,
+            minContentTabHeight = documentHeight -
+                contentTab.offsetTop;
+
+        if (contentTabHeight < minContentTabHeight) {
+            contentTab.style.height = '';
+            contentTab.style.height = minContentTabHeight + 'px';
+        }
     };
 
 });  // goog.scope
