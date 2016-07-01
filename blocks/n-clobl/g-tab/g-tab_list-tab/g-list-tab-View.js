@@ -35,7 +35,7 @@ goog.scope(function() {
         TAB: 'g-tab__tab',
         SELECTED_TAB: 'g-tab__tab_selected',
         CONTENT: 'g-tab__content',
-        TAB_ICON: 'g-tab__icon-checked',
+        TAB_ICON: 'g-tab__icon',
         ICON_INACTIVE: 'g-tab__icon_inactive',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
@@ -49,12 +49,12 @@ goog.scope(function() {
     };
 
     /**
-    * Icon classes enum
+    * Icon classes map
     * @enum {string}
     */
-    View.IconCheckedClasses = {
-        0: 'g-tab__icon-checked_align_left',
-        1: 'g-tab__icon-checked_align_right'
+    View.IconClasses = {
+        0: 'g-tab__icon_align_left',
+        1: 'g-tab__icon_align_right'
     };
 
     /**
@@ -78,34 +78,6 @@ goog.scope(function() {
     };
 
     /**
-    * Removes ICON_INACTIVE class from a tab icon
-    * @param {number} tabId
-    */
-    View.prototype.activateTabIcon = function(tabId) {
-        var tab = this.dom.tabs[tabId];
-
-        var tabIcon = this.getElementByClass(
-            View.CssClass.TAB_ICON,
-            tab
-        );
-
-        goog.dom.classlist.remove(
-            tabIcon,
-            View.CssClass.ICON_INACTIVE
-        );
-
-        goog.dom.classlist.add(
-            tabIcon,
-            View.IconCheckedClasses[tabId]
-        );
-
-        if (!this.isSelectedTab(tab))
-        {
-            this.showTabIcon(tab);
-        }
-    };
-
-    /**
     * Shows tab icon
     * @param {element} tab
     */
@@ -115,7 +87,7 @@ goog.scope(function() {
             tab
         );
 
-        if (!this.isIconInactive(tabIcon)) {
+        if(tabIcon) {
             goog.dom.classlist.remove(
                 tabIcon,
                 View.CssClass.HIDDEN
@@ -133,7 +105,7 @@ goog.scope(function() {
             tab
         );
 
-        if (!this.isIconInactive(tabIcon)) {
+        if(tabIcon) {
             goog.dom.classlist.add(
                 tabIcon,
                 View.CssClass.HIDDEN
@@ -157,10 +129,7 @@ goog.scope(function() {
             View.CssClass.SELECTED_TAB
         );
 
-        if (!this.isSelectedTab(tab))
-        {
-            this.showTabIcon(tab);
-        }
+        this.showTabIcon(tab);
     };
 
     /**
@@ -179,30 +148,7 @@ goog.scope(function() {
             View.CssClass.SELECTED_TAB
         );
 
-        if (this.isSelectedTab(tab))
-        {
-            this.hideTabIcon(tab);
-        }
-    };
-
-    /**
-    * Checks if a tab is selected
-    * @param {element} tab
-    * @return {boolean}
-    */
-    View.prototype.isSelectedTab = function(tab) {
-        return !!goog.dom.classlist.contains(tab,
-            View.CssClass.SELECTED_TAB);
-    };
-
-    /**
-    * Checks if an icon is inactive
-    * @param {element} icon
-    * @return {boolean}
-    */
-    View.prototype.isIconInactive = function(icon) {
-        return !!goog.dom.classlist.contains(icon,
-            View.CssClass.ICON_INACTIVE);
+        this.hideTabIcon(tab);
     };
 
 });  // goog.scope
