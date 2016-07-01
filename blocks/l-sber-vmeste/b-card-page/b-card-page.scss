@@ -49,6 +49,17 @@
     font-size: 25px;
 }
 
+.b-card-page__card-button {
+    text-align: center;
+}
+
+.b-card-page__stop-helping {
+    cursor: pointer;
+    margin-top: 12px;
+    text-align: center;
+    color: #ff6666;
+}
+
 .b-card-page__description {
     border-bottom: 2px solid #EBEBEB;
 }
@@ -61,7 +72,6 @@
 .b-card-page__text {
     text-align: left;
     margin-top: 17px;
-
 }
 
 .b-card-page__directions-count {
@@ -72,7 +82,6 @@
 .b-card-page__directions {
     margin-top: 17px;
 }
-
 
 @include media-m {
     .b-card-page {
@@ -98,22 +107,28 @@
         text-align: justify;
         box-shadow: 0 3px 2px -2px gray;
     }
-    
-    .b-card-page__icon, 
+
     .b-card-page__card-info {
         display: inline-block;
+        width: 250px;
+        text-align: center;
     }
 
     .b-card-page__icon {
+        display: inline-block;
         text-align: center;
         margin: 0;
     }
 
-    .b-card-page__card-info {
+    .b-card-page__donations {
+        text-align: left;
         width: 200px;
+        display: inline-block;
     }
 
     .b-card-page__amount {
+        width: 200px;
+        display: inline-block;
         margin-top: 12px;
     }
 
