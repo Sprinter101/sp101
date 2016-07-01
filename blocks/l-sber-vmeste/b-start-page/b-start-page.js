@@ -1,13 +1,13 @@
 goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
-goog.require('sv.lSberVmeste.iRequest.Request');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 
@@ -54,7 +54,7 @@ goog.scope(function() {
     var StartPage = sv.lSberVmeste.bStartPage.StartPage,
         StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
         Button = sv.gButton.Button,
-        Request = sv.lSberVmeste.iRequest.Request,
+        Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         View = sv.lSberVmeste.bStartPage.View;
@@ -94,29 +94,29 @@ goog.scope(function() {
      * @protected
      */
     StartPage.prototype.getFundsCount = function() {
-        var url = 'entity/fund/today';
         Request.getInstance().send({
-            url: url,
-            success: function(data, status) {
-                this.prepareUserfundsCountInfo(data);
-            }.bind(this),
-            error: function(data, status, error) {
-                console.error({
-                    data: data,
-                    status: status,
-                    error: error
-                });
-            }
-        });
+            url: 'entity/fund/today' })
+            .then(this.prepareUserfundsCountInfo,
+                this.handleRejection,
+                this);
+        };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    StartPage.prototype.handleRejection = function(err) {
+        console.log(err);
     };
 
     /**
     * invokes method for preparing
     * correct rendering info block
-    * @param {Object} data - number of new opened userfunds
+    * @param {Object} response - number of new opened userfunds
     */
     StartPage.prototype.prepareUserfundsCountInfo =
-        function(data) {
+        function(response) {
+            var data = response.data;
             this.prepareUserfundsCountPhrase(data);
     };
 
