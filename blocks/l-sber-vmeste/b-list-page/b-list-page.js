@@ -66,7 +66,6 @@ goog.scope(function() {
     * @private
     */
     ListPage.prototype.onChangePageRequest_ = function(event) {
-        debugger;
         Router.getInstance().changeLocation(Route[event.page], {
             id: event.cardId
         });
