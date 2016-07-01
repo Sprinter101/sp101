@@ -34,7 +34,9 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-page-start',
-        BLOCK_START: 'b-start-block'
+        BLOCK_START: 'b-start-block',
+        USERFUNDS_PHRASE_CONTAINER: 'b-page-start__userfunds-info-phrase',
+        USERFUNDS_COUNT_CONTAINER: 'b-page-start__userfunds-info-count'
     };
 
     /**
@@ -47,6 +49,14 @@ goog.scope(function() {
        this.dom.startBlock = this.getElementByClass(
             View.CssClass.BLOCK_START
         );
+
+       this.dom.userFundsPhraseContainer = this.getElementByClass(
+        View.CssClass.USERFUNDS_PHRASE_CONTAINER
+        );
+
+       this.dom.userFundsCountContainer = this.getElementByClass(
+        View.CssClass.USERFUNDS_COUNT_CONTAINER
+        );
     };
 
     /**
@@ -56,4 +66,5 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
     };
+
 });  // goog.scope

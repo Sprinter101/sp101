@@ -45,6 +45,9 @@ goog.scope(function() {
     * 'List page' action
     */
     Controller.prototype.actionListPage = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'directions'}
+            });
         this.pageManager_.setCurrentPage('ListPage');
     };
 
@@ -60,12 +63,14 @@ goog.scope(function() {
 
     /**
     * 'Display category card' action
+    * @param {Object=} opt_params
     */
-    Controller.prototype.actionDisplayCategoryCard = function() {
+    Controller.prototype.actionDisplayCategoryCard = function(
+        opt_params) {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'card', 'category': 'theme'}
             });
-        this.pageManager_.setCurrentPage('CardPage');
+        this.pageManager_.setCurrentPage('CardPage', {cardId: opt_params.id});
     };
 
     /**

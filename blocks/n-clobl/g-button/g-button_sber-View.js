@@ -42,4 +42,12 @@ goog.scope(function() {
         TOUCH_END: 'button-touch-end'
     };
 
+    /**
+    * Setter for value
+    * @param {string} value
+    */
+    View.prototype.setValue = function(value) {
+        this.element_.innerText = value;
+    };
+
 });  // goog.scope

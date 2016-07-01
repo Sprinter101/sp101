@@ -47,6 +47,6 @@ goog.scope(function() {
 
         this.dom.tabs = this.getElementsByClass(View.CssClass.TAB);
 
-        this.dom.input = this.getElementByClass(View.CssClass.INPUT);
+        this.dom.inputs = this.getElementsByClass(View.CssClass.INPUT);
     };
 });  // goog.scope

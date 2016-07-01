@@ -13,38 +13,21 @@
  */
 {template .body}
     <div class="{call .rootClass/}__wrapper">
-    {call .pathLine /}
-    <div class="{call .rootClass/}__content">
-            {call .renderChild}
-                {param params: [
-                    'type': 'StartBlock',
-                    'renderParams': [
-                        'data': [],
-                        'config': [
-                            'customClasses': ['b-page-start__start-block']
-                        ]
-                    ]
-                ]/}
-            {/call}
-    </div>
-    {call .userfundsInfo /}
-        {call .renderChild}
-                      {param params: [
-                            'type': 'ButtonSber',
-                            'renderParams': [
-                                'data': [
-                                    'content': '202 фонда',
-                                ],
-                                'config': [
-                                'buttonStyles': 
-                                ['font_big', 'height_small',
-                                'background_transparent', 'border_green', 'text-color_white'],
-                                'customClasses': 
-                                    ['b-page-start__button_userfunds-count']
-                                ]
+        {call .pathLine /}
+        <div class="{call .rootClass/}__content">
+                {call .renderChild}
+                    {param params: [
+                        'type': 'StartBlock',
+                        'renderParams': [
+                            'data': [],
+                            'config': [
+                                'customClasses': ['b-page-start__start-block']
                             ]
+                        ]
                     ]/}
-        {/call}
+                {/call}
+        </div>
+        {call .userfundsInfo /}
     </div>
 {/template}
 
@@ -60,8 +43,12 @@
  */
 {template .userfundsInfo}
     <div class="{call .rootClass/}__userfunds-info">
-    Сегодня открылись
+        <div class="{call .rootClass/}__userfunds-info-phrase">
+        </div>
+        <div class="{call .rootClass/}__userfunds-info-count">
+        </div>
     </div>
+
 {/template}
 
 /**

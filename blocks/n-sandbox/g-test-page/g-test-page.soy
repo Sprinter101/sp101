@@ -130,13 +130,8 @@
                             [
                                 'label': 'Темы',
                                 'content': [
-                                    'childToRender': [
-                                        'type': 'CardList',
-                                        'renderParams': [
-                                            'data': []
-                                        ]
-                                    ]
-                                ],
+                                    'text': 'Темы'
+                                ]
                             ],
                             [
                                 'label': 'Фонды',
@@ -161,7 +156,26 @@
                             [
                                 'label': '% от дохода',
                                 'content': [
-                                    'text': '% от дохода'
+                                    'childToRender': [
+                                        'type': 'InputSber',
+                                        'renderParams': [
+                                            'data': [
+                                                'inputType': 'text'
+                                            ],
+                                            'config': [
+                                                'validations': [
+                                                    'notEmpty',
+                                                    'digits',
+                                                    'maxDonation'
+                                                ],
+                                                'constraints': [
+                                                    'digitsOnly',
+                                                    'charactersLimit',
+                                                    'noLeadingZero'
+                                                ]
+                                            ]
+                                        ]
+                                    ]
                                 ]
                             ],
                             [
