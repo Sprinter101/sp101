@@ -42,8 +42,9 @@ goog.scope(function() {
      * @enum {string}
      */
     CardList.Event = {
-        SELECTED_CARDS_PRESENT: 'user-choice-present',
-        CARD_CLICK: 'card-list-card-click'
+        SELECTED_CARDS_PRESENT: 'card-list-user-choice-present',
+        CARD_CLICK: 'card-list-card-click',
+        CARDS_LOADED: 'card-list-cards-loaded'
     };
 
     /**
@@ -93,7 +94,7 @@ goog.scope(function() {
                 );
             }
 
-            cardParams = {
+            var cardParams = {
                 data: {
                     logoSrc: 'http://lorempixel.com/79/87/?hash' +
                         i + card.type,
@@ -102,7 +103,7 @@ goog.scope(function() {
                 cardId: card.id
             };
 
-            cardInstance = this.renderChild(
+            var cardInstance = this.renderChild(
                 'Card',
                 domCardsBlock,
                 cardParams
@@ -117,6 +118,14 @@ goog.scope(function() {
                 null,
                 this
             );
+
+            if (i + 1 === cards.length) {
+                this.dispatchEvent(CardList.Event.CARDS_LOADED);
+            }
+        }
+
+        if (cards.length % 2 === 0) {
+            this.getView().addEvenCardsNumberClass();
         }
 
     };
