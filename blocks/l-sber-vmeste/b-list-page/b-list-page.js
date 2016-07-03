@@ -19,6 +19,12 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
+    * @type {string}
+    * @private
+    */
+    this.listTabCategory_ = this.params.category || null;
+
+    /**
     * @type {sv.gTab.Tab}
     * @private
     */
@@ -43,6 +49,8 @@ goog.scope(function() {
         var domListTab = this.getView().getDom().listTab;
 
         this.listTab_ = this.decorateChild('ListTab', domListTab);
+
+        this.listTab_.setActiveTab(this.listTabCategory_);
     };
 
     /**
