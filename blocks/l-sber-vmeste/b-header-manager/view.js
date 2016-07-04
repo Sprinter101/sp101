@@ -18,7 +18,11 @@ sv.lSberVmeste.bHeaderManager.View = function(opt_params,
 {
     goog.base(this, opt_params, opt_temp, opt_modifier);
 
-    this.setCssClass(sv.lSberVmeste.bHeaderManager.View.CssClass.ROOT);
+    var View = sv.lSberVmeste.bHeaderManager.View;
+
+    var rootClass = View['CssClass']['ROOT'];
+
+    this.setCssClass(rootClass);
 };
 goog.inherits(sv.lSberVmeste.bHeaderManager.View, cl.iControl.View);
 
@@ -31,8 +35,8 @@ goog.scope(function() {
      * Css class enum
      * @enum {string}
      */
-    View.CssClass = {
-        ROOT: 'b-header-manager'
+    View['CssClass'] = {
+        'ROOT': 'b-header-manager'
 
     };
 

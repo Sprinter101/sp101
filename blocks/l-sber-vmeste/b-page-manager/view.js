@@ -16,8 +16,12 @@ goog.require('sv.lSberVmeste.bStartPage.View');
 sv.lSberVmeste.bPageManager.View = function(opt_params, 
     opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
+    
+    var View = sv.lSberVmeste.bPageManager.View;
 
-    this.setCssClass(sv.lSberVmeste.bPageManager.View.CssClass.ROOT);
+    var rootClass = View['CssClass']['ROOT'];
+
+    this.setCssClass(rootClass);
 };
 goog.inherits(sv.lSberVmeste.bPageManager.View, cl.iControl.View);
 
@@ -30,8 +34,8 @@ goog.scope(function() {
      * Css class enum
      * @enum {string}
      */
-    View.CssClass = {
-        ROOT: 'b-page-manager'
+    View['CssClass'] = {
+        'ROOT': 'b-page-manager'
     };
 
     /**

@@ -68,7 +68,7 @@ goog.scope(function() {
      * @protected
      */
     Manager.prototype.setCurrentHeader = function(controlItem, opt_params) {
-        var headerType = opt_params.config.headerType;
+        var headerType = opt_params['config']['headerType'];
         if (headerType != this.headerType_) {
             this.removeChild(this.header_, true);
             this.headerType_ = headerType;

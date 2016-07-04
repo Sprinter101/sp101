@@ -52,7 +52,10 @@ gulp.task('scripts', ['soy', 'lint'], function () {
                 fileName: 'scripts.js'
             }
         ]
-        //,compile: true
+        ,compile: true
+        ,compilerFlags: {
+            debug: true
+        }
     });
 });
 

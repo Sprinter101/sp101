@@ -49,7 +49,6 @@ goog.scope(function() {
 
     /**
      * @override
-     * @param {Element} element
      */
     View.prototype.addEvenCardsNumberClass = function() {
         goog.dom.classlist.add(

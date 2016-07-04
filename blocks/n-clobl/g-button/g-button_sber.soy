@@ -13,8 +13,9 @@
 * @param? params
 */
 {template .additionalClasses}
-    {if $params?.config?.buttonStyles}
-        {let $butonStyles: $params.config.buttonStyles /}
+    {if $params?['config']?['buttonStyles']}
+        _HERE_INNER_
+        {let $butonStyles: $params['config']['buttonStyles'] /}
         {foreach $style in $butonStyles}
             {call .rootClass/}_{$style}{sp}
         {/foreach}

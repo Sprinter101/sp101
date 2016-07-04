@@ -42,11 +42,11 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.dom.headerManager = this.getElementByClass(
-            HeaderManagerView.CssClass.ROOT
+            HeaderManagerView['CssClass']['ROOT']
         );
 
         this.dom.pageManager = this.getElementByClass(
-            PageManagerView.CssClass.ROOT
+            PageManagerView['CssClass']['ROOT']
         );
     };
 
