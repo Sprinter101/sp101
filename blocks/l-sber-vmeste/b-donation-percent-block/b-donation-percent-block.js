@@ -76,13 +76,15 @@ goog.scope(function() {
         this.monthlyIncome_ = this.decorateChild('InputSber',
             this.getView().getDom().inputControl, {
             MAX_NUMBER: 50000000,
-            MAX_CHARACTERS: 8
+            MAX_CHARACTERS: 8,
+            MIN_INCOME: 1000
         });
 
         this.donationInput_ = this.decorateChild('InputSber',
             this.getView().getDom().sliderInput, {
             MAX_NUMBER: 500000,
-            MAX_CHARACTERS: 6
+            MAX_CHARACTERS: 6,
+            MIN_DONATION: 100
         });
 
         this.buttonReady_ = this.decorateChild('ButtonSber',
@@ -95,6 +97,8 @@ goog.scope(function() {
     */
     DonationPercentBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.keyHandler_ = new goog.events.KeyHandler(document);
 
         this.getHandler()
             .listen(
@@ -124,6 +128,11 @@ goog.scope(function() {
                 this.donationInput_,
                 Input.Event.BLUR,
                 this.onDonationInputBlur
+            )
+            .listen(
+                this.keyHandler_,
+                goog.events.KeyHandler.EventType.KEY,
+                this.onEnterEvent_
             );
 
 
@@ -145,6 +154,7 @@ goog.scope(function() {
     DonationPercentBlock.prototype.onMonthlyIncomeBlur = function(event) {
         var input = this.getView().getDom().inputControlInput;
         goog.dom.setProperties(input, {'placeholder': '0'});
+        this.manageButtonReadyStyle_();
     };
 
     /**
@@ -164,7 +174,7 @@ goog.scope(function() {
         var customEvent = new goog.events.Event(DonationPercentBlock.Event
             .DONATION_PERCENT_READY, this);
 
-        if (this.checkInputSum()) {
+        if (this.checkDonationInputSum_()) {
             var inputSliderInput = this.getView().getDom().inputSliderInput;
             var sumValue = inputSliderInput.value;
                 customEvent.payload = {
@@ -175,11 +185,22 @@ goog.scope(function() {
     };
 
     /**
+     * checks if income sum is valid
+     * @return {bool} if income sum is valid
+     * @private
+     */
+    DonationPercentBlock.prototype.checkMonthlyIncomeSum_ = function() {
+        var inputControlInput = this.getView().getDom().inputControlInput;
+        inputControlInput.blur();
+        return this.monthlyIncome_.validate();
+    };
+
+    /**
      * checks if donation sum is valid
      * @return {bool} if input sum is valid
-     * @protected
+     * @private
      */
-    DonationPercentBlock.prototype.checkInputSum = function() {
+    DonationPercentBlock.prototype.checkDonationInputSum_ = function() {
         var inputSliderInput = this.getView().getDom().inputSliderInput;
         inputSliderInput.blur();
         return this.donationInput_.validate();
@@ -203,6 +224,33 @@ goog.scope(function() {
         goog.dom.setProperties(inputSliderInput, {'placeholder': '0'});
         var sumValue = inputSliderInput.value;
         this.showResultSym(sumValue);
+    };
+
+     /**
+     * Handles 'enter' event
+     * @param {goog.events.KeyHandler.EventType.KEY} event
+     * @private
+     */
+    DonationPercentBlock.prototype.onEnterEvent_ = function(event) {
+        event.stopPropagation();
+        var that = this;
+
+        if (event.keyCode === goog.events.KeyCodes.ENTER) {
+            this.manageButtonReadyStyle_();
+        }
+    };
+
+     /**
+     * enables or disables 'ready' button
+     * @private
+     */
+    DonationPercentBlock.prototype.manageButtonReadyStyle_ = function() {
+        if (this.checkMonthlyIncomeSum_()) {
+                this.buttonReady_.enable();
+            }
+            else {
+                this.buttonReady_.disable();
+            }
     };
 
      /**

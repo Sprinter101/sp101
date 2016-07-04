@@ -79,7 +79,6 @@ goog.scope(function() {
      * @param {Object} params
      */
     Controller.prototype.actionPhoneNumber = function(params) {
-        console.log("Params: ", params);
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'start'}
             });

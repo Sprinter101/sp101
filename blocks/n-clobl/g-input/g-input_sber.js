@@ -24,7 +24,11 @@ sv.gInput.Input = function(view, opt_domHelper) {
         MAX_NUMBER: this.params.MAX_NUMBER ?
                             this.params.MAX_NUMBER : Infinity,
         MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
-                            this.params.MAX_CHARACTERS : Infinity
+                            this.params.MAX_CHARACTERS : Infinity,
+        MIN_INCOME: this.params.MIN_INCOME ?
+                this.params.MIN_INCOME : 1,
+        MIN_DONATION: this.params.MIN_DONATION ?
+                this.params.MIN_DONATION : 1,
     };
 
     /**
@@ -37,7 +41,9 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'notEmpty': this.validateNotEmpty_,
         'maxDonation': this.validateMaxDonation_,
         'name': this.validateName_,
-        'phoneNumber': this.validatePhoneNumber_
+        'phoneNumber': this.validatePhoneNumber_,
+	'minInput': this.validateMinInput_,
+        'minDonation': this.validateMinDonation_
     };
 
     /**
@@ -51,6 +57,7 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'name': this.constraintName_,
         'phoneNumber': this.constraintPhoneNumber_
     };
+
 };
 goog.inherits(sv.gInput.Input, cl.gInput.Input);
 
@@ -256,6 +263,28 @@ goog.scope(function() {
         return !(donationAmount > this.const.MAX_NUMBER);
     };
 
+	
+    /**
+     * Validate min donation value
+     * @param {string} text text to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateMinInput_ = function(text) {
+        var inputAmount = Number(text);
+        return !(inputAmount < this.const.MIN_INCOME);
+    };
+
+	/**
+     * Validate digit
+     * @param {string} text text to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateMinDonation_ = function(text) {
+        var donationAmount = Number(text);
+        return !(donationAmount < this.const.MIN_DONATION);
+    };
     /**
      * Validate name
      * @param {string} name name to validate

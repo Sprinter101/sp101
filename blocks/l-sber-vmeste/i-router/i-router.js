@@ -43,7 +43,7 @@ goog.scope(function() {
         var data = opt_data || {};
 
         this.hiddenData_[route] = opt_hiddenData || {};
-        console.log("hidden ", this.hiddenData_[route]);
+
         var path = route.replace(/:\w*/g, function(arg) {
             var key = arg.replace(':', ''),
                 res = data[key];

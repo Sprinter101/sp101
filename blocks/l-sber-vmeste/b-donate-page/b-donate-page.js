@@ -98,7 +98,6 @@ goog.scope(function() {
      * @protected
      */
     DonatePage.prototype.onDonationFixedReady = function(event) {
-        console.log(event);
         var sumValue = event.payload.fixedSum;
         Router.getInstance().changeLocation(Route.PHONE_NUMBER, null, {
             'sumValue': sumValue});
@@ -110,8 +109,7 @@ goog.scope(function() {
      * @protected
      */
     DonatePage.prototype.onDonationPercentReady = function(event) {
-        console.log(event);
-        var sumValue = event.payload.percentSum;
+       var sumValue = event.payload.percentSum;
         Router.getInstance().changeLocation(Route.PHONE_NUMBER, null, {
             'sumValue': sumValue});
     };
