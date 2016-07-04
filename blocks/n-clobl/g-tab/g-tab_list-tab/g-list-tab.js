@@ -41,12 +41,18 @@ goog.scope(function() {
     };
 
     /**
-     * Map enum
-     * @enum {string}
+     * Tab map
+     * @type {Object}
      */
-    Tab.Map = {
-        0: 'topic',
-        1: 'fund'
+    Tab.TabMap = {
+        'directions' : {
+            id: 0,
+            cardsType: 'direction'
+        },
+        'funds': {
+            id: 1,
+            cardsType: 'fund'
+        }
     };
 
     /**
@@ -58,16 +64,19 @@ goog.scope(function() {
 
         var domContentTabs = this.getView().getDom().contentTabs;
 
-        for (var i = 0; i < domContentTabs.length; i++) {
+        for (key in Tab.TabMap) {
+
+            var tab = Tab.TabMap[key];
+
             this.cardLists_.push(
                 this.decorateChild(
                     'CardList',
-                    domContentTabs[i].firstChild,
-                    { cardsType: Tab.Map[i] }
+                    domContentTabs[tab.id].firstChild,
+                    { cardsType: tab.cardsType }
                 )
             );
-
         }
+
     };
 
     /**
@@ -76,6 +85,15 @@ goog.scope(function() {
     Tab.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        this.addWindowResizeListener();
+
+        this.addListCardsListeners();
+    };
+
+    /**
+    * Adds event listeners to ListCards' events
+    */
+    Tab.prototype.addListCardsListeners = function() {
         for (var i = 0; i < this.cardLists_.length; i++) {
 
             var cardList = this.cardLists_[i];
@@ -92,8 +110,27 @@ goog.scope(function() {
                     this.onCardListCardClick_,
                     null,
                     this
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARDS_LOADED,
+                    this.onCardsLoaded_,
+                    null,
+                    this
                 );
         }
+    };
+
+    /**
+    * Adds event listener for 'resize' window event
+    */
+    Tab.prototype.addWindowResizeListener = function() {
+        this.getHandler().listen(
+            window,
+            goog.events.EventType.RESIZE,
+            this.onResize_,
+            null,
+            this);
     };
 
     /**
@@ -103,7 +140,7 @@ goog.scope(function() {
     Tab.prototype.createIcon = function(tabId) {
         var tab = this.getView().getDom().tabs[tabId],
             iconContainer = goog.dom.createDom('div',
-                ['g-tab__icon', 
+                ['g-tab__icon',
                 View.CssClass.HIDDEN,
                 View.IconClasses[tabId]
                 ]
@@ -120,6 +157,15 @@ goog.scope(function() {
         if (tabId != this.getView().getCurrentTabId())
         {
             this.getView().showTabIcon(tab);
+        }
+    };
+
+    /**
+    * @param {string} category
+    */
+    Tab.prototype.setActiveTab = function(category) {
+        if (category && Tab.TabMap[category]) {
+            this.getView().changeTab(Tab.TabMap[category].id);
         }
     };
 
@@ -146,4 +192,19 @@ goog.scope(function() {
         });
     };
 
+    /**
+    * Window resize event handler
+    * @private
+    */
+    Tab.prototype.onResize_ = function() {
+        this.getView().resizeActiveTab();
+    };
+
+    /**
+    * Event handler for CARDS_LOADED event
+    * @private
+    */
+    Tab.prototype.onCardsLoaded_ = function() {
+        this.getView().resizeActiveTab();
+    };
 });  // goog.scope
