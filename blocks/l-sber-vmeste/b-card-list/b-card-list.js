@@ -37,7 +37,7 @@ goog.scope(function() {
     CardList.Event = {
         SELECTED_CARDS_PRESENT: 'card-list-user-choice-present',
         CARD_CLICK: 'card-list-card-click',
-        CARDS_LOADED: 'card-list-cards-loaded'
+        CARDS_RENDERED: 'card-list-cards-rendered'
     };
 
     /**
@@ -83,7 +83,7 @@ goog.scope(function() {
             );
 
             if (i + 1 === cards.length) {
-                this.dispatchEvent(CardList.Event.CARDS_LOADED);
+                this.dispatchEvent(CardList.Event.CARDS_RENDERED);
             }
         }
 
