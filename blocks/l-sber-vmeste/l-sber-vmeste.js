@@ -19,6 +19,12 @@ goog.require('sv.lSberVmeste.iRouter.Router');
  */
 sv.lSberVmeste.SberVmeste = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
+
+    /**
+    * @type {Object}
+    * @private
+    */
+    this.dataParams_ = null;
 };
 goog.inherits(sv.lSberVmeste.SberVmeste, cl.iControl.Control);
 
@@ -35,9 +41,14 @@ goog.scope(function() {
     SberVmeste.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.dataParams_ = JSON.parse(
+            goog.dom.dataset.get(this.getView().getElement(), 'params')
+        );
+
         this.request_ = Request.getInstance();
+
         this.request_.init({
-            baseUrl: 'http://localhost:3000'
+            baseUrl: this.dataParams_.apiUrl
         });
 
         this.headerManager_ = this.decorateChild(
