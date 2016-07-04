@@ -32,6 +32,16 @@
     line-height: 1.29;
 }
 
+.b-list-page__tab {
+    margin: 0 auto;
+}
+
+@include media-s {
+    .b-list-page__tab {
+        width: 375px;
+    }
+}
+
 @include media-m {
     .b-list-page__path_vertical {
         opacity: 0.4;
@@ -45,6 +55,10 @@
         font-size: 15px;
         font-weight: normal;
         line-height: 1.47;
+    }
+
+    .b-list-page__tab {
+        width: 750px;
     }
 }
 
