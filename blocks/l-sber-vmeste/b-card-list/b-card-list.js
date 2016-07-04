@@ -23,6 +23,12 @@ sv.lSberVmeste.bCardList.CardList = function(view, opt_domHelper) {
     * @private
     */
     this.cards_ = [];
+
+    /**
+     * @type {Array}
+     * @private
+     */
+    this.cardsCustomClasses_ = this.params.cardsCustomClasses || [];
 };
 goog.inherits(sv.lSberVmeste.bCardList.CardList, cl.iControl.Control);
 
@@ -63,6 +69,9 @@ goog.scope(function() {
                         i + card.type,
                     title: card.title
                 },
+                config: {
+                    customClasses: this.cardsCustomClasses_
+                },
                 cardId: card.id
             };
 
@@ -90,7 +99,6 @@ goog.scope(function() {
         if (cards.length % 2 === 0) {
             this.getView().addEvenCardsNumberClass();
         }
-
     };
 
     /**

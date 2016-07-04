@@ -1,10 +1,13 @@
 @import '../../l-sber-vmeste/i-media/i-media.scss';
 
 .b-card-page {
-    background: #fff; 
-    font-family: AndaleMono;
     margin: 0 auto;
+
     text-align: center;
+
+    background: #fff; 
+
+    font-family: AndaleMono;
     font-size: 15px;
 }
 
@@ -19,10 +22,12 @@
 }
 
 .b-card-page__icon {
+    display: inline-block;
+
     width: 180px;
     margin-bottom: 30px;
+
     vertical-align: bottom;
-    display: inline-block;
 }
 
 .b-card-page__icon-image-wrapper {
@@ -35,17 +40,21 @@
 
 .b-card-page__icon-text {
     margin-top: 17px;
+
     font-size: 25px;
+    line-height: 25px;
 }
 
 .b-card-page__donations {
-    line-height: 1.47;
     color: #585858;
+
+    line-height: 1.47;
 }
 
 .b-card-page__amount {
     margin-top: 5px;
     margin-bottom: 30px;
+
     font-size: 25px;
 }
 
@@ -54,9 +63,11 @@
 }
 
 .b-card-page__stop-helping {
-    cursor: pointer;
     margin-top: 12px;
+
+    cursor: pointer;
     text-align: center;
+
     color: #ff6666;
 }
 
@@ -65,18 +76,21 @@
 }
 
 .b-card-page__text-title {
-    font-family: AffectBold;
     color: #565656;
+
+    font-family: AffectBold;
 } 
 
 .b-card-page__text {
-    text-align: left;
     margin-top: 17px;
+
+    text-align: left;
 }
 
 .b-card-page__directions-count {
-    font-family: AffectBold;
     color: #565656;
+
+    font-family: AffectBold;
 }
 
 .b-card-page__directions {
@@ -86,6 +100,7 @@
 @include media-m {
     .b-card-page {
         width: 768px;
+
         text-align: left;
     }
 
@@ -97,38 +112,48 @@
 
     .b-card-page__top-wrapper {
         &:after {
-            content: '';
             display: inline-block;
+
             width: 100%;
+
+            content: '';
         }
     }
 
     .b-card-page__top {
         text-align: justify;
+
         box-shadow: 0 3px 2px -2px gray;
     }
 
     .b-card-page__card-info {
         display: inline-block;
+
         width: 250px;
+
         text-align: center;
     }
 
     .b-card-page__icon {
         display: inline-block;
-        text-align: center;
+
         margin: 0;
+
+        text-align: center;
     }
 
     .b-card-page__donations {
-        text-align: left;
-        width: 200px;
         display: inline-block;
+
+        width: 200px;
+
+        text-align: left;
     }
 
     .b-card-page__amount {
-        width: 200px;
         display: inline-block;
+
+        width: 200px;
         margin-top: 12px;
     }
 

@@ -74,7 +74,10 @@ goog.scope(function() {
             this.cardLists_.push(
                 this.decorateChild(
                     'CardList',
-                    listTabContentTabs[i].firstChild
+                    listTabContentTabs[i].firstChild,
+                    {
+                        cardsCustomClasses: ['b-card_half-line']
+                    }
                 )
             );
         }
@@ -111,8 +114,7 @@ goog.scope(function() {
     * @param {number} cardListIndex
     * @param {Object} response
     */
-    ListPage.prototype.handleResponse = function(cardListIndex,
-        response) {
+    ListPage.prototype.handleResponse = function(cardListIndex, response) {
         var cardList = this.cardLists_[cardListIndex];
 
         cardList.renderCards(response.data);

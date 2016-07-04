@@ -1,7 +1,9 @@
 goog.provide('sv.lSberVmeste.bCardPage.CardPage');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
+goog.require('sv.lSberVmeste.bCardList.CardList');
 
 
 
@@ -33,13 +35,13 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     * @private
     */
     this.cardList_ = null;
-
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
 goog.scope(function() {
     var CardPage = sv.lSberVmeste.bCardPage.CardPage,
-        Button = cl.gButton.Button;
+        Button = cl.gButton.Button,
+        request = cl.iRequest.Request.getInstance();
 
     /**
     * @override
@@ -57,7 +59,13 @@ goog.scope(function() {
             this.setStartHelpingButton_();
         }
 
-        this.cardList_ = this.decorateChild('CardList', domCardList);
+        this.cardList_ = this.decorateChild(
+            'CardList',
+            domCardList,
+            {
+                cardsCustomClasses: ['b-card_full-line']
+            }
+        );
     };
 
     /**
@@ -73,6 +81,57 @@ goog.scope(function() {
             null,
             this
         );
+
+        goog.events.listen(
+            this.cardList_,
+            sv.lSberVmeste.bCardList.CardList.Event.CARD_CLICK,
+            this.cardClickHandler_,
+            null,
+            this
+        );
+
+        this.loadCards_();
+    };
+
+    /**
+     * Cards loader
+     * @private
+     */
+    CardPage.prototype.loadCards_ = function() {
+        request
+            .send({url: 'entity/fund'})
+            .then(
+                this.loadCardsResolveHandler_,
+                this.loadCardsRejectHandler_,
+                this
+            );
+    };
+
+    /**
+     * Card click handler
+     * @param {Object} event
+     * @private
+     */
+    CardPage.prototype.cardClickHandler_ = function(event) {
+        console.log('clicked on', event.cardId);
+    };
+
+    /**
+     * Load success cards handler
+     * @param {Object} response
+     * @private
+     */
+    CardPage.prototype.loadCardsResolveHandler_ = function(response) {
+        this.cardList_.renderCards(response.data);
+    };
+
+    /**
+     * Load fail cards handler
+     * @param {Object} response
+     * @private
+     */
+    CardPage.prototype.loadCardsRejectHandler_ = function(response) {
+        console.error(response.data);
     };
 
     /**
@@ -104,7 +163,7 @@ goog.scope(function() {
 
         var buttonConfig = {
             'data': {
-                'content': 'Помогать',
+                'content': 'Помогать'
             },
             'config': {
                 'buttonStyles': [
@@ -135,7 +194,7 @@ goog.scope(function() {
 
         var buttonConfig = {
             'data': {
-                'content': 'Помогаете 4 месяцa',
+                'content': 'Помогаете 4 месяцa'
             },
             'config': {
                 'buttonStyles': [
@@ -160,7 +219,7 @@ goog.scope(function() {
 
         var buttonConfig = {
             'data': {
-                'content': 'Спасибо!',
+                'content': 'Спасибо!'
             },
             'config': {
                 'buttonStyles': [
