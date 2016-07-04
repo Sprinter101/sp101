@@ -1,0 +1,25 @@
+@import "../../i-media/i-media";
+
+.b-user-block__chosen-categories {
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    width: 260px;
+    margin-bottom: 20px;
+}
+
+.b-user-block__button {
+    margin-bottom: 20px;
+}
+
+@include media-m {
+    .b-user-block__chosen-categories {
+        display: block;
+        width: 100%;
+    }
+
+    .b-user-block__button {
+        margin-bottom: 20px;
+    }
+}

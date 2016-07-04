@@ -32,6 +32,7 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-list-page',
+        USER_BLOCK: 'b-list-page__user-block',
         LIST_TAB: 'g-tab_sber'
     };
 
@@ -44,6 +45,11 @@ goog.scope(function() {
 
         this.dom.listTab = this.getElementByClass(
             View.CssClass.LIST_TAB,
+            this.getElement()
+        );
+
+        this.dom.userBlock = this.getElementByClass(
+            View.CssClass.USER_BLOCK,
             this.getElement()
         );
     };
