@@ -211,7 +211,8 @@ goog.scope(function() {
      * @protected
      */
     StartPage.prototype.onStartCreatingUserfund = function(event) {
-        Router.getInstance().changeLocation(Route.LIST_PAGE);
+        Router.getInstance().changeLocation(
+            Route.LIST_PAGE, {'category': 'directions'});
     };
 
     /**
@@ -220,7 +221,8 @@ goog.scope(function() {
      * @protected
      */
     StartPage.prototype.onFundsCountButtonClick = function(event) {
-        Router.getInstance().changeLocation(Route.LIST_PAGE);
+        Router.getInstance().changeLocation(
+            Route.LIST_PAGE, {'category': 'funds'});
     };
 
 });  // goog.scope

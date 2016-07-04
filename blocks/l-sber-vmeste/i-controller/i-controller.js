@@ -44,11 +44,11 @@ goog.scope(function() {
     /**
     * 'List page' action
     */
-    Controller.prototype.actionListPage = function() {
+    Controller.prototype.actionListPage = function(opt_params) {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'list'}
             });
-        this.pageManager_.setCurrentPage('ListPage');
+        this.pageManager_.setCurrentPage('ListPage', {'category': opt_params.category});
     };
 
     /**

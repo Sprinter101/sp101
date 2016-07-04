@@ -65,7 +65,7 @@ goog.scope(function() {
         this.listTab_ = this.decorateChild('ListTab',
             this.getView().getDom().listTab);
 
-        this.listTab_.setActiveTab(this.listTabCategory);
+        this.listTab_.setActiveTab(this.listTabCategory_);
 
         var listTabContentTabs = this.listTab_.getContentTabs();
 
