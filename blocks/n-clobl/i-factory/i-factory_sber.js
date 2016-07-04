@@ -1,8 +1,8 @@
 goog.provide('sv.iFactory.FactorySber');
 
-goog.require('cl.iFactory.Factory');
 goog.require('cl.gIcon.Icon');
 goog.require('cl.gIcon.View');
+goog.require('cl.iFactory.Factory');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
 goog.require('sv.gInput.Input');
@@ -12,14 +12,16 @@ goog.require('sv.gTab.gListTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
+goog.require('sv.lSberVmeste.bCard.Card');
+goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
-goog.require('sv.lSberVmeste.bCard.Card');
-goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
+goog.require('sv.lSberVmeste.bListPage.bUserBlock.UserBlock');
+goog.require('sv.lSberVmeste.bListPage.bUserBlock.View');
 goog.require('sv.lSberVmeste.bListPage.ListPage');
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
@@ -103,10 +105,15 @@ sv.iFactory.FactorySber = function() {
             control: sv.gTab.gListTab.Tab,
             view: sv.gTab.gListTab.View
         })
-         .setControlListItem('IconSber', {
+        .setControlListItem('IconSber', {
             control: cl.gIcon.Icon,
             view: cl.gIcon.View
+        })
+        .setControlListItem('ListPageUserBlock', {
+            control: sv.lSberVmeste.bListPage.bUserBlock.UserBlock,
+            view: sv.lSberVmeste.bListPage.bUserBlock.View
         });
+
 };
 goog.inherits(sv.iFactory.FactorySber, cl.iFactory.Factory);
 goog.addSingletonGetter(sv.iFactory.FactorySber);

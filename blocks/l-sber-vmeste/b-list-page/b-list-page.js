@@ -27,6 +27,12 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     this.listTabCategory_ = this.params.category || null;
 
     /**
+    * @type {sv.lSberVmeste.bListPage.bUserBlock.UserBlock}
+    * @private
+    */
+    this.userBlock_ = null;
+
+    /**
     * @type {sv.gTab.Tab}
     * @private
     */
@@ -47,7 +53,8 @@ goog.scope(function() {
         request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
-        CardList = sv.lSberVmeste.bCardList.CardList;
+        CardList = sv.lSberVmeste.bCardList.CardList,
+        UserBlock = sv.lSberVmeste;
 
     /**
     * Array of card types
@@ -61,6 +68,11 @@ goog.scope(function() {
     */
     ListPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.userBlock_ = this.renderChild(
+            'ListPageUserBlock',
+            this.getView().getDom().userBlock
+        );
 
         this.listTab_ = this.decorateChild('ListTab',
             this.getView().getDom().listTab);
