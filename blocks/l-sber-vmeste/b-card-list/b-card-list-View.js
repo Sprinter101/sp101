@@ -31,7 +31,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-card-list',
         CARDS_BLOCK: 'b-card-list__cards',
-        EVENT_CARDS_NUMBER: 'b-card-list__cards_even'
+        EVEN_CARDS_NUMBER: 'b-card-list__cards_even'
     };
 
     /**
@@ -54,7 +54,7 @@ goog.scope(function() {
     View.prototype.addEvenCardsNumberClass = function() {
         goog.dom.classlist.add(
             this.getElement(),
-            View.CssClass.EVENT_CARDS_NUMBER
+            View.CssClass.EVEN_CARDS_NUMBER
         );
     };
 

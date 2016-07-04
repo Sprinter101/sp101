@@ -19,12 +19,6 @@ sv.lSberVmeste.bCardList.CardList = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-    * @type {string}
-    * @private
-    */
-    this.cardsType_ = this.params.cardsType || null;
-
-    /**
     * @type {Array}
     * @private
     */
@@ -34,7 +28,6 @@ goog.inherits(sv.lSberVmeste.bCardList.CardList, cl.iControl.Control);
 
 goog.scope(function() {
     var CardList = sv.lSberVmeste.bCardList.CardList,
-        request = cl.iRequest.Request.getInstance(),
         Card = sv.lSberVmeste.bCard.Card;
 
     /**
@@ -45,36 +38,6 @@ goog.scope(function() {
         SELECTED_CARDS_PRESENT: 'card-list-user-choice-present',
         CARD_CLICK: 'card-list-card-click',
         CARDS_LOADED: 'card-list-cards-loaded'
-    };
-
-    /**
-     * @override
-     * @param {Element} element
-     */
-    CardList.prototype.decorateInternal = function(element) {
-        goog.base(this, 'decorateInternal', element);
-
-        request
-            .send({url: 'entity/' + this.cardsType_})
-            .then(this.handleResponse,
-                this.handleRejection,
-                this);
-    };
-
-    /**
-    * Ajax successful response handler
-    * @param {Object} response
-    */
-    CardList.prototype.handleResponse = function(response) {
-        this.renderCards(response.data);
-    };
-
-    /**
-    * Ajax rejection handler
-    * @param {Object} err
-    */
-    CardList.prototype.handleRejection = function(err) {
-        console.log(err);
     };
 
     /**
