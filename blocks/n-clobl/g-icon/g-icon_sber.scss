@@ -40,6 +40,18 @@
     }
 }
 
+.g-icon_user-avatar {
+    width: 60px;
+    height: 60px;
+    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_user-avatar.png);
+    background-size: contain;
+
+    @include retina {
+      background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_user-avatar@2x.png);
+      background-size: contain;
+    }
+}
+
 .g-icon_check-mark {
     width: 25px;
     height: 25px;
