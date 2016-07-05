@@ -33,6 +33,7 @@ goog.scope(function() {
 
     /**
     * 'Buttons test' action
+    * @param {Object=} opt_params
     */
     Controller.prototype.actionTest = function() {
         this.headerManager_.setCurrentHeader('Header', {

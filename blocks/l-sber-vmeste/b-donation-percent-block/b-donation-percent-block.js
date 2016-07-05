@@ -42,6 +42,13 @@ sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock = function(
     */
     this.buttonReady_ = null;
 
+    /**
+    * reulst donation sum
+    * type {number}
+    * @private
+    */
+    this.resultSum_ = 0;
+
 };
 goog.inherits(sv.lSberVmeste.bDonationPercentBlock
     .DonationPercentBlock,
@@ -79,13 +86,15 @@ goog.scope(function() {
             MAX_CHARACTERS: 8,
             MIN_INCOME: 1000
         });
+        this.monthlyIncome_.sum = 0;
 
         this.donationInput_ = this.decorateChild('InputSber',
             this.getView().getDom().sliderInput, {
-            MAX_NUMBER: 500000,
-            MAX_CHARACTERS: 6,
-            MIN_DONATION: 100
+            MAX_NUMBER: 50,
+            MAX_CHARACTERS: 2,
+            MIN_INPUT: 1
         });
+        this.donationInput_.percent = 0.01;
 
         this.buttonReady_ = this.decorateChild('ButtonSber',
             this.getView().getDom().buttonReady
@@ -98,7 +107,9 @@ goog.scope(function() {
     DonationPercentBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.keyHandler_ = new goog.events.KeyHandler(document);
+        this.KeyHandler_ = new goog.events.KeyHandler(document);
+        this.incomeKeyHandler_ = new goog.events.KeyHandler(this.monthlyIncome_.getElement());
+        this.percentKeyHandler_ = new goog.events.KeyHandler(this.donationInput_.getElement());
 
         this.getHandler()
             .listen(
@@ -130,9 +141,19 @@ goog.scope(function() {
                 this.onDonationInputBlur
             )
             .listen(
-                this.keyHandler_,
+                this.incomeKeyHandler_,
                 goog.events.KeyHandler.EventType.KEY,
-                this.onEnterEvent_
+                this.onIncomeKeyEvent_
+            )
+            .listen(
+                this.percentKeyHandler_,
+                goog.events.KeyHandler.EventType.KEY,
+                this.onPercentKeyEvent_
+            )
+            .listen(
+                this.KeyHandler_,
+                goog.events.KeyHandler.EventType.KEY,
+                this.onCommonKeyEvent_
             );
 
 
@@ -154,7 +175,13 @@ goog.scope(function() {
     DonationPercentBlock.prototype.onMonthlyIncomeBlur = function(event) {
         var input = this.getView().getDom().inputControlInput;
         goog.dom.setProperties(input, {'placeholder': '0'});
-        this.manageButtonReadyStyle_();
+        this.monthlyIncome_.sum = input.value;
+        if (this.checkMonthlyIncomeSum_()) {
+        var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum);
+        this.showResultSym_(resultSum);
+        this.resultSum_ = resultSum;
+        }
+        this.manageButtonReadyStyle_(this.resultSum_);
     };
 
     /**
@@ -163,6 +190,25 @@ goog.scope(function() {
      */
      DonationPercentBlock.prototype.onMonthlyIncomeChange = function(event) {
         console.log('changed');
+    };
+
+    /**
+     * Calculate donation sum
+     * @param {string} sum - user monthly income
+     * @param {string=} opt_percent - donation percent from slider
+     * @return {number} resultSum
+     * @private
+     */
+     DonationPercentBlock.prototype.CalculateDonation_ = function(sum, opt_percent) {
+        sum = parseInt(sum, 10);
+        if (opt_percent) {
+            opt_percent = parseInt(opt_percent, 10);
+            opt_percent /= 100;
+        }
+        var percent = opt_percent || 0.01;
+        var resultSum = sum * percent;
+        resultSum = Math.round(resultSum);
+        return resultSum;
     };
 
      /**
@@ -174,11 +220,11 @@ goog.scope(function() {
         var customEvent = new goog.events.Event(DonationPercentBlock.Event
             .DONATION_PERCENT_READY, this);
 
-        if (this.checkDonationInputSum_()) {
-            var inputSliderInput = this.getView().getDom().inputSliderInput;
-            var sumValue = inputSliderInput.value;
+        if (this.resultSum_) {
+            //var inputSliderInput = this.getView().getDom().inputSliderInput;
+            //var sumValue = inputSliderInput.value;
                 customEvent.payload = {
-                percentSum: sumValue
+                percentSum: this.resultSum_
                 };
             this.dispatchEvent(customEvent);
         }
@@ -222,21 +268,70 @@ goog.scope(function() {
     DonationPercentBlock.prototype.onDonationInputBlur = function(event) {
         var inputSliderInput = this.getView().getDom().inputSliderInput;
         goog.dom.setProperties(inputSliderInput, {'placeholder': '0'});
-        var sumValue = inputSliderInput.value;
-        this.showResultSym(sumValue);
+        this.donationInput_.percent = inputSliderInput.value;
+        if (this.checkDonationInputSum_()) {
+        var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum, this.donationInput_.percent);
+        this.showResultSym_(resultSum);
+        this.resultSum_ = resultSum
+        }
+        this.manageButtonReadyStyle_(this.resultSum_);
     };
 
      /**
+     * Handles 'monthly input' key event
+     * @param {goog.events.KeyHandler.EventType.KEY} event
+     * @private
+     */
+    DonationPercentBlock.prototype.onIncomeKeyEvent_ = function(event) {
+        //console.log(event);
+        //console.log(event.keyCode);
+        event.stopPropagation();
+        var that = this;
+        var digits = [48, 49, 50, 51, 52, 53, ,54, 55, 56, 57];
+        if (event.keyCode === goog.events.KeyCodes.ENTER) {
+            this.onMonthlyIncomeBlur();
+        }
+        else if (digits.indexOf(event.keyCode) != -1) {
+            this.monthlyIncome_.onFocus();
+        }
+    };
+
+    /**
+     * Handles 'donation input' key event
+     * @param {goog.events.KeyHandler.EventType.KEY} event
+     * @private
+     */
+    DonationPercentBlock.prototype.onPercentKeyEvent_ = function(event) {
+        //console.log(event);
+        //console.log(event.keyCode);
+        event.stopPropagation();
+        var that = this;
+        var digits = [48, 49, 50, 51, 52, 53, ,54, 55, 56, 57];
+        if (event.keyCode === goog.events.KeyCodes.ENTER) {
+            this.onDonationInputBlur();
+        }
+        else if (digits.indexOf(event.keyCode) != -1) {
+            this.donationInput_.onFocus();
+            var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum, this.donationInput_.percent);
+            this.showResultSym_(resultSum);
+            this.resultSum_ = resultSum
+            this.manageButtonReadyStyle_(this.resultSum_);
+        }
+    };
+
+    /**
      * Handles 'enter' event
      * @param {goog.events.KeyHandler.EventType.KEY} event
      * @private
      */
-    DonationPercentBlock.prototype.onEnterEvent_ = function(event) {
+    DonationPercentBlock.prototype.onCommonKeyEvent_ = function(event) {
+        //console.log(event);
+        //console.log(event.keyCode);
         event.stopPropagation();
         var that = this;
-
+        var digits = [48, 49, 50, 51, 52, 53, ,54, 55, 56, 57];
         if (event.keyCode === goog.events.KeyCodes.ENTER) {
-            this.manageButtonReadyStyle_();
+            this.manageButtonReadyStyle_(this.resultSum_);
         }
     };
 
@@ -244,8 +339,9 @@ goog.scope(function() {
      * enables or disables 'ready' button
      * @private
      */
-    DonationPercentBlock.prototype.manageButtonReadyStyle_ = function() {
-        if (this.checkMonthlyIncomeSum_()) {
+    DonationPercentBlock.prototype.manageButtonReadyStyle_ = function(resultSum) {
+        console.log("resulSum: ", resultSum);
+            if (resultSum) {
                 this.buttonReady_.enable();
             }
             else {
@@ -256,9 +352,9 @@ goog.scope(function() {
      /**
      * Show result sum of donation
      * @param {string} sumValue
-     * @protected
+     * @private
      */
-    DonationPercentBlock.prototype.showResultSym = function(sumValue) {
+    DonationPercentBlock.prototype.showResultSym_ = function(sumValue) {
         this.getView().showResultSym(sumValue);
     };
 

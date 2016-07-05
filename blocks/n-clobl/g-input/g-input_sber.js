@@ -131,6 +131,16 @@ goog.scope(function() {
         return isValid;
     };
 
+    /**
+     * Focus handler
+     * hides error message 
+     */
+    Input.prototype.onFocus = function() {
+        this.getView().unSetNotValidState();
+        this.getView().hideErrorMessage();
+
+    };
+
 
     /**
      * Input handler
