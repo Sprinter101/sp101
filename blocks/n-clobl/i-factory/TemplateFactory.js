@@ -12,7 +12,7 @@ goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
-goog.require('sv.lSberVmeste.bListPage.bUserBlock.Template');
+goog.require('sv.lSberVmeste.bUserBlock.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
@@ -95,7 +95,7 @@ sv.iFactory.TemplateFactory = function() {
         )
         .setTemplateListItem(
             'ListPageUserBlock',
-            sv.lSberVmeste.bListPage.bUserBlock.Template.userBlock
+            sv.lSberVmeste.bUserBlock.Template.userBlock
         );
 
 };
