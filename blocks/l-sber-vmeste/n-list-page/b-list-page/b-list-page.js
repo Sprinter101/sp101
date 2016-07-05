@@ -27,7 +27,7 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     this.listTabCategory_ = this.params.category || null;
 
     /**
-    * @type {sv.lSberVmeste.bListPage.bUserBlock.UserBlock}
+    * @type {sv.lSberVmeste.bUserBlock.UserBlock}
     * @private
     */
     this.userBlock_ = null;

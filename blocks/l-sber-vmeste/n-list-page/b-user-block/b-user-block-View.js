@@ -1,4 +1,4 @@
-goog.provide('sv.lSberVmeste.bListPage.bUserBlock.View');
+goog.provide('sv.lSberVmeste.bUserBlock.View');
 
 goog.require('cl.iControl.View');
 
@@ -12,20 +12,20 @@ goog.require('cl.iControl.View');
  * @constructor
  * @extends {cl.iControl.View}
  */
-sv.lSberVmeste.bListPage.bUserBlock.View = function(opt_params,
+sv.lSberVmeste.bUserBlock.View = function(opt_params,
     opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(
-        sv.lSberVmeste.bListPage.bUserBlock.View.CssClass.ROOT
+        sv.lSberVmeste.bUserBlock.View.CssClass.ROOT
     );
 };
-goog.inherits(sv.lSberVmeste.bListPage.bUserBlock.View,
+goog.inherits(sv.lSberVmeste.bUserBlock.View,
     cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bListPage.bUserBlock.View;
+    var View = sv.lSberVmeste.bUserBlock.View;
 
     /**
      * Css class enum

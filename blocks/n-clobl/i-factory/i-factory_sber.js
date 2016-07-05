@@ -20,8 +20,8 @@ goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
-goog.require('sv.lSberVmeste.bListPage.bUserBlock.UserBlock');
-goog.require('sv.lSberVmeste.bListPage.bUserBlock.View');
+goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
+goog.require('sv.lSberVmeste.bUserBlock.View');
 goog.require('sv.lSberVmeste.bListPage.ListPage');
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
@@ -110,8 +110,8 @@ sv.iFactory.FactorySber = function() {
             view: cl.gIcon.View
         })
         .setControlListItem('ListPageUserBlock', {
-            control: sv.lSberVmeste.bListPage.bUserBlock.UserBlock,
-            view: sv.lSberVmeste.bListPage.bUserBlock.View
+            control: sv.lSberVmeste.bUserBlock.UserBlock,
+            view: sv.lSberVmeste.bUserBlock.View
         });
 
 };
