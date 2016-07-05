@@ -41,6 +41,10 @@
     text-align: center;
 }
 
+.b-page-start__button_userfunds-count {
+    cursor: default;
+}
+
 @include media-m {
     .b-page-start__content {
         width: 335px;

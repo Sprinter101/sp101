@@ -95,7 +95,7 @@ goog.scope(function() {
      */
     StartPage.prototype.getFundsCount = function() {
         Request.getInstance().send({
-            url: 'entity/fund/today' })
+            url: '/user-fund/count' })
             .then(this.prepareUserfundsCountInfo,
                 this.handleRejection,
                 this);
@@ -117,6 +117,12 @@ goog.scope(function() {
     StartPage.prototype.prepareUserfundsCountInfo =
         function(response) {
             var data = response.data;
+            if (data.today < 1) {
+                data = data.all;
+            }
+            else {
+                data = data.today;
+            }
             this.prepareUserfundsCountPhrase(data);
     };
 
@@ -129,7 +135,7 @@ goog.scope(function() {
      */
     StartPage.prototype.prepareUserfundsCountPhrase =
     function(data) {
-        var userfundsCount = data.count;
+        var userfundsCount = data;
         var infoPhrase = 'Сегодня ';
         var countNumber = parseInt(userfundsCount, 10);
         if (countNumber === 1) {
@@ -140,11 +146,6 @@ goog.scope(function() {
         }
         this.prepareUserfundsCountButton(data);
         this.renderUserfundsCountInfo(infoPhrase);
-        this.getHandler().listen(
-            this.userfundsCountButton_,
-            Button.Event.CLICK,
-            this.onFundsCountButtonClick
-            );
     };
 
     /**
@@ -155,7 +156,7 @@ goog.scope(function() {
      */
     StartPage.prototype.prepareUserfundsCountButton =
     function(data) {
-        var userfundsCount = data.count;
+        var userfundsCount = data;
         var fundsWord = '';
         var countNumber = parseInt(userfundsCount, 10);
         if (countNumber === 1) {
@@ -213,16 +214,6 @@ goog.scope(function() {
     StartPage.prototype.onStartCreatingUserfund = function(event) {
         Router.getInstance().changeLocation(
             Route.LIST_PAGE, {'category': 'directions'});
-    };
-
-    /**
-     * Handles userfunds count button CLICK
-     * @param {sv.gButton.Button.Event.CLICK} event Click event
-     * @protected
-     */
-    StartPage.prototype.onFundsCountButtonClick = function(event) {
-        Router.getInstance().changeLocation(
-            Route.LIST_PAGE, {'category': 'funds'});
     };
 
 });  // goog.scope
