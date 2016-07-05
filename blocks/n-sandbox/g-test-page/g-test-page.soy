@@ -20,6 +20,8 @@
     {call .tab_ /}
     <div class="{call .rootClass /}__title">Инпут</div>
     {call .input_ /}
+     <div class="{call .rootClass /}__title">Ползунок</div>
+    {call .slider_ /}
 {/template}
 
 /**
@@ -158,10 +160,23 @@
                                 'label': '% от дохода',
                                 'content': [
                                     'childToRender': [
-                                        'type': 'SliderSber',
+                                        'type': 'InputSber',
                                         'renderParams': [
-                                            'data': [],
-                                            'config': []
+                                            'data': [
+                                                'inputType': 'text'
+                                            ],
+                                            'config': [
+                                                'validations': [
+                                                    'notEmpty',
+                                                    'digits',
+                                                    'maxDonation'
+                                                ],
+                                                'constraints': [
+                                                    'digitsOnly',
+                                                    'charactersLimit',
+                                                    'noLeadingZero'
+                                                ]
+                                            ]
                                         ]
                                     ]
                                 ]
@@ -211,5 +226,20 @@
                 ]
             ]
         ]/}
+    {/call}
+{/template}
+
+/**
+* Slider template
+*/
+{template .slider_ autoescape="strict" kind="html"}
+    {call .renderChild}
+    {param params: [
+            'type': 'SliderSber',
+            'renderParams': [
+                'data': [],
+                'config': []
+                ]
+            ]/}
     {/call}
 {/template}

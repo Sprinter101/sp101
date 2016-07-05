@@ -1,0 +1,29 @@
+{namespace sv.gSlider.Template}
+
+/**
+ * The slider template
+ * @extends cl.iControl.Template
+ * @constructor
+ */
+{template .slider}
+    {call .init data="all" /}
+{/template}
+
+/**
+* slider template
+*/
+{template .body}
+    <div class="{call .rootClass/}__label">
+    1<span class="{call .rootClass/}__label_percent">%</span>
+    </div>
+   <input class="{call .rootClass/}__slider" type="range" min="1" max="15" step="1" value="1"/>
+{/template}
+
+
+
+/**
+ * @override
+ */
+{template .rootClass}
+    g-slider
+{/template}
