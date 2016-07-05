@@ -61,6 +61,10 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.bPageManager.PageManager,
             view: sv.lSberVmeste.bPageManager.View
         })
+        // .setControlListItem('SliderSber', {
+        //     control: sv.lSberVmeste.bSlider.Slider,
+        //     view: sv.lSberVmeste.bSlider.View
+        // })
         .setControlListItem('StartPage', {
             control: sv.lSberVmeste.bStartPage.StartPage,
             view: sv.lSberVmeste.bStartPage.View

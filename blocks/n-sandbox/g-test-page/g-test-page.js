@@ -35,6 +35,8 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     */
     this.inputs_ = [];
 
+    this.slider = null;
+
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
@@ -52,7 +54,8 @@ goog.scope(function() {
 
         var domButtons = this.getView().getDom().buttons,
             domTabs = this.getView().getDom().tabs,
-            domInputs = this.getView().getDom().inputs;
+            domInputs = this.getView().getDom().inputs,
+            domSlider = this.getView().getDom().slider;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
@@ -70,7 +73,8 @@ goog.scope(function() {
                     MAX_CHARACTERS: 6
                 }
             ));
-        }
+        }        
+            //this.slider_.push(this.decorateChild('SliderSber', domSlider));
 
     };
 

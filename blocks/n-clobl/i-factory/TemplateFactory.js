@@ -18,6 +18,7 @@ goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.Template');
+goog.require('sv.lSberVmeste.bSlider.Template');
 
 
 
@@ -68,6 +69,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'TabSber',
             sv.gTab.Template.tab
+        )
+        .setTemplateListItem(
+            'SliderSber',
+            sv.lSberVmeste.bSlider.Template.slider
         )
         .setTemplateListItem(
             'CardList',

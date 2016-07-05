@@ -1,0 +1,19 @@
+{namespace sv.lSberVmeste.bSlider.Template}
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .slider}
+    {call .init data="all"/}
+{/template}
+
+/**
+*
+*/
+{template .sliderTemplate}
+   <div class="goog-slider-horizontal">
+             <div style="position:absolute;width:100%;top:9px;border:1px inset white;
+                         overflow:hidden;height:0"></div>
+             <div class="goog-slider-thumb"></div>
+   </div>
+{/template}
