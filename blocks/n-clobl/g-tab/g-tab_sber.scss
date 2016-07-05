@@ -1,10 +1,15 @@
 @import '../../l-sber-vmeste/i-media/i-media.scss';
 
+
+.g-tab__tabs {
+    display: inline-block;
+}
+
 .g-tab__tab {
     position: relative;
     font-family: SFUIDisplay;
 
-    width: 40%;
+    width: 35%;
     height: 32px;
 
     letter-spacing: 1.1px;
@@ -12,14 +17,8 @@
     color: #fff;
     border: solid 1px #fff;
     border-right: 0;
-    &:after {
-        display: inline-block;
-
-        height: 110%;
-
-        content: '';
-        vertical-align: middle;
-    }
+    display: table-cell;
+    vertical-align: middle;
     &:first-child {
         border-radius: 19px 0 0 19px;
     }
@@ -65,7 +64,6 @@
     .g-tab__tab {
         width: 152px;
     }
-
 }
 
 @include media-m {
