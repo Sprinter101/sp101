@@ -1,7 +1,9 @@
 goog.provide('sv.lSberVmeste.bListPage.bUserBlock.UserBlock');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
+goog.require('sv.iUtils.Utils');
 
 
 
@@ -23,13 +25,21 @@ sv.lSberVmeste.bListPage.bUserBlock.UserBlock = function(
     * @private
     */
     this.button_ = null;
+
+    /**
+    * @type {Array.<Object>}
+    * @private
+    */
+    this.categoriesData_ = null;
 };
 goog.inherits(sv.lSberVmeste.bListPage.bUserBlock.UserBlock,
     cl.iControl.Control);
 
 goog.scope(function() {
     var UserBlock = sv.lSberVmeste.bListPage.bUserBlock.UserBlock,
-        Button = sv.gButton.Button;
+        request = cl.iRequest.Request.getInstance(),
+        Button = sv.gButton.Button,
+        Utils = sv.iUtils.Utils;
 
     /**
      * User block events
@@ -46,8 +56,7 @@ goog.scope(function() {
     UserBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        //this.createFundButton();
-        this.createEditDonationsButton();
+        this.createFundButton();
     };
 
     /**
@@ -55,8 +64,110 @@ goog.scope(function() {
     */
     UserBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.sendUserCategoriesRequest();
     };
 
+    /**
+    * Sends ajax request to get the categories chosen by the user
+    */
+    UserBlock.prototype.sendUserCategoriesRequest = function() {
+        request
+            .send({url: 'entity/'})
+            .then(
+                this.createChosenCategoriesText,
+                this.handleRejection,
+                this);
+    };
+
+    /**
+    * Ajax successful response handler
+    * @param {Object} response
+    */
+    UserBlock.prototype.createChosenCategoriesText = function(
+        response) {
+        var data = response.data || [];
+        this.categoriesData_ = data;
+
+        var categories = this.createCategoriesObject(data);
+
+        var generatedText = this.generateCategoriesString(categories);
+
+        this.getView().appendChosenCategoriesText(generatedText);
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    UserBlock.prototype.handleRejection = function(err) {
+        console.log(err);
+    };
+
+    /**
+    * 
+    */
+    UserBlock.prototype.createCategoriesObject = function(data) {
+        var categories = {};
+
+        for (var i = 0; i < data.length; i++) {
+
+            var dataType = data[i].type,
+                value = categories[dataType] ?
+                    +categories[dataType] : 0;
+
+            categories[dataType] = ++value;
+        }
+
+        return categories;
+    };
+
+    /**
+    * 
+    */
+    UserBlock.prototype.generateCategoriesString = function(
+        categories) {
+        
+        var topicCount = /*categories.topic*/false,
+            directionCount = /*categories.direction*/false,
+            fundsCount = /*categories.fund*/false,
+            generatedString = '',
+            nbsp = '\u00A0'; //no-break space
+
+        if (topicCount) {
+            var word = Utils.declensionPrint({
+                num: topicCount,
+                nom: 'тема',
+                gen: 'темы',
+                plu: 'тем'
+            });
+            generatedString += topicCount + nbsp + word;
+        }
+
+        if (directionCount) {
+            var word = Utils.declensionPrint({
+                num: directionCount,
+                nom: 'направление',
+                gen: 'направления',
+                plu: 'направлений'
+            });
+            generatedString += generatedString ? ', ' : '';
+            generatedString += directionCount + nbsp + word;
+        }
+
+        if (fundsCount) {
+            var word = Utils.declensionPrint({
+                num: fundsCount,
+                nom: 'фонд',
+                gen: 'фонда',
+                plu: 'фондов'
+            });
+            generatedString += generatedString ? ', ' : '';
+            generatedString += fundsCount + nbsp + word;
+        }
+
+        return generatedString || "Вы не выбрали ни одной категории";
+    };
 
     /**
     * Creates Fund button

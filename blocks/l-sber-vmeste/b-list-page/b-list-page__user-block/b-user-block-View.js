@@ -55,4 +55,11 @@ goog.scope(function() {
         );
     };
 
+    /**
+    * 
+    */
+    View.prototype.appendChosenCategoriesText = function(text) {
+        this.dom.chosenCategories.innerText = text;
+    };
+
 });  // goog.scope
