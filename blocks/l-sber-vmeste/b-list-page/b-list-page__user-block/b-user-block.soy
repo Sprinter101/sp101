@@ -1,0 +1,25 @@
+{namespace sv.lSberVmeste.bListPage.bUserBlock.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .userBlock}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__chosen-categories"></div>
+    <div class="{call .rootClass /}__button"></div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-user-block
+{/template}
