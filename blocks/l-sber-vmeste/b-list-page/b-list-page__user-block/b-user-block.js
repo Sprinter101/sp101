@@ -105,7 +105,14 @@ goog.scope(function() {
     };
 
     /**
-    * 
+    * Creates "categories" object based on "data" array from an ajax
+    * response
+    * @param {Array.<Object>} data
+    * @return {{
+    *    topic: number,
+    *    direction: number,
+    *    fund: number
+    *}}
     */
     UserBlock.prototype.createCategoriesObject = function(data) {
         var categories = {};
@@ -123,14 +130,20 @@ goog.scope(function() {
     };
 
     /**
-    * 
+    * Generates text based on categories object
+    * @param {{
+    *    topic: number,
+    *    direction: number,
+    *    fund: number
+    *}} categories
+    * @return {string}
     */
     UserBlock.prototype.generateCategoriesString = function(
         categories) {
-        
-        var topicCount = /*categories.topic*/false,
-            directionCount = /*categories.direction*/false,
-            fundsCount = /*categories.fund*/false,
+
+        var topicCount = categories.topic,
+            directionCount = categories.direction,
+            fundsCount = categories.fund,
             generatedString = '',
             nbsp = '\u00A0'; //no-break space
 
@@ -166,7 +179,7 @@ goog.scope(function() {
             generatedString += fundsCount + nbsp + word;
         }
 
-        return generatedString || "Вы не выбрали ни одной категории";
+        return generatedString || 'Вы не выбрали ни одной категории';
     };
 
     /**
