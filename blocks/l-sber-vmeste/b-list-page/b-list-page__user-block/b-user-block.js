@@ -26,11 +26,6 @@ sv.lSberVmeste.bListPage.bUserBlock.UserBlock = function(
     */
     this.button_ = null;
 
-    /**
-    * @type {Array.<Object>}
-    * @private
-    */
-    this.categoriesData_ = null;
 };
 goog.inherits(sv.lSberVmeste.bListPage.bUserBlock.UserBlock,
     cl.iControl.Control);
@@ -45,9 +40,7 @@ goog.scope(function() {
      * User block events
      * @enum {string}
      */
-    UserBlock.Event = {
-
-    };
+    UserBlock.Event = {};
 
     /**
      * @override
@@ -60,90 +53,37 @@ goog.scope(function() {
     };
 
     /**
-    * @override
+    * user block initializer
+    * @param {{
+    *    topic: Object,
+    *    direction: Object,
+    *    fund: Object
+    *}} categories
     */
-    UserBlock.prototype.enterDocument = function() {
-        goog.base(this, 'enterDocument');
+    UserBlock.prototype.init = function(categories) {
+        var generatedText = this.generateCategoriesText(categories);
 
-        this.sendUserCategoriesRequest();
-    };
-
-    /**
-    * Sends ajax request to get the categories chosen by the user
-    */
-    UserBlock.prototype.sendUserCategoriesRequest = function() {
-        request
-            .send({url: 'entity/'})
-            .then(
-                this.createChosenCategoriesText,
-                this.handleRejection,
-                this);
-    };
-
-    /**
-    * Ajax successful response handler
-    * @param {Object} response
-    */
-    UserBlock.prototype.createChosenCategoriesText = function(
-        response) {
-        var data = response.data || [];
-        this.categoriesData_ = data;
-
-        var categories = this.createCategoriesObject(data);
-
-        var generatedText = this.generateCategoriesString(categories);
-
-        this.getView().appendChosenCategoriesText(generatedText);
-    };
-
-    /**
-    * Ajax rejection handler
-    * @param {Object} err
-    */
-    UserBlock.prototype.handleRejection = function(err) {
-        console.log(err);
-    };
-
-    /**
-    * Creates "categories" object based on "data" array from an ajax
-    * response
-    * @param {Array.<Object>} data
-    * @return {{
-    *    topic: number,
-    *    direction: number,
-    *    fund: number
-    *}}
-    */
-    UserBlock.prototype.createCategoriesObject = function(data) {
-        var categories = {};
-
-        for (var i = 0; i < data.length; i++) {
-
-            var dataType = data[i].type,
-                value = categories[dataType] ?
-                    +categories[dataType] : 0;
-
-            categories[dataType] = ++value;
-        }
-
-        return categories;
+        this.getView().appendCategoriesText(generatedText);
     };
 
     /**
     * Generates text based on categories object
     * @param {{
-    *    topic: number,
-    *    direction: number,
-    *    fund: number
+    *    topic: Object,
+    *    direction: Object,
+    *    fund: Object
     *}} categories
     * @return {string}
     */
-    UserBlock.prototype.generateCategoriesString = function(
+    UserBlock.prototype.generateCategoriesText = function(
         categories) {
 
-        var topicCount = categories.topic,
-            directionCount = categories.direction,
-            fundsCount = categories.fund,
+        var topicCount = categories.topic &&
+                categories.topic.length,
+            directionCount = categories.direction &&
+                categories.direction.length,
+            fundsCount = categories.fund &&
+                categories.fund.length,
             generatedString = '',
             nbsp = '\u00A0'; //no-break space
 

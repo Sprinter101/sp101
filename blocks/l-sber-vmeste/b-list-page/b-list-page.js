@@ -43,6 +43,12 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     * @private
     */
     this.cardLists_ = [];
+
+    /**
+    * @type {Array.<Object>}
+    * @private
+    */
+    this.categoriesData_ = null;
 };
 goog.inherits(sv.lSberVmeste.bListPage.ListPage, sv.lSberVmeste.iPage.Page);
 
@@ -68,6 +74,8 @@ goog.scope(function() {
     */
     ListPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.sendCategoriesRequest();
 
         this.userBlock_ = this.renderChild(
             'ListPageUserBlock',
@@ -102,34 +110,33 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.addListCardsListeners();
-
-        this.sendCardsRequests();
     };
 
     /**
     * Sends ajax requests for cards
     */
-    ListPage.prototype.sendCardsRequests = function() {
-        for (var i = 0; i < this.cardLists_.length; i++) {
-            request
-                .send({url: 'entity/' +
-                    ListPage.CardTypes[i]
-                })
-                .then(this.handleResponse.bind(this, i),
-                    this.handleRejection,
-                    this);
-        }
+    ListPage.prototype.sendCategoriesRequest = function() {
+        request
+            .send({url: 'entity/'})
+            .then(
+                this.handleResponse,
+                this.handleRejection,
+                this);
     };
 
     /**
     * Ajax successful response handler
-    * @param {number} cardListIndex
     * @param {Object} response
     */
-    ListPage.prototype.handleResponse = function(cardListIndex, response) {
-        var cardList = this.cardLists_[cardListIndex];
+    ListPage.prototype.handleResponse = function(response) {
+        var data = response.data || [];
+        this.categoriesData_ = this.createCategoriesObject(data);
 
-        cardList.renderCards(response.data);
+        this.renderCardListCards();
+
+        if (this.userBlock_) {
+            this.userBlock_.init(this.categoriesData_);
+        }
     };
 
     /**
@@ -138,6 +145,47 @@ goog.scope(function() {
     */
     ListPage.prototype.handleRejection = function(err) {
         console.log(err);
+    };
+
+    /**
+    * Calls renderCards method of each card list
+    */
+    ListPage.prototype.renderCardListCards = function() {
+        var categories = this.categoriesData_;
+
+        for (var i = 0; i < this.cardLists_.length; i++) {
+            var cardList = this.cardLists_[i],
+                cardType = ListPage.CardTypes[i];
+
+            cardList.renderCards(categories[cardType]);
+        }
+    };
+
+    /**
+    * Creates "categories" object based on "data" array from an ajax
+    * response
+    * @param {Array.<Object>} data
+    * @return {{
+    *    topic: Object,
+    *    direction: Object,
+    *    fund: Object
+    *}}
+    */
+    ListPage.prototype.createCategoriesObject = function(data) {
+        var categories = {};
+
+        for (var i = 0; i < data.length; i++) {
+
+            var dataType = data[i].type;
+
+            if (categories[dataType]) {
+                categories[dataType].push(data[i]);
+            } else {
+                categories[dataType] = [data[i]];
+            }
+        }
+
+        return categories;
     };
 
     /**

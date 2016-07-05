@@ -59,7 +59,7 @@ goog.scope(function() {
     * appends text to the chosenCategories dom element
     * @param {string} text
     */
-    View.prototype.appendChosenCategoriesText = function(text) {
+    View.prototype.appendCategoriesText = function(text) {
         this.dom.chosenCategories.innerText = text;
     };
 
