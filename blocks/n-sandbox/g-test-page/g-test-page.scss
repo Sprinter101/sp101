@@ -1,6 +1,6 @@
 .b-test-page {
     margin-top: 20px;
-    background-color: #353535;
+    //background-color: #353535;
     padding: 10px 0;
     text-align: center;
 }
@@ -20,3 +20,37 @@
 .g-icon_logo-userfund_authorized {
     margin: 40px auto 20px;
 }
+
+.goog-slider-vertical,
+    .goog-slider-horizontal {
+      background-color: ThreeDFace;
+      position: relative;
+      overflow: hidden;
+    }
+    .goog-slider-thumb {
+      position: absolute;
+      background-color: ThreeDShadow;
+      overflow: hidden;
+    }
+
+    .goog-slider-vertical .goog-slider-thumb {
+      left: 0;
+      height: 20px;
+      width: 100%;
+    }
+
+    .goog-slider-horizontal .goog-slider-thumb {
+      top: 0;
+      width: 20px;
+      height: 100%;
+    }
+    .goog-slider-disabled {
+      background-color: lightgray
+    }
+    #s-h {
+      margin-bottom: 2em;
+    }
+    strong {
+      display: block;
+      margin-bottom: 3px;
+    }

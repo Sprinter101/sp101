@@ -1,6 +1,8 @@
 goog.provide('sv.gTestPage.TestPage');
 
 goog.require('cl.iControl.Control');
+goog.require('goog.ui.Component');
+goog.require('goog.ui.Slider');
 goog.require('sv.gButton.Button');
 
 
@@ -52,7 +54,8 @@ goog.scope(function() {
 
         var domButtons = this.getView().getDom().buttons,
             domTabs = this.getView().getDom().tabs,
-            domInputs = this.getView().getDom().inputs;
+            domInputs = this.getView().getDom().inputs,
+            domSlider = this.getView().getDom().slider;
 
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
@@ -71,6 +74,15 @@ goog.scope(function() {
                 }
             ));
         }
+
+        var slider = new goog.ui.Slider();
+        window._slider = slider;
+        slider.decorate(domSlider);
+        domSlider.style.width = '200px';
+        domSlider.style.height = '20px';
+        slider.addEventListener(goog.ui.Component.EventType.CHANGE, function() {
+          document.getElementsByClassName('out')[0].innerText = slider.getValue();
+        });
 
     };
 
