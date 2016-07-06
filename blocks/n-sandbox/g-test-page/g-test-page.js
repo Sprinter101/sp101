@@ -73,7 +73,7 @@ goog.scope(function() {
                     MAX_CHARACTERS: 6
                 }
             ));
-        }        
+        }
             this.slider_ = this.decorateChild('SliderSber', domSlider);
 
     };

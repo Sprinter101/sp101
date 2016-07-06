@@ -7,22 +7,16 @@ goog.require('sv.gSlider.View');
 
 
 /**
- * Slider control
+ * sv.gSlider.Slider
  * @param {sv.gSlider.View} view View used to render or
- *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
+ *     decorate the component; defaults to {@link goog.ui.ControlRenderer}
+ * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper
  * @constructor
  * @extends {cl.giConrol.Control}
  */
 sv.gSlider.Slider = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
-    /**
-     * slider range
-     * @type {Object}
-     * @private
-     */
-    this.range_ = null;
 };
 goog.inherits(sv.gSlider.Slider, cl.iControl.Control);
 
@@ -36,7 +30,7 @@ goog.scope(function() {
      * @enum {string}
      */
     Slider.Event = {
-        MOVE: View.Event.MOVE
+        PERCENT_SLIDER_MOVE: 'percent-slider-move'
     };
 
     /**
@@ -46,10 +40,6 @@ goog.scope(function() {
     Slider.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        /*this.range_ = this.getView().getDom().range;
-        this.thumb_ = this.getView().getDom().thumb;
-        this.label_ = this.getView().getDom().label;
-        this.left_ = this.getView().getDom().left;*/
     };
 
      /**
@@ -57,6 +47,25 @@ goog.scope(function() {
     */
     Slider.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.viewListen(
+            View.Event.SLIDER_MOVE,
+            this.onSliderMove
+        );
     }
+
+    /**
+    * dispatches event with current slider value    
+    * @param {View.Event.SLIDER_MOVE} event
+    */
+    Slider.prototype.onSliderMove = function(event) {
+        console.log(event.payload.percent);
+        var currentPercent = event.payload.percent;
+         var customEvent = new goog.events.Event(Slider.Event
+            .PERCENT_SLIDER_MOVE, this);
+
+         customEvent.payload = { 'percent': currentPercent };
+                this.dispatchEvent(customEvent);
+    };
 
 });  // goog.scope
