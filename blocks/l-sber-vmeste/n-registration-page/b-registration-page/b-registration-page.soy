@@ -1,0 +1,36 @@
+{namespace sv.lSberVmeste.bRegistrationPage.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .registrationPage}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+        {call .pathLine /}
+        <div class="{call .rootClass/}__content">
+            <div class="{call .rootClass/}__registration-block"></div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-registration-page
+{/template}

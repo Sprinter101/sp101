@@ -77,6 +77,8 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.initRouting_();
+
+        Router.getInstance().initLocation();
     };
 
     /**
@@ -87,11 +89,28 @@ goog.scope(function() {
         var controller = this.controller_;
 
         this.router_.enable();
-        this.initRoute_(Route.START, controller.actionStart);
-        this.initRoute_(Route.TEST, controller.actionTest);
-        this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
-        this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
-        this.initRoute_(Route.DONATE, controller.actionDonate);
+
+        this.initRoute_(
+            Route.START, controller.actionStart
+        );
+        this.initRoute_(
+            Route.TEST, controller.actionTest
+        );
+        this.initRoute_(
+            Route.LIST_PAGE, controller.actionListPage
+        );
+        this.initRoute_(
+            Route.CARD, controller.actionDisplayCategoryCard
+        );
+        this.initRoute_(
+            Route.DONATE, controller.actionDonate
+        );
+        this.initRoute_(
+            Route.PROFILE, controller.actionProfilePage
+        );
+        this.initRoute_(
+            Route.REGISTRATION, controller.actionRegistrationPage
+        );
     };
 
     /**
