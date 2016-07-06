@@ -13,6 +13,27 @@
  * @override
  */
 {template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__first-name-input">
+        <input type="text">
+    </div>
+    <div class="{call .rootClass /}__last-name-input">
+        <input type="text">
+    </div>
+    <div class="{call .rootClass /}__phone-number-input">
+        <input type="text">
+    </div>
+    <div class="{call .rootClass /}__confirm-button">
+        {call .renderChild}
+          {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': 'Сохранить'
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
 {/template}
 
 /**
@@ -20,4 +41,25 @@
  */
 {template .rootClass}
     b-profile-edit
+{/template}
+
+/**
+ * @override
+ */
+{template .renderInput}
+    {call .renderChild}
+      {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'inputType': 'text'
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty'
+                    ]
+                ]
+            ]
+        ]/}
+    {/call}
 {/template}

@@ -29,7 +29,8 @@ goog.scope(function() {
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'b-profile-page'
+        ROOT: 'b-profile-page',
+        PROFILE_BLOCK: 'b-profile-page__profile-block'
     };
 
     /**
@@ -38,6 +39,11 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.dom.profileBlock = this.getElementByClass(
+            View.CssClass.PROFILE_BLOCK,
+            this.getElement()
+        );
     };
 
 });  // goog.scope

@@ -18,6 +18,11 @@
 }
 
 .b-profile-page__content {
+    text-align: center;
+}
+
+.b-profile-page__profile-block {
+    display: inline-block;
 }
 
 @include media-m {

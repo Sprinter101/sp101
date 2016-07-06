@@ -13,6 +13,32 @@
  * @override
  */
 {template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__photo-block">
+        <div class="{call .rootClass /}__photo-block-text"></div>
+    </div>
+    <div class="{call .rootClass /}__info-block">
+        <div class="{call .rootClass /}__user-name"></div>
+        <div class="{call .rootClass /}__user-phone"></div>
+        <div class="{call .rootClass /}__edit-button">
+            {call .renderChild}
+              {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': 'Редактировать'
+                        ],
+                        'config': [
+                            'buttonStyles': [
+                                'height_small',
+                                'background_transparent',
+                                'border_green'
+                            ]
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+    </div>
 {/template}
 
 /**
