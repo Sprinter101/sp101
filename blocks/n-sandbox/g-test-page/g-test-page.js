@@ -35,7 +35,7 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     */
     this.inputs_ = [];
 
-    this.slider = null;
+    this.slider_ = null;
 
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
@@ -74,7 +74,7 @@ goog.scope(function() {
                 }
             ));
         }        
-            //this.slider_.push(this.decorateChild('SliderSber', domSlider));
+            this.slider_ = this.decorateChild('SliderSber', domSlider);
 
     };
 

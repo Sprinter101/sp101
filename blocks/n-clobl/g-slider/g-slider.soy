@@ -10,21 +10,19 @@
 {/template}
 
 /**
-* slider template
+* @override
 */
 {template .body}
-    <div class="{call .rootClass/}__label">
-    1<span class="{call .rootClass/}__label_percent">%</span>
+    <div class="{call .rootClass/}__label"></div>
+    <div class="{call .rootClass/}__range">
+        <div class="{call .rootClass/}__thumb" style="left: 0;"></div>
     </div>
-   <input class="{call .rootClass/}__slider" type="range" min="1" max="15" step="1" value="1"/>
-   <hr class="{call .rootClass/}__line">
-   <div class="thumb"></div>
+     <div class="{call .rootClass/}__left"></div>
 {/template}
 
 
-
 /**
- * @override
+ * ROOT CLASS
  */
 {template .rootClass}
     g-slider

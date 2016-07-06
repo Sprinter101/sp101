@@ -33,7 +33,7 @@ goog.scope(function() {
         BUTTON: 'g-button_sber',
         TAB: 'g-tab_sber',
         INPUT: 'g-input_sber',
-        SLIDER: 'b-slider'
+        SLIDER: 'g-slider'
     };
 
     /**
