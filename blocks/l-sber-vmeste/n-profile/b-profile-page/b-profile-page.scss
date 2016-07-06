@@ -1,0 +1,36 @@
+@import "../../i-media/i-media";
+
+.b-profile-page {
+
+}
+
+.b-profile-page__wrapper {
+}
+
+.b-profile-page__path_vertical {
+    width: 1px;
+    height: 30px;
+    margin: 10px auto;
+    border: 1px solid #FFFFFF;
+    border-radius: 1px;
+    background: #ccc;
+    opacity: 0.4;
+}
+
+.b-profile-page__content {
+}
+
+@include media-m {
+    .b-profile-page__path_vertical {
+        display: block;
+        height: 87px;
+    }
+}
+
+@include media-l {
+    .b-profile-page__path_vertical {
+        height: 57px;
+        margin: 10px auto 15px;
+    }
+}
+

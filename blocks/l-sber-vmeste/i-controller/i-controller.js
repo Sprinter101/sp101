@@ -73,4 +73,14 @@ goog.scope(function() {
         this.pageManager_.setCurrentPage('StartPage');
     };
 
+    /**
+     * 'Donate' action
+     */
+    Controller.prototype.actionProfilePage = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'donate'}
+            });
+        this.pageManager_.setCurrentPage('ProfilePage');
+    };
+
 });  // goog.scope
