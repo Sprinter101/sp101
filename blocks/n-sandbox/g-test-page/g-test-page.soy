@@ -76,7 +76,7 @@
     {foreach $item in $buttonTypes}
         <div class="{call .rootClass /}__element">
             {call .renderChild}
-              {param params: [
+                {param params: [
                     'type': 'ButtonSber',
                     'renderParams': [
                         'data': [
@@ -103,7 +103,7 @@
     {foreach $item in $iconTypes}
         <div class="{call .rootClass /}__element">
             {call .renderChild}
-              {param params: [
+                {param params: [
                     'type': 'IconSber',
                     'renderParams': [
                         'data': [],
@@ -123,7 +123,7 @@
 {template .tab_ autoescape="strict" kind="html"}
     <div class="{call .rootClass /}__element">
         {call .renderChild}
-          {param params: [
+            {param params: [
                 'type': 'TabSber',
                 'renderParams': [
                     'data': [
@@ -149,7 +149,7 @@
 
     <div class="{call .rootClass /}__element">
         {call .renderChild}
-          {param params: [
+            {param params: [
                 'type': 'TabSber',
                 'renderParams': [
                     'data': [
@@ -203,26 +203,57 @@
 * Input template
 */
 {template .input_ autoescape="strict" kind="html"}
-    {call .renderChild}
-      {param params: [
-            'type': 'InputSber',
-            'renderParams': [
-                'data': [
-                    'inputType': 'text'
-                ],
-                'config': [
-                    'validations': [
-                        'notEmpty',
-                        'digits',
-                        'maxDonation'
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">
+            digits, maxDonation:
+        </div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text'
                     ],
-                    'constraints': [
-                        'digitsOnly',
-                        'charactersLimit',
-                        'noLeadingZero'
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'digits',
+                            'maxDonation'
+                        ],
+                        'constraints': [
+                            'digitsOnly',
+                            'charactersLimit',
+                            'noLeadingZero'
+                        ]
                     ]
                 ]
-            ]
-        ]/}
-    {/call}
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">
+            name:
+        </div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text'
+                    ],
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'name'
+                        ],
+                        'constraints': [
+                            'noLeadingZero',
+                            'name'
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
 {/template}
