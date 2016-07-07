@@ -16,7 +16,6 @@ goog.require('sv.gSlider.View');
  */
 sv.gSlider.Slider = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
-
 };
 goog.inherits(sv.gSlider.Slider, cl.iControl.Control);
 
@@ -30,7 +29,7 @@ goog.scope(function() {
      * @enum {string}
      */
     Slider.Event = {
-        PERCENT_SLIDER_MOVE: 'percent-slider-move'
+        SLIDER_MOVE: 'slider-move'
     };
 
     /**
@@ -61,10 +60,26 @@ goog.scope(function() {
     Slider.prototype.onSliderMove = function(event) {
         var currentPercent = event.payload.percent;
          var customEvent = new goog.events.Event(Slider.Event
-            .PERCENT_SLIDER_MOVE, this);
+            .SLIDER_MOVE, this);
 
          customEvent.payload = { 'percent': currentPercent };
                 this.dispatchEvent(customEvent);
+    };
+
+    /**
+     * slider enable
+     */
+    Slider.prototype.enable = function() {
+        var classes = this.getView().getClassNames(this);
+        this.getView().enable(classes);
+    };
+
+    /**
+     * slider disable
+     */
+    Slider.prototype.disable = function() {
+        var classes = this.getView().getClassNames(this);
+        this.getView().disable(classes);
     };
 
 });  // goog.scope

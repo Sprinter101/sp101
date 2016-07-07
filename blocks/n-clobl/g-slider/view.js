@@ -2,6 +2,7 @@ goog.provide('sv.gSlider.View');
 
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
+goog.require('goog.dom.classlist');
 goog.require('goog.events.EventType');
 goog.require('goog.style');
 
@@ -31,7 +32,7 @@ goog.scope(function() {
      * @enum {string}
      */
     View.CssClass = {
-        ROOT: 'g-slider_sber',
+        ROOT: 'g-slider',
         DISABLED: 'g-slider_disabled',
         SLIDER: 'g-slider__slider',
         THUMB: 'g-slider__thumb',
@@ -85,7 +86,7 @@ goog.scope(function() {
             this.onThumbFocus
         )
         .listen(
-            this.getElement(),
+            document,
             goog.events.EventType.MOUSEMOVE,
             this.onThumbMove
         )
@@ -188,5 +189,94 @@ goog.scope(function() {
             this.dom.thumb.onmouseup = null;
             return this.currentPos_;
          };
+
+         /**
+         * enable slider
+         * @param {Array<string>} classes -
+         * css classes to manage disabled state
+         */
+        View.prototype.enable = function(classes) {
+            if (classes.indexOf(View.CssClass.DISABLED) == -1) {
+                goog.dom.classlist.remove(
+                    this.getElement(),
+                    View.CssClass.DISABLED
+                );
+                this.getHandler().listen(
+                    this.dom.slider,
+                    goog.events.EventType.MOUSEDOWN,
+                    this.onThumbFocus
+                )
+                .listen(
+                    this.getElement(),
+                    goog.events.EventType.MOUSEMOVE,
+                    this.onThumbMove
+                )
+                .listen(
+                    document,
+                     goog.events.EventType.MOUSEUP,
+                     this.onThumbBlur
+                )
+                .listen(
+                    this.dom.slider,
+                    goog.events.EventType.TOUCHSTART,
+                    this.onThumbFocus
+                )
+                .listen(
+                    this.getElement(),
+                    goog.events.EventType.TOUCHMOVE,
+                    this.onThumbMove
+                )
+                .listen(
+                    document,
+                     goog.events.EventType.TOUCHEND,
+                     this.onThumbBlur
+                );
+            }
+        };
+
+        /**
+         * disable slider
+         * @param {Array<string>} classes -
+         * css classes to manage disabled state
+         */
+        View.prototype.disable = function(classes) {
+            if (classes.indexOf(View.CssClass.DISABLED) == -1) {
+                goog.dom.classlist.add(
+                    this.getElement(),
+                    View.CssClass.DISABLED
+                );
+
+                this.getHandler().unlisten(
+                    this.dom.slider,
+                    goog.events.EventType.MOUSEDOWN,
+                    this.onThumbFocus
+                )
+                .unlisten(
+                    this.getElement(),
+                    goog.events.EventType.MOUSEMOVE,
+                    this.onThumbMove
+                )
+                .unlisten(
+                    document,
+                     goog.events.EventType.MOUSEUP,
+                     this.onThumbBlur
+                )
+                .unlisten(
+                    this.dom.slider,
+                    goog.events.EventType.TOUCHSTART,
+                    this.onThumbFocus
+                )
+                .unlisten(
+                    this.getElement(),
+                    goog.events.EventType.TOUCHMOVE,
+                    this.onThumbMove
+                )
+                .unlisten(
+                    document,
+                     goog.events.EventType.TOUCHEND,
+                     this.onThumbBlur
+                );
+            }
+        };
 
 });  // goog.scope
