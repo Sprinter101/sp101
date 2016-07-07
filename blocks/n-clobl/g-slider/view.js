@@ -3,6 +3,7 @@ goog.provide('sv.gSlider.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
+goog.require('goog.style');
 
 
 
@@ -32,10 +33,11 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'g-slider_sber',
         DISABLED: 'g-slider_disabled',
+        SLIDER: 'g-slider__slider',
         THUMB: 'g-slider__thumb',
-        RANGE: 'g-slider__range',
+        TRACK: 'g-slider__track',
         LABEL: 'g-slider__label',
-        LEFT: 'g-slider__left'
+        LABEL_PERCENT: 'g-slider__label_small'
     };
 
     /**
@@ -53,10 +55,12 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.range = this.getElementByClass(View.CssClass.RANGE);
+        this.dom.track = this.getElementByClass(View.CssClass.TRACK);
         this.dom.thumb = this.getElementByClass(View.CssClass.THUMB);
         this.dom.label = this.getElementByClass(View.CssClass.LABEL);
-        this.dom.left = this.getElementByClass(View.CssClass.LEFT);
+        this.dom.label_percent = this.getElementByClass(
+            View.CssClass.LABEL_PERCENT);
+        this.dom.slider = this.getElementByClass(View.CssClass.SLIDER);
 
         this.start_ = null;
         this.is_move_ = 0;
@@ -76,7 +80,7 @@ goog.scope(function() {
         };
 
         this.getHandler().listen(
-            this.dom.thumb,
+            this.dom.slider,
             goog.events.EventType.MOUSEDOWN,
             this.onThumbFocus
         )
@@ -91,7 +95,7 @@ goog.scope(function() {
              this.onThumbBlur
         )
         .listen(
-            this.dom.thumb,
+            this.dom.slider,
             goog.events.EventType.TOUCHSTART,
             this.onThumbFocus
         )
@@ -123,26 +127,42 @@ goog.scope(function() {
          * @param {goog.events.EventType.MOUSEMOVE} event
          */
         View.prototype.onThumbMove = function(event) {
-            var customEvent = new goog.events.Event(View.Event
-            .SLIDER_MOVE, this);
-
+            this.track_size = goog.style.getSize(this.dom.track).width;
             if (this.is_move_ == 1) {
                 var step = event.clientX - this.start_;
-                this.dom.label.innerHTML = step;
                 this.currentPos_ = this.left_ + step;
-                if (this.currentPos_ > 286) {
-                    this.currentPos_ = 286;
+                if (this.currentPos_ >= this.track_size) {
+                    this.currentPos_ = this.track_size;
                 }
                 else if (this.currentPos_ < 1) {
                     this.currentPos_ = 0;
                 }
                 var currentPercent = this.CalculatePercent(this.currentPos_);
                 currentPercent = Math.floor(currentPercent) + 1;
-                this.dom.left.innerHTML = currentPercent;
-                this.dom.thumb.style.left = this.currentPos_ + 'px';
-                customEvent.payload = { 'percent': currentPercent };
-                this.dispatchEvent(customEvent);
+                this.dom.label.innerHTML = currentPercent;
+                this.dom.slider.style.left = this.currentPos_ + 'px';
+                if (currentPercent > 9) {
+                    this.dom.label.style.left = '-37px';
+                    this.dom.label_percent.style.left = '43px';
+                }
+               else if (currentPercent <= 9) {
+                    this.dom.label.style.left = '-17px';
+                    this.dom.label_percent.style.left = '28px';
+                }
+                this.dispatchMoveEvent(currentPercent);
             }
+        };
+
+         /**
+         * dispatches view event with slider value
+         * @param {number} currentPercent
+         */
+        View.prototype.dispatchMoveEvent = function(currentPercent) {
+            var customEvent = new goog.events.Event(View.Event
+                .SLIDER_MOVE, this);
+
+            customEvent.payload = { 'percent': currentPercent };
+                this.dispatchEvent(customEvent);
         };
 
         /**
@@ -151,7 +171,7 @@ goog.scope(function() {
          * @return {number} current percent value
          */
         View.prototype.CalculatePercent = function(delta_x) {
-            var currentPercent = delta_x / 286 * 14;
+            var currentPercent = delta_x / this.track_size * 14;
             return currentPercent;
         };
 

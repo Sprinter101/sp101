@@ -52,14 +52,13 @@ goog.scope(function() {
             View.Event.SLIDER_MOVE,
             this.onSliderMove
         );
-    }
+    };
 
     /**
-    * dispatches event with current slider value    
+    * dispatches event with current slider value
     * @param {View.Event.SLIDER_MOVE} event
     */
     Slider.prototype.onSliderMove = function(event) {
-        console.log(event.payload.percent);
         var currentPercent = event.payload.percent;
          var customEvent = new goog.events.Event(Slider.Event
             .PERCENT_SLIDER_MOVE, this);

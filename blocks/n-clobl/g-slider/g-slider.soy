@@ -13,11 +13,15 @@
 * @override
 */
 {template .body}
-    <div class="{call .rootClass/}__label"></div>
-    <div class="{call .rootClass/}__range">
-        <div class="{call .rootClass/}__thumb" style="left: 0;"></div>
+   
+    <div class="{call .rootClass/}__track">
+        <div class="{call .rootClass/}__slider"  style="left: 0;">
+             <div class="{call .rootClass/}__label" style="left: -17px;">1
+            </div>
+            <span class="{call .rootClass/}__label_small" style="left: 28px;">%</span>
+            <div class="{call .rootClass/}__thumb"></div>
+        </div>
     </div>
-     <div class="{call .rootClass/}__left"></div>
 {/template}
 
 
