@@ -1,16 +1,20 @@
 .b-test-page {
     margin-top: 20px;
-    background-color: #353535;
     padding: 10px 0;
+
     text-align: center;
+
+    background-color: #353535;
 }
 
 .b-test-page__title {
     margin: 10px 0;
-    font-size: 30px;
+
     color: #fff;
     border-top: 2px solid white;
     border-bottom: 2px solid white;
+
+    font-size: 30px;
 }
 
 .b-test-page__element {
@@ -19,6 +23,17 @@
 
 .g-icon_logo-userfund_authorized {
     margin: 40px auto 20px;
+}
+
+.b-test-page__input-block {
+    display: inline-block;
+
+    width: 45%;
+
+    vertical-align: top;
+}
+.b-test-page__input-title {
+    vertical-align: top;
 }
 
 .g-slider_sber {

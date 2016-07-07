@@ -35,7 +35,8 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'digits': this.validateDigits_,
         'email': this.validateEmail_,
         'notEmpty': this.validateNotEmpty_,
-        'maxDonation': this.validateMaxDonation_
+        'maxDonation': this.validateMaxDonation_,
+        'name': this.validateName_
     };
 
     /**
@@ -45,9 +46,9 @@ sv.gInput.Input = function(view, opt_domHelper) {
     this.constraintsHandlers = {
         'digitsOnly': this.constraintDigitsOnly_,
         'charactersLimit': this.constraintCharactersLimit_,
-        'noLeadingZero': this.constraintNoLeadingZero_
+        'noLeadingZero': this.constraintNoLeadingZero_,
+        'name': this.constraintName_
     };
-
 };
 goog.inherits(sv.gInput.Input, cl.gInput.Input);
 
@@ -193,6 +194,19 @@ goog.scope(function() {
     };
 
     /**
+     * Remove extra characters from name.
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintName_ = function(oldValue) {
+        oldValue = oldValue.trim();
+        var nameRegex = /[^ёа-яА-Я- ]/g;
+
+        return oldValue.replace(nameRegex, '');
+    };
+
+    /**
      * Validate digit
      * @param {string} text text to validate
      * @return {boolean}
@@ -217,6 +231,21 @@ goog.scope(function() {
     Input.prototype.validateMaxDonation_ = function(text) {
         var donationAmount = Number(text);
         return !(donationAmount > this.const.MAX_NUMBER);
+    };
+
+    /**
+     * Validate name
+     * @param {string} name name to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateName_ = function(name) {
+        name = name.trim();
+        var nameRegex = new RegExp(
+            "^[ёа-яА-Я- ]{2," + this.const.MAX_NUMBER + "}$"
+        );
+
+        return nameRegex.test(name);
     };
 
 });  // goog.scope

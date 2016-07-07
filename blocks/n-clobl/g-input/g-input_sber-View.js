@@ -27,7 +27,8 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
         'email': 'Введён некорректный адрес электронной почты',
         'notEmpty': 'Это поле не может быть пустым',
         'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
-                        'чем 500 тыс. рублей'
+                        'чем 500 тыс. рублей',
+        'name': 'Не корректно введено имя'
     };
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
