@@ -5,6 +5,7 @@ goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.gButton.Button');
 goog.require('sv.gInput.Input');
+goog.require('sv.gSlider.Slider');
 goog.require('sv.lSberVmeste.bDonationPercentBlock.View');
 
 
@@ -30,11 +31,11 @@ sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock = function(
     this.monthlyIncome_ = null;
 
     /**
-     * temporary input for donation sum (instead of slider)
-     * @type {sv.gInput.Input}
+     * donation percent slider
+     * @type {sv.gSlider.Slider}
     * @private
     */
-    this.donationInput_ = null;
+    this.donationSlider_ = null;
 
     /**
     * @type {sv.gButton.Button}
@@ -60,7 +61,8 @@ goog.scope(function() {
             DonationPercentBlock,
         View = sv.lSberVmeste.bDonationPercentBlock.View,
         Input = sv.gInput.Input,
-        Button = sv.gButton.Button;
+        Button = sv.gButton.Button,
+        Slider = sv.gSlider.Slider;
 
        /**
      * Event enum
@@ -88,13 +90,8 @@ goog.scope(function() {
         });
         this.monthlyIncome_.sum = 0;
 
-        this.donationInput_ = this.decorateChild('InputSber',
-            this.getView().getDom().sliderInput, {
-            MAX_NUMBER: 50,
-            MAX_CHARACTERS: 2,
-            MIN_INPUT: 1
-        });
-        this.donationInput_.percent = 0.01;
+        this.donationSlider_ = this.decorateChild('SliderSber',
+            this.getView().getDom().slider);
 
         this.buttonReady_ = this.decorateChild('ButtonSber',
             this.getView().getDom().buttonReady
@@ -109,7 +106,7 @@ goog.scope(function() {
 
         this.KeyHandler_ = new goog.events.KeyHandler(document);
         this.incomeKeyHandler_ = new goog.events.KeyHandler(this.monthlyIncome_.getElement());
-        this.percentKeyHandler_ = new goog.events.KeyHandler(this.donationInput_.getElement());
+        //this.percentKeyHandler_ = new goog.events.KeyHandler(this.donationInput_.getElement());
 
         this.getHandler()
             .listen(
@@ -132,23 +129,14 @@ goog.scope(function() {
                 this.onButtonReadyClick
             )
             .listen(
-                this.donationInput_,
-                Input.Event.FOCUS,
-                this.onDonationInputFocus
-            ).listen(
-                this.donationInput_,
-                Input.Event.BLUR,
-                this.onDonationInputBlur
+                this.donationSlider_,
+                Slider.Event.SLIDER_MOVE,
+                this.onSliderMove
             )
             .listen(
                 this.incomeKeyHandler_,
                 goog.events.KeyHandler.EventType.KEY,
                 this.onIncomeKeyEvent_
-            )
-            .listen(
-                this.percentKeyHandler_,
-                goog.events.KeyHandler.EventType.KEY,
-                this.onPercentKeyEvent_
             )
             .listen(
                 this.KeyHandler_,
@@ -241,36 +229,15 @@ goog.scope(function() {
         return this.monthlyIncome_.validate();
     };
 
-    /**
-     * checks if donation sum is valid
-     * @return {bool} if input sum is valid
-     * @private
+     /**
+     * slider move event handler
+     * @param {sv.gSlider.Event.SLIDER_MOVE} event
      */
-    DonationPercentBlock.prototype.checkDonationInputSum_ = function() {
-        var inputSliderInput = this.getView().getDom().inputSliderInput;
-        inputSliderInput.blur();
-        return this.donationInput_.validate();
-    };
-
-    /**
-     * Focus event handler
-     * @param {sv.gInput.Event.Focus} event
-     */
-    DonationPercentBlock.prototype.onDonationInputFocus = function(event) {
-        var inputSliderInput = this.getView().getDom().inputSliderInput;
-        goog.dom.setProperties(inputSliderInput, {'placeholder': ''});
-    };
-
-    /**
-     * Blur event handler
-     * @param {sv.gInput.Input.Event.Blur} event
-     */
-    DonationPercentBlock.prototype.onDonationInputBlur = function(event) {
-        var inputSliderInput = this.getView().getDom().inputSliderInput;
-        goog.dom.setProperties(inputSliderInput, {'placeholder': '0'});
-        this.donationInput_.percent = inputSliderInput.value;
-        if (this.checkDonationInputSum_()) {
-        var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum, this.donationInput_.percent);
+    DonationPercentBlock.prototype.onSliderMove = function(event) {
+        var currentPercent = event.payload.percent;
+        console.log(currentPercent);
+        if (this.checkMonthlyIncomeSum_()) {
+        var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum, currentPercent);
         this.showResultSym_(resultSum);
         this.resultSum_ = resultSum
         }
@@ -301,7 +268,7 @@ goog.scope(function() {
      * @param {goog.events.KeyHandler.EventType.KEY} event
      * @private
      */
-    DonationPercentBlock.prototype.onPercentKeyEvent_ = function(event) {
+    /*DonationPercentBlock.prototype.onPercentKeyEvent_ = function(event) {
         //console.log(event);
         //console.log(event.keyCode);
         event.stopPropagation();
@@ -317,7 +284,7 @@ goog.scope(function() {
             this.resultSum_ = resultSum
             this.manageButtonReadyStyle_(this.resultSum_);
         }
-    };
+    };*/
 
     /**
      * Handles 'enter' event

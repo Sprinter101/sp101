@@ -95,25 +95,12 @@
 {template .slider autoescape="strict" kind="html"}
      {call .renderChild}
         {param params: [
-            'type': 'InputSber',
+            'type': 'SliderSber',
             'renderParams': [
                 'data': [
-                    'inputType': 'text',
-                    'placeholder': '0'
                 ],
                 'config': [
-                    'validations': [
-                        'notEmpty',
-                        'digits',
-                        'maxDonation',
-                        'minInput'
-                    ],
-                    'constraints': [
-                        'digitsOnly',
-                        'charactersLimit',
-                        'noLeadingZero'
-                    ],
-                    'customClasses': ['b-donation-percent-block__slider-input']
+                    'customClasses': ['b-donation-percent-block__slider']
                 ]
             ]
         ]/}

@@ -34,7 +34,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-donate-block',
         MONTHLY_INCOME: 'b-donation-percent-block__input',
-        SLIDER_INPUT: 'b-donation-percent-block__slider-input',
+        SLIDER: 'b-donation-percent-block__slider',
         RESULT_SUM: 'b-donation-percent-block__result-sum',
         BUTTON_READY: 'b-donation-percent-block__button_ready'
     };
@@ -63,12 +63,9 @@ goog.scope(function() {
         this.dom.inputControlInput = goog.dom.getChildren(
             this.dom.inputControl)[0];
 
-        this.dom.sliderInput = this.getElementByClass(
-            View.CssClass.SLIDER_INPUT, element
+        this.dom.slider = this.getElementByClass(
+            View.CssClass.SLIDER, element
         );
-
-        this.dom.inputSliderInput = goog.dom.getChildren(
-            this.dom.sliderInput)[0];
 
         this.dom.resultSumContainer = this.getElementByClass(
             View.CssClass.RESULT_SUM, element
