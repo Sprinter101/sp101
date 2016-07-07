@@ -10,10 +10,10 @@
 {/template}
 
 /**
-* @override
-*/
+ * Body
+ * @override
+ */
 {template .body}
-   
     <div class="{call .rootClass/}__track">
         <div class="{call .rootClass/}__slider"  style="left: 0;">
              <div class="{call .rootClass/}__label" style="left: -17px;">1
@@ -30,4 +30,17 @@
  */
 {template .rootClass}
     g-slider
+{/template}
+
+/**
+ * @param? params {{
+ *     config: {
+ *         isDisabled: ?bool
+ *     }
+ * }}
+ */
+{template .additionalClasses}
+    {if $params?.config?.isDisabled}
+        {call .rootClass/}_disabled
+    {/if}
 {/template}

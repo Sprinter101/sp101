@@ -2,6 +2,15 @@
     position: relative;
     display: block;
     width: 290px;
+    margin: 70px 0 0 0;
+    user-select: none;
+}
+
+.g-slider_disabled {
+    position: relative;
+    display: block;
+    width: 290px;
+    opacity: 0.3;
 }
 
 .g-slider__slider {
@@ -19,10 +28,9 @@
     height: 50px;
     padding: 3px;
     color: #ffffff;
-    font-family: AndaleMono;
     font-size: 62px;
-    font-weight: normal;
     line-height: 0.6em;
+    user-select: none;
 }
 
 .g-slider__label_small {
@@ -32,25 +40,26 @@
     color: #ffffff;
     font-family: SFUIDisplay;
     font-size: 21px;
+    user-select: none;
 }
 
 .g-slider__track {
     position: relative;
+    box-sizing: border-box;
     width: 290px;
     height: 2px;
     border-bottom: 2px solid #ffffff;
     border-radius: 1px;
-    box-sizing: border-box;
+    user-select: none;
 }
 
 .g-slider__thumb {
+    z-index: 2;
     display: block;
-    background-color: #ffffff;
+    box-sizing: border-box;
     width: 20px;
     height: 20px;
-    box-sizing: border-box;
     margin-top: 40px;
     border-radius: 10px;
-    z-index: 2;
-
+    background-color: #ffffff;
 }
