@@ -133,7 +133,7 @@ goog.scope(function() {
 
     /**
      * Focus handler
-     * hides error message 
+     * hides error message
      */
     Input.prototype.onFocus = function() {
         this.getView().unSetNotValidState();

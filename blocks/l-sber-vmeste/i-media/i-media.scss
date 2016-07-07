@@ -2,6 +2,7 @@ $breakpointS: 375px;
 $breakpointM: 768px;
 $breakpointL: 951px;
 $breakpointXL: 1024px;
+$breakpointXXL: 1280px;
 
 @mixin media-s {
     @media screen and (min-width: $breakpointS) {
@@ -23,6 +24,12 @@ $breakpointXL: 1024px;
 
 @mixin media-xl {
     @media screen and (min-width: $breakpointXL) {
+      @content;
+    }
+}
+
+@mixin media-xxl {
+    @media screen and (min-width: $breakpointXXL) {
       @content;
     }
 }

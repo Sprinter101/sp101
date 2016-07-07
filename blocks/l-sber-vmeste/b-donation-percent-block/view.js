@@ -88,8 +88,15 @@ goog.scope(function() {
      * show result sum of donation
      * @param {string} resultSum
      */
-    View.prototype.showResultSym = function(resultSum) {
+    View.prototype.showResultSum = function(resultSum) {
         this.dom.resultSumContainer.innerHTML = resultSum + 'Р';
+    };
+
+    /**
+     * hide result sum of donation
+     */
+    View.prototype.hideResultSum = function() {
+        this.dom.resultSumContainer.innerHTML = '—';
     };
 
 });  // goog.scope

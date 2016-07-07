@@ -1,8 +1,8 @@
 goog.provide('sv.iFactory.FactorySber');
 
+goog.require('cl.iFactory.Factory');
 goog.require('cl.gIcon.Icon');
 goog.require('cl.gIcon.View');
-goog.require('cl.iFactory.Factory');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
 goog.require('sv.gInput.Input');
@@ -123,7 +123,7 @@ sv.iFactory.FactorySber = function() {
             control: cl.gIcon.Icon,
             view: cl.gIcon.View
         })
-	 .setControlListItem('ListPageUserBlock', {
+        .setControlListItem('ListPageUserBlock', {
             control: sv.lSberVmeste.bUserBlock.UserBlock,
             view: sv.lSberVmeste.bUserBlock.View
         })

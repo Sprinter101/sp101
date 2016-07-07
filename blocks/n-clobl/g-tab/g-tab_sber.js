@@ -31,5 +31,4 @@ goog.scope(function() {
     Tab.Event = {
         TAB_SELECT: View.Event.TAB_SELECT
     };
-    
 });  // goog.scope

@@ -67,6 +67,7 @@ goog.scope(function() {
         this.is_move_ = 0;
         this.currentPos_ = 0;
         this.left_ = 0;
+        this.currentPercent = 1;
     };
 
 
@@ -151,6 +152,7 @@ goog.scope(function() {
                     this.dom.label_percent.style.left = '28px';
                 }
                 this.dispatchMoveEvent(currentPercent);
+                this.currentPercent = currentPercent;
             }
         };
 
@@ -190,7 +192,7 @@ goog.scope(function() {
             return this.currentPos_;
          };
 
-         /**
+          /**
          * getter for slider value
          * @return {number} currentPercent
          */

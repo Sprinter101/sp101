@@ -13,15 +13,18 @@
  */
 {template .body autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__inner-wrap">
-        <div class="{call .rootClass/}__user-income">
+        <div class="{call .rootClass/}__choice-wrap{sp}{call .clearfix/}">
+        <div class="{call .rootClass/}__user-income{sp}{call .clearfix/}">
                 {call .inputTip/}
                 {call .input/}
         </div>
-        <div class="{call .rootClass/}__donation-percent">
+        <div class="{call .rootClass/}__donation-percent{sp}{call .clearfix/}">
         {call .sliderTip /}
         {call .slider /}
         </div>
+        </div>
         {call .result/}
+        {call .pathLine/}
         <div class="{call .rootClass/}__button-wrapper">
             {call .renderChild}
                   {param params: [
@@ -55,7 +58,7 @@
  */
 {template .sliderTip autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__slider-tip">
-        Финансирование
+         Переводить в мой фонд
     </div>
 {/template}
 
@@ -100,7 +103,8 @@
                 'data': [
                 ],
                 'config': [
-                    'customClasses': ['b-donation-percent-block__slider']
+                    'customClasses': ['b-donation-percent-block__slider'],
+                    'isDisabled': false
                 ]
             ]
         ]/}
@@ -116,14 +120,27 @@
         Итого в месяц
         </div>
         <div class="{call .rootClass/}__result-sum">
-        0 Р</div>
+        —</div>
     </div>
 {/template}
 
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
 
 /**
  * @override
  */
 {template .rootClass}
     b-donation-percent-block
+{/template}
+
+/**
+ * Additional class for css clearfix
+ */
+{template .clearfix}
+    i-utils__clearfix
 {/template}

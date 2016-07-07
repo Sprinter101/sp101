@@ -83,17 +83,18 @@ goog.scope(function() {
     DonationFixedBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.keyHandler_ = new goog.events.KeyHandler(document);
+        this.inputKeyHandler_ = new goog.events.KeyHandler(
+            this.fixedSum_.getElement());
 
         this.getHandler()
             .listen(
                 this.fixedSum_,
                 Input.Event.FOCUS,
-                this.onfixedSumFocus
+                this.onFixedSumFocus_
             ).listen(
                 this.fixedSum_,
                 Input.Event.BLUR,
-                this.onfixedSumBlur
+                this.onFixedSumBlur_
             )
             .listen(
                 this.buttonReady_,
@@ -101,9 +102,9 @@ goog.scope(function() {
                 this.onButtonReadyClick_
             )
             .listen(
-                this.keyHandler_,
+                this.inputKeyHandler_,
                 goog.events.KeyHandler.EventType.KEY,
-                this.onEnterEvent_
+                this.onInputKeyEvent_
             );
 
     };
@@ -111,8 +112,9 @@ goog.scope(function() {
     /**
      * Focus event handler
      * @param {sv.gInput.Event.Focus} event
+     * @private
      */
-    DonationFixedBlock.prototype.onfixedSumFocus = function(event) {
+    DonationFixedBlock.prototype.onFixedSumFocus_ = function(event) {
         var input = this.getElementByClass('g-input__input', this);
         goog.dom.setProperties(input, {'placeholder': ''});
     };
@@ -120,8 +122,9 @@ goog.scope(function() {
     /**
      * Blur event handler
      * @param {sv.gInput.Input.Event.Blur} event
+     * @private
      */
-    DonationFixedBlock.prototype.onfixedSumBlur = function(event) {
+    DonationFixedBlock.prototype.onFixedSumBlur_ = function(event) {
         var input = this.getElementByClass('g-input__input', this);
         goog.dom.setProperties(input, {'placeholder': '0'});
         this.manageButtonReadyStyle_();
@@ -159,16 +162,19 @@ goog.scope(function() {
     };
 
     /**
-     * Handles 'enter' event
+     * Handles donation input key event
      * @param {goog.events.KeyHandler.EventType.KEY} event
      * @private
      */
-    DonationFixedBlock.prototype.onEnterEvent_ = function(event) {
+    DonationFixedBlock.prototype.onInputKeyEvent_ = function(event) {
         event.stopPropagation();
         var that = this;
-
+        var digits = [8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
         if (event.keyCode === goog.events.KeyCodes.ENTER) {
-            this.manageButtonReadyStyle_();
+            this.onFixedSumBlur_();
+        }
+        else if (digits.indexOf(event.keyCode) != -1) {
+            this.fixedSum_.onFocus();
         }
     };
 

@@ -106,7 +106,7 @@ sv.iFactory.TemplateFactory = function() {
             'ListPageUserBlock',
             sv.lSberVmeste.bUserBlock.Template.userBlock
         )
-	.setTemplateListItem(
+        .setTemplateListItem(
             'DonatePage',
             sv.lSberVmeste.bDonatePage.Template.page
         )

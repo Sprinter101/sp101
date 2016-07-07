@@ -1,13 +1,17 @@
 @import '../i-media/i-media';
 
 .b-donation-percent-block__inner-wrap {
-    //text-align: center;
+
+}
+
+.b-donation-percent-block__choice-wrap {
+    width: 100%;
 }
 
 .b-donation-percent-block__user-income {
     display: block;
+    float: none;
     margin: 43px auto 0;
-    //border: 1px solid green;
     text-align: center;
 }
 
@@ -16,29 +20,36 @@
     margin: 0 auto;
 }
 
+.b-donation-percent-block__input-tip {
+    color: #FFFFFF;
+    font-family: SFUIDisplay;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1em;
+}
+
 .b-donation-percent-block__donation-percent {
     display: inline-block;
+    float: none;
     margin-top: 23px;
     text-align: center;
 }
 
 .b-donation-percent-block__slider-tip {
-    display: none;
     color: #FFFFFF;
     font-family: SFUIDisplay;
     font-size: 14px;
-    font-weight: normal;
     text-align: center;
     line-height: 1em;
+    user-select: none;
 }
 
 .b-donation-percent-block__slider {
-    display: block;
-    //margin: 0 auto;
+
 }
 
 .b-donation-percent-block__result {
-    margin-top: 31px;
+    margin-top: 71px;
 }
 
 .b-donation-percent-block__result-phrase {
@@ -52,39 +63,40 @@
 .b-donation-percent-block__result-sum {
     text-align: center;
     color: #e7f038;
-    font-family: AndaleMono;
     font-size: 62px;
-    font-weight: normal;
     text-align: center;
     line-height: 1em;
 }
 
+.b-donation-percent-block__path_vertical {
+    display: block;
+    width: 1px;
+    height: 30px;
+    margin: 8px auto 0;
+    opacity: 0.4;
+    border: 1px solid #FFFFFF;
+    border-radius: 1px;
+    background: #ccc;
+}
+
 .b-donation-percent-block__button-wrapper {
-    margin-top: 43px;
+    margin-top: 13px;
     text-align: center;
 }
 
 @include media-m {
-    .b-donation-percent-block__inner-wrap {
-        //text-align: center;
-    }
     .b-donation-percent-block__user-income {
         display: inline-block;
+        float: left;
         margin: 96px 59px 0 58px;
         text-align: center;
     }
     .b-donation-percent-block__donation-percent {
         display: inline-block;
+        float: right;
         margin-top: 96px;
+        margin-right: 58px;
         text-align: center;
-    }
-    .b-donation-percent-block__slider-tip {
-        display: block;
-    //margin-top: 96px;
-    }
-    .b-donation-percent-block__slider {
-        display: block;
-        
     }
     .b-donation-percent-block__result {
         margin-top: 119px;
@@ -94,37 +106,46 @@
 @include media-l {
     .b-donation-percent-block__user-income {
         display: inline-block;
-        margin: 96px 59px 0 58px;
+        float: left;
+        margin: 96px 59px 0 0;
+        margin-left: 10%;
+    }
+    .b-donation-percent-block__donation-percent {
+        display: inline-block;
+        float: right;
+        margin-top: 96px;
+        margin-right: 10%;
+    }
+}
+
+@include media-xl {
+    .b-donation-percent-block__user-income {
+        display: inline-block;
+        float: left;
+        margin: 96px 59px 0 0;
+        margin-left: 12%;
         text-align: center;
     }
     .b-donation-percent-block__donation-percent {
         display: inline-block;
+        float: right;
         margin-top: 96px;
+        margin-right: 12%;
         text-align: center;
-    }
-    .b-donation-percent-block__slider-tip {
-        display: block;
-    //margin-top: 96px;
     }
 }
 
-    @include media-xl {
-        .b-donation-percent-block__user-income {
-            display: inline-block;
-            margin: 96px 59px 0 194px;
-            text-align: center;
-        }
-        .b-donation-percent-block__donation-percent {
-            display: inline-block;
-            margin-top: 96px;
-            text-align: center;
-        }
-        .b-donation-percent-block__slider-tip {
-            display: block;
-        //margin-top: 96px;
-        }
-        .b-donation-percent-block__slider {
-            display: block;
-            //margin: 50px auto 0;
-        }
+@include media-xxl {
+    .b-donation-percent-block__user-income {
+        display: inline-block;
+        float: left;
+        margin: 96px 59px 0 0;
+        margin-left: 25%;
+    }
+    .b-donation-percent-block__donation-percent {
+        display: inline-block;
+        float: right;
+        margin-top: 96px;
+        margin-right: 25%;
+    }
 }

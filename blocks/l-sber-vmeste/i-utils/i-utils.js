@@ -19,7 +19,8 @@ goog.scope(function() {
      * @enum {string}
      */
     Utils.CssClass = {
-        HIDDEN: 'i-utils__hidden'
+        HIDDEN: 'i-utils__hidden',
+        CLEARFIX: 'i-utils__clearfix'
     };
 
     /**

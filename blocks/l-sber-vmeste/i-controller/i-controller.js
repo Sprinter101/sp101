@@ -33,7 +33,6 @@ goog.scope(function() {
 
     /**
     * 'Buttons test' action
-    * @param {Object=} opt_params
     */
     Controller.prototype.actionTest = function() {
         this.headerManager_.setCurrentHeader('Header', {
@@ -44,12 +43,15 @@ goog.scope(function() {
 
     /**
     * 'List page' action
+    * @param {Object=} opt_params
     */
     Controller.prototype.actionListPage = function(opt_params) {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'list'}
             });
-        this.pageManager_.setCurrentPage('ListPage', {'category': opt_params.category});
+        this.pageManager_.setCurrentPage('ListPage', {
+            'category': opt_params.category}
+            );
     };
 
     /**
