@@ -77,8 +77,11 @@ goog.scope(function() {
     View.prototype.setProfileText = function(firstName) {
         var domNameBlock = this.dom.photoBlockText;
 
-        domNameBlock.innerText = firstName +
-            '\u00A0- лучший из наших жертвователей';
+        goog.soy.renderElement(
+            domNameBlock,
+            sv.lSberVmeste.bProfile.Template.setProfileText,
+            {name: firstName}
+        );
     };
 
     /**

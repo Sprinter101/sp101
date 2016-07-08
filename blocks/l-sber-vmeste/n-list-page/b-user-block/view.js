@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bUserBlock.View');
 
 goog.require('cl.iControl.View');
+goog.require('goog.soy');
 
 
 
@@ -56,11 +57,21 @@ goog.scope(function() {
     };
 
     /**
-    * appends text to the chosenCategories dom element
-    * @param {string} text
+    * renders generateCategoriesText template into chosenCategories element
+    * @param {
+    *    'data': {
+    *        topicCount: number,
+    *        directionCount: number,
+    *        fundsCount: number
+    *    }
+    * } soyParams
     */
-    View.prototype.appendCategoriesText = function(text) {
-        this.dom.chosenCategories.innerText = text;
+    View.prototype.appendCategoriesText = function(soyParams) {
+        goog.soy.renderElement(
+            this.dom.chosenCategories,
+            sv.lSberVmeste.bUserBlock.Template.generateCategoriesText,
+            soyParams
+        );
     };
 
 });  // goog.scope

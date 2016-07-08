@@ -1,10 +1,8 @@
 goog.provide('sv.lSberVmeste.bUserBlock.UserBlock');
 
 goog.require('cl.iControl.Control');
-goog.require('cl.iRequest.Request');
-goog.require('goog.soy');
+goog.require('goog.object');
 goog.require('sv.gButton.Button');
-goog.require('sv.iUtils.Utils');
 
 
 
@@ -22,6 +20,16 @@ sv.lSberVmeste.bUserBlock.UserBlock = function(
     goog.base(this, view, opt_domHelper);
 
     /**
+    * @type {{
+    *    topic: Object,
+    *    direction: Object,
+    *    fund: Object
+    *}}
+    * @private
+    */
+    this.categories_ = goog.object.clone(this.params.categories);
+
+    /**
     * @type {sv.gButton.Button}
     * @private
     */
@@ -33,9 +41,7 @@ goog.inherits(sv.lSberVmeste.bUserBlock.UserBlock,
 
 goog.scope(function() {
     var UserBlock = sv.lSberVmeste.bUserBlock.UserBlock,
-        request = cl.iRequest.Request.getInstance(),
-        Button = sv.gButton.Button,
-        Utils = sv.iUtils.Utils;
+        Button = sv.gButton.Button;
 
     /**
      * User block events
@@ -56,79 +62,36 @@ goog.scope(function() {
     };
 
     /**
-    * user block initializer
-    * @param {{
-    *    topic: Object,
-    *    direction: Object,
-    *    fund: Object
-    *}} categories
+    * @override
     */
-    UserBlock.prototype.init = function(categories) {
-        //var generatedText = this.generateCategoriesText(categories);
-        this.generateCategoriesText(categories);
-        //this.getView().appendCategoriesText(generatedText);
+    UserBlock.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+        this.createCategoriesText();
     };
 
     /**
     * Generates text based on categories object
-    * @param {{
-    *    topic: Object,
-    *    direction: Object,
-    *    fund: Object
-    *}} categories
-    * @return {string}
     */
-    UserBlock.prototype.generateCategoriesText = function(
-        categories) {
+    UserBlock.prototype.createCategoriesText = function() {
+        var categories = this.categories_;
 
         var topicCount = categories.topic &&
                 categories.topic.length,
             directionCount = categories.direction &&
                 categories.direction.length,
             fundsCount = categories.fund &&
-                categories.fund.length,
-            generatedString = '',
-            nbsp = '\u00A0'; //no-break space
-        //debugger;
-        goog.soy.renderElement(this.getView().getDom().chosenCategories,
-            sv.lSberVmeste.bUserBlock.Template.generateCategoriesText,
-            {topicCount: topicCount, directionCount: directionCount, 
-                fundsCount: fundsCount}
-        );
+                categories.fund.length;
 
-        // if (topicCount) {
-        //     var word = Utils.declensionPrint({
-        //         num: topicCount,
-        //         nom: 'тема',
-        //         gen: 'темы',
-        //         plu: 'тем'
-        //     });
-        //     generatedString += topicCount + nbsp + word;
-        // }
+        var soyParams = {
+            'data': {
+                topicCount: topicCount,
+                directionCount: directionCount,
+                fundsCount: fundsCount
+            }
+        };
 
-        // if (directionCount) {
-        //     var word = Utils.declensionPrint({
-        //         num: directionCount,
-        //         nom: 'направление',
-        //         gen: 'направления',
-        //         plu: 'направлений'
-        //     });
-        //     generatedString += generatedString ? ', ' : '';
-        //     generatedString += directionCount + nbsp + word;
-        // }
-
-        // if (fundsCount) {
-        //     var word = Utils.declensionPrint({
-        //         num: fundsCount,
-        //         nom: 'фонд',
-        //         gen: 'фонда',
-        //         plu: 'фондов'
-        //     });
-        //     generatedString += generatedString ? ', ' : '';
-        //     generatedString += fundsCount + nbsp + word;
-        // }
-
-        //return generatedString || 'Вы не выбрали ни одной категории';
+        this.getView().appendCategoriesText(soyParams);
     };
 
     /**
@@ -144,7 +107,7 @@ goog.scope(function() {
         };
 
         this.button_ = this.renderChild('ButtonSber',
-        buttonContainer, buttonConfig);
+            buttonContainer, buttonConfig);
 
         this.getHandler().listen(
             this.button_,
@@ -171,7 +134,7 @@ goog.scope(function() {
         };
 
         this.button_ = this.renderChild('ButtonSber',
-        buttonContainer, buttonConfig);
+            buttonContainer, buttonConfig);
 
         this.getHandler().listen(
             this.button_,

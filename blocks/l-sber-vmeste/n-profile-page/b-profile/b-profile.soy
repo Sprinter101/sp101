@@ -47,3 +47,13 @@
 {template .rootClass}
     b-profile
 {/template}
+
+/**
+ * @param name {string}
+ */
+{template .setProfileText}
+    {let $nbsp: '\u00A0' /}
+    {let $text: '- лучший из наших жертвователей' /}
+
+    {$name}{$nbsp}{$text}
+{/template}
