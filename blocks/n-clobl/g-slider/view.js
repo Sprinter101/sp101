@@ -191,6 +191,14 @@ goog.scope(function() {
          };
 
          /**
+         * getter for slider value
+         * @return {number} currentPercent
+         */
+        View.prototype.getValue = function() {
+            return this.currentPercent;
+        };
+
+         /**
          * enable slider
          * @param {Array<string>} classes -
          * css classes to manage disabled state
