@@ -7,7 +7,7 @@ goog.require('sv.lSberVmeste.bProfileEdit.ProfileEdit');
 
 
 /**
- * Card List control
+ * Profile page control
  * @param {sv.lSberVmeste.bProfilePage.View} view
  * @param {goog.dom.DomHelper=} opt_domHelper
  * @constructor
@@ -18,9 +18,9 @@ sv.lSberVmeste.bProfilePage.ProfilePage = function(view, opt_domHelper) {
 
     //SERVER RESPONSE INFO EMULATION
     this.userInfo = {
-        firstName: 'Руслан',
-        lastName: 'Иванцов',
-        phoneNumber: '+79067535361'
+        firstName: 'Павел',
+        lastName: 'Козлов',
+        phoneNumber: '+79254487098'
     };
     //
 

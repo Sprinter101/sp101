@@ -6,7 +6,7 @@ goog.require('sv.gButton.Button');
 
 
 /**
- * Card List control
+ * profile block control
  * @param {sv.lSberVmeste.bProfile.View} view
  * @param {goog.dom.DomHelper=} opt_domHelper
  * @constructor

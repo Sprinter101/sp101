@@ -5,7 +5,7 @@ goog.require('cl.iControl.View');
 
 
 /**
- * Card List View
+ * Profile page View
  * @param {Object=} opt_params
  * @param {Function=} opt_template
  * @param {string=} opt_modifier
