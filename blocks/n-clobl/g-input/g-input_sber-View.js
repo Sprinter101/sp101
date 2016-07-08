@@ -28,7 +28,8 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
         'notEmpty': 'Это поле не может быть пустым',
         'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
                         'чем 500 тыс. рублей',
-        'name': 'Не корректно введено имя'
+        'name': 'Не корректно введено имя',
+        'phoneNumber': 'Не корректно введён номер телефона'
     };
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);

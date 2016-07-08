@@ -36,7 +36,8 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'email': this.validateEmail_,
         'notEmpty': this.validateNotEmpty_,
         'maxDonation': this.validateMaxDonation_,
-        'name': this.validateName_
+        'name': this.validateName_,
+        'phoneNumber': this.validatePhoneNumber_
     };
 
     /**
@@ -47,7 +48,8 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'digitsOnly': this.constraintDigitsOnly_,
         'charactersLimit': this.constraintCharactersLimit_,
         'noLeadingZero': this.constraintNoLeadingZero_,
-        'name': this.constraintName_
+        'name': this.constraintName_,
+        'phoneNumber': this.constraintPhoneNumber_
     };
 };
 goog.inherits(sv.gInput.Input, cl.gInput.Input);
@@ -207,6 +209,24 @@ goog.scope(function() {
     };
 
     /**
+     * Remove extra characters from phone number.
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintPhoneNumber_ = function(oldValue) {
+        oldValue = oldValue.trim();
+        var nameRegex = /.{1,}[+]/g;
+        var nameRegex2 = /[^+\d]/g;
+
+        if (oldValue == '') {
+            return '+';
+        }
+
+        return oldValue.replace(nameRegex, '+').replace(nameRegex2, '');
+    };
+
+    /**
      * Validate digit
      * @param {string} text text to validate
      * @return {boolean}
@@ -246,6 +266,19 @@ goog.scope(function() {
         );
 
         return nameRegex.test(name);
+    };
+
+    /**
+     * Validate phone number
+     * @param {string} phoneNumber phone number to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validatePhoneNumber_ = function(phoneNumber) {
+        phoneNumber = phoneNumber.trim();
+        var numberRegex = /^\+\d{11}$/;
+
+        return numberRegex.test(phoneNumber);
     };
 
 });  // goog.scope
