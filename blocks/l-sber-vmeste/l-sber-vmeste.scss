@@ -44,6 +44,7 @@ body, html {
     width: 100%;
     min-height: 100%;
     font-family: AndaleMono;
+    font-weight: normal;
     background-image: url('images/l-sber-vmeste/fon_SV.png'); /* fallback for older browsers */
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(49, 49, 49, 0.9) 100%), url('images/l-sber-vmeste/fon_SV.png');
     background-size: cover;

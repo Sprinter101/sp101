@@ -32,8 +32,8 @@ goog.scope(function() {
         ROOT: 'b-test-page',
         BUTTON: 'g-button_sber',
         TAB: 'g-tab_sber',
-        BUTTON: 'g-button_sber',
-        INPUT: 'g-input_sber'
+        INPUT: 'g-input_sber',
+        SLIDER: 'g-slider'
     };
 
     /**
@@ -48,5 +48,7 @@ goog.scope(function() {
         this.dom.tabs = this.getElementsByClass(View.CssClass.TAB);
 
         this.dom.inputs = this.getElementsByClass(View.CssClass.INPUT);
+
+        this.dom.slider = this.getElementByClass(View.CssClass.SLIDER);
     };
 });  // goog.scope

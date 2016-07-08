@@ -7,6 +7,8 @@ goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
 goog.require('sv.gInput.Input');
 goog.require('sv.gInput.View');
+goog.require('sv.gSlider.Slider');
+goog.require('sv.gSlider.View');
 goog.require('sv.gTab.gListTab.Tab');
 goog.require('sv.gTab.gListTab.View');
 goog.require('sv.gTestPage.TestPage');
@@ -61,6 +63,10 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.bPageManager.PageManager,
             view: sv.lSberVmeste.bPageManager.View
         })
+         .setControlListItem('SliderSber', {
+            control: sv.gSlider.Slider,
+            view: sv.gSlider.View
+         })
         .setControlListItem('StartPage', {
             control: sv.lSberVmeste.bStartPage.StartPage,
             view: sv.lSberVmeste.bStartPage.View

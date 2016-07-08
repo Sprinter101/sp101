@@ -20,6 +20,8 @@
     {call .tab_ /}
     <div class="{call .rootClass /}__title">Инпут</div>
     {call .input_ /}
+     <div class="{call .rootClass /}__title">Ползунок</div>
+    {call .slider_ /}
 {/template}
 
 /**
@@ -280,4 +282,21 @@
             ]/}
         {/call}
     </div>
+{/template}
+
+/**
+* Slider template
+*/
+{template .slider_ autoescape="strict" kind="html"}
+    {call .renderChild}
+    {param params: [
+            'type': 'SliderSber',
+            'renderParams': [
+                'data': [],
+               'config': [
+                    'customClasses': ['g-slider_test']
+                    ]
+                ]
+            ]/}
+    {/call}
 {/template}

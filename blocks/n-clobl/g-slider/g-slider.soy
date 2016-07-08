@@ -1,0 +1,46 @@
+{namespace sv.gSlider.Template}
+
+/**
+ * The slider template
+ * @extends cl.iControl.Template
+ * @constructor
+ */
+{template .slider}
+    {call .init data="all" /}
+{/template}
+
+/**
+ * Body
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__track">
+        <div class="{call .rootClass/}__slider"  style="left: 0;">
+             <div class="{call .rootClass/}__label" style="left: -17px;">1
+            </div>
+            <span class="{call .rootClass/}__label_small" style="left: 28px;">%</span>
+            <div class="{call .rootClass/}__thumb"></div>
+        </div>
+    </div>
+{/template}
+
+
+/**
+ * ROOT CLASS
+ */
+{template .rootClass}
+    g-slider
+{/template}
+
+/**
+ * @param? params {{
+ *     config: {
+ *         isDisabled: ?bool
+ *     }
+ * }}
+ */
+{template .additionalClasses}
+    {if $params?.config?.isDisabled}
+        {call .rootClass/}_disabled
+    {/if}
+{/template}

@@ -5,6 +5,7 @@ goog.require('cl.iFactory.TemplateFactory');
 goog.require('sv.gButton.Template');
 goog.require('sv.gIcon.Template');
 goog.require('sv.gInput.Template');
+goog.require('sv.gSlider.Template');
 goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bCard.Template');
@@ -18,6 +19,7 @@ goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.Template');
+//goog.require('sv.lSberVmeste.bSlider.Template');
 
 
 
@@ -68,6 +70,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'TabSber',
             sv.gTab.Template.tab
+        )
+        .setTemplateListItem(
+            'SliderSber',
+            sv.gSlider.Template.slider
         )
         .setTemplateListItem(
             'CardList',
