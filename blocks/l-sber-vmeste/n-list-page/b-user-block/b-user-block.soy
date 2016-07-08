@@ -23,3 +23,31 @@
 {template .rootClass}
     b-user-block
 {/template}
+
+/**
+ * @param params
+ */
+{template .generateCategoriesText}
+    {let $generatedString: '' /}
+    {let $nbsp: '\u00A0' /}
+
+    {if $params.topicCount}
+        {let $word: '' /}
+        $word = sv.iUtils.Utils.declensionPrint([
+                    'num': $params.topicCount,
+                    'nom': 'тема',
+                    'gen': 'темы',
+                    'plu': 'тем'
+                ])
+        $generatedString += $topicCount + $nbsp + $word;
+    {/if}
+
+    {$generatedString}
+{/template}
+
+// $word = sv.iUtils.Utils.declensionPrint([
+//             'num': $topicCount,
+//             'nom': 'тема',
+//             'gen': 'темы',
+//             'plu': 'тем'
+//         ])

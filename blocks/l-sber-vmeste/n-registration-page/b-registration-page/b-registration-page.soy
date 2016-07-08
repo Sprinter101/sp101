@@ -1,11 +1,11 @@
-{namespace sv.lSberVmeste.bProfilePage.Template}
+{namespace sv.lSberVmeste.bRegistrationPage.Template}
 
 
 /**
  * @constructor
  * @extends cl.iControl.Template
  */
-{template .profilePage}
+{template .registrationPage}
     {call .init data="all"/}
 {/template}
 
@@ -16,16 +16,7 @@
     <div class="{call .rootClass/}__wrapper">
         {call .pathLine /}
         <div class="{call .rootClass/}__content">
-            <div class="{call .rootClass/}__profile-block">
-                // {call .renderChild}
-                //     {param params: [
-                //         'type': 'Profile',
-                //         'renderParams': [
-                //             'data': []
-                //         ]
-                //     ]/}
-                // {/call}
-            </div>
+            <div class="{call .rootClass/}__registration-block"></div>
         </div>
     </div>
 {/template}
@@ -41,5 +32,5 @@
  * @override
  */
 {template .rootClass}
-    b-profile-page
+    b-registration-page
 {/template}

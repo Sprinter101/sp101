@@ -96,7 +96,7 @@ goog.scope(function() {
 
         this.getHandler().listen(
             this.profileBlock_,
-            ProfileEdit.Event.CONFIRM_BUTTON_CLICK,
+            ProfileEdit.Event.BUTTON_CLICK,
             this.onProfileEditButtonClick_,
             false,
             this

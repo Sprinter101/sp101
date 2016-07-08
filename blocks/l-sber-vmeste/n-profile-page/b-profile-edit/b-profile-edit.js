@@ -26,6 +26,12 @@ sv.lSberVmeste.bProfileEdit.ProfileEdit = function(view, opt_domHelper) {
     this.userInfo_ = goog.object.clone(this.params.userInfo);
 
     /**
+    * @type {boolean}
+    * @private
+    */
+    this.registrationState_ = !!this.params.registrationState;
+
+    /**
     * @type {sv.gInput.Input}
     * @private
     */
@@ -47,7 +53,7 @@ sv.lSberVmeste.bProfileEdit.ProfileEdit = function(view, opt_domHelper) {
     * @type {sv.gButton.Button}
     * @private
     */
-    this.confirmButton_ = null;
+    this.button_ = null;
 };
 goog.inherits(sv.lSberVmeste.bProfileEdit.ProfileEdit,
     cl.iControl.Control);
@@ -61,7 +67,7 @@ goog.scope(function() {
      * @enum {string}
      */
     ProfileEdit.Event = {
-        CONFIRM_BUTTON_CLICK: 'profile-edit-confirm-button-click'
+        BUTTON_CLICK: 'profile-edit-button-click'
     };
 
     /**
@@ -80,8 +86,7 @@ goog.scope(function() {
         // this.phoneNumberInput = this.decorateChild('InputSber',
         //     this.getView().getDom().inputs.phoneNumber);
 
-        this.confirmButton_ = this.decorateChild('ButtonSber',
-            this.getView().getDom().confirmButton);
+        this.createButton(this.registrationState_);
 
         this.getView().setFirstNameInputValue(this.userInfo_.firstName);
         this.getView().setLastNameInputValue(this.userInfo_.lastName);
@@ -96,11 +101,25 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.getHandler().listen(
-            this.confirmButton_,
+            this.button_,
             Button.Event.CLICK,
-            this.onConfirmButtonClick_,
+            this.onButtonClick_,
             false,
             this
+        );
+    };
+
+    /**
+    * Button creator
+    * @param {boolean} isRegistration
+    */
+    ProfileEdit.prototype.createButton = function(isRegistration) {
+        var domButtonBlock = this.getView().getDom().button;
+
+        this.button_ = this.decorateChild('ButtonSber', domButtonBlock);
+
+        this.button_.setValue(
+            isRegistration ? 'Продолжить' : 'Сохранить'
         );
     };
 
@@ -108,7 +127,7 @@ goog.scope(function() {
     * Confirm button click handler
     * @private
     */
-    ProfileEdit.prototype.onConfirmButtonClick_ = function() {
+    ProfileEdit.prototype.onButtonClick_ = function() {
         this.userInfo_.firstName =
             this.getView().getFirstNameInputValue();
         this.userInfo_.lastName =
@@ -117,7 +136,7 @@ goog.scope(function() {
             this.getView().getPhoneNumberInputValue();
 
         this.dispatchEvent({
-            'type': ProfileEdit.Event.CONFIRM_BUTTON_CLICK,
+            'type': ProfileEdit.Event.BUTTON_CLICK,
             'userInfo': this.userInfo_
         });
     };

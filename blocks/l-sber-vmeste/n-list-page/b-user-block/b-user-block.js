@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bUserBlock.UserBlock');
 
 goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
+goog.require('goog.soy');
 goog.require('sv.gButton.Button');
 goog.require('sv.iUtils.Utils');
 
@@ -40,7 +41,9 @@ goog.scope(function() {
      * User block events
      * @enum {string}
      */
-    UserBlock.Event = {};
+    UserBlock.Event = {
+        BUTTON_CLICK: 'user-block-button-click'
+    };
 
     /**
      * @override
@@ -61,9 +64,9 @@ goog.scope(function() {
     *}} categories
     */
     UserBlock.prototype.init = function(categories) {
-        var generatedText = this.generateCategoriesText(categories);
-
-        this.getView().appendCategoriesText(generatedText);
+        //var generatedText = this.generateCategoriesText(categories);
+        this.generateCategoriesText(categories);
+        //this.getView().appendCategoriesText(generatedText);
     };
 
     /**
@@ -86,40 +89,46 @@ goog.scope(function() {
                 categories.fund.length,
             generatedString = '',
             nbsp = '\u00A0'; //no-break space
+        //debugger;
+        goog.soy.renderElement(this.getView().getDom().chosenCategories,
+            sv.lSberVmeste.bUserBlock.Template.generateCategoriesText,
+            {topicCount: topicCount, directionCount: directionCount, 
+                fundsCount: fundsCount}
+        );
 
-        if (topicCount) {
-            var word = Utils.declensionPrint({
-                num: topicCount,
-                nom: 'тема',
-                gen: 'темы',
-                plu: 'тем'
-            });
-            generatedString += topicCount + nbsp + word;
-        }
+        // if (topicCount) {
+        //     var word = Utils.declensionPrint({
+        //         num: topicCount,
+        //         nom: 'тема',
+        //         gen: 'темы',
+        //         plu: 'тем'
+        //     });
+        //     generatedString += topicCount + nbsp + word;
+        // }
 
-        if (directionCount) {
-            var word = Utils.declensionPrint({
-                num: directionCount,
-                nom: 'направление',
-                gen: 'направления',
-                plu: 'направлений'
-            });
-            generatedString += generatedString ? ', ' : '';
-            generatedString += directionCount + nbsp + word;
-        }
+        // if (directionCount) {
+        //     var word = Utils.declensionPrint({
+        //         num: directionCount,
+        //         nom: 'направление',
+        //         gen: 'направления',
+        //         plu: 'направлений'
+        //     });
+        //     generatedString += generatedString ? ', ' : '';
+        //     generatedString += directionCount + nbsp + word;
+        // }
 
-        if (fundsCount) {
-            var word = Utils.declensionPrint({
-                num: fundsCount,
-                nom: 'фонд',
-                gen: 'фонда',
-                plu: 'фондов'
-            });
-            generatedString += generatedString ? ', ' : '';
-            generatedString += fundsCount + nbsp + word;
-        }
+        // if (fundsCount) {
+        //     var word = Utils.declensionPrint({
+        //         num: fundsCount,
+        //         nom: 'фонд',
+        //         gen: 'фонда',
+        //         plu: 'фондов'
+        //     });
+        //     generatedString += generatedString ? ', ' : '';
+        //     generatedString += fundsCount + nbsp + word;
+        // }
 
-        return generatedString || 'Вы не выбрали ни одной категории';
+        //return generatedString || 'Вы не выбрали ни одной категории';
     };
 
     /**
@@ -178,7 +187,7 @@ goog.scope(function() {
     * @private
     */
     UserBlock.prototype.onFundButtonClick_ = function() {
-        console.log('FUND BUTTON CLICK');
+        this.dispatchEvent(UserBlock.Event.BUTTON_CLICK);
     };
 
     /**
@@ -186,7 +195,7 @@ goog.scope(function() {
     * @private
     */
     UserBlock.prototype.onEditDonationsButtonClick_ = function() {
-        console.log('EDIT DONATIONS BUTTON CLICK');
+        this.dispatchEvent(UserBlock.Event.BUTTON_CLICK);
     };
 
 });  // goog.scope

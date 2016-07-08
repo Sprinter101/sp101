@@ -22,16 +22,16 @@
     <div class="{call .rootClass /}__phone-number-input">
         <input type="text">
     </div>
-    <div class="{call .rootClass /}__confirm-button">
-        {call .renderChild}
-          {param params: [
-                'type': 'ButtonSber',
-                'renderParams': [
-                    'data': [
-                        'content': 'Сохранить'
-                    ]
-                ]
-            ]/}
+    <div class="{call .rootClass /}__button">
+        {call .renderChild }
+            {param params: [
+                  'type': 'ButtonSber',
+                  'renderParams': [
+                      'data': [
+                          'content': 'Сохранить'
+                      ]
+                  ]
+              ]/}
         {/call}
     </div>
 {/template}

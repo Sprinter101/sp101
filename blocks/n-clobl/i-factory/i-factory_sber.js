@@ -30,6 +30,8 @@ goog.require('sv.lSberVmeste.bProfileEdit.ProfileEdit');
 goog.require('sv.lSberVmeste.bProfileEdit.View');
 goog.require('sv.lSberVmeste.bProfilePage.ProfilePage');
 goog.require('sv.lSberVmeste.bProfilePage.View');
+goog.require('sv.lSberVmeste.bRegistrationPage.RegistrationPage');
+goog.require('sv.lSberVmeste.bRegistrationPage.View');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartBlock.View');
 goog.require('sv.lSberVmeste.bStartPage.StartPage');
@@ -130,6 +132,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('ProfilePage', {
             control: sv.lSberVmeste.bProfilePage.ProfilePage,
             view: sv.lSberVmeste.bProfilePage.View
+        })
+        .setControlListItem('RegistrationPage', {
+            control: sv.lSberVmeste.bRegistrationPage.RegistrationPage,
+            view: sv.lSberVmeste.bRegistrationPage.View
         });
 
 };

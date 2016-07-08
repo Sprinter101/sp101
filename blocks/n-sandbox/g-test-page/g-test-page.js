@@ -80,6 +80,8 @@ goog.scope(function() {
     TestPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        window.inp_ = this.inputs_[0];
+
         for (var i = 0; i < this.buttons_.length; i++) {
             goog.events.listen(
                 this.buttons_[i],

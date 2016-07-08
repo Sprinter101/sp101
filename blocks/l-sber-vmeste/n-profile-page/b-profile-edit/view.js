@@ -33,7 +33,7 @@ goog.scope(function() {
         FIRST_NAME_INPUT: 'b-profile-edit__first-name-input',
         LAST_NAME_INPUT: 'b-profile-edit__last-name-input',
         PHONE_NUMBER_INPUT: 'b-profile-edit__phone-number-input',
-        CONFIRM_BUTTON: 'b-profile-edit__confirm-button'
+        BUTTON: 'b-profile-edit__button'
     };
 
     /**
@@ -55,8 +55,8 @@ goog.scope(function() {
                     View.CssClass.PHONE_NUMBER_INPUT,
                     this.getElement()).firstChild
             },
-            confirmButton: this.getElementByClass(
-                View.CssClass.CONFIRM_BUTTON,
+            button: this.getElementByClass(
+                View.CssClass.BUTTON,
                 this.getElement()).firstChild
         };
     };
@@ -67,7 +67,7 @@ goog.scope(function() {
     View.prototype.setFirstNameInputValue = function(firstName) {
         var domFirstNameInput = this.dom.inputs.firstName;
 
-        domFirstNameInput.value = firstName;
+        domFirstNameInput.value = firstName || '';
     };
 
     /**
@@ -76,7 +76,7 @@ goog.scope(function() {
     View.prototype.setLastNameInputValue = function(lastName) {
         var domLastNameInput = this.dom.inputs.lastName;
 
-        domLastNameInput.value = lastName;
+        domLastNameInput.value = lastName || '';
     };
 
     /**
@@ -85,7 +85,7 @@ goog.scope(function() {
     View.prototype.setPhoneNumberInputValue = function(phoneNumber) {
         var phoneNumberInput = this.dom.inputs.phoneNumber;
 
-        phoneNumberInput.value = phoneNumber;
+        phoneNumberInput.value = phoneNumber || '';
     };
 
     /**
