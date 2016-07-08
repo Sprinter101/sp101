@@ -19,7 +19,7 @@ goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
-goog.require('sv.lSberVmeste.bPhoneNumberPage.Template');
+goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.Template');
@@ -119,8 +119,8 @@ sv.iFactory.TemplateFactory = function() {
             sv.lSberVmeste.bDonationPercentBlock.Template.block
         )
         .setTemplateListItem(
-            'PhoneNumberPage',
-            sv.lSberVmeste.bPhoneNumberPage.Template.page
+            'RegistrationPage',
+            sv.lSberVmeste.bRegistrationPage.Template.page
         );
 
 };

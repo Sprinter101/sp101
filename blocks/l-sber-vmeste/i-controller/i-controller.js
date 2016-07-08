@@ -77,17 +77,14 @@ goog.scope(function() {
     };
 
     /**
-     * 'Phone number' action
-     * page where we check user's authorization
-     * @param {Object} params
+     * Registration action
+     * (phone number + name,surname)
      */
-    Controller.prototype.actionPhoneNumber = function(params) {
+    Controller.prototype.actionRegistration = function() {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'start'}
             });
-        this.pageManager_.setCurrentPage('PhoneNumberPage', {
-            'data': params, 'config': {}
-        });
+        this.pageManager_.setCurrentPage('RegistrationPage');
     };
 
 });  // goog.scope

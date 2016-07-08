@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bDonatePage.DonatePage');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.lSberVmeste.bDonatePage.View');
@@ -53,6 +54,7 @@ goog.scope(function() {
             DonationFixedBlock,
         DonationPercentBlock = sv.lSberVmeste.bDonationPercentBlock.
             DonationPercentBlock,
+        Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         View = sv.lSberVmeste.bDonatePage.View;
@@ -98,9 +100,15 @@ goog.scope(function() {
      * @protected
      */
     DonatePage.prototype.onDonationFixedReady = function(event) {
-        var sumValue = event.payload.fixedSum;
-        Router.getInstance().changeLocation(Route.PHONE_NUMBER, null, {
-            'sumValue': sumValue});
+        var sumValue = JSON.stringify(event.payload.fixedSum);
+        Request.getInstance().send({
+            url: '/user-fund/donation-sum',
+            type: 'POST',
+             data: sumValue})
+            .then(this.handleSuccess,
+                this.handleRejection,
+                this
+        );
     };
 
      /**
@@ -109,9 +117,36 @@ goog.scope(function() {
      * @protected
      */
     DonatePage.prototype.onDonationPercentReady = function(event) {
-       var sumValue = event.payload.percentSum;
-        Router.getInstance().changeLocation(Route.PHONE_NUMBER, null, {
-            'sumValue': sumValue});
+       var sumValue = JSON.stringify(event.payload.percentSum);
+       Request.getInstance().send({
+            url: '/user-fund/',
+            type: 'POST',
+             data: sumValue})
+            .then(this.handleSuccess,
+                this.handleRejection,
+                this
+        );
+    };
+
+    /**
+    * Ajax success handler
+    * @param {Object} success message
+    * redirect user to registration page or to Sberbank web
+    */
+    DonatePage.prototype.handleSuccess = function(success) {
+        Router.getInstance().changeLocation(Route.REGISTRATION);
+    };
+
+     /**
+    * Ajax rejection handler
+    * TODO: make different errors handling
+    * and show convenient error message
+    * !Temporary redirect to registration page
+    * @param {Object} err
+    */
+    DonatePage.prototype.handleRejection = function(err) {
+        console.log(err);
+        Router.getInstance().changeLocation(Route.REGISTRATION);
     };
 
 });  // goog.scope

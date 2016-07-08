@@ -92,7 +92,7 @@ goog.scope(function() {
         this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
         this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
         this.initRoute_(Route.DONATE, controller.actionDonate);
-        this.initRoute_(Route.PHONE_NUMBER, controller.actionPhoneNumber);
+        this.initRoute_(Route.REGISTRATION, controller.actionRegistration);
     };
 
     /**

@@ -1,0 +1,27 @@
+{namespace sv.lSberVmeste.bRegistrationPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * Content
+ */
+{template .body}
+        <div class="{call .rootClass/}">
+        <div class="{call .rootClass/}__wrapper">
+        Введите Ваш номер телефона:
+        </div>
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-registration-page
+{/template}
