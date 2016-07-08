@@ -1,4 +1,4 @@
-@import '../i-media/i-media';
+@import '../../i-media/i-media';
 
 .b-donation-percent-block__inner-wrap {
 
@@ -16,8 +16,7 @@
 }
 
 .b-donation-percent-block__input {
-    display: block;
-    margin: 0 auto;
+
 }
 
 .b-donation-percent-block__input-tip {
@@ -45,7 +44,8 @@
 }
 
 .b-donation-percent-block__slider {
-
+        margin-right: auto;
+        margin-left: auto;
 }
 
 .b-donation-percent-block__result {
@@ -57,7 +57,6 @@
     color: #e7f038;
     font-family: SFUIDisplay;
     font-size: 14px;
-    font-weight: normal;
 }
 
 .b-donation-percent-block__result-sum {
@@ -89,14 +88,12 @@
         display: inline-block;
         float: left;
         margin: 96px 59px 0 58px;
-        text-align: center;
     }
     .b-donation-percent-block__donation-percent {
         display: inline-block;
         float: right;
         margin-top: 96px;
         margin-right: 58px;
-        text-align: center;
     }
     .b-donation-percent-block__result {
         margin-top: 119px;
@@ -124,14 +121,12 @@
         float: left;
         margin: 96px 59px 0 0;
         margin-left: 12%;
-        text-align: center;
     }
     .b-donation-percent-block__donation-percent {
         display: inline-block;
         float: right;
         margin-top: 96px;
         margin-right: 12%;
-        text-align: center;
     }
 }
 

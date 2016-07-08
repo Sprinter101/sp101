@@ -42,7 +42,7 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'maxDonation': this.validateMaxDonation_,
         'name': this.validateName_,
         'phoneNumber': this.validatePhoneNumber_,
-	'minInput': this.validateMinInput_,
+        'minInput': this.validateMinInput_,
         'minDonation': this.validateMinDonation_
     };
 
@@ -273,7 +273,6 @@ goog.scope(function() {
         return !(donationAmount > this.const.MAX_NUMBER);
     };
 
-	
     /**
      * Validate min donation value
      * @param {string} text text to validate
@@ -285,7 +284,7 @@ goog.scope(function() {
         return !(inputAmount < this.const.MIN_INCOME);
     };
 
-	/**
+    /**
      * Validate digit
      * @param {string} text text to validate
      * @return {boolean}
@@ -304,7 +303,7 @@ goog.scope(function() {
     Input.prototype.validateName_ = function(name) {
         name = name.trim();
         var nameRegex = new RegExp(
-            "^[ёа-яА-Я- ]{2," + this.const.MAX_NUMBER + "}$"
+            '^[ёа-яА-Я- ]{2," + this.const.MAX_NUMBER + "}$'
         );
 
         return nameRegex.test(name);

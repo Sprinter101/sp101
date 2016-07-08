@@ -1,16 +1,13 @@
-@import '../i-media/i-media';
+@import '../../i-media/i-media';
 
 .b-donation-fixed-block__inner-wrap {
-    //border: 1px solid red;
-
 }
 
-.b-donation-fixed-block__choice_fixed-sum {
+.b-donation-fixed-block__sum-choice {
     margin-top: 43px;
 }
 
 .b-donation-fixed-block__input-tip {
-    
     text-align: center;
     color: #FFFFFF;
     font-family: SFUIDisplay;
@@ -23,7 +20,7 @@
 }
 
 @include media-m {
-   .b-donation-fixed-block__choice___fixed-sum {
+   .b-donation-fixed-block__sum-choice {
     margin-top: 71px;
     }
     .b-donation-fixed-block__button-wrapper {
@@ -32,7 +29,7 @@
 }
 
 @include media-l {
-    .b-donation-fixed-block__choice___fixed-sum {
+    .b-donation-fixed-block__sum-choice {
     margin-top: 96px;
     }
     .b-donation-fixed-block__button-wrapper {
@@ -40,8 +37,8 @@
     }
 }
 
-    @include media-xl {
-        .b-donation-fixed-block__choice___fixed-sum {
+@include media-xl {
+        .b-donation-fixed-block__sum-choice {
     margin-top: 96px;
     }
     .b-donation-fixed-block__button-wrapper {
