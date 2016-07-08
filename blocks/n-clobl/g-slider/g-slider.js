@@ -82,7 +82,7 @@ goog.scope(function() {
         this.getView().disable(classes);
     };
 
-    /**
+     /**
     * returns slider current value
     * @return {number} value
     * @protected

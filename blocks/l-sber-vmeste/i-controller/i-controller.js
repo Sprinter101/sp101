@@ -43,12 +43,15 @@ goog.scope(function() {
 
     /**
     * 'List page' action
+    * @param {Object=} opt_params
     */
     Controller.prototype.actionListPage = function(opt_params) {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'list'}
             });
-        this.pageManager_.setCurrentPage('ListPage', {'category': opt_params.category});
+        this.pageManager_.setCurrentPage('ListPage', {
+            'category': opt_params.category}
+            );
     };
 
     /**
@@ -70,7 +73,18 @@ goog.scope(function() {
         this.headerManager_.setCurrentHeader('Header', {
             'config' : {'headerType': 'donate'}
             });
-        this.pageManager_.setCurrentPage('StartPage');
+        this.pageManager_.setCurrentPage('DonatePage');
+    };
+
+    /**
+     * Registration action
+     * (phone number + name,surname)
+     */
+    Controller.prototype.actionRegistration = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'start'}
+            });
+        this.pageManager_.setCurrentPage('RegistrationPage');
     };
 
 });  // goog.scope

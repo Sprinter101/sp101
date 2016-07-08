@@ -1,0 +1,71 @@
+{namespace sv.lSberVmeste.bDonatePage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+    {call .renderChild}
+          {param params: [
+                'type': 'TabSber',
+                'renderParams': [
+                    'data': [
+                        'tabs': [
+                            [
+                                'label': 'Сумма',
+                                'content': [
+                                    'childToRender': [
+                                        'type': 'DonationFixedBlock',
+                                        'renderParams': [
+                                            'data': [],
+                                            'config': [
+                                                'customClasses': ['b-page-donate__fixed-block']
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                                'label': '% от дохода',
+                                 'content': [
+                                    'childToRender': [
+                                        'type': 'DonationPercentBlock',
+                                        'renderParams': [
+                                            'data': [],
+                                            'config': [
+                                               'customClasses': ['b-page-donate__percent-block']
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ],
+                    'config': [
+                        'tabClasses': [
+                            'content': ['transparent']
+                        ],
+                        'customClasses': 
+                                ['b-page-donate__tabs_money']
+                    ]
+                ]
+            ]
+        /}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-donate
+{/template}

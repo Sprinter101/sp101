@@ -40,10 +40,12 @@
 
 .g-button_height_small {
     height: 33px;
+    line-height: 30px;
 }
 
 .g-button_height_big {
     height: 56px;
+    line-height: 56px;
 }
 
 .g-button_width_m {
@@ -78,13 +80,16 @@
     font-size: 16px;
 }
 
+<<<<<<< 2ca65e2de60944313ff19bb5822f7b6c080ea510
 .g-button_font_l {
     font-size: 25px;
-}
-
+=======
 .g-button_disabled {
     cursor: default;
     color: #fff;
     background: none;
     border: solid 1px #e7f038;
+    
+
+>>>>>>> SV-55 added restrictions to g-input
 }
