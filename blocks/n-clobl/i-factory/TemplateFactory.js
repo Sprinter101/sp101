@@ -12,11 +12,15 @@ goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
-goog.require('sv.lSberVmeste.bUserBlock.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
+goog.require('sv.lSberVmeste.bProfile.Template');
+goog.require('sv.lSberVmeste.bProfileEdit.Template');
+goog.require('sv.lSberVmeste.bProfilePage.Template');
+goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
+goog.require('sv.lSberVmeste.bUserBlock.Template');
 goog.require('sv.lSberVmeste.Template');
 
 
@@ -96,6 +100,22 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'ListPageUserBlock',
             sv.lSberVmeste.bUserBlock.Template.userBlock
+        )
+        .setTemplateListItem(
+            'Profile',
+            sv.lSberVmeste.bProfile.Template.profile
+        )
+        .setTemplateListItem(
+            'ProfileEdit',
+            sv.lSberVmeste.bProfileEdit.Template.profileEdit
+        )
+        .setTemplateListItem(
+            'ProfilePage',
+            sv.lSberVmeste.bProfilePage.Template.profilePage
+        )
+        .setTemplateListItem(
+            'RegistrationPage',
+            sv.lSberVmeste.bRegistrationPage.Template.registrationPage
         );
 
 };
