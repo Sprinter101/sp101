@@ -50,7 +50,8 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     */
     this.categoriesData_ = null;
 };
-goog.inherits(sv.lSberVmeste.bListPage.ListPage, sv.lSberVmeste.iPage.Page);
+goog.inherits(sv.lSberVmeste.bListPage.ListPage,
+    sv.lSberVmeste.iPage.Page);
 
 
 goog.scope(function() {
@@ -76,11 +77,6 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.sendCategoriesRequest();
-
-        this.userBlock_ = this.renderChild(
-            'ListPageUserBlock',
-            this.getView().getDom().userBlock
-        );
 
         this.listTab_ = this.decorateChild('ListTab',
             this.getView().getDom().listTab);
@@ -134,9 +130,11 @@ goog.scope(function() {
 
         this.renderCardListCards();
 
-        if (this.userBlock_) {
-            this.userBlock_.init(this.categoriesData_);
-        }
+        this.userBlock_ = this.renderChild(
+            'ListPageUserBlock',
+            this.getView().getDom().userBlock,
+            {categories: this.categoriesData_}
+        );
     };
 
     /**
