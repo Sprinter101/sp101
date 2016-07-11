@@ -29,10 +29,10 @@
                 {param params: [
                     'type': 'IconSber',
                     'renderParams': [
-                        'data': [],
-                        'config': [
-                        'iconStyles': ['logo-sber']
-                        ]
+                        'data': [
+                        'type': 'logo-sber'
+                            ],
+                        'config': []
                     ]
                 ]/}
             {/call}
@@ -44,18 +44,18 @@
         {else}
             <div class="{call .rootClass/}__icon_arrow_back-wrapper_white-header">
         {/if}
-            {let $arrowColor: ($headerType == 'card') ? 'arrow-back_grey' : 'arrow-back_white'/}
-                {call .renderChild}
-                    {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['arrow-back', $arrowColor]
-                            ]
-                        ]
-                    ]/}
-                {/call}
+        {let $arrowColor: ($headerType == 'card') ? 'grey' : 'white'/}
+            {call .renderChild}
+                {param params: [
+                    'type': 'IconSber',
+                    'renderParams': [
+                        'data': [
+                            'type': 'arrow-back'
+                        ],
+                        'config': ['theme': $arrowColor]
+                    ]
+                ]/}
+            {/call}
             </div>
         {if $headerType == 'card' or $headerType == 'donate'}
             <div class="{call .rootClass/}__button_me-wrapper{sp}{call .hidden/}">
@@ -95,10 +95,8 @@
                     {param params: [
                         'type': 'IconSber',
                         'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['share']
-                            ]
+                            'data': ['type': 'share'],
+                            'config': []
                         ]
                     ]/}
                 {/call}
