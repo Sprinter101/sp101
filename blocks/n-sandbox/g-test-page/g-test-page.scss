@@ -1,12 +1,14 @@
 .b-test-page {
     margin-top: 20px;
      padding: 10px 0;
+
     text-align: center;
 
     background-color: #353535;
 }
 
 .b-test-page__title {
+    height: 35px;
     margin: 10px 0;
 
     color: #fff;
@@ -14,10 +16,13 @@
     border-bottom: 2px solid white;
 
     font-size: 30px;
+    line-height: 36px;
 }
 
 .b-test-page__element {
-    margin: 10px 0;
+    display: inline-block;
+
+    margin: 10px 10px;
 }
 
 .g-icon_logo-userfund_authorized {
@@ -33,6 +38,8 @@
 }
 .b-test-page__input-title {
     vertical-align: top;
+
+    color: #aaa;
 }
 
 .g-slider_sber {

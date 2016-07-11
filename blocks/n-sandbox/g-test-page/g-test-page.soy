@@ -206,22 +206,14 @@
 */
 {template .input_ autoescape="strict" kind="html"}
     <div class="b-test-page__input-block">
-        <div class="b-test-page__input-title">
-            digits, maxDonation:
-        </div>
+        <div class="b-test-page__input-title">digits, maxDonation:</div>
         {call .renderChild}
             {param params: [
                 'type': 'InputSber',
                 'renderParams': [
-                    'data': [
-                        'inputType': 'text'
-                    ],
+                    'data': ['inputType': 'text'],
                     'config': [
-                        'validations': [
-                            'notEmpty',
-                            'digits',
-                            'maxDonation'
-                        ],
+                        'validations': ['notEmpty', 'digits', 'maxDonation'],
                         'constraints': [
                             'digitsOnly',
                             'charactersLimit',
@@ -234,25 +226,15 @@
     </div>
 
     <div class="b-test-page__input-block">
-        <div class="b-test-page__input-title">
-            name:
-        </div>
+        <div class="b-test-page__input-title">name:</div>
         {call .renderChild}
             {param params: [
                 'type': 'InputSber',
                 'renderParams': [
-                    'data': [
-                        'inputType': 'text'
-                    ],
+                    'data': ['inputType': 'text'],
                     'config': [
-                        'validations': [
-                            'notEmpty',
-                            'name'
-                        ],
-                        'constraints': [
-                            'noLeadingZero',
-                            'name'
-                        ]
+                        'validations': ['notEmpty', 'name'],
+                        'constraints': ['noLeadingZero', 'name']
                     ]
                 ]
             ]/}
@@ -260,23 +242,54 @@
     </div>
 
     <div class="b-test-page__input-block">
-        <div class="b-test-page__input-title">
-            phone number:
-        </div>
+        <div class="b-test-page__input-title">phone number:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': ['inputType': 'text', 'value': '+7'],
+                    'config': [
+                        'validations': ['phoneNumber'],
+                        'constraints': ['phoneNumber']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">placeholder:</div>
         {call .renderChild}
             {param params: [
                 'type': 'InputSber',
                 'renderParams': [
                     'data': [
-                        'inputType': 'text'
+                        'inputType': 'text',
+                        'placeholder': 'placeholder'
                     ],
                     'config': [
-                        'validations': [
-                            'phoneNumber'
-                        ],
-                        'constraints': [
-                            'phoneNumber'
-                        ]
+                        'validations': ['notEmpty'],
+                        'constraints': ['noLeadingZero']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">lable:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'placeholder',
+                        'label': 'label text'
+                    ],
+                    'config': [
+                        'validations': ['notEmpty'],
+                        'constraints': ['noLeadingZero']
                     ]
                 ]
             ]/}
@@ -289,14 +302,14 @@
 */
 {template .slider_ autoescape="strict" kind="html"}
     {call .renderChild}
-    {param params: [
+        {param params: [
             'type': 'SliderSber',
             'renderParams': [
                 'data': [],
-               'config': [
+                'config': [
                     'customClasses': ['g-slider_test']
-                    ]
                 ]
-            ]/}
+            ]
+        ]/}
     {/call}
 {/template}
