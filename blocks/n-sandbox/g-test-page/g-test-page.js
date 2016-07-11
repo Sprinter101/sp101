@@ -75,6 +75,8 @@ goog.scope(function() {
                 domInputs[i], inputParams
             ));
         }
+
+        inputParams = goog.object.clone(inputParams);
         inputParams.placeholder = 'placeholder';
         inputParams.label = "label's text";
 

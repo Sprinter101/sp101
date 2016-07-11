@@ -31,7 +31,8 @@ $error_color: #F76464;
 }
 
 .g-input__input_not-valid {
-    color: $error_color;
+    color: $error_color;
+
     border-bottom: 1px solid $error_color;
 }
 
@@ -52,6 +53,14 @@ $error_color: #F76464;
     text-align: left;
 
     opacity: 0;
+}
+
+.g-input__label_center {
+    text-align: center;
+}
+
+.g-input__label_active {
+
 }
 .g-input__label_visible {
     opacity: 1;
