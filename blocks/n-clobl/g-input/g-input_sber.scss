@@ -16,7 +16,7 @@ $error_color: #F76464;
 
     text-align: center;
 
-    color: #ffffff;
+    color: #fff;
     border: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     background: none;
@@ -32,7 +32,6 @@ $error_color: #F76464;
 
 .g-input__input_not-valid {
     color: $error_color;
-
     border-bottom: 1px solid $error_color;
 }
 
@@ -48,23 +47,58 @@ $error_color: #F76464;
     color: $error_color;
 }
 
-
 .g-input__label {
     text-align: left;
 
     opacity: 0;
+    color: #424242;
+
+    font-family: SFUIText;
+    font-size: 14px;
 }
 
 .g-input__label_center {
     text-align: center;
 }
 
-.g-input__label_active {
-
-}
 .g-input__label_visible {
     opacity: 1;
 }
 
+.g-input__label_filled {
+    opacity: .4;
+}
 
 
+
+.g-input_profile .g-input__input {
+    height: 30px;
+
+    text-align: left;
+
+    color: #414141;
+    border-bottom: 1px solid #464646;
+
+    font-family: AndaleMono;
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.g-input_profile .g-input__input::placeholder {
+    margin: 5px;
+
+    text-align: left;
+    letter-spacing: -0.6px;
+
+    color: #424242;
+
+    font-family: SFUIText;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+
+
+.g-input_profile_big .g-input__input {
+
+}
