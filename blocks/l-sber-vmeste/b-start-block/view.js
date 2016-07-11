@@ -2,7 +2,6 @@ goog.provide('sv.lSberVmeste.bStartBlock.View');
 
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
-goog.require('goog.events.EventType');
 
 
 

@@ -33,13 +33,6 @@ sv.lSberVmeste.bStartPage.StartPage = function(view, opt_domHelper) {
     this.startBlock_ = null;
 
     /**
-     * userfunds info phrase
-     * @type {string}
-     * @private
-     */
-    this.userfundsCountPhrase_ = '';
-
-    /**
      * userfunds count button
      * @type {sv.gButton.Button}
      * @private
@@ -116,10 +109,14 @@ goog.scope(function() {
 
     /**
     * Ajax rejection handler
+    * Prints default userfunds count
+    * if server responded with error
     * @param {Object} err
     */
     StartPage.prototype.handleRejection = function(err) {
         console.log(err);
+        var defaultCount = 20;
+        this.changeUserfundsCountButton(defaultCount);
     };
 
     /**
