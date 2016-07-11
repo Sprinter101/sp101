@@ -182,7 +182,9 @@ goog.scope(function() {
     View.prototype.onBlur = function() {
         if (this.params.label) {
             this.dom.input.setAttribute('placeholder', this.params.placeholder);
-            this.hideLabel();
+            if (this.dom.input.value == '') {
+                this.hideLabel();
+            }
         }
 
         this.dispatchEvent(View.Event.BLUR);
