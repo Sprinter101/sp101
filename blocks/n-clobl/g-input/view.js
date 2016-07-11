@@ -47,6 +47,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'g-input',
         INPUT: 'g-input__input',
+        INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
@@ -188,16 +189,23 @@ goog.scope(function() {
             this.dom.input.setAttribute('placeholder', this.params.placeholder);
             if (this.dom.input.value == '') {
                 this.hideLabel();
+                this.unsetFilled();
             } else {
-                this.setLabelToFilled();
+                this.setFilled();
             }
         }
 
         this.dispatchEvent(View.Event.BLUR);
     };
 
-    View.prototype.setLabelToFilled = function() {
+    View.prototype.setFilled = function() {
         goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_FILLED);
+        goog.dom.classlist.add(this.dom.input, View.CssClass.INPUT_FILLED);
+    };
+
+    View.prototype.unsetFilled = function() {
+        goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_FILLED);
+        goog.dom.classlist.remove(this.dom.input, View.CssClass.INPUT_FILLED);
     };
 
     View.prototype.showLabel = function() {
