@@ -19,6 +19,7 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     this.setCssClass(sv.gInput.View.CssClass.ROOT);
 
     /**
+<<<<<<< 0941205b2c8fa77bdef298837491f87e3d120d27:blocks/n-clobl/g-input/view.js
     * @type {string}
     * @private
     */
@@ -29,6 +30,19 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     * @private
     */
     this.placeholder_ = null;
+=======
+     * Error messages for validations
+     * @type {Object}
+     */
+    this.validationErrorMessages = {
+        'digits': 'Допустимо использовать только цифры',
+        'email': 'Введён некорректный адрес электронной почты',
+        'notEmpty': 'Это поле не может быть пустым',
+        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
+                        'чем 500 тыс. рублей',
+        'phone': 'Номер должен быть в формате +7ХХХХХХХХХХ'
+    };
+>>>>>>> Created a new branch for phone confirmation feature. Changed general input for more flexibility.:blocks/n-clobl/g-input/g-input_sber-View.js
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 

@@ -26,13 +26,23 @@ sv.gInput.Input = function(view, opt_domHelper) {
      * constraint params
      * @type {Object}
      */
+<<<<<<< 0941205b2c8fa77bdef298837491f87e3d120d27
     this.valueParams = {};
+=======
+    this.const = {
+        MAX_NUMBER: this.params.MAX_NUMBER ?
+                            this.params.MAX_NUMBER : Infinity,
+        MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
+                            this.params.MAX_CHARACTERS : 11
+    };
+>>>>>>> Created a new branch for phone confirmation feature. Changed general input for more flexibility.
 
     /**
      * Possible validation type handlers
      * @type {Object}
      */
     this.validationTypeHandlers = {
+        'phone' : this.validatePhone_,
         'digits': this.validateDigits_,
         'email': this.validateEmail_,
         'notEmpty': this.validateNotEmpty_,
@@ -48,6 +58,7 @@ sv.gInput.Input = function(view, opt_domHelper) {
      * @type {Object}
      */
     this.constraintsHandlers = {
+        'phoneOnly': this.constraintPhoneOnly_,
         'digitsOnly': this.constraintDigitsOnly_,
         'charactersLimit': this.constraintCharactersLimit_,
         'noLeadingZero': this.constraintNoLeadingZero_,
@@ -75,6 +86,15 @@ goog.scope(function() {
         CHANGE: View.Event.CHANGE,
         FOCUS: View.Event.FOCUS
     };
+    /**
+     * Validate phone number
+     * @param {string} text text to validate
+     * @return {boolean}
+     */
+    Input.prototype.validatePhone_ = function (text) {
+        var phoneRegex = /^(\+7|\+38)(\d{9,10})/;
+        return phoneRegex.test(text);
+    }
 
     /**
      * @override
@@ -102,7 +122,7 @@ goog.scope(function() {
             View.Event.INPUT,
             this.onInput
         );
-
+        
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
 
@@ -206,6 +226,15 @@ goog.scope(function() {
      */
     Input.prototype.constraintDigitsOnly_ = function(oldValue) {
         return oldValue.replace(/[\D]/g, '');
+    };
+    /**
+     * Removes all non-phone-number characters from the string
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintPhoneOnly_ = function(oldValue) {
+        return oldValue.replace(/[.*!"@#$%^&;:?=()_[:space:]-]/g, '');
     };
 
     /**

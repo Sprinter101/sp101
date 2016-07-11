@@ -145,7 +145,7 @@ goog.scope(function() {
     };
 
     /**
-    * Stop helping link clikc handler
+    * Stop helping link click handler
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {

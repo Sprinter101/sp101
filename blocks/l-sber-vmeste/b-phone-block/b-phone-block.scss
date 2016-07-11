@@ -1,0 +1,44 @@
+@import '../../l-sber-vmeste/i-media/i-media.scss';
+
+.b-phone-block {
+  position: relative;
+
+  display: block;
+
+  width: 500px;
+  height: 500px;
+  top: 10%;
+  margin: 0 auto;
+  padding: 10px 0;
+
+  text-align: center;
+  vertical-align: middle;
+
+  border-radius: 8px;
+  border-bottom: solid 1px #979797;
+  background: #fff;
+
+  font-size: 15px;
+}
+
+
+
+.b-phone-block__welcome{
+  margin-top: 20%;
+  display: inline-block;
+  font-size: 14px;
+  color: black;
+}
+
+.b-phone-block__input_phone{
+  position: inherit;
+  margin-top: 10%;
+  display: inline-block;
+  font-size: 20px;
+  color: #93991a;
+}
+
+.b-phone-block__enter-button{
+  position: inherit;
+  margin-top: 10%;
+}
