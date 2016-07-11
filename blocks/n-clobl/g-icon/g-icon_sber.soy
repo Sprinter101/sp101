@@ -22,18 +22,3 @@
         g-icon_{$params.data.type}
     {/if}
 {/template}
-
-
-/**
- * theme template
- * @param params {
- *    config: {
- *        theme: ?string
- *    }
- * }
- */
-{template .themeClasses}
-    {if $params?.config?.theme}
-        {sp}{call .rootClass/}_{$params.config.theme}-theme
-    {/if}
-{/template}
