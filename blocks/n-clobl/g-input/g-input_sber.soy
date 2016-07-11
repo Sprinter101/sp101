@@ -17,6 +17,7 @@
  *     data: {
  *         inputType: ?string,
  *         placeholder: ?string,
+ *         label: ?string,
  *         value: ?string,
  *         name: ?string,
  *         maxLength: ?number
@@ -24,6 +25,9 @@
  * }}
  */
 {template .inputTemplate}
+    {if $params?.data?.label}
+        <div class="{call .rootClass/}__label">{$params.data.label}</div>
+    {/if}
     <input class="{call .rootClass/}__input"
         {if $params?.data?.inputType}
             {sp}

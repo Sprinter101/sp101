@@ -57,6 +57,11 @@ goog.scope(function() {
             domInputs = this.getView().getDom().inputs,
             domSlider = this.getView().getDom().slider;
 
+        var inputParams = {
+            MAX_NUMBER: 500000,
+            MAX_CHARACTERS: 6
+        };
+
         for (var i = 0; i < domButtons.length; i++) {
             this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
         }
@@ -65,17 +70,19 @@ goog.scope(function() {
             this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
 
-        for (var i = 0; i < domInputs.length; i++) {
+        for (var i = 0; i < domInputs.length - 1; i++) {
             this.inputs_.push(this.decorateChild('InputSber',
-                domInputs[i],
-                {
-                    MAX_NUMBER: 500000,
-                    MAX_CHARACTERS: 6
-                }
+                domInputs[i], inputParams
             ));
         }
-            this.slider_ = this.decorateChild('SliderSber', domSlider);
+        inputParams.placeholder = 'placeholder';
+        inputParams.label = "label's text";
 
+        this.inputs_.push(this.decorateChild('InputSber',
+            domInputs[i], inputParams
+        ));
+
+        this.slider_ = this.decorateChild('SliderSber', domSlider);
     };
 
     /**
