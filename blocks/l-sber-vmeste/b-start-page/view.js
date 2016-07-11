@@ -36,7 +36,6 @@ goog.scope(function() {
         ROOT: 'b-page-start',
         BLOCK_START: 'b-start-block',
         USERFUNDS_PHRASE_CONTAINER: 'b-page-start__userfunds-info-phrase',
-        USERFUNDS_COUNT_CONTAINER: 'b-page-start__userfunds-info-count',
         USERFUNDS_COUNT_BUTTON: 'b-page-start__button_userfunds-count'
     };
 
@@ -53,10 +52,6 @@ goog.scope(function() {
 
        this.dom.userFundsPhraseContainer = this.getElementByClass(
         View.CssClass.USERFUNDS_PHRASE_CONTAINER
-        );
-
-       this.dom.userFundsCountContainer = this.getElementByClass(
-        View.CssClass.USERFUNDS_COUNT_CONTAINER
         );
 
        this.dom.userFundsCountButton = this.getElementByClass(
