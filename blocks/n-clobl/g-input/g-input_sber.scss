@@ -7,21 +7,31 @@ $error_color: #F76464;
     width: 290px;
 }
 
-.g-input__input {
+.g-input__input{
     width: 290px;
     border: 0;
     padding: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     background: none;
     font-family: AndaleMono;
-    font-size: 62px;
+    font-size: 32px;
     font-weight: normal;
     text-align: center;
-    color: #ffffff;
+    color: white;
 
     &:focus {
         outline: 0;
     }
+}
+.g-input__input_phone {
+    width: 270px;
+    border: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom-color: black;
+    font-family: AndaleMono;
+    font-size: 35px;
+    color: #93991a ;
 }
 
 .g-input__input_not-valid {

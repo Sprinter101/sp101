@@ -92,6 +92,7 @@ goog.scope(function() {
         this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
         this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
         this.initRoute_(Route.DONATE, controller.actionDonate);
+        this.initRoute_(Route.PHONE_CONFIRM,controller.actionPhone);
     };
 
     /**

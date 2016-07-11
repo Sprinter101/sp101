@@ -18,6 +18,8 @@ goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.Template');
+goog.require('sv.lSberVmeste.bPhoneBlock.Template');
+goog.require('sv.lSberVmeste.bPhonePage.Template');
 
 
 
@@ -32,6 +34,14 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'SberVmeste',
             sv.lSberVmeste.Template.sberVmeste
+        )
+        .setTemplateListItem(
+            'PhoneBlock',
+            sv.lSberVmeste.bPhoneBlock.Template.phoneBlock
+        )
+        .setTemplateListItem(
+            'PhonePage',
+             sv.lSberVmeste.bPhonePage.Template.phonePage
         )
         .setTemplateListItem(
             'HeaderManager',

@@ -32,7 +32,6 @@ goog.scope(function() {
         ROOT: 'b-test-page',
         BUTTON: 'g-button_sber',
         TAB: 'g-tab_sber',
-        BUTTON: 'g-button_sber',
         INPUT: 'g-input_sber'
     };
 

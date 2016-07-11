@@ -15,6 +15,7 @@
  * Input template
  * @param? params {{
  *     data: {
+           inputClass: ?string,
  *         inputType: ?string,
  *         placeholder: ?string,
  *         value: ?string,
@@ -24,7 +25,11 @@
  * }}
  */
 {template .inputTemplate}
-    <input class="{call .rootClass/}__input"
+    <input  class="{call .rootClass/}__input
+        {if $params?.data?.inputClass}
+            {sp}
+            {call .rootClass/}__{$params?.data?.inputClass}
+        {/if}"
         {if $params?.data?.inputType}
             {sp}
             type="{$params?.data?.inputType}"

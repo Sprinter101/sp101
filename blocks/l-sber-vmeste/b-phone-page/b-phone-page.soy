@@ -1,0 +1,33 @@
+{namespace sv.lSberVmeste.bPhonePage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .phonePage}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+     <div class="{call .rootClass/}__uno">
+            {call .renderChild}
+                {param params: [
+                    'type': 'PhoneBlock',
+                    'renderParams': [
+                        'data': [],
+                        'config': []
+                    ]
+                ]/}
+            {/call}
+     </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-phone
+{/template}

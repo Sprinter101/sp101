@@ -1,0 +1,64 @@
+{namespace sv.lSberVmeste.bPhoneBlock.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .phoneBlock}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * Body
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__welcome">
+        Введите свой номер мобильного телефона
+    </div>
+    <div class="{call .rootClass/}__input_phone">
+        {call .renderChild}
+          {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputClass': 'input_phone',
+                        'inputType': 'text',
+                        'value': '+7',
+                    ],
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'phone'
+                        ],
+                        'constraints': [
+                            'phoneOnly',
+                            'noLeadingZero'
+                        ]
+                    ]
+                ]
+          ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__enter-button">
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': 'Войти'
+                    ],
+                    'config': [
+                        'buttonStyles': []
+                    ]
+                ]
+            ]/}
+        {/call}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-phone-block
+{/template}
