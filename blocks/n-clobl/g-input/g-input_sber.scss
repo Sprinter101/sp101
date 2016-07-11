@@ -100,7 +100,12 @@ $error_color: #F76464;
 
 
 
+.g-input_profile_big .g-input__label {
+    text-align: center;
+}
 .g-input_profile_big .g-input__input {
+    height: 45px;
+
     text-align: center;
 
     color: #93991a;
@@ -110,7 +115,9 @@ $error_color: #F76464;
     font-weight: normal;
 }
 
-
+.g-input_profile_big .g-input__input::placeholder {
+    text-align: center;
+}
 
 .g-input_profile .g-input__input.g-input__input_filled {
     border-bottom: 1px solid rgba(70, 70, 70, .4);
