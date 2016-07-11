@@ -149,9 +149,8 @@ goog.scope(function() {
         var that = this;
 
         this.params['constraints'].forEach(function(constraintType) {
-                that.doConstraintType_(constraintType);
+            that.doConstraintType_(constraintType);
         });
-
     };
 
     /**

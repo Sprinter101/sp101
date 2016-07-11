@@ -27,7 +27,7 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
         'email': 'Введён некорректный адрес электронной почты',
         'notEmpty': 'Это поле не может быть пустым',
         'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
-                        'чем 500 тыс. рублей',
+                       'чем 500 тыс. рублей',
         'minInput': 'Минимальная сумма ввода — 1000 рублей',
         'minDonation': 'Минимальная сумма пожертвования — 100 рублей',
         'name': 'Не корректно введено имя',
@@ -47,9 +47,13 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'g-input',
         INPUT: 'g-input__input',
+        INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
+        LABEL: 'g-input__label',
+        LABEL_VISIBLE: 'g-input__label_visible',
+        LABEL_FILLED: 'g-input__label_filled',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
 
@@ -71,9 +75,10 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.input = this.getElementByClass(View.CssClass.INPUT);
+        this.dom.input = this.getElementByClass(View.CssClass.INPUT, element);
         this.dom.errorMessage = this.getElementByClass(
-                                    View.CssClass.ERROR_MESSAGE_BOX);
+                                    View.CssClass.ERROR_MESSAGE_BOX, element);
+        this.dom.label = this.getElementByClass(View.CssClass.LABEL, element);
 
         this.getDataParams(element);
     };
@@ -83,7 +88,6 @@ goog.scope(function() {
      */
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
 
         this.getHandler()
             .listen(
@@ -167,7 +171,49 @@ goog.scope(function() {
      */
     View.prototype.onFocus = function() {
         this.dom.input.select();
+
+        if (this.params.label) {
+            this.dom.input.setAttribute('placeholder', '');
+            this.showLabel();
+        }
+
         this.dispatchEvent(View.Event.FOCUS);
+    };
+
+    /**
+     * Blur handler
+     * @protected
+     */
+    View.prototype.onBlur = function() {
+        if (this.params.label) {
+            this.dom.input.setAttribute('placeholder', this.params.placeholder);
+            if (this.dom.input.value == '') {
+                this.hideLabel();
+                this.unsetFilled();
+            } else {
+                this.setFilled();
+            }
+        }
+
+        this.dispatchEvent(View.Event.BLUR);
+    };
+
+    View.prototype.setFilled = function() {
+        goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_FILLED);
+        goog.dom.classlist.add(this.dom.input, View.CssClass.INPUT_FILLED);
+    };
+
+    View.prototype.unsetFilled = function() {
+        goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_FILLED);
+        goog.dom.classlist.remove(this.dom.input, View.CssClass.INPUT_FILLED);
+    };
+
+    View.prototype.showLabel = function() {
+        goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_VISIBLE);
+    };
+
+    View.prototype.hideLabel = function() {
+        goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_VISIBLE);
     };
 
 });  // goog.scope
