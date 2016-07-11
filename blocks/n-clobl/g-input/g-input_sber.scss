@@ -71,13 +71,14 @@ $error_color: #F76464;
 
 
 
+
 .g-input_profile .g-input__input {
     height: 30px;
 
     text-align: left;
 
     color: #414141;
-    border-bottom: 1px solid #464646;
+    border-bottom: 1px solid rgba(70, 70, 70, 1);
 
     font-family: AndaleMono;
     font-size: 20px;
@@ -100,5 +101,17 @@ $error_color: #F76464;
 
 
 .g-input_profile_big .g-input__input {
+    text-align: center;
 
+    color: #93991a;
+
+    font-family: AndaleMono;
+    font-size: 30px;
+    font-weight: normal;
+}
+
+
+
+.g-input_profile .g-input__input.g-input__input_filled {
+    border-bottom: 1px solid rgba(70, 70, 70, .4);
 }
