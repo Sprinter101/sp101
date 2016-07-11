@@ -51,6 +51,8 @@ goog.scope(function() {
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
         LABEL: 'g-input__label',
+        LABEL_VISIBLE: 'g-input__label_visible',
+        LABEL_FILLED: 'g-input__label_filled',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN
     };
 
@@ -186,22 +188,24 @@ goog.scope(function() {
             this.dom.input.setAttribute('placeholder', this.params.placeholder);
             if (this.dom.input.value == '') {
                 this.hideLabel();
+            } else {
+                this.setLabelToFilled();
             }
         }
 
         this.dispatchEvent(View.Event.BLUR);
     };
 
+    View.prototype.setLabelToFilled = function() {
+        goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_FILLED);
+    };
+
     View.prototype.showLabel = function() {
-        goog.dom.classlist.add(
-            this.dom.label, View.CssClass.LABEL + '_visible'
-        );
+        goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_VISIBLE);
     };
 
     View.prototype.hideLabel = function() {
-        goog.dom.classlist.remove(
-            this.dom.label, View.CssClass.LABEL + '_visible'
-        );
+        goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_VISIBLE);
     };
 
 });  // goog.scope
