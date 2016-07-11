@@ -7,10 +7,8 @@
 }
 
 .b-start-block__userfund-name {
-    margin: 49.5px auto 0;
-    font-family: AndaleMono;
+    margin: 50px auto 0;
     font-size: 25px;
-    font-weight: normal;
     text-align: center;
     color: #FFFFFF;
 }
@@ -18,9 +16,7 @@
 .b-start-block__slogan {
     margin: 17px auto 0;
     opacity: 0.55;
-    font-family: AndaleMono;
     font-size: 13px;
-    font-weight: normal;
     text-align: center;
     color: #FFFFFF;
 }
@@ -28,6 +24,10 @@
 .b-start-block__button_start {
     display: block;
     margin: 29px auto 5px;
+}
+
+.b-start-block__userfund-name {
+    text-transform: uppercase;
 }
 
 @include media-m {
@@ -38,10 +38,10 @@
         margin: 26px auto 0;
     }
     .b-start-block__slogan {
-    margin: 26px auto 0;
+        margin: 26px auto 0;
     }
     .b-start-block__button_start {
-    margin: 48px auto 0;
+        margin: 48px auto 0;
     }
 }
 

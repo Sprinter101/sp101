@@ -83,3 +83,10 @@
 .g-button_font_l {
     font-size: 25px;
 }
+
+.g-button_disabled {
+    cursor: default;
+    color: #fff;
+    background: none;
+    border: solid 1px #e7f038;
+}

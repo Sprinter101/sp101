@@ -82,4 +82,13 @@ goog.scope(function() {
         this.getView().disable(classes);
     };
 
+     /**
+    * returns slider current value
+    * @return {number} value
+    * @protected
+    */
+    Slider.prototype.getValue = function() {
+       return this.getView().getValue();
+    };
+
 });  // goog.scope

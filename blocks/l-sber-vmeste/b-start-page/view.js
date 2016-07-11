@@ -1,7 +1,7 @@
 goog.provide('sv.lSberVmeste.bStartPage.View');
 
 goog.require('goog.dom');
-goog.require('goog.events.EventType');
+goog.require('goog.soy');
 goog.require('sv.lSberVmeste.iPage.View');
 
 
@@ -36,7 +36,7 @@ goog.scope(function() {
         ROOT: 'b-page-start',
         BLOCK_START: 'b-start-block',
         USERFUNDS_PHRASE_CONTAINER: 'b-page-start__userfunds-info-phrase',
-        USERFUNDS_COUNT_CONTAINER: 'b-page-start__userfunds-info-count'
+        USERFUNDS_COUNT_BUTTON: 'b-page-start__button_userfunds-count'
     };
 
     /**
@@ -54,8 +54,8 @@ goog.scope(function() {
         View.CssClass.USERFUNDS_PHRASE_CONTAINER
         );
 
-       this.dom.userFundsCountContainer = this.getElementByClass(
-        View.CssClass.USERFUNDS_COUNT_CONTAINER
+       this.dom.userFundsCountButton = this.getElementByClass(
+        View.CssClass.USERFUNDS_COUNT_BUTTON
         );
     };
 
@@ -67,4 +67,37 @@ goog.scope(function() {
 
     };
 
+     /**
+     * Applies data to userfunds count phrase
+     * @param {number} userfundsCount
+     * @protected
+     */
+    View.prototype.printCorrectPhrase = function(
+        userfundsCount) {
+        var soyParams = {'data': {
+            userfundsCount: userfundsCount, userfundsPhrase: true}
+        };
+        goog.soy.renderElement(
+            this.dom.userFundsPhraseContainer,
+            sv.lSberVmeste.bStartPage.Template.fundsCount,
+            soyParams
+        );
+    };
+
+    /**
+     * Applies data to userfunds count button
+     * @param {number} userfundsCount
+     * @protected
+     */
+    View.prototype.printCorrectCount = function(
+        userfundsCount) {
+        var soyParams = {'data': {
+            userfundsCount: userfundsCount, userfundsPhrase: false}
+        };
+        goog.soy.renderElement(
+            this.dom.userFundsCountButton,
+            sv.lSberVmeste.bStartPage.Template.fundsCount,
+            soyParams
+        );
+    };
 });  // goog.scope

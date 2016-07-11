@@ -1,0 +1,65 @@
+{namespace sv.lSberVmeste.bProfileEdit.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .profileEdit}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__first-name-input">
+        <input type="text">
+    </div>
+    <div class="{call .rootClass /}__last-name-input">
+        <input type="text">
+    </div>
+    <div class="{call .rootClass /}__phone-number-input">
+        <input type="text">
+    </div>
+    <div class="{call .rootClass /}__button">
+        {call .renderChild }
+            {param params: [
+                  'type': 'ButtonSber',
+                  'renderParams': [
+                      'data': [
+                          'content': 'Сохранить'
+                      ]
+                  ]
+              ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-profile-edit
+{/template}
+
+/**
+ * @override
+ */
+{template .renderInput}
+    {call .renderChild}
+      {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'inputType': 'text'
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty'
+                    ]
+                ]
+            ]
+        ]/}
+    {/call}
+{/template}

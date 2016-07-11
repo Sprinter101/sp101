@@ -1,0 +1,73 @@
+@import "../../i-media/i-media";
+
+$mainHeight: 434px;
+$blockHeight: $mainHeight / 2;
+$borderRadius: 8px;
+
+.b-profile {
+    width: 280px;
+    height: $mainHeight;
+    color: #414141;
+    font-size: 20px;
+    position: relative;
+}
+
+.b-profile__photo-block,
+.b-profile__info-block {
+    height: $blockHeight;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    padding: 0 40px;
+}
+
+.b-profile__photo-block {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #e7f038;
+    border-radius: $borderRadius $borderRadius 0 0;
+}
+
+.b-profile__info-block {
+    background-color: #ffffff;
+    border-radius: 0 0 $borderRadius $borderRadius;
+}
+
+.b-profile__user-name {
+    margin-top: 30px
+}
+
+.b-profile__user-phone {
+    margin-top: 20px;
+}
+
+.b-profile__edit-button {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 56px;
+}
+
+@include media-m {
+    .b-profile {
+        width: 480px
+    }
+
+    .b-profile__photo-block {
+        height: 260px;
+    }
+
+    .b-profile__info-block {
+        height: 174px;
+    }
+
+    .b-profile__user-name,
+    .b-profile__user-phone
+    {
+        margin-top: 15px
+    }
+
+    .b-profile__edit-button {
+        bottom: 37px;
+    }
+
+}

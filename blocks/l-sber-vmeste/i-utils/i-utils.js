@@ -1,5 +1,6 @@
 goog.provide('sv.iUtils.Utils');
 
+goog.require('cl.iUtils.Utils');
 goog.require('goog.dom.classlist');
 
 
@@ -19,7 +20,8 @@ goog.scope(function() {
      * @enum {string}
      */
     Utils.CssClass = {
-        HIDDEN: 'i-utils__hidden'
+        HIDDEN: 'i-utils__hidden',
+        CLEARFIX: 'i-utils__clearfix'
     };
 
     /**

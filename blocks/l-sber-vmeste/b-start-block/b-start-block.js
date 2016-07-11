@@ -22,7 +22,7 @@ sv.lSberVmeste.bStartBlock.StartBlock = function(view, opt_domHelper) {
 
     /**
      * start button
-     * @type {string}
+     * @type {sv.gButton.Button}
      * @private
      */
     this.startButton_ = null;
@@ -53,7 +53,7 @@ goog.scope(function() {
         this.startButton_ = this.decorateChild(
             'ButtonSber',
             this.getView().getDom().startButton
-            );
+        );
     };
 
     /**

@@ -27,9 +27,7 @@
 .b-page-start__userfunds-info-phrase {
     margin: 17px auto 0;
     opacity: 0.55;
-    font-family: AndaleMono;
     font-size: 13px;
-    font-weight: normal;
     text-align: center;
     color: #FFFFFF;
 }
@@ -43,6 +41,7 @@
 
 .b-page-start__button_userfunds-count {
     cursor: default;
+    margin-bottom: 10px;
 }
 
 @include media-m {
@@ -60,7 +59,7 @@
         margin: 39px auto 0;
     }
     .b-page-start__button_userfunds-count {
-        margin: 14px auto 0;
+        margin: 14px auto 10px;
     }
 }
 
@@ -79,6 +78,6 @@
         margin: 45px auto 0;
     }
     .b-page-start__button_userfunds-count {
-        margin: 14px auto 0;
+        margin: 14px auto 10px;
     }
 }

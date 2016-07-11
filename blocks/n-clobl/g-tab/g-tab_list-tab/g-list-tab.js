@@ -52,6 +52,8 @@ goog.scope(function() {
                 this.onResize_,
                 null,
                 this);
+
+        setTimeout(this.resizeActiveTab.bind(this), 0);
     };
 
     /**
@@ -92,7 +94,7 @@ goog.scope(function() {
 
         this.renderChild('IconSber', iconContainer,
             {
-                'config': { 'iconStyles': ['check-mark']}
+                'config': { 'iconStyles': ['checked']}
             }
         );
 
