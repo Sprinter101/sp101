@@ -128,13 +128,14 @@ goog.scope(function() {
         var data = response.data || [];
         this.categoriesData_ = this.createCategoriesObject(data);
 
-        this.renderCardListCards();
-
         this.userBlock_ = this.renderChild(
             'ListPageUserBlock',
             this.getView().getDom().userBlock,
             {categories: this.categoriesData_}
         );
+
+        this.renderCardListCards();
+
     };
 
     /**
