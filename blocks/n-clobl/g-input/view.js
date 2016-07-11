@@ -198,20 +198,32 @@ goog.scope(function() {
         this.dispatchEvent(View.Event.BLUR);
     };
 
+    /**
+     * Set input as filled
+     */
     View.prototype.setFilled = function() {
         goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_FILLED);
         goog.dom.classlist.add(this.dom.input, View.CssClass.INPUT_FILLED);
     };
 
+    /**
+     * Set input as filled
+     */
     View.prototype.unsetFilled = function() {
         goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_FILLED);
         goog.dom.classlist.remove(this.dom.input, View.CssClass.INPUT_FILLED);
     };
 
+    /**
+     * Show label
+     */
     View.prototype.showLabel = function() {
         goog.dom.classlist.add(this.dom.label, View.CssClass.LABEL_VISIBLE);
     };
 
+    /**
+     * Hide label
+     */
     View.prototype.hideLabel = function() {
         goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_VISIBLE);
     };
