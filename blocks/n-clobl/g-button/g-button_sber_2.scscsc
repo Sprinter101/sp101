@@ -1,0 +1,150 @@
+.g-button_sber {
+    font-size: 18px;
+    font-weight: normal;
+    border-radius: 30px;
+
+    width: 180px;
+    height: 43px;
+    line-height: 43px;
+    white-space: nowrap;
+    padding: 0;
+}
+
+// .g-button_disabled {
+//     cursor: default;
+//     color: #fff;
+//     background: none;
+//     border: solid 1px #e7f038;
+// }
+
+
+// 'style' : [
+//     'theme': 'filled',
+//     'width': '',
+//     'height': '',
+//     'border-color': '',
+//     'border-width': 'thick',
+//     'font-family': '',
+//     'font-size': '',
+//     'text-color': 'white',
+//     'background': '',
+//     'stylesForDisabled': [
+//         'border-color': '',
+//         'text-color': 'white'
+//     ]
+// ]
+
+//themes
+
+.g-button_transparent_theme {
+    background: none;
+    border: solid 1px #1eeb78;
+}
+
+.g-button_filled_theme {
+    background-color: #e7f038;
+    color: #03371a;
+    border: 0;
+}
+
+//width
+
+.g-button_width_small {
+    width: 56px;
+}
+
+.g-button_width_tiny {
+    width: 33px;
+}
+
+.g-button_width_large {
+    width: 250px;
+}
+
+//height
+
+.g-button_height_small {
+    height: 33px;
+    line-height: 30px;
+}
+
+.g-button_height_big {
+    height: 56px;
+    line-height: 56px;
+}
+
+// border thickness
+
+.g-button_border-width_none {
+    border-width: 0px;
+}
+
+.g-button_border-width_default {
+    border-width: 1px;
+}
+
+.g-button_border-width_thick {
+    border-width: 2px;
+}
+
+// border color
+
+.g-button_border-color_green {
+    border: solid 1px #1eeb78;
+}
+
+.g-button_border-color_white {
+    border: solid 1px #fff;
+}
+
+.g-button_border-color_grey {
+    border: solid 1px #737373;
+}
+
+.g-button_border-color_yellow {
+    border: solid 1px #e7f038;
+}
+
+.g-button_border-color_dark-gold {
+    border: solid 1px #686a3d;
+}
+
+// font family 
+
+.g-button_font-family_SFUI {
+    font-family: SFUIDisplay;
+}
+
+// font size
+
+.g-button_font-size_bigger {
+    font-size: 20px;
+}
+
+.g-button_font-size_smaller {
+    font-size: 16px;
+}
+
+.g-button_font-size_big {
+    font-size: 25px;
+}
+
+// text color
+
+.g-button_text-color_white {
+    color: #fff;
+}
+
+.g-button_text-color_grey {
+    color: #737373;
+}
+
+// background
+
+.g-button_background_green {
+    background-color: #1eeb78;
+}
+
+.g-button_background_none {
+    background: none;
+}
