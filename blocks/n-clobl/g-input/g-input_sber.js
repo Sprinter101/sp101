@@ -82,16 +82,7 @@ goog.scope(function() {
     Input.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.valueParams = {
-            maxNumber: +this.params.valueParams.maxNumber ?
-                +this.params.valueParams.maxNumber : Infinity,
-            maxCharacters: +this.params.valueParams.maxCharacters ?
-                +this.params.valueParams.maxCharacters : Infinity,
-            minIncome: +this.params.valueParams.minIncome ?
-                +this.params.valueParams.minIncome : 1,
-            minDonation: +this.params.valueParams.minDonation ?
-                +this.params.valueParams.minDonation : 1
-        };
+        this.populateValueParams()
 
         this.viewListen(View.Event.BLUR, this.onBlur);
 
@@ -101,6 +92,20 @@ goog.scope(function() {
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
 
         this.validate(true);
+    };
+
+    /**
+    * populates ValueParams
+    */
+    Input.prototype.populateValueParams = function() {
+        var valueParams = this.params.valueParams;
+
+        this.valueParams = {
+            maxNumber: +valueParams.maxNumber || Infinity,
+            maxCharacters: +valueParams.maxCharacters || Infinity,
+            minIncome: +valueParams.minIncome || -Infinity,
+            minDonation: +valueParams.minDonation || -Infinity
+        };
     };
 
     /**
@@ -121,21 +126,22 @@ goog.scope(function() {
         );
 
         var isValid = !failedValidations.length;
+
         this.isValid_ = isValid;
+
+        this.dispatchEvent(isValid ?
+            Input.Event.VALID :
+            {'type': Input.Event.NOT_VALID,
+             'failedValidations': failedValidations}
+        );
 
         if (!quietMode) {
             if (isValid) {
-                this.getView().setValidState();
+                this.getView().unSetNotValidState();
                 this.getView().hideErrorMessage();
-                this.dispatchEvent(Input.Event.VALID);
             } else {
                 this.getView().setNotValidState();
                 this.getView().showErrorMessage(failedValidations);
-
-                this.dispatchEvent({
-                    'type': Input.Event.NOT_VALID,
-                    'failedValidations': failedValidations
-                });
             }
         }
 
@@ -158,6 +164,8 @@ goog.scope(function() {
         this.params['constraints'].forEach(function(constraintType) {
             that.doConstraintType_(constraintType);
         });
+
+        this.validate(true);
     };
 
     /**

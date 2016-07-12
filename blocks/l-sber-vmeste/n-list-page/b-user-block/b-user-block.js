@@ -76,12 +76,9 @@ goog.scope(function() {
     UserBlock.prototype.createCategoriesText = function() {
         var categories = this.categories_;
 
-        var topicCount = categories.topic &&
-                categories.topic.length,
-            directionCount = categories.direction &&
-                categories.direction.length,
-            fundsCount = categories.fund &&
-                categories.fund.length;
+        var topicCount = categories.topic,
+            directionCount = categories.direction,
+            fundsCount = categories.fund;
 
         var soyParams = {
             'data': {

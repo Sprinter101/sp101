@@ -15,7 +15,8 @@ const gulpHelper =
             modules: modulesPath,
             soy: {
                 root: path.join(__dirname, 'build')
-            }
+            },
+            public: '/home/arzach/Desktop/sber-together-api/public/frontend'
         });
 
 const quizGulpHelper =
@@ -44,7 +45,7 @@ gulp.task('soy', function () {
     return gulpHelper.soy.build([]);
 });
 
-gulp.task('scripts', ['soy', 'lint'], function () {
+gulp.task('scripts', ['soy'], function () {
     return gulpHelper.js.build({
         outputFiles: [
             {
@@ -56,9 +57,25 @@ gulp.task('scripts', ['soy', 'lint'], function () {
     });
 });
 
+gulp.task('scripts-only', function () {
+    return gulpHelper.js.build({
+        outputFiles: [
+            {
+                entryPoint: 'sv.lSberVmeste.Main',
+                fileName: 'scripts.js'
+            }
+        ]
+        //,compile: true
+    }).then(liveReloader.bind(this));
+});
+
+var liveReloader = function() {
+    livereload.reload();
+};
+
 gulp.task('fonts', function () {
     return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
-        .pipe(gulp.dest(path.join(__dirname + '/public/fonts')));
+        .pipe(gulp.dest('/home/arzach/Desktop/sber-together-api/public/frontend/fonts'));
 });
 
 gulp.task('images', function () {
@@ -68,7 +85,7 @@ gulp.task('images', function () {
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
     ])
-    .pipe(gulp.dest(path.join(__dirname + '/public/images')));
+    .pipe(gulp.dest('/home/arzach/Desktop/sber-together-api/public/frontend/images'));
 });
 
 gulp.task('styles', ['images', 'fonts'], function () {
@@ -84,23 +101,25 @@ gulp.task('html', ['scripts'], function() {
                 apiUrl: apiAddress
             }
         },
-        dest: path.join(__dirname, './public')
+        dest: '/home/arzach/Desktop/sber-together-api/public/frontend/'
     });
 });
 
 gulp.task('watch', function () {
+
     livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
         path.join(__dirname, 'blocks', '/**/*.css')
     ], ['styles']);
+
     gulp.watch(
         [path.join(__dirname, 'blocks', '/**/*.soy')],
-        ['scripts']
+        ['html']
     );
     gulp.watch(
         [path.join(__dirname, 'blocks', '/**/*.js')],
-        ['scripts']
+        ['scripts-only']
     );
     
 });

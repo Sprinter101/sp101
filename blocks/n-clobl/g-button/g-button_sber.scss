@@ -14,6 +14,10 @@
     background-color: #e7f038;
 }
 
+.g-button_disabled {
+    cursor: default;
+}
+
 .g-button_background_transparent {
     background: none;
 }
@@ -24,6 +28,18 @@
 
 .g-button_border_white {
     border: solid 1px #fff;
+}
+
+.g-button_border_grey {
+    border: solid 1px #737373;
+}
+
+.g-button_border_yellow {
+    border: solid 1px #e7f038;
+}
+
+.g-button_border_dark-gold {
+    border: solid 1px #686a3d;
 }
 
 .g-button_border_thick {
@@ -82,13 +98,6 @@
 
 .g-button_font_l {
     font-size: 25px;
-}
-
-.g-button_disabled {
-    cursor: default;
-    color: #fff;
-    background: none;
-    border: solid 1px #e7f038;
 }
 
 .g-button_border_yellow {
