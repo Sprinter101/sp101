@@ -222,7 +222,7 @@ goog.scope(function() {
      */
     Input.prototype.constraintName_ = function(oldValue) {
         oldValue = oldValue.trim();
-        var nameRegex = /[^ёа-яА-Я- ]/g;
+        var nameRegex = /[^ёа-яА-Яa-zA-Z- ]/g;
 
         return oldValue.replace(nameRegex, '');
     };
@@ -293,6 +293,7 @@ goog.scope(function() {
         var donationAmount = Number(text);
         return !(donationAmount < this.const.MIN_DONATION);
     };
+
     /**
      * Validate name
      * @param {string} name name to validate
@@ -302,7 +303,7 @@ goog.scope(function() {
     Input.prototype.validateName_ = function(name) {
         name = name.trim();
         var nameRegex = new RegExp(
-            '^[ёа-яА-Я- ]{2," + this.const.MAX_NUMBER + "}$'
+            '^[ёа-яА-Яa-zA-Z- ]{2,' + this.const.MAX_NUMBER + '}$'
         );
 
         return nameRegex.test(name);
