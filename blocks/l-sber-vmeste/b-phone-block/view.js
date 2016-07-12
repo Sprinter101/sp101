@@ -45,9 +45,9 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.input = this.getElementByClass(View.CssClass.INPUT);
+        this.dom.inputs = this.getElementsByClass(View.CssClass.INPUT);
 
-        this.dom.button = this.getElementByClass(View.CssClass.BUTTON);
+        this.dom.buttons = this.getElementsByClass(View.CssClass.BUTTON);
     };
 
 

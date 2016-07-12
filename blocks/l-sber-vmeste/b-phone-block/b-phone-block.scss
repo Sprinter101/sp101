@@ -22,23 +22,56 @@
 }
 
 
+.b-phone-block__phone-number-view{
+  margin-top: 10%;
+  display: block;
+  opacity: .32;
+  text-align: center;
+  font-size: 30px;
+  color: black;
+}
 
 .b-phone-block__welcome{
-  margin-top: 20%;
-  display: inline-block;
+  margin-top: 10%;
+  display: block;
+  text-align: center;
   font-size: 14px;
+  color: black;
+}
+
+.b-phone-block__input_confirmation{
+  position: inherit;
+  display:none;
+  margin-top: 10%;
+  text-align: center;
+  font-size: 20px;
   color: black;
 }
 
 .b-phone-block__input_phone{
   position: inherit;
   margin-top: 10%;
-  display: inline-block;
+  display: block;
+  text-align: center;
   font-size: 20px;
   color: #93991a;
 }
 
 .b-phone-block__enter-button{
   position: inherit;
+  text-align: center;
+  margin-top: 10%;
+}
+
+.b-phone-block__registry-button{
+  position: inherit;
+  text-align: center;
+  margin-top: 10%;
+}
+
+.b-phone-block__confirm-button{
+  position: inherit;
+  display: none;
+  text-align: center;
   margin-top: 10%;
 }

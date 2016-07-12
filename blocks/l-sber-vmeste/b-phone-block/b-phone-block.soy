@@ -13,6 +13,8 @@
  * @override
  */
 {template .body}
+    <div class="{call .rootClass/}__phone-number-view">
+    </div>
     <div class="{call .rootClass/}__welcome">
         Введите свой номер мобильного телефона
     </div>
@@ -31,9 +33,29 @@
                             'notEmpty',
                             'phone'
                         ],
+                        'constraints': []
+                    ]
+                ]
+          ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__input_confirmation">
+        {call .renderChild}
+          {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputClass': 'input_confirmation',
+                        'inputType': 'text',
+                        'value': '',
+                    ],
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'digits'
+                        ],
                         'constraints': [
-                            'phoneOnly',
-                            'noLeadingZero'
+                            'digitsOnly'
                         ]
                     ]
                 ]
@@ -54,6 +76,44 @@
                 ]
             ]/}
         {/call}
+    </div>
+    <div class="{call .rootClass/}__confirm-button">
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': 'Подтвердить'
+                    ],
+                    'config': [
+                        'buttonStyles': ['font-size_med',
+                                         'border_green',
+                                         'text-color_white',
+                                         'background_green'
+                                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__registry-button">
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': 'Зарегистрироваться'
+                    ],
+                    'config': [
+                        'buttonStyles': ['border_green',
+                                         'background_transparent',
+                                         'font-size_small'
+                                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
 {/template}
 
 /**
