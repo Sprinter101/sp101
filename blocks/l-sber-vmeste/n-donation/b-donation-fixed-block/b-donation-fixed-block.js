@@ -66,15 +66,10 @@ goog.scope(function() {
     DonationFixedBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
         this.fixedSum_ = this.decorateChild('InputSber',
-            this.getView().getDom().inputControl, {
-            MAX_NUMBER: 500000,
-            MAX_CHARACTERS: 6,
-            MIN_DONATION: 100
-        });
+            this.getView().getDom().inputControl);
 
         this.buttonReady_ = this.decorateChild('ButtonSber',
-            this.getView().getDom().buttonReady
-            );
+            this.getView().getDom().buttonReady);
     };
 
     /**

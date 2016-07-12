@@ -60,7 +60,8 @@ goog.inherits(sv.lSberVmeste.bProfileEdit.ProfileEdit,
 
 goog.scope(function() {
     var ProfileEdit = sv.lSberVmeste.bProfileEdit.ProfileEdit,
-        Button = sv.gButton.Button;
+        Button = sv.gButton.Button,
+        Input = sv.gInput.Input;
 
     /**
      * Events
@@ -77,21 +78,19 @@ goog.scope(function() {
     ProfileEdit.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        // this.firstNameInput = this.decorateChild('InputSber',
-        //     this.getView().getDom().inputs.firstName);
+        this.firstNameInput_ = this.decorateChild('InputSber',
+            this.getView().getDom().inputs.firstName);
 
-        // this.lastNameInput = this.decorateChild('InputSber',
-        //     this.getView().getDom().inputs.lastName);
+        this.lastNameInput_ = this.decorateChild('InputSber',
+            this.getView().getDom().inputs.lastName);
 
-        // this.phoneNumberInput = this.decorateChild('InputSber',
-        //     this.getView().getDom().inputs.phoneNumber);
+        this.phoneNumberInput_ = this.decorateChild('InputSber',
+            this.getView().getDom().inputs.phoneNumber);
 
         this.createButton(this.registrationState_);
 
-        this.getView().setFirstNameInputValue(this.userInfo_.firstName);
-        this.getView().setLastNameInputValue(this.userInfo_.lastName);
-        this.getView().setPhoneNumberInputValue(
-            this.userInfo_.phoneNumber);
+        this.setInputsValues();
+
     };
 
     /**
@@ -107,6 +106,8 @@ goog.scope(function() {
             false,
             this
         );
+
+        this.addInputsListeners();
     };
 
     /**
@@ -121,6 +122,81 @@ goog.scope(function() {
         this.button_.setValue(
             isRegistration ? 'Продолжить' : 'Сохранить'
         );
+
+        if (isRegistration) {
+            this.button_.disable();
+        }
+    };
+
+    /**
+    * Adds input listeners
+    */
+    ProfileEdit.prototype.addInputsListeners = function() {
+        var inputs = [
+            this.firstNameInput_,
+            this.lastNameInput_,
+            this.phoneNumberInput_
+        ];
+
+        for (var i = 0; i < inputs.length; i++) {
+            var input = inputs[i];
+
+            this.getHandler()
+            .listen(
+                input,
+                Input.Event.NOT_VALID,
+                this.onInputNotValid_,
+                false,
+                this
+            )
+            .listen(
+                input,
+                Input.Event.VALID,
+                this.onInputValid_,
+                false,
+                this
+            );
+        }
+    };
+
+    /**
+    * Input values setter
+    */
+    ProfileEdit.prototype.setInputsValues = function() {
+        this.firstNameInput_.setValue(
+            this.userInfo_.firstName || '');
+        this.lastNameInput_.setValue(
+            this.userInfo_.lastName || '');
+        this.phoneNumberInput_.setValue(
+            this.userInfo_.phoneNumber || '');
+    };
+
+    /**
+    * Input's NOT_VALID event handler
+    * @private
+    */
+    ProfileEdit.prototype.onInputNotValid_ = function() {
+        this.button_.disable();
+    };
+
+    /**
+    * Input's VALID event handler
+    * @private
+    */
+    ProfileEdit.prototype.onInputValid_ = function() {
+        if (this.areAllInputsValid()) {
+            this.button_.enable();
+        }
+    };
+
+    /**
+    * Checks if all of the inputs are valid
+    * @return {Boolean}
+    */
+    ProfileEdit.prototype.areAllInputsValid = function() {
+        return this.firstNameInput_.isValid() &&
+            this.lastNameInput_.isValid() &&
+            this.phoneNumberInput_.isValid();
     };
 
     /**
@@ -129,11 +205,11 @@ goog.scope(function() {
     */
     ProfileEdit.prototype.onButtonClick_ = function() {
         this.userInfo_.firstName =
-            this.getView().getFirstNameInputValue();
+            this.firstNameInput_.getValue().trim();
         this.userInfo_.lastName =
-            this.getView().getLastNameInputValue();
+            this.lastNameInput_.getValue().trim();
         this.userInfo_.phoneNumber =
-            this.getView().getPhoneNumberInputValue();
+            this.phoneNumberInput_.getValue().trim();
 
         this.dispatchEvent({
             'type': ProfileEdit.Event.BUTTON_CLICK,

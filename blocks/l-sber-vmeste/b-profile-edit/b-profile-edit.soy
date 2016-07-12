@@ -14,13 +14,73 @@
  */
 {template .body autoescape="strict" kind="html"}
     <div class="{call .rootClass /}__first-name-input">
-        <input type="text">
+      {call .renderChild}
+          {param params: [
+              'type': 'InputSber',
+              'renderParams': [
+                  'data': [
+                      'inputType': 'text',
+                      'placeholder': 'Имя',
+                      'label': 'Имя',
+                      'customClasses': ['g-input_profile']
+                  ],
+                  'config': [
+                      'tabIndex': '1',
+                      'validations': ['notEmpty'],
+                      'constraints': ['name'],
+                      'customClasses': [
+                          'g-input_profile'
+                      ]
+                  ]
+              ]
+          ]/}
+      {/call}
     </div>
     <div class="{call .rootClass /}__last-name-input">
-        <input type="text">
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'Фамилия',
+                        'label': 'Фамилия',
+                        'customClasses': ['g-input_profile']
+                    ],
+                    'config': [
+                        'tabIndex': '2',
+                        'validations': ['notEmpty'],
+                        'constraints': ['name'],
+                        'customClasses': [
+                            'g-input_profile'
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
     </div>
     <div class="{call .rootClass /}__phone-number-input">
-        <input type="text">
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'Номер мобильного',
+                        'label': 'Номер мобильного',
+                        'customClasses': ['g-input_profile']
+                    ],
+                    'config': [
+                        'tabIndex': '3',
+                        'validations': ['notEmpty', 'phoneNumber'],
+                        'constraints': ['phoneNumber'],
+                        'customClasses': [
+                            'g-input_profile'
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
     </div>
     <div class="{call .rootClass /}__button">
         {call .renderChild }

@@ -1,0 +1,101 @@
+.g-button_sber {
+    font-size: 18px;
+    font-weight: normal;
+    border-radius: 30px;
+
+    width: 180px;
+    height: 43px;
+    line-height: 43px;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.g-button_border_green {
+    border: solid 1px #1eeb78;
+}
+
+.g-button_border_white {
+    border: solid 1px #fff;
+}
+
+.g-button_border_thick {
+    border-width: 2px;
+}
+
+.g-button_opacity_one-third {
+    opacity: .31;
+}
+
+.g-button_font_SFUI {
+    font-family: SFUIDisplay;
+}
+
+.g-button_height_small {
+    height: 33px;
+    line-height: 30px;
+}
+
+.g-button_height_big {
+    height: 56px;
+    line-height: 56px;
+}
+
+.g-button_width_m {
+    width: 56px;
+}
+
+.g-button_width_s {
+    width: 33px;
+}
+
+.g-button_width_l {
+    width: 250px;
+}
+
+.g-button_text-color_white {
+    color: #fff;
+}
+
+.g-button_background_green {
+    background-color: #1eeb78;
+}
+
+.g-button_font_bigger {
+    font-size: 20px;
+}
+
+.g-button_font_smaller {
+    font-size: 16px;
+}
+
+.g-button_font_big {
+    font-size: 25px;
+}
+
+.g-button_disabled {
+    cursor: default;
+    color: #fff;
+    background: none;
+    border: solid 1px #e7f038;
+}
+
+
+// 'config': [
+//         'style': [
+//             'theme': 'plain',
+//             'shape': 'round',
+//             'size': 's',
+//             'color': 'white'
+//         ]
+//     ]
+
+.g-button_transparent_theme {
+    background: none;
+    border: solid 1px #1eeb78;
+}
+
+.g-button_filled_theme {
+    background-color: #e7f038;
+    color: #03371a;
+    border: 0;
+}
