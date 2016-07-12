@@ -141,7 +141,31 @@ goog.scope(function() {
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
         this.setThanksButton_();
 
+        this.sendCardChosenRequest();
+
         this.getView().showStopHelpingLink();
+    };
+
+    /**
+    * 
+    */
+    CardPage.prototype.sendCardChosenRequest = function() {
+        var cardId = this.params.cardId;
+        request
+            .send({url: 'user-fund/' + cardId})
+            .then(
+                this.onSuccessfulCardChosenRequest_,
+                this.loadCardsRejectHandler_,
+                this
+            );
+    };
+
+    /**
+    * 
+    */
+    CardPage.prototype.onSuccessfulCardChosenRequest_ = function(
+        response) {
+        console.log(response);
     };
 
     /**

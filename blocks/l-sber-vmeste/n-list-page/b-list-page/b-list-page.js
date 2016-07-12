@@ -127,7 +127,7 @@ goog.scope(function() {
     ListPage.prototype.handleResponse = function(response) {
         var data = response.data || [];
         this.categoriesData_ = this.createCategoriesObject(data);
-
+        console.log(this.categoriesData_);
         this.userBlock_ = this.renderChild(
             'ListPageUserBlock',
             this.getView().getDom().userBlock,
