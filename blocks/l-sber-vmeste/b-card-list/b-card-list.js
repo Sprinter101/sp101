@@ -57,7 +57,7 @@ goog.scope(function() {
 
             var card = cards[i];
 
-            if (/*card.isSelected*/true) {
+            if (card.checked) {
                 this.dispatchEvent(
                     CardList.Event.SELECTED_CARDS_PRESENT
                 );
@@ -70,7 +70,8 @@ goog.scope(function() {
                     title: card.title
                 },
                 config: {
-                    customClasses: this.cardsCustomClasses_
+                    customClasses: this.cardsCustomClasses_,
+                    isSelected: !!card.checked
                 },
                 cardId: card.id
             };
