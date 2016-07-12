@@ -19,20 +19,16 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     this.setCssClass(sv.gInput.View.CssClass.ROOT);
 
     /**
-     * Error messages for validations
-     * @type {Object}
-     */
-    this.validationErrorMessages = {
-        'digits': 'Допустимо использовать только цифры',
-        'email': 'Введён некорректный адрес электронной почты',
-        'notEmpty': 'Это поле не может быть пустым',
-        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
-                       'чем 500 тыс. рублей',
-        'minInput': 'Минимальная сумма ввода — 1000 рублей',
-        'minDonation': 'Минимальная сумма пожертвования — 100 рублей',
-        'name': 'Не корректно введено имя',
-        'phoneNumber': 'Не корректно введён номер телефона'
-    };
+    * @type {string}
+    * @private
+    */
+    this.label_ = null;
+
+    /**
+    * @type {string}
+    * @private
+    */
+    this.placeholder_ = null;
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
@@ -49,6 +45,7 @@ goog.scope(function() {
         INPUT: 'g-input__input',
         INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
+        NOT_VALID: 'g-input_valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
         LABEL: 'g-input__label',
@@ -69,16 +66,38 @@ goog.scope(function() {
     };
 
     /**
+     * Error messages for validations
+     * @enum {string}
+     */
+    View.ValidationErrorMessages = {
+        'digits': 'Допустимо использовать только цифры',
+        'email': 'Введён некорректный адрес электронной почты',
+        'notEmpty': 'Это поле не может быть пустым',
+        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
+                       'чем 500 тыс. рублей',
+        'minInput': 'Минимальная сумма ввода — 1000 рублей',
+        'minDonation': 'Минимальная сумма пожертвования — 100 рублей',
+        'name': 'Не корректно введено имя',
+        'phoneNumber': 'Не корректно введён номер телефона'
+    };
+
+    /**
      * @override
      * @param {Element} element
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.input = this.getElementByClass(View.CssClass.INPUT, element);
+        this.dom.input = this.getElementByClass(
+            View.CssClass.INPUT, element);
         this.dom.errorMessage = this.getElementByClass(
-                                    View.CssClass.ERROR_MESSAGE_BOX, element);
-        this.dom.label = this.getElementByClass(View.CssClass.LABEL, element);
+            View.CssClass.ERROR_MESSAGE_BOX, element);
+        this.dom.label = this.getElementByClass(
+            View.CssClass.LABEL, element);
+
+        this.label_ = this.dom.label && this.dom.label.innerText.trim();
+        this.placeholder_ = this.dom.input.getAttribute('placeholder');
+
 
         this.getDataParams(element);
     };
@@ -115,7 +134,7 @@ goog.scope(function() {
      * Set valid state
      * @public
      */
-    View.prototype.unSetNotValidState = function() {
+    View.prototype.setValidState = function() {
         goog.dom.classlist.remove(
             this.getElement(),
             View.CssClass.NOT_VALID
@@ -124,6 +143,11 @@ goog.scope(function() {
         goog.dom.classlist.remove(
             this.dom.input,
             View.CssClass.INPUT_NOT_VALID
+        );
+
+        goog.dom.classlist.remove(
+            this.dom.input,
+            View.CssClass.VALID
         );
     };
 
@@ -141,6 +165,7 @@ goog.scope(function() {
             this.dom.input,
             View.CssClass.INPUT_NOT_VALID
         );
+
     };
 
     /**
@@ -151,8 +176,9 @@ goog.scope(function() {
         var errorMessageText = '';
 
         failedValidations.forEach(function(type) {
-            var errorMessage = this.validationErrorMessages[type];
-            errorMessageText += errorMessage + ' ';
+            var errorMessage = View.ValidationErrorMessages[type];
+            errorMessageText += errorMessageText ? '. ' : ' ';
+            errorMessageText += errorMessage;
         }, this);
 
         this.dom.errorMessage.textContent = errorMessageText.trim();
@@ -172,7 +198,7 @@ goog.scope(function() {
     View.prototype.onFocus = function() {
         this.dom.input.select();
 
-        if (this.params.label) {
+        if (this.label_) {
             this.dom.input.setAttribute('placeholder', '');
             this.showLabel();
         }
@@ -185,8 +211,10 @@ goog.scope(function() {
      * @protected
      */
     View.prototype.onBlur = function() {
-        if (this.params.label) {
-            this.dom.input.setAttribute('placeholder', this.params.placeholder);
+        if (this.label_) {
+            this.dom.input.setAttribute(
+                'placeholder', this.placeholder_
+            );
             if (this.dom.input.value == '') {
                 this.hideLabel();
                 this.unsetFilled();
@@ -226,6 +254,19 @@ goog.scope(function() {
      */
     View.prototype.hideLabel = function() {
         goog.dom.classlist.remove(this.dom.label, View.CssClass.LABEL_VISIBLE);
+    };
+
+    /**
+     * @override
+     * @param {string} value
+     */
+    View.prototype.setValue = function(value) {
+        if (value && this.dom.label) {
+            this.showLabel();
+            this.setFilled();
+        }
+
+        this.dom.input.value = value;
     };
 
 });  // goog.scope

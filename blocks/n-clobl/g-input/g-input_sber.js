@@ -17,19 +17,16 @@ sv.gInput.Input = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-     * Const enum
-     * @enum {number}
+    * @type {Boolean}
+    * @private
+    */
+    this.isValid_ = false;
+
+    /**
+     * constraint params
+     * @type {Object}
      */
-    this.const = {
-        MAX_NUMBER: this.params.MAX_NUMBER ?
-                            this.params.MAX_NUMBER : Infinity,
-        MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
-                            this.params.MAX_CHARACTERS : Infinity,
-        MIN_INCOME: this.params.MIN_INCOME ?
-                this.params.MIN_INCOME : 1,
-        MIN_DONATION: this.params.MIN_DONATION ?
-                this.params.MIN_DONATION : 1,
-    };
+    this.valueParams = {};
 
     /**
      * Possible validation type handlers
@@ -72,6 +69,7 @@ goog.scope(function() {
      */
     Input.Event = {
         NOT_VALID: 'notValid',
+        VALID: 'valid',
         BLUR: View.Event.BLUR,
         INPUT: View.Event.INPUT,
         CHANGE: View.Event.CHANGE,
@@ -83,6 +81,17 @@ goog.scope(function() {
      */
     Input.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.valueParams = {
+                maxNumber: +this.params.valueParams.maxNumber ?
+                    +this.params.valueParams.maxNumber : Infinity,
+                maxCharacters: +this.params.valueParams.maxCharacters ?
+                    +this.params.valueParams.maxCharacters : Infinity,
+                minIncome: +this.params.valueParams.minIncome ?
+                    +this.params.valueParams.minIncome : 1,
+                minDonation: +this.params.valueParams.minDonation ?
+                    +this.params.valueParams.minDonation : 1,
+            };
 
         this.viewListen(
             View.Event.BLUR,
@@ -96,13 +105,16 @@ goog.scope(function() {
 
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
+
+        this.validate(true);
     };
 
     /**
      * Validate input depends of it type
+     * @param {boolean} quietMode
      * @return {boolean}
      */
-    Input.prototype.validate = function() {
+    Input.prototype.validate = function(quietMode) {
         var that = this,
             failedValidations;
 
@@ -114,33 +126,34 @@ goog.scope(function() {
             }
         );
 
-        /** If array of failed validations is empty => input is valid **/
         var isValid = !failedValidations.length;
-        if (isValid) {
-            this.getView().unSetNotValidState();
-            this.getView().hideErrorMessage();
-        } else {
-            this.getView().setNotValidState();
-            this.getView().showErrorMessage(failedValidations);
+        this.isValid_ = isValid;
 
-            this.dispatchEvent({
-                'type': Input.Event.NOT_VALID,
-                'failedValidations': failedValidations
-            });
+        if (!quietMode) {
+            if (isValid) {
+                this.getView().setValidState();
+                this.getView().hideErrorMessage();
+                this.dispatchEvent(Input.Event.VALID);
+            } else {
+                this.getView().setNotValidState();
+                this.getView().showErrorMessage(failedValidations);
+
+                this.dispatchEvent({
+                    'type': Input.Event.NOT_VALID,
+                    'failedValidations': failedValidations
+                });
+            }
         }
+
         return isValid;
     };
 
     /**
-     * Focus handler
-     * hides error message
-     */
-    Input.prototype.onFocus = function() {
-        this.getView().unSetNotValidState();
-        this.getView().hideErrorMessage();
-
+    * @return {Boolean}
+    */
+    Input.prototype.isValid = function() {
+        return this.isValid_;
     };
-
 
     /**
      * Input handler
@@ -166,7 +179,7 @@ goog.scope(function() {
             value = this.getValue();
 
         return validationFunction ?
-                        !validationFunction.call(this, value) : false;
+            !validationFunction.call(this, value) : false;
     };
 
     /**
@@ -180,8 +193,9 @@ goog.scope(function() {
 
         var oldValue_ = this.getValue();
         var newValue_ = constraintFunction.call(this, oldValue_);
-
-        this.setValue(newValue_);
+        if (oldValue_ !== newValue_) {
+            this.setValue(newValue_);
+        }
     };
 
     /**
@@ -201,7 +215,7 @@ goog.scope(function() {
      * @return {string}
      */
     Input.prototype.constraintCharactersLimit_ = function(oldValue) {
-        return oldValue.slice(0, this.const.MAX_CHARACTERS);
+        return oldValue.slice(0, this.valueParams.maxCharacters);
     };
 
     /**
@@ -269,7 +283,7 @@ goog.scope(function() {
      */
     Input.prototype.validateMaxDonation_ = function(text) {
         var donationAmount = Number(text);
-        return !(donationAmount > this.const.MAX_NUMBER);
+        return !(donationAmount > this.valueParams.maxNumber);
     };
 
     /**
@@ -280,7 +294,7 @@ goog.scope(function() {
      */
     Input.prototype.validateMinInput_ = function(text) {
         var inputAmount = Number(text);
-        return !(inputAmount < this.const.MIN_INCOME);
+        return !(inputAmount < this.valueParams.minIncome);
     };
 
     /**
@@ -291,7 +305,7 @@ goog.scope(function() {
      */
     Input.prototype.validateMinDonation_ = function(text) {
         var donationAmount = Number(text);
-        return !(donationAmount < this.const.MIN_DONATION);
+        return !(donationAmount < this.valueParams.minDonation);
     };
     /**
      * Validate name
@@ -302,7 +316,7 @@ goog.scope(function() {
     Input.prototype.validateName_ = function(name) {
         name = name.trim();
         var nameRegex = new RegExp(
-            '^[ёа-яА-Я- ]{2," + this.const.MAX_NUMBER + "}$'
+            '^[ёа-яА-Я- ]{2," + this.valueParams.maxNumber + "}$'
         );
 
         return nameRegex.test(name);
@@ -319,6 +333,16 @@ goog.scope(function() {
         var numberRegex = /^\+\d{11}$/;
 
         return numberRegex.test(phoneNumber);
+    };
+
+    /**
+     * Set value
+     * @param {string} value
+     */
+    Input.prototype.setValue = function(value) {
+        this.getView().setValue(value);
+
+        this.validate(true);
     };
 
 });  // goog.scope
