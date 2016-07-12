@@ -70,19 +70,35 @@ goog.scope(function() {
             this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
         }
 
-        for (var i = 0; i < domInputs.length - 1; i++) {
-            this.inputs_.push(this.decorateChild('InputSber',
-                domInputs[i], inputParams
-            ));
-        }
+        this.inputs_.push(
+            this.decorateChild('InputSber', domInputs[0],
+                goog.object.clone(inputParams)
+            )
+        );
+        this.inputs_.push(
+            this.decorateChild('InputSber', domInputs[1],
+                goog.object.clone(inputParams))
+        );
+        this.inputs_.push(
+            this.decorateChild('InputSber', domInputs[2],
+                goog.object.clone(inputParams))
+        );
+        this.inputs_.push(
+            this.decorateChild('InputSber', domInputs[3],
+                goog.object.clone(inputParams))
+        );
+        this.inputs_.push(
+            this.decorateChild('InputSber', domInputs[4],
+                goog.object.clone(inputParams))
+        );
 
         inputParams = goog.object.clone(inputParams);
         inputParams.placeholder = 'placeholder';
         inputParams.label = "label's text";
 
-        this.inputs_.push(this.decorateChild('InputSber',
-            domInputs[i], inputParams
-        ));
+        this.inputs_.push(
+            this.decorateChild('InputSber', domInputs[5], inputParams)
+        );
 
         this.slider_ = this.decorateChild('SliderSber', domSlider);
     };

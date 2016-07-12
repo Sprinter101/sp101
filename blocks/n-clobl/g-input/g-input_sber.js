@@ -83,7 +83,7 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.valueParams = {
-                maxNumber: +this.params.valueParams.maxNumber ?
+                maxNumber: +this.params.valueParams.maxNumber ||
                     +this.params.valueParams.maxNumber : Infinity,
                 maxCharacters: +this.params.valueParams.maxCharacters ?
                     +this.params.valueParams.maxCharacters : Infinity,
@@ -236,7 +236,7 @@ goog.scope(function() {
      */
     Input.prototype.constraintName_ = function(oldValue) {
         oldValue = oldValue.trim();
-        var nameRegex = /[^ёа-яА-Я- ]/g;
+        var nameRegex = /[^ёа-яА-Яa-zA-Z- ]/g;
 
         return oldValue.replace(nameRegex, '');
     };
@@ -307,6 +307,7 @@ goog.scope(function() {
         var donationAmount = Number(text);
         return !(donationAmount < this.valueParams.minDonation);
     };
+
     /**
      * Validate name
      * @param {string} name name to validate
@@ -316,7 +317,7 @@ goog.scope(function() {
     Input.prototype.validateName_ = function(name) {
         name = name.trim();
         var nameRegex = new RegExp(
-            '^[ёа-яА-Я- ]{2," + this.valueParams.maxNumber + "}$'
+            '^[ёа-яА-Яa-zA-Z- ]{2,' + this.const.MAX_NUMBER + '}$'
         );
 
         return nameRegex.test(name);
