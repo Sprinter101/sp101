@@ -152,7 +152,10 @@ goog.scope(function() {
     CardPage.prototype.sendCardChosenRequest = function() {
         var cardId = this.params.cardId;
         request
-            .send({url: 'user-fund/' + cardId})
+            .send(
+                {url: 'user-fund/' + cardId,
+                'type': 'POST'}
+            )
             .then(
                 this.onSuccessfulCardChosenRequest_,
                 this.loadCardsRejectHandler_,
