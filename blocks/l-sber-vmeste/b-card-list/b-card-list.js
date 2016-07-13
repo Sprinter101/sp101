@@ -92,14 +92,9 @@ goog.scope(function() {
                 this
             );
 
-            if (i + 1 === cards.length) {
-                this.dispatchEvent(CardList.Event.CARDS_RENDERED);
-            }
         }
 
-        if (cards.length % 2 === 0) {
-            this.getView().addEvenCardsNumberClass();
-        }
+        this.dispatchEvent(CardList.Event.CARDS_RENDERED);
     };
 
     /**

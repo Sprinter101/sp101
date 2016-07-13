@@ -44,7 +44,7 @@ gulp.task('soy', function () {
     return gulpHelper.soy.build([]);
 });
 
-gulp.task('scripts', ['soy', 'lint'], function () {
+gulp.task('scripts', ['soy'], function () {
     return gulpHelper.js.build({
         outputFiles: [
             {
@@ -55,6 +55,22 @@ gulp.task('scripts', ['soy', 'lint'], function () {
         //,compile: true
     });
 });
+
+gulp.task('scripts-only', function () {
+    return gulpHelper.js.build({
+        outputFiles: [
+            {
+                entryPoint: 'sv.lSberVmeste.Main',
+                fileName: 'scripts.js'
+            }
+        ]
+        //,compile: true
+    }).then(liveReloader.bind(this));
+});
+
+var liveReloader = function() {
+    livereload.reload();
+};
 
 gulp.task('fonts', function () {
     return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
@@ -89,18 +105,20 @@ gulp.task('html', ['scripts'], function() {
 });
 
 gulp.task('watch', function () {
+
     livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
         path.join(__dirname, 'blocks', '/**/*.css')
     ], ['styles']);
+
     gulp.watch(
         [path.join(__dirname, 'blocks', '/**/*.soy')],
-        ['scripts']
+        ['html']
     );
     gulp.watch(
         [path.join(__dirname, 'blocks', '/**/*.js')],
-        ['scripts']
+        ['scripts-only']
     );
     
 });
