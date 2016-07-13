@@ -191,11 +191,12 @@ goog.scope(function() {
     View.prototype.onFocus = function() {
         this.dom.input.select();
 
+        this.dom.input.setAttribute('placeholder', '');
         if (this.label_) {
-            this.dom.input.setAttribute('placeholder', '');
             this.showLabel();
         }
-
+        this.unSetNotValidState();
+        this.hideErrorMessage();
         this.dispatchEvent(View.Event.FOCUS);
     };
 

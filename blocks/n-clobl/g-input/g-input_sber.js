@@ -82,7 +82,7 @@ goog.scope(function() {
     Input.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.populateValueParams()
+        this.populateValueParams();
 
         this.viewListen(View.Event.BLUR, this.onBlur);
 
