@@ -45,7 +45,6 @@ goog.scope(function() {
         INPUT: 'g-input__input',
         INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
-        NOT_VALID: 'g-input_valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
         LABEL: 'g-input__label',
@@ -134,7 +133,7 @@ goog.scope(function() {
      * Set valid state
      * @public
      */
-    View.prototype.setValidState = function() {
+    View.prototype.unSetNotValidState = function() {
         goog.dom.classlist.remove(
             this.getElement(),
             View.CssClass.NOT_VALID
@@ -143,11 +142,6 @@ goog.scope(function() {
         goog.dom.classlist.remove(
             this.dom.input,
             View.CssClass.INPUT_NOT_VALID
-        );
-
-        goog.dom.classlist.remove(
-            this.dom.input,
-            View.CssClass.VALID
         );
     };
 
@@ -165,7 +159,6 @@ goog.scope(function() {
             this.dom.input,
             View.CssClass.INPUT_NOT_VALID
         );
-
     };
 
     /**
