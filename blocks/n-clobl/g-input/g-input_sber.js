@@ -83,25 +83,19 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.valueParams = {
-                maxNumber: +this.params.valueParams.maxNumber ||
-                    +this.params.valueParams.maxNumber : Infinity,
-                maxCharacters: +this.params.valueParams.maxCharacters ?
-                    +this.params.valueParams.maxCharacters : Infinity,
-                minIncome: +this.params.valueParams.minIncome ?
-                    +this.params.valueParams.minIncome : 1,
-                minDonation: +this.params.valueParams.minDonation ?
-                    +this.params.valueParams.minDonation : 1,
-            };
+            maxNumber: +this.params.valueParams.maxNumber ?
+                +this.params.valueParams.maxNumber : Infinity,
+            maxCharacters: +this.params.valueParams.maxCharacters ?
+                +this.params.valueParams.maxCharacters : Infinity,
+            minIncome: +this.params.valueParams.minIncome ?
+                +this.params.valueParams.minIncome : 1,
+            minDonation: +this.params.valueParams.minDonation ?
+                +this.params.valueParams.minDonation : 1
+        };
 
-        this.viewListen(
-            View.Event.BLUR,
-            this.onBlur
-        );
+        this.viewListen(View.Event.BLUR, this.onBlur);
 
-        this.viewListen(
-            View.Event.INPUT,
-            this.onInput
-        );
+        this.viewListen(View.Event.INPUT, this.onInput);
 
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
