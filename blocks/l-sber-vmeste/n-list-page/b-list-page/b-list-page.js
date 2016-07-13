@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bListPage.ListPage');
 
 goog.require('cl.iRequest.Request');
+goog.require('goog.object');
 goog.require('sv.gTab.gListTab.Tab');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bListPage.View');
@@ -48,7 +49,13 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     * @type {Array.<Object>}
     * @private
     */
-    this.categoriesData_ = null;
+    this.categoriesData_ = {};
+
+    /**
+    * @type {Array.<Object>}
+    * @private
+    */
+    this.chosenCategoriesData_ = {};
 };
 goog.inherits(sv.lSberVmeste.bListPage.ListPage,
     sv.lSberVmeste.iPage.Page);
@@ -126,13 +133,21 @@ goog.scope(function() {
     */
     ListPage.prototype.handleResponse = function(response) {
         var data = response.data || [];
-        this.categoriesData_ = this.createCategoriesObject(data);
 
-        this.userBlock_ = this.renderChild(
-            'ListPageUserBlock',
-            this.getView().getDom().userBlock,
-            {categories: this.categoriesData_}
-        );
+        this.populateCategoriesObjects(data);
+
+        if (!goog.object.isEmpty(this.chosenCategoriesData_)) {
+
+            this.userBlock_ = this.renderChild(
+                'ListPageUserBlock',
+                this.getView().getDom().userBlock,
+                {categories: this.chosenCategoriesData_}
+            );
+
+            this.getView().createPageTitleText(true);
+        } else {
+            this.getView().createPageTitleText(false);
+        }
 
         this.renderCardListCards();
 
@@ -161,17 +176,13 @@ goog.scope(function() {
     };
 
     /**
-    * Creates "categories" object based on "data" array from an ajax
-    * response
+    * populates this.categoriesData_ and this.chosenCategoriesData_ objecs 
+    * based on "data" array from an ajax  response
     * @param {Array.<Object>} data
-    * @return {{
-    *    topic: Object,
-    *    direction: Object,
-    *    fund: Object
-    *}}
     */
-    ListPage.prototype.createCategoriesObject = function(data) {
-        var categories = {};
+    ListPage.prototype.populateCategoriesObjects = function(data) {
+        var categories = this.categoriesData_,
+            chosenCategories = this.chosenCategoriesData_;
 
         for (var i = 0; i < data.length; i++) {
 
@@ -182,9 +193,15 @@ goog.scope(function() {
             } else {
                 categories[dataType] = [data[i]];
             }
-        }
 
-        return categories;
+            if (data[i].checked) {
+                if (chosenCategories[dataType]) {
+                    chosenCategories[dataType] += 1;
+                } else {
+                    chosenCategories[dataType] = 1;
+                }
+            }
+        }
     };
 
     /**
