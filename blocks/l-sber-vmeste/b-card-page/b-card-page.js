@@ -176,9 +176,37 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
+        this.sendStopHelpingRequest();
+
         this.setStartHelpingButton_();
 
         this.getView().hideStopHelpingLink();
+    };
+
+    /**
+    * Sends stop helping request
+    */
+    CardPage.prototype.sendStopHelpingRequest = function() {
+        var cardId = this.params.cardId;
+        request
+            .send(
+                {url: 'user-fund/' + cardId,
+                'type': 'DELETE'}
+            )
+            .then(
+                this.onSuccessfulStopHelpingRequest_,
+                this.loadCardsRejectHandler_,
+                this
+            );
+    };
+
+    /**
+    * @param {Object} response
+    */
+    CardPage.prototype.onSuccessfulStopHelpingRequest_ =function(
+        response) {
+
+        console.log(response);
     };
 
     /**
