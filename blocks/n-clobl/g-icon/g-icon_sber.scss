@@ -6,12 +6,6 @@
     height: 30px;
 }
 
-.g-icon_arrow-back {
-    &:hover {
-        cursor: pointer;
-    }
-}
-
 .g-icon_arrow-back_white {
     background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_arrow-back_white.png);
     background-size: contain;
@@ -50,14 +44,6 @@
       background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_user-avatar@2x.png);
       background-size: contain;
     }
-}
-
-.g-icon_check-mark {
-    width: 25px;
-    height: 25px;
-    background-image: url(images/n-clobl/g-icon/g-icon_img/g-icon_img_check-mark.jpg);
-    background-size: contain;
-    background-repeat: no-repeat;
 }
 
 .g-icon_logo-userfund {

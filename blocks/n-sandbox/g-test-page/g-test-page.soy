@@ -98,24 +98,22 @@
 * Icons template
 */
 {template .icons_ autoescape="strict" kind="html"}
-    {let $iconTypes: ['arrow-back_white', 'arrow-back_grey',
+    {let $iconTypes: ['arrow-back',
                       'arrow-right', 'share', 'logo-userfund', 'logo-sber',
                       'logo-userfund_authorized', 'checked', 'user-avatar'
                      ]/}
     {foreach $item in $iconTypes}
         <div class="{call .rootClass /}__element">
-            {call .renderChild}
-                {param params: [
-                    'type': 'IconSber',
-                    'renderParams': [
-                        'data': [],
-                        'config': [
-                            'iconStyles': [$item]
+                {call .renderChild}
+                    {param params: [
+                        'type': 'IconSber',
+                        'renderParams': [
+                            'data': ['type': $item],
+                            'config': []
                         ]
-                    ]
-                ]/}
-            {/call}
-        </div>
+                    ]/}
+                {/call}
+            </div>
     {/foreach}
 {/template}
 

@@ -30,7 +30,7 @@ goog.scope(function() {
      * Checks if screen size is XS
      * @return {boolean}
      */
-    Media.isextraSmall = function() {
+    Media.isExtraSmall = function() {
         return window.innerWidth < Media.Breakpoint.S;
     };
 

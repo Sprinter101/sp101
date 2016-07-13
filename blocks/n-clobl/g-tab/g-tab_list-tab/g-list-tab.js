@@ -94,7 +94,8 @@ goog.scope(function() {
 
         this.renderChild('IconSber', iconContainer,
             {
-                'config': { 'iconStyles': ['checked']}
+                'data': { 'type': ['checked']},
+                'config': {}
             }
         );
 
