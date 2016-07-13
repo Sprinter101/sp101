@@ -40,10 +40,12 @@
         <div class="b-card__arrow {$params.config.isSelected ? 'b-card__arrow_hide' : ''}">
             {call sv.gIcon.Template.icon}
                {param params: [
-                   'config': [
-                       'iconStyles': ['arrow-right']
-                   ]
-               ]/}
+                   'data': [
+                            'type': 'arrow-right'
+                        ],
+                        'config': []
+                    ]
+               /}
            {/call}
         </div>
         <div class="b-card__check-mark {$params.config.isSelected ? 'b-card__check-mark_show' : ''}">

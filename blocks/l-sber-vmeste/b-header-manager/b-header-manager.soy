@@ -10,37 +10,44 @@
 
 /**
  * @override
- * @param params {
+ * @param params {{
+        data: {
+            type: ?string
+        },
  *     config: {
- *         state: ?string
+ *          type: ?string,
+ *         roundButton: ?string,
+ *         help_phrase: ?string
  *     }
- * }
+ * }}
  */
 {template .body}
+    {let $roundButton: $params?.config?.roundButton /}
+    {let $help_phrase: $params?.config?.help_phrase /}
     {call .initChildWithState}
         {param params: [
             'states': [
                 [
-                    'type': 'start',
-                    'config': ['headerType': 'start']
-                ],
-                [
-                    'type': 'list',
-                    'config': ['headerType': 'list']
+                    'type': 'profile',
+                    'config': ['type': 'profile', 'roundButton': $roundButton, 'help_phrase': $help_phrase]
                 ],
                 [
                     'type': 'card',
-                    'config': ['headerType': 'card', 'category': 'theme']
+                    'config': ['type': 'card', 'roundButton': $roundButton]
                 ],
                 [
-                    'type': 'donate',
-                    'config': ['headerType': 'donate']
+                    'type': 'choice',
+                    'config': ['type': 'choice', 'roundButton': $roundButton]
+                ],
+                [
+                    'type': 'list',
+                    'config': ['type': 'list', 'roundButton': $roundButton]
                 ]
-                
             ],
             'defaultControl': 'Header',
-            'currentState': $params?.config?.state ?: 'start',
-            'defaultConfig': ['headerType': 'start']
+            'currentState': $params?.config?.type ? $params?.config?.type : 'profile',
+            'defaultConfig': ['type': 'profile', 'roundButton': $roundButton ? $roundButton : 'Я',
+                'choice_phrase': $help_phrase ? $help_phrase : 'about_profile']
         ]/}
     {/call}
 {/template}
