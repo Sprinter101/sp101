@@ -311,7 +311,7 @@ goog.scope(function() {
     Input.prototype.validateName_ = function(name) {
         name = name.trim();
         var nameRegex = new RegExp(
-            '^[ёа-яА-Яa-zA-Z- ]{2,' + this.const.MAX_NUMBER + '}$'
+            '^[ёа-яА-Яa-zA-Z- ]{2,' + this.valueParams.maxNumber + '}$'
         );
 
         return nameRegex.test(name);
