@@ -53,11 +53,11 @@ goog.scope(function() {
     CardList.prototype.renderCards = function(cards) {
         var domCardsBlock = this.getView().getDom().cardsBlock;
 
-        for (var i = 0; i < cards.length; i++) {
+        for (var i = 0; cards && i < cards.length; i++) {
 
             var card = cards[i];
 
-            if (/*card.isSelected*/true) {
+            if (card.checked) {
                 this.dispatchEvent(
                     CardList.Event.SELECTED_CARDS_PRESENT
                 );
@@ -70,7 +70,8 @@ goog.scope(function() {
                     title: card.title
                 },
                 config: {
-                    customClasses: this.cardsCustomClasses_
+                    customClasses: this.cardsCustomClasses_,
+                    isSelected: !!card.checked
                 },
                 cardId: card.id
             };
@@ -91,14 +92,9 @@ goog.scope(function() {
                 this
             );
 
-            if (i + 1 === cards.length) {
-                this.dispatchEvent(CardList.Event.CARDS_RENDERED);
-            }
         }
 
-        if (cards.length % 2 === 0) {
-            this.getView().addEvenCardsNumberClass();
-        }
+        this.dispatchEvent(CardList.Event.CARDS_RENDERED);
     };
 
     /**
