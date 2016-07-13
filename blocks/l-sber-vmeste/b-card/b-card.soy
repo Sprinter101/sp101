@@ -51,10 +51,12 @@
         <div class="b-card__check-mark {$params.config.isSelected ? 'b-card__check-mark_show' : ''}">
             {call sv.gIcon.Template.icon}
                 {param params: [
-                    'config': [
-                        'iconStyles': ['check-mark']
+                   'data': [
+                            'type': 'checked'
+                        ],
+                        'config': []
                     ]
-                ]/}
+               /}
             {/call}
         </div>
     </div>

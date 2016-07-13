@@ -63,7 +63,7 @@ gulp.task('fonts', function () {
 
 gulp.task('images', function () {
     return gulp.src([
-        path.join(__dirname + '/blocks/**/**/*.{png,jpg}'),
+        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.png'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
         path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
@@ -71,7 +71,28 @@ gulp.task('images', function () {
     .pipe(gulp.dest(path.join(__dirname + '/public/images')));
 });
 
-gulp.task('styles', ['images', 'fonts'], function () {
+gulp.task('sprite', function() {
+    var params = {
+        src: path.join(
+            __dirname,
+            'blocks/n-clobl/g-icon/g-icon_img/*.png'
+        ),
+        imgDir: '.',
+        retina: {
+            filters: [
+                path.join(
+                    __dirname,
+                    'blocks/n-clobl/g-icon/g-icon_img/*@2x.png'
+                )
+            ],
+        },
+        cssDest: path.join(__dirname + '/blocks/n-clobl/g-icon')
+    };
+
+    return gulpHelper.sprite.build([params]);
+});
+
+gulp.task('styles', ['sprite', 'fonts'], function () {
      return gulpHelper.css.build({
     }).pipe(livereload());
 });
@@ -108,7 +129,7 @@ gulp.task('watch', function () {
 const tasks = function (bool) {
     return bool ?
         ['soy', 'scripts', 'styles','fonts','images', 'html'] :
-        ['watch', 'soy', 'scripts', 'styles', 'html'];
+        ['watch', 'soy', 'images', 'scripts', 'styles', 'html'];
 };
 
 gulp.task('default', tasks(production));

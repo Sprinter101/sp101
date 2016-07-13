@@ -41,7 +41,9 @@ goog.scope(function() {
         HELP_PHRASE_CONTAINER: 'b-header__help',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
-        CHOICE_PHRASE: 'b-header__choice-phrase'
+        CHOICE_PHRASE: 'b-header__choice-phrase',
+        LOGO_SMALL: 'g-icon_img_logo-sber_small',
+        LOGO_LARGE: 'g-icon_img_logo-sber_large'
     };
 
     /**
@@ -125,7 +127,7 @@ goog.scope(function() {
 
      /**
      * check media layout
-     * only for donation page
+     * for donation page and sber logo
      * @protected
      */
     View.prototype.checkLayout = function() {
