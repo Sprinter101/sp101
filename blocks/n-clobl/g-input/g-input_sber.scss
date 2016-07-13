@@ -2,25 +2,19 @@ $error_color: #F76464;
 
 .g-input_sber {
     display: inline-block;
-
     width: 290px;
-
     text-align: center;
-
     font-family: SFUIDisplay;
 }
 
 .g-input__input {
     width: 290px;
     padding: 0;
-
     text-align: center;
-
     color: #fff;
     border: 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     background: none;
-
     font-family: AndaleMono;
     font-size: 62px;
     font-weight: normal;
@@ -30,30 +24,26 @@ $error_color: #F76464;
     }
 }
 
-.g-input__input_not-valid {
-    color: $error_color !important;
-    border-bottom: 1px solid $error_color !important;
-}
-
-.g-input__input_not-valid::placeholder {
-    color: $error_color !important;
-}
-
 .g-input__error-message-box {
     display: inline-block;
-
     width: 240px;
     height: 60px;
     margin-top: 10px;
-
     vertical-align: bottom;
+    color: $error_color;
+}
 
+.g-input__input_not-valid {
+    color: $error_color;
+    border-bottom: 1px solid $error_color;
+}
+
+.g-input__input_not-valid::placeholder {
     color: $error_color;
 }
 
 .g-input__label {
     text-align: left;
-
     opacity: 0;
     color: #424242;
 
@@ -132,3 +122,4 @@ $error_color: #F76464;
 .g-input_profile .g-input__input.g-input__input_filled {
     border-bottom: 1px solid rgba(70, 70, 70, .4);
 }
+
