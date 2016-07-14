@@ -16,7 +16,7 @@ goog.require('sv.gButton.View');
 sv.gButton.Button = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
-    this.setAllowTextSelection(false);
+    this.setAllowTextSelection(true);
 };
 goog.inherits(sv.gButton.Button, cl.gButton.Button);
 

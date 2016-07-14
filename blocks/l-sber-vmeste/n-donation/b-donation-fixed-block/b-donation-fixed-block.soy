@@ -26,7 +26,12 @@
                             'content': 'Продолжить',
                         ],
                         'config': ['customClasses': 
-                            ['b-donation-fixed-block__button_ready']
+                            ['b-donation-fixed-block__button_ready'],
+                              'stylesForDisabled': [
+                               'border_yellow',
+                               'background_transparent',
+                               'text-color_white'
+                           ]
                         ]
                     ]
                 ]/}
@@ -61,7 +66,7 @@
                     'validations': [
                         'notEmpty',
                         'digits',
-                        'maxDonation',
+                        'maxDonation', 
                         'minDonation'
                     ],
                     'constraints': [
@@ -69,6 +74,11 @@
                         'charactersLimit',
                         'noLeadingZero'
                     ],
+                      'valueParams': [
+                       'maxNumber': 500000,
+                       'maxCharacters': 6,
+                       'minDonation': 100
+                   ],
                     'customClasses': ['b-donation-fixed-block__input']
                 ]
             ]
