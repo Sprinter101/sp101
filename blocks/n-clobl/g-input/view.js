@@ -1,6 +1,7 @@
 goog.provide('sv.gInput.View');
 
 goog.require('cl.gInput.View');
+goog.require('goog.events.KeyCodes');
 goog.require('sv.iUtils.Utils');
 
 
@@ -29,6 +30,12 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     * @private
     */
     this.placeholder_ = null;
+
+    /**
+    * @type {boolean}
+    * @private
+    */
+    this.showErrorsOnFocus_ = !!this.params.showErrorsOnFocus;
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
@@ -46,6 +53,7 @@ goog.scope(function() {
         INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
+        INPUT_DISABLED: 'g-input__input_disabled',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
         LABEL: 'g-input__label',
         LABEL_VISIBLE: 'g-input__label_visible',
@@ -61,7 +69,8 @@ goog.scope(function() {
         BLUR: 'blur',
         INPUT: 'input-input',
         CHANGE: 'input-change',
-        FOCUS: 'input-focus'
+        FOCUS: 'input-focus',
+        ENTER_KEY_PRESS: 'input-enter-key-press'
     };
 
     /**
@@ -126,7 +135,36 @@ goog.scope(function() {
                 this.dom.input,
                 goog.events.EventType.FOCUS,
                 this.onFocus
+            )
+            .listen(
+                this.dom.input,
+                goog.events.EventType.KEYDOWN,
+                this.onEnterKeyPress
             );
+    };
+
+    /**
+    * Disables input
+    */
+    View.prototype.disable = function() {
+        this.dom.input.setAttribute('disabled', 'disabled');
+
+        goog.dom.classlist.add(
+            this.dom.input,
+            View.CssClass.INPUT_DISABLED
+        );
+    };
+
+    /**
+    * Enables input
+    */
+    View.prototype.enable = function() {
+        this.dom.input.setAttribute('disabled', '');
+
+        goog.dom.classlist.remove(
+            this.dom.input,
+            View.CssClass.INPUT_DISABLED
+        );
     };
 
     /**
@@ -192,6 +230,12 @@ goog.scope(function() {
         this.dom.input.select();
 
         this.dom.input.setAttribute('placeholder', '');
+
+        if (!this.showErrorsOnFocus_) {
+            this.unSetNotValidState();
+            this.hideErrorMessage();
+        }
+
         if (this.label_) {
             this.showLabel();
         }
@@ -218,6 +262,17 @@ goog.scope(function() {
         }
 
         this.dispatchEvent(View.Event.BLUR);
+    };
+
+    /**
+    * Enter key press event handler
+    * @param {Object} event
+    */
+    View.prototype.onEnterKeyPress = function(event) {
+        var keyCode = event.keyCode;
+        if (keyCode == goog.events.KeyCodes.ENTER) {
+            this.dispatchEvent(View.Event.ENTER_KEY_PRESS);
+        }
     };
 
     /**
