@@ -91,6 +91,11 @@ goog.scope(function() {
             this.startBlock_,
             StartBlock.Event.START_CREATING_USERFUND,
             this.onStartCreatingUserfund
+        )
+        .listen(
+            this.userfundsCountButton_,
+            Button.Event.CLICK,
+            this.onUserfundsCountButtonClick
         );
     };
 
@@ -115,7 +120,7 @@ goog.scope(function() {
     */
     StartPage.prototype.handleRejection = function(err) {
         console.log(err);
-        var defaultCount = 20;
+        var defaultCount = 10;
         this.changeUserfundsCountButton(defaultCount);
     };
 
@@ -164,13 +169,23 @@ goog.scope(function() {
     };
 
     /**
-     * Handles start button CLICK and redirect to TestPage
-     * @param {goog.events.BrowserEvent} event Click event
+     * Handles start button CLICK and redirect to ListPage
+     * @param {sv.gButton.Button.Event.CLICK} event
      * @protected
      */
     StartPage.prototype.onStartCreatingUserfund = function(event) {
         Router.getInstance().changeLocation(
             Route.LIST_PAGE, {'category': 'directions'});
+    };
+
+    /**
+     * Handles funds count button CLICK and redirect to ListPage
+     * @param {sv.gButton.Button.Event.CLICK} event
+     * @protected
+     */
+    StartPage.prototype.onUserfundsCountButtonClick = function(event) {
+        Router.getInstance().changeLocation(
+            Route.LIST_PAGE, {'category': 'funds'});
     };
 
 });  // goog.scope
