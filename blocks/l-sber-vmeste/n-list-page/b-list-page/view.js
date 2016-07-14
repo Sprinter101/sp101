@@ -33,6 +33,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-list-page',
         USER_BLOCK: 'b-list-page__user-block',
+        PAGE_TITLE: 'b-list-page__page-title',
         LIST_TAB: 'g-tab_sber'
     };
 
@@ -45,12 +46,29 @@ goog.scope(function() {
 
         this.dom.listTab = this.getElementByClass(
             View.CssClass.LIST_TAB,
-            this.getElement()
+            element
         );
 
         this.dom.userBlock = this.getElementByClass(
             View.CssClass.USER_BLOCK,
-            this.getElement()
+            element
+        );
+
+        this.dom.pageTitleContainer = this.getElementByClass(
+            View.CssClass.PAGE_TITLE,
+            element
+        );
+    };
+
+    /**
+    * creates page title text
+    * @param {boolean} chosenCardsPresent
+    */
+    View.prototype.createPageTitleText = function(chosenCardsPresent) {
+        goog.soy.renderElement(
+            this.dom.pageTitleContainer,
+            sv.lSberVmeste.bListPage.Template.pageTitleText,
+            {'chosenCardsPresent': chosenCardsPresent}
         );
     };
 

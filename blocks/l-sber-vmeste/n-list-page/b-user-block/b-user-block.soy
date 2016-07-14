@@ -38,19 +38,6 @@
         {$noCategoriesMsg}
     {else}
 
-        {if $data.topicCount}
-            {let $word kind="text"}
-                {call sv.iUtils.Utils.declensionPrint 
-                    data="[ 'num': $data.topicCount,
-                            'nom': 'тема',
-                            'gen': 'темы',
-                            'plu': 'тем'
-                        ]"}
-                {/call}
-            {/let}
-            {$data.topicCount}{$nbsp}{$word}
-        {/if}
-
         {if $data.directionCount}
             {let $word kind="text"}
                 {call sv.iUtils.Utils.declensionPrint 
@@ -61,10 +48,23 @@
                         ]"}
                 {/call}
             {/let}
-            {if $data.topicCount}
+            {$data.directionCount}{$nbsp}{$word}
+        {/if}
+
+        {if $data.topicCount}
+            {let $word kind="text"}
+                {call sv.iUtils.Utils.declensionPrint 
+                    data="[ 'num': $data.topicCount,
+                            'nom': 'тема',
+                            'gen': 'темы',
+                            'plu': 'тем'
+                        ]"}
+                {/call}
+            {/let}
+            {if $data.directionCount}
                 {$comma}
             {/if}
-            {$data.directionCount}{$nbsp}{$word}
+            {$data.topicCount}{$nbsp}{$word}
         {/if}
 
         {if $data.fundsCount}
@@ -85,5 +85,4 @@
 
     {/if}
 
-    
 {/template}

@@ -43,11 +43,100 @@ goog.scope(function() {
     };
 
     /**
+    * @override
+    * @param {Element} element
+    */
+    View.prototype.decorateInternal = function(element) {
+        goog.base(this, 'decorateInternal', element);
+
+        this.parseDataParams(element);
+    };
+
+    /**
     * Setter for value
     * @param {string} value
+    * @override
     */
     View.prototype.setValue = function(value) {
         this.element_.innerText = value;
+    };
+
+    /**
+     * Get data params
+     * @param {Element} element
+     */
+    View.prototype.parseDataParams = function(element) {
+        var params = JSON.parse(goog.dom.dataset.get(element, 'params'));
+
+        for (var paramName in params) {
+            this.params[paramName] = params[paramName];
+        }
+    };
+
+
+    /**
+     * disable
+     * @override
+     */
+    View.prototype.disable = function() {
+        if (!this.params.config.isDisabled) {
+
+            var stylesForDisabled = this.params.stylesForDisabled;
+
+            for (var i = 0; i < stylesForDisabled.length; i++) {
+
+                var style = stylesForDisabled[i];
+
+                goog.dom.classlist.add(
+                    this.getElement(),
+                    View.CssClass.ROOT + '_' + style
+                );
+            }
+
+            goog.dom.classlist.add(
+                this.getElement(),
+                View.CssClass.DISABLED
+            );
+
+            this.getHandler().unlisten(
+                this.getElement(),
+                goog.events.EventType.CLICK,
+                this.onClick
+            );
+            this.params.config.isDisabled = true;
+        }
+    };
+
+    /**
+     * enable
+     * @override
+     */
+    View.prototype.enable = function() {
+        if (this.params.config.isDisabled) {
+
+            var stylesForDisabled = this.params.stylesForDisabled;
+
+            for (var i = 0; i < stylesForDisabled.length; i++) {
+
+                var style = stylesForDisabled[i];
+
+                goog.dom.classlist.remove(
+                    this.getElement(),
+                    View.CssClass.ROOT + '_' + style
+                );
+            }
+
+            goog.dom.classlist.remove(
+                this.getElement(),
+                View.CssClass.DISABLED
+            );
+            this.getHandler().listen(
+                this.getElement(),
+                goog.events.EventType.CLICK,
+                this.onClick
+            );
+            this.params.config.isDisabled = false;
+        }
     };
 
 });  // goog.scope
