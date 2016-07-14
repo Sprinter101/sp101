@@ -68,7 +68,7 @@ goog.scope(function() {
      * @enum {string}
      */
     ProfileEdit.Event = {
-        BUTTON_CLICK: 'profile-edit-button-click'
+        EDITING_FINISHED: 'profile-edit-editing-finished'
     };
 
     /**
@@ -91,6 +91,7 @@ goog.scope(function() {
 
         this.setInputsValues();
 
+        this.phoneNumberInput_.disable();
     };
 
     /**
@@ -99,10 +100,18 @@ goog.scope(function() {
     ProfileEdit.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
+        this.getHandler()
+        .listen(
             this.button_,
             Button.Event.CLICK,
             this.onButtonClick_,
+            false,
+            this
+        )
+        .listen(
+            this.button_,
+            Button.Event.ENTER_KEY_PRESS,
+            this.onButtonEnterKeyPress_,
             false,
             this
         );
@@ -155,6 +164,13 @@ goog.scope(function() {
                 this.onInputValid_,
                 false,
                 this
+            )
+            .listen(
+                input,
+                Input.Event.ENTER_KEY_PRESS,
+                this.onInputEnterKeyPress_,
+                false,
+                this
             );
         }
     };
@@ -200,10 +216,9 @@ goog.scope(function() {
     };
 
     /**
-    * Confirm button click handler
-    * @private
+    * Creates userInfo_ object and dispatches EDITING_FINISHED event
     */
-    ProfileEdit.prototype.onButtonClick_ = function() {
+    ProfileEdit.prototype.finishEditing = function() {
         this.userInfo_.firstName =
             this.firstNameInput_.getValue().trim();
         this.userInfo_.lastName =
@@ -212,9 +227,35 @@ goog.scope(function() {
             this.phoneNumberInput_.getValue().trim();
 
         this.dispatchEvent({
-            'type': ProfileEdit.Event.BUTTON_CLICK,
+            'type': ProfileEdit.Event.EDITING_FINISHED,
             'userInfo': this.userInfo_
         });
+    };
+
+    /**
+    * Confirm button click handler
+    * @private
+    */
+    ProfileEdit.prototype.onButtonClick_ = function() {
+        this.finishEditing();
+    };
+
+    /**
+    * Confirm button enter key press event handler
+    * @private
+    */
+    ProfileEdit.prototype.onButtonEnterKeyPress_ = function() {
+        this.finishEditing();
+    };
+
+    /**
+    * Input enter key press event handler
+    * @private
+    */
+    ProfileEdit.prototype.onInputEnterKeyPress_ = function() {
+        if (this.areAllInputsValid()) {
+            this.finishEditing();
+        }
     };
 
 });  // goog.scope
