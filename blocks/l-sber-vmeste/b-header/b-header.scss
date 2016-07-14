@@ -23,12 +23,16 @@
     height: 104px;
 }
 
-.b-header__logo-wrapper {
+.b-header__logo_small-wrapper {
     display: inline-block;
     float: left;
     width: 66px;
     margin-left: 26px;
     margin-top: 34px;
+}
+
+.b-header__logo_large-wrapper {
+    display: none;
 }
 
 .b-header__button-wrapper {
@@ -119,7 +123,12 @@
     .b-header__inner-wrap_choice {
         height: 102px;
     }
-    .b-header__logo-wrapper {
+    .b-header__logo_small-wrapper {
+        display: none;
+    }
+    .b-header__logo_large-wrapper {
+        display: inline-block;
+        float: left;
         width: 207px;
         margin-left: 38px;
         margin-top: 39px;
@@ -171,6 +180,16 @@
         width: 321px;
         margin-top: 42px;
     }
+    .b-header__logo_small-wrapper {
+        display: none;
+    }
+    .b-header__logo_large-wrapper {
+        display: inline-block;
+        float: left;
+        width: 207px;
+        margin-left: 38px;
+        margin-top: 39px;
+    }
     .b-header__help_about_list {
         width: 165px;
         margin-right: 4px;
@@ -196,7 +215,12 @@
     .b-header__inner-wrap_choice {
         height: 107px;
     }
-    .b-header__logo-wrapper {
+    .b-header__logo_small-wrapper {
+        display: none;
+    }
+    .b-header__logo_large-wrapper {
+        display: inline-block;
+        float: left;
         width: 207px;
         margin-left: 38px;
         margin-top: 39px;
