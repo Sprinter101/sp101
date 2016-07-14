@@ -5,6 +5,7 @@ goog.require('goog.dom');
 goog.require('goog.dom.classlist');
 goog.require('goog.events.EventType');
 goog.require('goog.style');
+goog.require('sv.iMedia.Media');
 
 
 
@@ -25,8 +26,8 @@ goog.inherits(sv.gSlider.View, cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.gSlider.View;
-
+    var View = sv.gSlider.View,
+        Media = sv.iMedia.Media;
     /**
      * Css class enum
      * @enum {string}
@@ -142,19 +143,37 @@ goog.scope(function() {
                 var currentPercent = this.CalculatePercent(this.currentPos_);
                 currentPercent = Math.floor(currentPercent) + 1;
                 this.dom.label.innerHTML = currentPercent;
-                this.dom.slider.style.left = this.currentPos_ + 'px';
-                if (currentPercent > 9) {
-                    this.dom.label.style.left = '-37px';
-                    this.dom.label_percent.style.left = '43px';
-                }
-               else if (currentPercent <= 9) {
-                    this.dom.label.style.left = '-17px';
-                    this.dom.label_percent.style.left = '28px';
-                }
+                this.applyMovement(currentPercent);
                 this.dispatchMoveEvent(currentPercent);
                 this.currentPercent = currentPercent;
             }
         };
+
+         /**
+         * applies tranform translateX to thumb and label
+         * @param {number} currentPercent
+         */
+        View.prototype.applyMovement = function(currentPercent) {
+            var percent_right_move;
+            if (Media.isExtraSmall() || Media.isSmall()) {
+                    percent_right_move = 12;
+                }
+            else {
+                percent_right_move = 2;
+            }
+            this.dom.slider.style.transform = 'translateX(' +
+                this.currentPos_ + 'px)';
+                if (currentPercent > 9) {
+                    this.dom.label.style.transform = 'translateX(-32px)';
+                    this.dom.label_percent.style.transform = 'translateX(-' +
+                        percent_right_move + 'px)';
+                }
+                else if (currentPercent <= 9) {
+                    this.dom.label.style.transform = 'translateX(0)';
+                    this.dom.label_percent.style.transform = 'translateX(0)';
+                }
+        };
+
 
          /**
          * dispatches view event with slider value
@@ -206,7 +225,8 @@ goog.scope(function() {
          * css classes to manage disabled state
          */
         View.prototype.enable = function(classes) {
-            if (classes.indexOf(View.CssClass.DISABLED) == -1) {
+            if (goog.dom.classlist.contains(
+                this.getElement(), View.CssClass.DISABLED)) {
                 goog.dom.classlist.remove(
                     this.getElement(),
                     View.CssClass.DISABLED
@@ -250,7 +270,8 @@ goog.scope(function() {
          * css classes to manage disabled state
          */
         View.prototype.disable = function(classes) {
-            if (classes.indexOf(View.CssClass.DISABLED) == -1) {
+            if (!goog.dom.classlist.contains(
+                this.getElement(), View.CssClass.DISABLED)) {
                 goog.dom.classlist.add(
                     this.getElement(),
                     View.CssClass.DISABLED
