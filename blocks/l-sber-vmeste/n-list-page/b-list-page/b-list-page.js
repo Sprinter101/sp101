@@ -5,6 +5,7 @@ goog.require('goog.object');
 goog.require('sv.gTab.gListTab.Tab');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bListPage.View');
+goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
@@ -68,7 +69,7 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         CardList = sv.lSberVmeste.bCardList.CardList,
-        UserBlock = sv.lSberVmeste;
+        UserBlock = sv.lSberVmeste.bUserBlock.UserBlock;
 
     /**
     * Array of card types
@@ -128,6 +129,37 @@ goog.scope(function() {
     };
 
     /**
+    * Adds event listeners to ListCards' events
+    */
+    ListPage.prototype.addListCardsListeners = function() {
+        for (var i = 0; i < this.cardLists_.length; i++) {
+
+            var cardList = this.cardLists_[i];
+
+            this.getHandler()
+                .listenOnce(
+                    cardList,
+                    CardList.Event.SELECTED_CARDS_PRESENT,
+                    this.onSelectedCardsPresent_.bind(this, i)
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARD_CLICK,
+                    this.onCardListCardClick_,
+                    null,
+                    this
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARDS_RENDERED,
+                    this.onCardsRendered_,
+                    null,
+                    this
+                );
+        }
+    };
+
+    /**
     * Ajax successful response handler
     * @param {Object} response
     */
@@ -138,11 +170,7 @@ goog.scope(function() {
 
         if (!goog.object.isEmpty(this.chosenCategoriesData_)) {
 
-            this.userBlock_ = this.renderChild(
-                'ListPageUserBlock',
-                this.getView().getDom().userBlock,
-                {categories: this.chosenCategoriesData_}
-            );
+            this.createUserBlock();
 
             this.getView().createPageTitleText(true);
         } else {
@@ -176,7 +204,27 @@ goog.scope(function() {
     };
 
     /**
-    * populates this.categoriesData_ and this.chosenCategoriesData_ objecs 
+    * creates user block
+    */
+    ListPage.prototype.createUserBlock = function() {
+        this.userBlock_ = this.renderChild(
+            'ListPageUserBlock',
+            this.getView().getDom().userBlock,
+            {categories: this.chosenCategoriesData_}
+        );
+
+        this.getHandler().listen(
+            this.userBlock_,
+            UserBlock.Event.BUTTON_CLICK,
+            this.onUserBlockButtonClick_,
+            false,
+            this
+        );
+    };
+
+    /**
+    * populates this.categoriesData_ and this.chosenCategoriesData_
+    * objecs
     * based on "data" array from an ajax  response
     * @param {Array.<Object>} data
     */
@@ -201,37 +249,6 @@ goog.scope(function() {
                     chosenCategories[dataType] = 1;
                 }
             }
-        }
-    };
-
-    /**
-    * Adds event listeners to ListCards' events
-    */
-    ListPage.prototype.addListCardsListeners = function() {
-        for (var i = 0; i < this.cardLists_.length; i++) {
-
-            var cardList = this.cardLists_[i];
-
-            this.getHandler()
-                .listenOnce(
-                    cardList,
-                    CardList.Event.SELECTED_CARDS_PRESENT,
-                    this.onSelectedCardsPresent_.bind(this, i)
-                )
-                .listen(
-                    cardList,
-                    CardList.Event.CARD_CLICK,
-                    this.onCardListCardClick_,
-                    null,
-                    this
-                )
-                .listen(
-                    cardList,
-                    CardList.Event.CARDS_RENDERED,
-                    this.onCardsRendered_,
-                    null,
-                    this
-                );
         }
     };
 
@@ -261,6 +278,14 @@ goog.scope(function() {
      */
     ListPage.prototype.onCardsRendered_ = function() {
         this.listTab_.resizeActiveTab();
+    };
+
+    /**
+    * User Block button click handler
+    * @private
+    */
+    ListPage.prototype.onUserBlockButtonClick_ = function() {
+        Router.getInstance().changeLocation(Route['DONATE']);
     };
 
 });  // goog.scope
