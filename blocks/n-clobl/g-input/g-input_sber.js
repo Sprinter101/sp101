@@ -73,7 +73,8 @@ goog.scope(function() {
         BLUR: View.Event.BLUR,
         INPUT: View.Event.INPUT,
         CHANGE: View.Event.CHANGE,
-        FOCUS: View.Event.FOCUS
+        FOCUS: View.Event.FOCUS,
+        ENTER_KEY_PRESS: View.Event.ENTER_KEY_PRESS
     };
 
     /**
@@ -87,6 +88,8 @@ goog.scope(function() {
         this.viewListen(View.Event.BLUR, this.onBlur);
 
         this.viewListen(View.Event.INPUT, this.onInput);
+        this.viewListen(View.Event.ENTER_KEY_PRESS,
+            this.onEnterKeyPress);
 
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
@@ -106,6 +109,20 @@ goog.scope(function() {
             minIncome: +valueParams.minIncome || -Infinity,
             minDonation: +valueParams.minDonation || -Infinity
         };
+    };
+
+    /**
+    * Disables input
+    */
+    Input.prototype.disable = function() {
+        this.getView().disable();
+    };
+
+    /**
+    * Enables input
+    */
+    Input.prototype.enable = function() {
+        this.getView().enable();
     };
 
     /**
@@ -166,6 +183,17 @@ goog.scope(function() {
         });
 
         this.validate(true);
+    };
+
+    /**
+    * Enter key press handler
+    */
+    Input.prototype.onEnterKeyPress = function() {
+        this.validate();
+
+        if (this.isValid()) {
+            this.dispatchEvent(Input.Event.ENTER_KEY_PRESS);
+        }
     };
 
     /**
