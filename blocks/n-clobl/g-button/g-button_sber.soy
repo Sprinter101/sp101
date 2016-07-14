@@ -25,7 +25,8 @@
  * @override
  * @param? params {
  *     config: {
- *         stylesForDisabled: list<?string>
+ *         stylesForDisabled: list<?string>,
+ *         tabIndex: string
  *     }
  * }}
  */
@@ -36,4 +37,7 @@
             []
     ]/}
     data-params="{call goog.json.serialize data="$data" /}"
+    {if $params?.config?.tabIndex}
+        {sp}tabindex="{$params?.config?.tabIndex}"
+    {/if}
 {/template}
