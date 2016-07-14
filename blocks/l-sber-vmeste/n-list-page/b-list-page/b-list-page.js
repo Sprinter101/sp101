@@ -223,8 +223,7 @@ goog.scope(function() {
     };
 
     /**
-    * populates this.categoriesData_ and this.chosenCategoriesData_
-    * objecs
+    * populates this.categoriesData_ and this.chosenCategoriesData_ objecs
     * based on "data" array from an ajax  response
     * @param {Array.<Object>} data
     */
