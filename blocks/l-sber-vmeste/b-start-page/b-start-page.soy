@@ -44,7 +44,7 @@
 {template .userfundsInfo}
     <div class="{call .rootClass/}__userfunds-info">
         <div class="{call .rootClass/}__userfunds-info-phrase">
-        Сегодня открылось
+        С нами работают
         </div>
         <div class="{call .rootClass/}__userfunds-info-count">
             {call .renderChild}
@@ -79,12 +79,12 @@
     {let $fundsCount: $data?.userfundsCount /}
     {let $fundsPhrase: $data?.userfundsPhrase /}
         {if $fundsPhrase == true}
-            Сегодня{sp}
+            С нами{sp}
             {call sv.iUtils.Utils.declensionPrint 
                  data="['num': $fundsCount,
-                        'nom': 'открылся',
-                        'gen': 'открылось',
-                        'plu': 'открылось'
+                        'nom': 'работает',
+                        'gen': 'работает',
+                        'plu': 'работают'
                         ]"
             /}
         {else}
