@@ -188,6 +188,19 @@ goog.scope(function() {
     };
 
     /**
+    * assigns userInfo_ object properties with 
+    * the current inputs' values
+    */
+    ProfileEdit.prototype.updateUserInfo = function() {
+        this.userInfo_.firstName =
+            this.firstNameInput_.getValue().trim();
+        this.userInfo_.lastName =
+            this.lastNameInput_.getValue().trim();
+        this.userInfo_.phoneNumber =
+            this.phoneNumberInput_.getValue().trim();
+    };
+
+    /**
     * Input's NOT_VALID event handler
     * @private
     */
@@ -216,15 +229,11 @@ goog.scope(function() {
     };
 
     /**
-    * Creates userInfo_ object and dispatches EDITING_FINISHED event
+    * Dispatches EDITING_FINISHED event 
+    * with the updated userInfo_ object
     */
     ProfileEdit.prototype.finishEditing = function() {
-        this.userInfo_.firstName =
-            this.firstNameInput_.getValue().trim();
-        this.userInfo_.lastName =
-            this.lastNameInput_.getValue().trim();
-        this.userInfo_.phoneNumber =
-            this.phoneNumberInput_.getValue().trim();
+        this.updateUserInfo();
 
         this.dispatchEvent({
             'type': ProfileEdit.Event.EDITING_FINISHED,
@@ -233,7 +242,7 @@ goog.scope(function() {
     };
 
     /**
-    * Confirm button click handler
+    * Button click handler
     * @private
     */
     ProfileEdit.prototype.onButtonClick_ = function() {
