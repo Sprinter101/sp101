@@ -3,8 +3,6 @@ goog.provide('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
-goog.require('goog.events.KeyCodes');
-goog.require('goog.events.KeyHandler');
 goog.require('sv.gButton.Button');
 goog.require('sv.gInput.Input');
 goog.require('sv.lSberVmeste.bDonationFixedBlock.View');
@@ -47,14 +45,6 @@ goog.scope(function() {
         Input = sv.gInput.Input,
         Button = sv.gButton.Button;
 
-        /**
-     * Key codes for managing key events
-     * @const {Array}
-     */
-    DonationFixedBlock.KEYCODES = [
-        8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
-    ];
-
        /**
      * Event enum
      * @enum {string}
@@ -84,23 +74,20 @@ goog.scope(function() {
     DonationFixedBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.inputKeyHandler_ = new goog.events.KeyHandler(
-            this.fixedSum_.getElement());
-
         this.getHandler()
             .listen(this.fixedSum_,
                 Input.Event.BLUR,
                 this.onFixedSumBlur_
             )
             .listen(
+                this.fixedSum_,
+                Input.Event.ENTER_KEY_PRESS,
+                this.onEnterPress_
+            )
+            .listen(
                 this.buttonReady_,
                 Button.Event.CLICK,
                 this.onButtonReadyClick_
-            )
-            .listen(
-                this.inputKeyHandler_,
-                goog.events.KeyHandler.EventType.KEY,
-                this.onInputKeyEvent_
             );
     };
 
@@ -149,20 +136,16 @@ goog.scope(function() {
         this.dispatchReadyEvent(event);
     };
 
-    /**
-     * Handles donation input key event
-     * @param {goog.events.KeyHandler.EventType.KEY} event
+     /**
+     * Handles Enter press key event
+     * @param {sv.gInput.Input.Event.ENTER_KEY_PRESS} event
      * @private
      */
-    DonationFixedBlock.prototype.onInputKeyEvent_ = function(event) {
+    DonationFixedBlock.prototype.onEnterPress_ = function(event) {
         event.stopPropagation();
-        var that = this;
-        var digits = DonationFixedBlock.KEYCODES;
-        if (event.keyCode === goog.events.KeyCodes.ENTER) {
-            this.onFixedSumBlur_();
-            /*var inputInput = this.getView().getDom().inputInput;
-            inputInput.blur();*/
-        }
+        this.onFixedSumBlur_();
+        var inputInput = this.getView().getDom().inputInput;
+        inputInput.blur();
     };
 
      /**
