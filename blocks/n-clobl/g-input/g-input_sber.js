@@ -191,9 +191,7 @@ goog.scope(function() {
     Input.prototype.onEnterKeyPress = function() {
         this.validate();
 
-        if (this.isValid()) {
-            this.dispatchEvent(Input.Event.ENTER_KEY_PRESS);
-        }
+        this.dispatchEvent(Input.Event.ENTER_KEY_PRESS);
     };
 
     /**
