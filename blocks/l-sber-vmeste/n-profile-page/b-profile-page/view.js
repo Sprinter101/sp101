@@ -42,7 +42,7 @@ goog.scope(function() {
 
         this.dom.profileBlock = this.getElementByClass(
             View.CssClass.PROFILE_BLOCK,
-            this.getElement()
+            element
         );
     };
 
