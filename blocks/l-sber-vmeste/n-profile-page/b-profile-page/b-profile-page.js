@@ -97,7 +97,7 @@ goog.scope(function() {
         this.getHandler().listen(
             this.profileBlock_,
             ProfileEdit.Event.EDITING_FINISHED,
-            this.onProfileEditButtonClick_,
+            this.onProfileEditingFinished_,
             false,
             this
         );
@@ -112,11 +112,11 @@ goog.scope(function() {
     };
 
     /**
-    * ProfileEdit button click handler
+    * ProfileEdit EDITING_FINISHED event handler
     * @param {Object} event
     * @private
     */
-    ProfilePage.prototype.onProfileEditButtonClick_ = function(event) {
+    ProfilePage.prototype.onProfileEditingFinished_ = function(event) {
         goog.object.extend(this.userInfo, event.userInfo);
         this.createProfileBlock();
     };
