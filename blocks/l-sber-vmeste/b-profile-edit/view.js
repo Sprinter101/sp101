@@ -47,17 +47,17 @@ goog.scope(function() {
             inputs: {
                 firstName: this.getElementByClass(
                     View.CssClass.FIRST_NAME_INPUT,
-                    this.getElement()).firstChild,
+                    element).firstChild,
                 lastName: this.getElementByClass(
                     View.CssClass.LAST_NAME_INPUT,
-                    this.getElement()).firstChild,
+                    element).firstChild,
                 phoneNumber: this.getElementByClass(
                     View.CssClass.PHONE_NUMBER_INPUT,
-                    this.getElement()).firstChild
+                    element).firstChild
             },
             button: this.getElementByClass(
                 View.CssClass.BUTTON,
-                this.getElement()).firstChild
+                element).firstChild
         };
     };
 
