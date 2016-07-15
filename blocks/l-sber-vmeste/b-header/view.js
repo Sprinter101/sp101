@@ -38,7 +38,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-header',
         ARROW_BACK_CONTAINER: 'b-header__back-wrapper',
-        HELP_PHRASE_CONTAINER: 'b-header__help',
+        HELP_PHRASE_CONTAINER: 'b-header__right-column',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
         CHOICE_PHRASE: 'b-header__choice-phrase'
@@ -106,6 +106,30 @@ goog.scope(function() {
     * @protected
     */
     View.prototype.getCurrentHeaderType = function() {
+        if (!Array.prototype.find) {
+                Array.prototype.find = function(predicate) {
+                if (this == null) {
+                    throw new TypeError(
+                        'Array.prototype.find called on null or undefined'
+                    );
+                }
+                if (typeof predicate !== 'function') {
+                    throw new TypeError('predicate must be a function');
+                }
+                var list = Object(this);
+                var length = list.length >>> 0;
+                var thisArg = arguments[1];
+                var value;
+
+                for (var i = 0; i < length; i++) {
+                    value = list[i];
+                    if (predicate.call(thisArg, value, i, list)) {
+                        return value;
+                    }
+                }
+                return undefined;
+            };
+        }
         var currentClasses = goog.dom.classlist.get(this.getElement());
         var currentClass = '';
         var header_types = View.HEADER_TYPES;

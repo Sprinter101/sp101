@@ -22,6 +22,7 @@
     {let $headerType: $params.config.type/}
     <div class="{call .rootClass/}__inner-wrap{sp}
         {call .rootClass/}__inner-wrap_{$headerType}">
+    <div class="{call .rootClass/}__left-column">
         {let $hiddenLogo: $headerType == 'profile' ? false : true /}
             {call .icon}
                 {param wrapper: 'logo'/}
@@ -36,6 +37,22 @@
             {param iconType: $arrowBack/}
             {param hidden: $hiddenArrow/}
         {/call}
+    </div>
+    <div class="{call .rootClass/}__right-column">
+        {let $hiddenHelp: $headerType == 'card' ? true : false /}
+        {let $help_phrase: $params.config?.help_phrase /}
+            {call .help}
+                {param help_phrase: $help_phrase /}
+                {param hidden: $hiddenHelp/}
+            {/call}
+        {let $hiddenShare: $headerType == 'card' ? false : true /}
+            {call .icon}
+                {param wrapper: 'share'/}
+                {param iconType: 'share'/}
+                {param hidden: $hiddenShare/}
+            {/call}
+        </div>
+        <div class="{call .rootClass/}__central-column">
         {let $hiddenButton: $headerType == 'profile' ? false : 
             $headerType == 'list' ? false : true /}
         {let $roundButton: $params.config?.roundButton /}
@@ -50,19 +67,7 @@
                 {param headerType: $headerType /}
                 {param hidden: $hiddenChoice/}
             {/call}
-        {let $hiddenHelp: $headerType == 'choice' ? false :
-            $headerType == 'profile' ? false : true /}
-        {let $help_phrase: $params.config?.help_phrase /}
-            {call .help}
-                {param help_phrase: $help_phrase /}
-                {param hidden: $hiddenHelp/}
-            {/call}
-        {let $hiddenShare: $headerType == 'card' ? false : true /}
-            {call .icon}
-                {param wrapper: 'share'/}
-                {param iconType: 'share'/}
-                {param hidden: $hiddenShare/}
-            {/call}
+        </div>
     </div>
 {/template}
 
@@ -73,7 +78,8 @@
  * @param hidden {?bool}
  */
 {template .icon}
-    <div class="{call .rootClass/}__{$wrapper}-wrapper{if $hidden}
+    <div class="{call .rootClass/}__icon-wrapper{sp}
+        {call .rootClass/}__{$wrapper}-wrapper{if $hidden}
         {sp}{call .hidden/}{/if}">
             {call .renderChild}
                 {param params: [
@@ -132,7 +138,8 @@
 {template .choicePhrase}
     {if $headerType == 'card'}
         <div class="{call .rootClass/}__choice-phrase{sp}
-            {call .rootClass/}__choice-phrase_{$headerType}{if $hidden}{sp}
+            {call .rootClass/}__choice-phrase_{$choice_phrase}{sp}
+            {call .rootClass/}__choice-phrase_{$headerType}{sp}{if $hidden}{sp}
             {call .hidden/}{/if}">
     {else}
         <div class="{call .rootClass/}__choice-phrase{sp}
