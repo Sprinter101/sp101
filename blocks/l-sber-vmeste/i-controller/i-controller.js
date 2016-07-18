@@ -27,7 +27,7 @@ goog.scope(function() {
     Controller.prototype.actionStart = function() {
         this.headerManager_.setProfileHeader({
             'type': 'profile',
-            'login': ''
+            'pageType': 'start'
         });
         this.pageManager_.setCurrentPage('StartPage');
     };
@@ -38,7 +38,7 @@ goog.scope(function() {
     Controller.prototype.actionTest = function() {
         this.headerManager_.setProfileHeader({
             'type': 'profile',
-            'login': 'authorized'
+            'pageType': 'start'
         });
         this.pageManager_.setCurrentPage('TestPage');
     };
@@ -61,7 +61,7 @@ goog.scope(function() {
     Controller.prototype.actionListPage = function(opt_params) {
         this.headerManager_.setListHeader({
             'type': 'list',
-            'choice_phrase': 'directions'
+            'pageType': 'start'
         });
         this.pageManager_.setCurrentPage('ListPage', {
             'category': opt_params.category}
@@ -74,9 +74,11 @@ goog.scope(function() {
      */
     Controller.prototype.actionDisplayCategoryCard = function(
         opt_params) {
+        var id = opt_params.id;
         this.headerManager_.setCardHeader({
             'type': 'card',
-            'choice_phrase': 'fund'
+            'choice_phrase': 'fund',
+             'cardId': id
         });
         this.pageManager_.setCurrentPage('CardPage', {cardId: opt_params.id});
     };
@@ -99,7 +101,7 @@ goog.scope(function() {
     Controller.prototype.actionRegistration = function() {
         this.headerManager_.setProfileHeader({
             'type': 'profile',
-            'login': 'registration'
+            'pageType': 'registration'
         });
         this.pageManager_.setCurrentPage('RegistrationPage');
     };
@@ -110,7 +112,7 @@ goog.scope(function() {
     Controller.prototype.actionProfilePage = function() {
         this.headerManager_.setProfileHeader({
             'type': 'profile',
-            'login': 'registration'
+            'pageType': 'registration'
         });
         this.pageManager_.setCurrentPage('ProfilePage');
     };
@@ -121,7 +123,7 @@ goog.scope(function() {
     Controller.prototype.actionRegistrationPage = function() {
         this.headerManager_.setProfileHeader({
             'type': 'profile',
-            'login': 'registration'
+            'pageType': 'registration'
         });
         this.pageManager_.setCurrentPage('RegistrationPage');
     };

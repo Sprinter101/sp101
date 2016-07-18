@@ -38,7 +38,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-header',
         ARROW_BACK_CONTAINER: 'b-header__back-wrapper',
-        HELP_PHRASE_CONTAINER: 'b-header__help',
+        HELP_PHRASE_CONTAINER: 'b-header__right-column',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
         CHOICE_PHRASE: 'b-header__choice-phrase',
@@ -102,29 +102,6 @@ goog.scope(function() {
 
     };
 
-    /**
-    * Get current header type
-    * @return {string}
-    * @protected
-    */
-    View.prototype.getCurrentHeaderType = function() {
-        var currentClasses = goog.dom.classlist.get(this.getElement());
-        var currentClass = '';
-        var header_types = View.HEADER_TYPES;
-        var checkClass = function(element, index, array) {
-            if (goog.object.contains(currentClasses, element)) {
-                return array[index];
-            }
-        };
-
-        header_types.forEach(function(item, i, header_types) {
-           currentClass = View.HEADER_TYPES.find(checkClass);
-
-        });
-        currentClass = currentClass.slice(9);
-        return currentClass;
-    };
-
      /**
      * check media layout
      * for donation page and sber logo
@@ -154,6 +131,23 @@ goog.scope(function() {
     View.prototype.checkButtonCustomClass = function() {
         return goog.dom.classlist.contains(
             this.dom.button, 'b-header__button_me'
+        );
+    };
+
+    /**
+     * render choice phrase
+     * @param {string} phrase
+     * @protected
+     */
+    View.prototype.renderCorrectTitle = function(
+        phrase) {
+        var soyParams = {'data': {
+            choice_phrase: phrase}
+        };
+        goog.soy.renderElement(
+            this.dom.choicePhrase,
+            sv.lSberVmeste.bHeader.Template.title,
+            soyParams
         );
     };
 
