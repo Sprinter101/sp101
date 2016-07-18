@@ -60,7 +60,7 @@ goog.scope(function() {
             View.CssClass.MONTHLY_INCOME, element
         );
 
-        this.dom.inputControlInput = goog.dom.getChildren(
+        this.dom.inputInput = goog.dom.getChildren(
             this.dom.inputControl)[0];
 
         this.dom.slider = this.getElementByClass(

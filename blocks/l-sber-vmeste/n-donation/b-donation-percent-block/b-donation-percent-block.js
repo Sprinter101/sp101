@@ -73,14 +73,6 @@ goog.scope(function() {
     };
 
     /**
-     * Key codes for managing key events
-     * @const {Array}
-     */
-    DonationPercentBlock.KEYCODES = [
-        8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57
-    ];
-
-    /**
     * @override
     * @param {Element} element
     */
@@ -106,8 +98,6 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.KeyHandler_ = new goog.events.KeyHandler(document);
-        this.incomeKeyHandler_ = new goog.events.KeyHandler(
-            this.monthlyIncome_.getElement());
 
         this.getHandler()
             .listen(
@@ -125,10 +115,10 @@ goog.scope(function() {
                 Slider.Event.SLIDER_MOVE,
                 this.onSliderMove
             )
-            .listen(
-                this.incomeKeyHandler_,
-                goog.events.KeyHandler.EventType.KEY,
-                this.onIncomeKeyEvent_
+           .listen(
+                this.monthlyIncome_,
+                Input.Event.ENTER_KEY_PRESS,
+                this.onEnterPress_
             )
             .listen(
                 this.KeyHandler_,
@@ -217,17 +207,15 @@ goog.scope(function() {
     };
 
      /**
-     * Handles 'monthly input' key event
-     * @param {goog.events.KeyHandler.EventType.KEY} event
+     * Handles Enter press key event
+     * @param {sv.gInput.Input.Event.ENTER_KEY_PRESS} event
      * @private
      */
-    DonationPercentBlock.prototype.onIncomeKeyEvent_ = function(event) {
+    DonationPercentBlock.prototype.onEnterPress_ = function(event) {
         event.stopPropagation();
-        var that = this;
-        var digits = DonationPercentBlock.KEYCODES;
-        if (event.keyCode === goog.events.KeyCodes.ENTER) {
-            this.onMonthlyIncomeBlur();
-        }
+        this.onMonthlyIncomeBlur();
+        var inputInput = this.getView().getDom().inputInput;
+        inputInput.blur();
     };
 
     /**
