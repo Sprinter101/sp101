@@ -8,6 +8,7 @@ goog.require('sv.gInput.Template');
 goog.require('sv.gSlider.Template');
 goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
+goog.require('sv.lSberVmeste.Template');
 goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
@@ -25,7 +26,7 @@ goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
-goog.require('sv.lSberVmeste.Template');
+goog.require('sv.lSberVmeste.bPhoneBlock.Template');
 
 
 
@@ -40,6 +41,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'SberVmeste',
             sv.lSberVmeste.Template.sberVmeste
+        )
+        .setTemplateListItem(
+            'PhoneBlock',
+            sv.lSberVmeste.bPhoneBlock.Template.phoneBlock
         )
         .setTemplateListItem(
             'HeaderManager',

@@ -42,11 +42,15 @@
     text-align: center;
 }
 
-.b-header__logo-wrapper {
+.b-header__logo_small-wrapper {
     display: inline-block;
     float: left;
     margin-left: 26px;
     margin-top: 34px;
+}
+
+.b-header__logo_large-wrapper {
+    display: none;
 }
 
 .b-header__button-wrapper {
@@ -65,6 +69,11 @@
 }
 
 .b-header__help_about_profile {
+    margin-top: 49px;
+    margin-right: 4px;
+}
+
+.b-header__help_about_logout {
     margin-top: 49px;
     margin-right: 4px;
 }
@@ -138,7 +147,12 @@
     .b-header__inner-wrap_choice {
         height: 102px;
     }
-    .b-header__logo-wrapper {
+    .b-header__logo_small-wrapper {
+        display: none;
+    }
+    .b-header__logo_large-wrapper {
+        display: inline-block;
+        float: left;
         margin-left: 38px;
         margin-top: 39px;
     }
@@ -178,6 +192,12 @@
     }
     .b-header__help_about_list {
        margin-right: 77px;
+    }
+     .b-header__logo_small-wrapper {
+        display: none;
+    }
+    .b-header__logo_large-wrapper {
+        display: inline-block;
     }
     .b-header__help_donation {
         width: 86px;

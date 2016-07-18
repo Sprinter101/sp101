@@ -25,8 +25,13 @@
     <div class="{call .rootClass/}__left-column">
         {let $hiddenLogo: $headerType == 'profile' ? false : true /}
             {call .icon}
-                {param wrapper: 'logo'/}
-                {param iconType: 'logo-sber'/}
+                {param wrapper: 'logo_small'/}
+                {param iconType: 'logo-sber_small'/}
+                {param hidden: $hiddenLogo/}
+            {/call}
+            {call .icon}
+                {param wrapper: 'logo_large'/}
+                {param iconType: 'logo-sber_large'/}
                 {param hidden: $hiddenLogo/}
             {/call}
         {let $arrowBack: $headerType == 'card' ? 'arrow-back_grey' :
@@ -179,6 +184,8 @@
                 О проекте
             {case 'about_list'}
                 О проекте
+            {case 'logout'}
+                Выйти
             {case 'donation'}
                 Что делать?
             {default}

@@ -66,7 +66,7 @@ goog.scope(function() {
      * @type {string}
      */
     Header.URL = {
-        CARD_ID: '/card/:'
+        CARD_ID: '/entity/'
     };
 
     /**
@@ -134,7 +134,7 @@ goog.scope(function() {
     * @param {Object} response
     */
    Header.prototype.handleSuccess = function(response) {
-            var data = response.type;
+            var data = response.data.type;
             this.renderCorrectTitle(data);
     };
 

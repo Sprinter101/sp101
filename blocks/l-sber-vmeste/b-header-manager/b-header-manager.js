@@ -105,12 +105,14 @@ goog.scope(function() {
                 url: Manager.URL.USER_URL
             }).
             then(
-                this.setProfileAuthorized,
-                this.setProfileAnonymous,
+                this.handleSuccess,
+                this.handleRejection,
                 this
             )
-            .then(function(roundButton) {
-                params.config.roundButton = roundButton;
+            .then(function(result) {
+                params.config.roundButton = result.roundButton;
+                params.config.help_phrase = result.help ?
+                    result.help : 'about_profile';
                 that.renderHeader(params);
             });
         }
@@ -134,29 +136,55 @@ goog.scope(function() {
         return this.header_;
     };
 
+     /**
+    * Ajax success handler
+    * @param {Object} response
+    * @return {Object}
+    */
+    Manager.prototype.handleSuccess = function(response) {
+            var loggedIn = response.data.loggedIn;
+            var firstName = response.data.firstname;
+            var lastName = response.data.lastname;
+            if (loggedIn) {
+                return this.setProfileAuthorized(firstName, lastName);
+            }
+            else {
+               return this.setProfileAnonymous();
+            }
+    };
+
     /**
-     * set correct value to round button
-     * @param {Object} response
-     * @return {string}
-     * @protected
-     */
-    Manager.prototype.setProfileAuthorized = function(response) {
-        var firstName = response.firstName[0];
-        var lastName = response.lastName[0];
-        var roundButton = firstName + lastName;
-        return roundButton;
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    Manager.prototype.handleRejection = function(err) {
+        console.log(err);
     };
 
     /**
      * set correct value to round button
-     * @param {Object} err
+     * @param {string} firstName
+     * @param {string} lastName
      * @return {string}
      * @protected
      */
-    Manager.prototype.setProfileAnonymous = function(err) {
-        console.log(err);
+    Manager.prototype.setProfileAuthorized = function(firstName, lastName) {
+        var firstName = firstName[0];
+        var lastName = lastName[0];
+        var roundButton = firstName + lastName;
+        var help_phrase = 'logout';
+        return {'roundButton': roundButton, 'help': help_phrase};
+    };
+
+    /**
+     * set correct value to round button
+     * @return {Object}
+     * @protected
+     */
+    Manager.prototype.setProfileAnonymous = function() {
         var roundButton = 'я';
-        return roundButton;
+        var help_phrase = '';
+        return {'roundButton': roundButton, 'help': help_phrase};
     };
 
      /**
@@ -181,12 +209,14 @@ goog.scope(function() {
                 url: Manager.URL.USER_URL
             }).
             then(
-                this.setProfileAuthorized,
-                this.setProfileAnonymous,
+                this.handleSuccess,
+                this.handleRejection,
                 this
             )
-            .then(function(roundButton) {
-                params.config.roundButton = roundButton;
+            .then(function(result) {
+                params.config.roundButton = result.roundButton;
+                params.config.help_phrase = result.help ?
+                    result.help : 'about_profile';
                 that.renderHeader(params);
             });
     };
@@ -201,7 +231,6 @@ goog.scope(function() {
         var params = Manager.HeaderStates.CARD;
         if (opt_params.cardId !== undefined) {
             params.config.id = opt_params.cardId;
-            console.log(params.config.id);
         }
         this.renderHeader(params);
     };

@@ -64,7 +64,6 @@ goog.scope(function() {
     Controller.prototype.actionDisplayCategoryCard = function(
         opt_params) {
         var id = opt_params.id;
-        console.log('id: ', opt_params);
         this.headerManager_.setCardHeader({
             'type': 'card',
             'choice_phrase': 'fund',
