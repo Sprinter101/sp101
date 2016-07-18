@@ -175,7 +175,7 @@ goog.scope(function() {
      */
     StartPage.prototype.onStartCreatingUserfund = function(event) {
         Router.getInstance().changeLocation(
-            Route.LIST_PAGE, {'category': 'directions'});
+            Route.LIST_PAGE, {'category': 'topics'});
     };
 
     /**

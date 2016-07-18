@@ -75,7 +75,7 @@ goog.scope(function() {
     * Array of card types
     * @type {Array.<string>}
     */
-    ListPage.CardTypes = ['direction', 'fund'];
+    ListPage.CardTypes = ['topic', 'fund'];
 
     /**
     * @override
