@@ -25,13 +25,11 @@ goog.require('sv.lSberVmeste.bProfilePage.Template');
 goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
-<<<<<<< 0941205b2c8fa77bdef298837491f87e3d120d27
 goog.require('sv.lSberVmeste.bUserBlock.Template');
-=======
 goog.require('sv.lSberVmeste.Template');
 goog.require('sv.lSberVmeste.bPhoneBlock.Template');
 goog.require('sv.lSberVmeste.bPhonePage.Template');
->>>>>>> Created a new branch for phone confirmation feature. Changed general input for more flexibility.
+
 
 
 
@@ -50,10 +48,6 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'PhoneBlock',
             sv.lSberVmeste.bPhoneBlock.Template.phoneBlock
-        )
-        .setTemplateListItem(
-            'PhonePage',
-             sv.lSberVmeste.bPhonePage.Template.phonePage
         )
         .setTemplateListItem(
             'HeaderManager',

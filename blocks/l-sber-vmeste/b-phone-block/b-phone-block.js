@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bPhoneBlock.View');
 
@@ -33,7 +34,6 @@ goog.inherits(sv.lSberVmeste.bPhoneBlock.PhoneBlock, cl.iControl.Control);
 
 goog.scope(function() {
     var Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock,
-        View = sv.lSberVmeste.bPhoneBlock.View;
         Button = cl.gButton.Button;
 
         Block.prototype.decorateInternal = function(element) {
@@ -42,11 +42,11 @@ goog.scope(function() {
             var domInputs = this.getView().getDom().inputs;
             var domButtons = this.getView().getDom().buttons;
 
-            for (var i = 0 ; i < domInputs.length; i++){
+            for (var i in domInputs){
                 this.inputs_.push(this.decorateChild('InputSber', domInputs[i]));
             }
 
-            for (var i = 0 ; i < domButtons.length; i++) {
+            for (var i in domButtons) {
                 this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
             }
             
@@ -75,6 +75,7 @@ goog.scope(function() {
     Block.prototype.onButtonClick_ = function(event) {
         var Parent = event.target.element_.parentElement,
             ParentClass = Parent.classList[0],
+            Request = cl.iRequest.Request,
             phoneTextField = document.getElementsByClassName(
                                         "b-phone-block__phone-number-view")[0],
             inputNumberField = document.getElementsByClassName(
@@ -86,56 +87,91 @@ goog.scope(function() {
             inputNumberBlock = document.getElementsByClassName(
                                         "b-phone-block__input_phone")[0],
             infoTextField = document.getElementsByClassName(
-                                        "b-phone-block__welcome")[0];
+                                        "b-phone-block__text")[0];
 
-        var testJSON = '{"confirmPass":"66666"}',
-            testParsed = JSON.parse(testJSON);
+
 
 
         switch(ParentClass) {
             case 'b-phone-block__enter-button':
                 var confirmButton = document.getElementsByClassName("b-phone-block__confirm-button")[0],
-                    registryButton = document.getElementsByClassName("b-phone-block__registry-button")[0],
-                    inputValue = inputNumberField.value.toString();
-                    
-                //Temporary object, may have more attributes in future
+                    inputValue = inputNumberField.value;
                 var phoneNumJSON = {
-                    phoneNum : inputValue,
-                    timeStamp : Date.now()
-                }
+                    "phone" : inputValue.toString()
+                };
 
-                /** TO-DO
-                 * check input validation state
-                 */
+                Request.getInstance().send({
+                    url: '/auth/sms',
+                    type: 'POST',
+                    data: phoneNumJSON
+                }).then(this.handleSuccess,
+                        this.handleRejection,
+                        this
+                    );
 
                 phoneTextField.innerText = inputValue;
                 infoTextField.innerText = 'Введите 5-ти значный пароль из СМС';
 
+                /** TODO Wrap it up in function
+                 */
                 inputConfirmBlock.style.display = 'block';
                 inputNumberBlock.style.display = 'none';
                 confirmButton.style.display = 'block';
-                Parent.style.display = 'none';
-                registryButton.style.display = 'none';
-                
+                Parent.style.display = 'none';                
                 break;
 
             case 'b-phone-block__confirm-button':
-                //var enterButton = document.getElementsByClassName("b-phone-block__enter-button")[0];
-                //
-                // enterButton.style.display = 'block';
-                // Parent.style.display = 'none';
-                if(testParsed.confirmPass == inputConfirmField.value.toString())
-                {
-                    alert('Success');
-                }
+                var codeJSON = {
+                    "code":inputConfirmField.value.toString()
+                };
+                Request.getInstance().send({
+                    url: '/auth/verify',
+                    type: 'POST',
+                    data: codeJSON
+                }).then(this.handleVerificationSuccess,
+                    this.handleVerificationRejection,
+                    this
+                );
+
+
 
                 break;
 
             default:
                 break;
         }
-
-        console.log(JSON.stringify(phoneNumJSON));
+        
     };
-    
+    /**
+     *
+     * @param {Object} success
+     */
+    Block.prototype.handleSuccess = function(success) {
+        console.log("everything is fine");
+    };
+    /**
+     *
+     * @param {Object} err
+     */
+    Block.prototype.handleRejection = function(err) {
+        console.log(err);
+    };
+
+    /**
+     * Verification error handler
+     * TODO functionality
+     * @param err
+     */
+    Block.prototype.handleVerificationRejection = function(err) {
+        console.log(err);
+    };
+    /**
+     * Verification success handler
+     * TODO functionality
+     * @param {Object} success
+     */
+    Block.prototype.handleVerificationSuccess = function(success) {
+        alert('success');
+    };
+
 }); //goog.scope

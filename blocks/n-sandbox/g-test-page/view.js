@@ -31,12 +31,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-test-page',
         TAB: 'g-tab_sber',
-<<<<<<< 0941205b2c8fa77bdef298837491f87e3d120d27
         INPUT: 'g-input_sber',
         SLIDER: 'g-slider'
-=======
-        INPUT: 'g-input_sber'
->>>>>>> Created a new branch for phone confirmation feature. Changed general input for more flexibility.
     };
 
     /**

@@ -26,23 +26,20 @@ sv.gInput.Input = function(view, opt_domHelper) {
      * constraint params
      * @type {Object}
      */
-<<<<<<< 0941205b2c8fa77bdef298837491f87e3d120d27
+
     this.valueParams = {};
-=======
     this.const = {
         MAX_NUMBER: this.params.MAX_NUMBER ?
                             this.params.MAX_NUMBER : Infinity,
         MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
                             this.params.MAX_CHARACTERS : 11
     };
->>>>>>> Created a new branch for phone confirmation feature. Changed general input for more flexibility.
 
     /**
      * Possible validation type handlers
      * @type {Object}
      */
     this.validationTypeHandlers = {
-        'phone' : this.validatePhone_,
         'digits': this.validateDigits_,
         'email': this.validateEmail_,
         'notEmpty': this.validateNotEmpty_,
@@ -58,7 +55,6 @@ sv.gInput.Input = function(view, opt_domHelper) {
      * @type {Object}
      */
     this.constraintsHandlers = {
-        'phoneOnly': this.constraintPhoneOnly_,
         'digitsOnly': this.constraintDigitsOnly_,
         'charactersLimit': this.constraintCharactersLimit_,
         'noLeadingZero': this.constraintNoLeadingZero_,
@@ -86,15 +82,6 @@ goog.scope(function() {
         CHANGE: View.Event.CHANGE,
         FOCUS: View.Event.FOCUS
     };
-    /**
-     * Validate phone number
-     * @param {string} text text to validate
-     * @return {boolean}
-     */
-    Input.prototype.validatePhone_ = function (text) {
-        var phoneRegex = /^(\+7|\+38)(\d{9,10})/;
-        return phoneRegex.test(text);
-    }
 
     /**
      * @override
@@ -103,14 +90,18 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.valueParams = {
-                maxNumber: +this.params.valueParams.maxNumber ||
-                    +this.params.valueParams.maxNumber : Infinity,
+                maxNumber: +this.params.valueParams.maxNumber ?
+                    +this.params.valueParams.maxNumber
+                    : Infinity,
                 maxCharacters: +this.params.valueParams.maxCharacters ?
-                    +this.params.valueParams.maxCharacters : Infinity,
+                    +this.params.valueParams.maxCharacters
+                    : Infinity,
                 minIncome: +this.params.valueParams.minIncome ?
-                    +this.params.valueParams.minIncome : 1,
+                    +this.params.valueParams.minIncome
+                    : 1,
                 minDonation: +this.params.valueParams.minDonation ?
-                    +this.params.valueParams.minDonation : 1,
+                    +this.params.valueParams.minDonation
+                    : 1
             };
 
         this.viewListen(

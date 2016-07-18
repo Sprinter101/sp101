@@ -19,7 +19,6 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     this.setCssClass(sv.gInput.View.CssClass.ROOT);
 
     /**
-<<<<<<< 0941205b2c8fa77bdef298837491f87e3d120d27:blocks/n-clobl/g-input/view.js
     * @type {string}
     * @private
     */
@@ -30,7 +29,7 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     * @private
     */
     this.placeholder_ = null;
-=======
+     /**
      * Error messages for validations
      * @type {Object}
      */
@@ -42,7 +41,6 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
                         'чем 500 тыс. рублей',
         'phone': 'Номер должен быть в формате +79999999999'
     };
->>>>>>> Created a new branch for phone confirmation feature. Changed general input for more flexibility.:blocks/n-clobl/g-input/g-input_sber-View.js
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
@@ -59,7 +57,7 @@ goog.scope(function() {
         INPUT: 'g-input__input',
         INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
-        NOT_VALID: 'g-input_valid',
+        VALID: 'g-input_valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',
         LABEL: 'g-input__label',
@@ -101,13 +99,9 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-<<<<<<< 7db94f3870c6c4a9d98cfba7475e6a1691ccc811:blocks/n-clobl/g-input/view.js
 
         this.dom.input = this.getElementByClass(
             View.CssClass.INPUT, element);
-=======
-        this.dom.input = this.getElementByClass(View.CssClass.INPUT);
->>>>>>> SV-83 added placeholders for phone number confirmation feature. Next will be backend connection:blocks/n-clobl/g-input/g-input_sber-View.js
         this.dom.errorMessage = this.getElementByClass(
             View.CssClass.ERROR_MESSAGE_BOX, element);
         this.dom.label = this.getElementByClass(
