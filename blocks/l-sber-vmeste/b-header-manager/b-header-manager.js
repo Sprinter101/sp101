@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bHeaderManager.HeaderManager');
 
 goog.require('cl.iContentManager.ContentManager');
+goog.require('cl.iRequest.Request');
 goog.require('sv.lSberVmeste.bHeader.Header');
 
 
@@ -32,7 +33,8 @@ goog.inherits(
 
 goog.scope(function() {
     var Manager = sv.lSberVmeste.bHeaderManager.HeaderManager,
-        Header = sv.lSberVmeste.bHeader.Header;
+        Header = sv.lSberVmeste.bHeader.Header,
+        Request = cl.iRequest.Request;
 
      /**
      * header params enum
@@ -40,24 +42,32 @@ goog.scope(function() {
      */
     Manager.HeaderStates = {
         PROFILE: {'config': {
-            'type': 'profile', 'roundButton': 'Я',
+            'type': 'profile', 'roundButton': 'я',
             'choice_phrase': '', 'help_phrase': 'about_profile'}
         },
         LIST: {'config': {
-            'type': 'list', 'roundButton': 'Я',
+            'type': 'list', 'roundButton': 'я',
             'choice_phrase': 'list',
             'help_phrase': 'about_list'}
         },
         CHOICE: {'config': {
-            'type': 'choice', 'roundButton': 'Я',
+            'type': 'choice', 'roundButton': 'я',
             'choice_phrase': 'donation',
             'help_phrase': 'donation'}
         },
         CARD: {'config': {
-            'type': 'card', 'roundButton': 'Я',
+            'type': 'card', 'roundButton': 'я',
             'choice_phrase': 'directions',
-            'help_phrase': 'donation'}
+            'help_phrase': 'donation', 'id': null}
         }
+    };
+
+    /**
+     * Api enum
+     * @type {string}
+     */
+    Manager.URL = {
+        USER_URL: '/user'
     };
 
     /**
@@ -84,22 +94,39 @@ goog.scope(function() {
     /**
      * set profile header
      * @param {Object=} opt_params
-     * @return {Object} Returns current header
      * @protected
      */
     Manager.prototype.setProfileHeader = function(opt_params) {
         var params = Manager.HeaderStates.PROFILE;
-        this.headerType_ = this.header_.getCurrentHeaderType();
-        if (opt_params.login === 'authorized') {
-            params.config.roundButton = 'ПК';
+        var that = this;
+
+        if (opt_params.pageType === 'start') {
+            Request.getInstance().send({
+                url: Manager.URL.USER_URL
+            }).
+            then(
+                this.setProfileAuthorized,
+                this.setProfileAnonymous,
+                this
+            )
+            .then(function(roundButton) {
+                params.config.roundButton = roundButton;
+                that.renderHeader(params);
+            });
         }
-        else if (opt_params.login === 'registration') {
-            params.config.roundButton = 'X';
+        else if (opt_params.pageType === 'registration') {
+            params.config.roundButton = 'x';
+            this.renderHeader(params);
         }
-        else {
-            params.config.roundButton = 'Я';
-        }
-        var headerType = opt_params.type;
+    };
+
+    /**
+     * render header
+     * @param {Object} params
+     * @return {Object} Returns current header
+     * @protected
+     */
+    Manager.prototype.renderHeader = function(params) {
         this.removeChild(this.header_, true);
         this.header_ = this.renderChild(
             'Header', this.getElement(), params
@@ -107,80 +134,76 @@ goog.scope(function() {
         return this.header_;
     };
 
+    /**
+     * set correct value to round button
+     * @param {Object} response
+     * @return {string}
+     * @protected
+     */
+    Manager.prototype.setProfileAuthorized = function(response) {
+        var firstName = response.firstName[0];
+        var lastName = response.lastName[0];
+        var roundButton = firstName + lastName;
+        return roundButton;
+    };
+
+    /**
+     * set correct value to round button
+     * @param {Object} err
+     * @return {string}
+     * @protected
+     */
+    Manager.prototype.setProfileAnonymous = function(err) {
+        console.log(err);
+        var roundButton = 'я';
+        return roundButton;
+    };
+
      /**
      * set donation choice header
      * @param {Object=} opt_params
-     * @return {Object} Returns current header
      * @protected
      */
     Manager.prototype.setChoiceHeader = function(opt_params) {
         var params = Manager.HeaderStates.CHOICE;
-        this.headerType_ = this.header_.getCurrentHeaderType();
-        var headerType = opt_params.type;
-        //if (headerType !== this.headerType_) {
-        this.removeChild(this.header_, true);
-        this.header_ = this.renderChild('Header',
-            this.getElement(), params);
-            return this.header_;
+        this.renderHeader(params);
     };
 
     /**
      * set header with items list
      * @param {Object=} opt_params
-     * @return {Object} Returns current header
      * @protected
      */
     Manager.prototype.setListHeader = function(opt_params) {
         var params = Manager.HeaderStates.LIST;
-        this.headerType_ = this.header_.getCurrentHeaderType();
-        if (opt_params.login === 'authorized') {
-            params.config.roundButton = 'ПК';
-        }
-        else if (opt_params.login === 'registration') {
-            params.config.roundButton = 'X';
-        }
-        else {
-            params.config.roundButton = 'Я';
-        }
-        var headerType = opt_params.type;
-
-        this.removeChild(this.header_, true);
-        this.header_ = this.renderChild('Header',
-            this.getElement(), params
-        );
-        return this.header_;
+        var that = this;
+        Request.getInstance().send({
+                url: Manager.URL.USER_URL
+            }).
+            then(
+                this.setProfileAuthorized,
+                this.setProfileAnonymous,
+                this
+            )
+            .then(function(roundButton) {
+                params.config.roundButton = roundButton;
+                that.renderHeader(params);
+            });
     };
 
 
      /**
      * set card header
      * @param {Object=} opt_params
-     * @return {Object} Returns current header
      * @protected
      */
     Manager.prototype.setCardHeader = function(opt_params) {
         var params = Manager.HeaderStates.CARD;
-        this.headerType_ = this.header_.getCurrentHeaderType();
-        switch (opt_params.choice_phrase) {
-        case 'directions':
-            params.config.choice_phrase = 'directions';
-            break;
-        case 'themes':
-            params.config.choice_phrase = 'themes';
-            break;
-        case 'fund':
-            params.config.choice_phrase = 'fund';
-           break;
-        default:
-             params.config.choice_phrase = 'directions';
+        if (opt_params.cardId !== undefined) {
+            params.config.id = opt_params.cardId;
+            console.log(params.config.id);
         }
-        var headerType = opt_params.type;
-
-        this.removeChild(this.header_, true);
-        this.header_ = this.renderChild('Header',
-            this.getElement(), params
-        );
-        return this.header_;
+        this.renderHeader(params);
     };
 
 

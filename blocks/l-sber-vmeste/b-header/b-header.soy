@@ -62,11 +62,13 @@
             {/call}
         {let $hiddenChoice: $headerType == 'profile' ? true : false /}
         {let $choice_phrase: $params.config?.choice_phrase /}
-            {call .choicePhrase}
-                {param choice_phrase: $choice_phrase /}
-                {param headerType: $headerType /}
-                {param hidden: $hiddenChoice/}
-            {/call}
+            <div class="{call .rootClass/}__choice-phrase">
+                {call .choicePhrase}
+                    {param choice_phrase: $choice_phrase /}
+                    {param headerType: $headerType /}
+                    {param hidden: $hiddenChoice/}
+                {/call}
+            </div>
         </div>
     </div>
 {/template}
@@ -99,13 +101,13 @@
  * @param hidden {?bool}
  */
 {template .button}
-    {let $buttonType: $roundButton == 'X' ? 'b-header__button_close' :
+    {let $buttonType: $roundButton == 'x' ? 'b-header__button_close' :
         'b-header__button_me' /}
-    {let $buttonStyleTransparent: $roundButton == 'X' ? 
+    {let $buttonStyleTransparent: $roundButton == 'x' ? 
         'background_transparent' : '' /}
-    {let $buttonStyleTextColor: $roundButton == 'X' ? 
+    {let $buttonStyleTextColor: $roundButton == 'x' ? 
         'text-color_white' : ''/}
-    {let $buttonStyleBorder: $roundButton == 'X' ? 'border_yellow' : '' /}
+    {let $buttonStyleBorder: $roundButton == 'x' ? 'border_yellow' : '' /}
     <div class="{call .rootClass/}__button-wrapper{if $hidden}
         {sp}{call .hidden/}{/if}">
             {call .renderChild}
@@ -121,7 +123,7 @@
                             $buttonStyleTransparent, $buttonStyleTextColor,
                             $buttonStyleBorder],
                         'customClasses': 
-                            [$buttonType]
+                            ['b-header__button', $buttonType]
                         ]
                     ]
                 ]/}
@@ -137,19 +139,17 @@
  */
 {template .choicePhrase}
     {if $headerType == 'card'}
-        <div class="{call .rootClass/}__choice-phrase{sp}
-            {call .rootClass/}__choice-phrase_{$choice_phrase}{sp}
+        <div class="{call .rootClass/}__choice-phrase_{$choice_phrase}{sp}
             {call .rootClass/}__choice-phrase_{$headerType}{sp}{if $hidden}{sp}
             {call .hidden/}{/if}">
     {else}
-        <div class="{call .rootClass/}__choice-phrase{sp}
-            {call .rootClass/}__choice-phrase_{$choice_phrase}{if $hidden}{sp}
-            {call .hidden/}{/if}">
+        <div class="{call .rootClass/}__choice-phrase_{$choice_phrase}
+        {if $hidden}{sp}{call .hidden/}{/if}">
     {/if}
         {switch $choice_phrase}
             {case 'list'}
                 Начните помогать
-            {case 'theme'}
+            {case 'topic'}
                 Тема
             {case 'direction'}
                 Направление
@@ -186,6 +186,20 @@
             {/switch}
         </div>
     </div>
+{/template}
+
+/**
+ * @param data {
+ *            choice_phrase: string
+ *        }
+ */
+{template .title}
+    {let $choice_phrase: $data.choice_phrase /}
+    {call .choicePhrase}
+        {param choice_phrase: $choice_phrase /}
+        {param headerType: 'card' /}
+        {param hidden: false /}
+    {/call}
 {/template}
 
 /**

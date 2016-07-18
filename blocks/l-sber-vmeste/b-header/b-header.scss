@@ -45,15 +45,17 @@
 .b-header__logo-wrapper {
     display: inline-block;
     float: left;
-    width: 63px;
     margin-left: 26px;
     margin-top: 34px;
 }
 
 .b-header__button-wrapper {
     display: inline-block;
-    width: 60px;
     margin: 30px auto 0;
+}
+
+.b-header__button {
+    text-transform: uppercase;
 }
 
 .b-header__help {
@@ -63,7 +65,6 @@
 }
 
 .b-header__help_about_profile {
-    width: 86px;
     margin-top: 49px;
     margin-right: 4px;
 }
@@ -88,15 +89,12 @@
 .b-header__back-wrapper {
     display: inline-block;
     float: left;
-    width: 46px;
     margin-left: 28px;
     margin-top: 36px;
 }
 
 .b-header__choice-phrase {
     display: inline-block;
-    //margin: 41px auto;
-   // width: 200px;
     text-align: center;
 }
 
@@ -147,16 +145,17 @@
     .b-header__button_wrapper {
         margin-top: 32px;
     }
-    .b-header__help_about_profile {
+    .b-header__help {
         margin-top: 45px;
+    }
+    .b-header__help_about_profile {
         margin-right: 8px;
     }
     .b-header__help_about_list {
-        margin-top: 45px;
         margin-right: 40px;
     }
     .b-header__help_donation {
-       margin-top: 40px;
+        margin-top: 40px;
         margin-right: 40px;
     }
     .b-header__choice-phrase_donation {
@@ -164,7 +163,6 @@
         margin-top: 42px;
     }
     .b-header__back-wrapper {
-        width: 116px;
         margin-top: 36px;
         margin-left: 57px;
     }
@@ -176,26 +174,11 @@
 
 @include media-l {
     .b-header__inner-wrap_card {
-       // width: 768px;
-        //height: 78px;
-       // margin: 0 auto;
         border-radius: 7px 7px 0 0;
     }
-   /*  .b-header__left-column {
-        width: 36%;
-    } */
-   /*  .b-header__central-column {
-        width: 28%;
-    } */
-    .b-header__choice-phrase_donation {
-        width: 321px;
-        margin-top: 42px;
-    }
     .b-header__help_about_list {
-        //width: 165px;
-        margin-right: 77px;
+       margin-right: 77px;
     }
-
     .b-header__help_donation {
         width: 86px;
         margin-top: 40px;
@@ -204,45 +187,10 @@
 }
 
 @include media-xl {
-   /*  .b-header__inner-wrap_profile {
-        height: 110px;
-    } */
-    /* .b-header__inner-wrap_card {
-        width: 768px;
-        height: 66px;
-        margin: 0 auto;
-        border-radius: 7px 7px 0 0;
-    } */
-    /* .b-header__inner-wrap_choice {
-        height: 107px;
-    } */
-    .b-header__logo-wrapper {
-       // width: 207px;
-        margin-left: 38px;
-        margin-top: 39px;
-    }
     .b-header__button_wrapper {
         top: 35px;
     }
-    .b-header__choice-phrase_donation {
-        width: 321px;
-        margin-top: 42px;
-    }
-    .b-header__help {
-       // width: 235px;
-        margin-top: 45px;
-    }
-    .b-header__help_about_list {
-       // width: 165px;
-       // margin-right: 4px;
-    }
-     .b-header__back-wrapper {
-       // width: 116px;
+    .b-header__back-wrapper {
         margin-top: 30px;
-        margin-left: 57px;
-    }
-    .b-header__share-wrapper {
-        margin-top: 30px;
-        margin-right: 45px;
     }
 }

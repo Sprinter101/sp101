@@ -100,53 +100,6 @@ goog.scope(function() {
 
     };
 
-    /**
-    * Get current header type
-    * @return {string}
-    * @protected
-    */
-    View.prototype.getCurrentHeaderType = function() {
-        if (!Array.prototype.find) {
-                Array.prototype.find = function(predicate) {
-                if (this == null) {
-                    throw new TypeError(
-                        'Array.prototype.find called on null or undefined'
-                    );
-                }
-                if (typeof predicate !== 'function') {
-                    throw new TypeError('predicate must be a function');
-                }
-                var list = Object(this);
-                var length = list.length >>> 0;
-                var thisArg = arguments[1];
-                var value;
-
-                for (var i = 0; i < length; i++) {
-                    value = list[i];
-                    if (predicate.call(thisArg, value, i, list)) {
-                        return value;
-                    }
-                }
-                return undefined;
-            };
-        }
-        var currentClasses = goog.dom.classlist.get(this.getElement());
-        var currentClass = '';
-        var header_types = View.HEADER_TYPES;
-        var checkClass = function(element, index, array) {
-            if (goog.object.contains(currentClasses, element)) {
-                return array[index];
-            }
-        };
-
-        header_types.forEach(function(item, i, header_types) {
-           currentClass = View.HEADER_TYPES.find(checkClass);
-
-        });
-        currentClass = currentClass.slice(9);
-        return currentClass;
-    };
-
      /**
      * check media layout
      * only for donation page
@@ -176,6 +129,23 @@ goog.scope(function() {
     View.prototype.checkButtonCustomClass = function() {
         return goog.dom.classlist.contains(
             this.dom.button, 'b-header__button_me'
+        );
+    };
+
+    /**
+     * render choice phrase
+     * @param {string} phrase
+     * @protected
+     */
+    View.prototype.renderCorrectTitle = function(
+        phrase) {
+        var soyParams = {'data': {
+            choice_phrase: phrase}
+        };
+        goog.soy.renderElement(
+            this.dom.choicePhrase,
+            sv.lSberVmeste.bHeader.Template.title,
+            soyParams
         );
     };
 

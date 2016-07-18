@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bHeader.Header');
 
 goog.require('cl.gIcon.Icon');
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('goog.events');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bHeader.View');
@@ -46,6 +47,7 @@ goog.scope(function() {
         Button = sv.gButton.Button,
         Icon = cl.gIcon.Icon,
         View = sv.lSberVmeste.bHeader.View,
+        Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router;
 
@@ -57,6 +59,14 @@ goog.scope(function() {
         ARROW_BACK_CLICK: 'arrow-back-click',
         BUTTON_ME_CLICK: 'button-me-click',
         BUTTON_CLOSE_CLICK: 'button-close-click'
+    };
+
+    /**
+     * Api enum
+     * @type {string}
+     */
+    Header.URL = {
+        CARD_ID: '/card/:'
     };
 
     /**
@@ -76,6 +86,7 @@ goog.scope(function() {
             this.getView().getDom().button
         );
 
+        this.getListType();
         this.checkListHeaderLayout;
 
     };
@@ -98,13 +109,55 @@ goog.scope(function() {
         );
     };
 
+     /**
+     * only for list headerType
+     * fetches list type from server
+     * @protected
+     */
+    Header.prototype.getListType = function() {
+        if (this.params.hasOwnProperty('config')) {
+            if (this.params.config.type === 'card') {
+                var cardId = this.params.config.id;
+                var cardUrl = Header.URL.CARD_ID + cardId;
+                Request.getInstance().send({
+                    url: cardUrl})
+                    .then(this.handleSuccess,
+                        this.handleRejection,
+                        this);
+            }
+        }
+    };
+
     /**
-    * Get current header type
-    * @return {string}
+    * invokes method for preparing
+    * correct rendering choice phrase
+    * @param {Object} response
+    */
+   Header.prototype.handleSuccess = function(response) {
+            var data = response.type;
+            this.renderCorrectTitle(data);
+    };
+
+    /**
+    * Ajax rejection handler
+    * Prints default userfunds count
+    * if server responded with error
+    * @param {Object} err
+    */
+    Header.prototype.handleRejection = function(err) {
+        console.log(err);
+        var defaultPhrase = 'directions';
+        this.renderCorrectTitle(defaultPhrase);
+    };
+
+    /**
+    * Choose correct phrase for header title
+    * @param {string} phrase
     * @protected
     */
-    Header.prototype.getCurrentHeaderType = function() {
-        return this.getView().getCurrentHeaderType();
+    Header.prototype.renderCorrectTitle = function(
+       phrase) {
+        this.getView().renderCorrectTitle(phrase);
     };
 
     /**
