@@ -26,7 +26,14 @@ sv.gInput.Input = function(view, opt_domHelper) {
      * constraint params
      * @type {Object}
      */
+
     this.valueParams = {};
+    this.const = {
+        MAX_NUMBER: this.params.MAX_NUMBER ?
+                            this.params.MAX_NUMBER : Infinity,
+        MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
+                            this.params.MAX_CHARACTERS : 11
+    };
 
     /**
      * Possible validation type handlers
@@ -82,7 +89,7 @@ goog.scope(function() {
      */
     Input.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
+        
         this.populateValueParams();
 
         this.viewListen(View.Event.BLUR, this.onBlur);
@@ -90,7 +97,20 @@ goog.scope(function() {
         this.viewListen(View.Event.INPUT, this.onInput);
         this.viewListen(View.Event.ENTER_KEY_PRESS,
             this.onEnterKeyPress);
-
+        this.valueParams = {
+                maxNumber: +this.params.valueParams.maxNumber ?
+                    +this.params.valueParams.maxNumber
+                    : Infinity,
+                maxCharacters: +this.params.valueParams.maxCharacters ?
+                    +this.params.valueParams.maxCharacters
+                    : Infinity,
+                minIncome: +this.params.valueParams.minIncome ?
+                    +this.params.valueParams.minIncome
+                    : 1,
+                minDonation: +this.params.valueParams.minDonation ?
+                    +this.params.valueParams.minDonation
+                    : 1
+            };
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
 
@@ -234,6 +254,15 @@ goog.scope(function() {
      */
     Input.prototype.constraintDigitsOnly_ = function(oldValue) {
         return oldValue.replace(/[\D]/g, '');
+    };
+    /**
+     * Removes all non-phone-number characters from the string
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintPhoneOnly_ = function(oldValue) {
+        return oldValue.replace(/[.*!"@#$%^&;:?=()_[:space:]-]/g, '');
     };
 
     /**

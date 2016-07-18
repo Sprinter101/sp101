@@ -44,6 +44,16 @@ goog.scope(function() {
     };
 
     /**
+     * 'Phone confirmation test' action
+     */
+    Controller.prototype.actionPhone = function() {
+        this.headerManager_.setCurrentHeader('Header', {
+            'config' : {'headerType': 'phone'}
+        });
+        this.pageManager_.setCurrentPage('PhonePage');
+    };
+
+    /**
     * 'List page' action
     * @param {Object=} opt_params
     */

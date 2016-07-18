@@ -1,0 +1,105 @@
+{namespace sv.lSberVmeste.bPhoneBlock.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .phoneBlock}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * Body
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__phone-number-view">
+    </div>
+    <div class="{call .rootClass/}__text">
+        Введите свой номер мобильного телефона
+    </div>
+    <div class="{call .rootClass/}__input_phone">
+        {call .renderChild}
+          {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputClass': 'input_phone',
+                        'inputType': 'text',
+                        'value': '+7',
+                    ],
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'phoneNumber'
+                        ],
+                        'constraints': ['phoneNumber']
+                    ]
+                ]
+          ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__input_confirmation">
+        {call .renderChild}
+          {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputClass': 'input_confirmation',
+                        'inputType': 'text',
+                        'value': '',
+                    ],
+                    'config': [
+                        'validations': [
+                            'notEmpty',
+                            'digits'
+                        ],
+                        'constraints': ['digitsOnly']
+
+                    ]
+                ]
+          ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__enter-button">
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': 'Войти'
+                    ],
+                    'config': [
+                        'buttonStyles': []
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__confirm-button">
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': 'Подтвердить'
+                    ],
+                    'config': [
+                        'buttonStyles': ['font-size_med',
+                                         'border_green',
+                                         'text-color_white',
+                                         'background_green'
+                                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-phone-block
+{/template}

@@ -112,6 +112,12 @@ goog.scope(function() {
             Route.REGISTRATION, controller.actionRegistrationPage
         );
 
+
+        this.initRoute_(Route.START, controller.actionStart);
+        this.initRoute_(Route.TEST, controller.actionTest);
+        this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
+        this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
+        this.initRoute_(Route.DONATE, controller.actionDonate);
     };
 
     /**
