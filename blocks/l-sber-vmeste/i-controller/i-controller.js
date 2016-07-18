@@ -33,10 +33,10 @@ goog.scope(function() {
     };
 
     /**
-    * 'Buttons test' action
-    */
+     * 'Buttons test' action
+     */
     Controller.prototype.actionTest = function() {
-         this.headerManager_.setProfileHeader({
+        this.headerManager_.setProfileHeader({
             'type': 'profile',
             'login': 'authorized'
         });
@@ -47,16 +47,17 @@ goog.scope(function() {
      * 'Phone confirmation test' action
      */
     Controller.prototype.actionPhone = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'phone'}
+        this.headerManager_.setCardHeader({
+            'type': 'card',
+            'choice_phrase': 'fund'
         });
         this.pageManager_.setCurrentPage('PhonePage');
     };
 
     /**
-    * 'List page' action
-    * @param {Object=} opt_params
-    */
+     * 'List page' action
+     * @param {Object=} opt_params
+     */
     Controller.prototype.actionListPage = function(opt_params) {
         this.headerManager_.setListHeader({
             'type': 'list',
@@ -64,13 +65,13 @@ goog.scope(function() {
         });
         this.pageManager_.setCurrentPage('ListPage', {
             'category': opt_params.category}
-            );
+        );
     };
 
     /**
-    * 'Display category card' action
-    * @param {Object=} opt_params
-    */
+     * 'Display category card' action
+     * @param {Object=} opt_params
+     */
     Controller.prototype.actionDisplayCategoryCard = function(
         opt_params) {
         this.headerManager_.setCardHeader({
@@ -107,7 +108,7 @@ goog.scope(function() {
      * 'Profile' action
      */
     Controller.prototype.actionProfilePage = function() {
-         this.headerManager_.setProfileHeader({
+        this.headerManager_.setProfileHeader({
             'type': 'profile',
             'login': 'registration'
         });
@@ -118,7 +119,7 @@ goog.scope(function() {
      * 'Registration' action
      */
     Controller.prototype.actionRegistrationPage = function() {
-       this.headerManager_.setProfileHeader({
+        this.headerManager_.setProfileHeader({
             'type': 'profile',
             'login': 'registration'
         });

@@ -28,7 +28,6 @@ goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
 goog.require('sv.lSberVmeste.Template');
 goog.require('sv.lSberVmeste.bPhoneBlock.Template');
-goog.require('sv.lSberVmeste.bPhonePage.Template');
 
 
 

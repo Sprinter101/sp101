@@ -34,9 +34,13 @@ goog.inherits(sv.lSberVmeste.bPhoneBlock.PhoneBlock, cl.iControl.Control);
 
 goog.scope(function() {
     var Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock,
-        Button = cl.gButton.Button,
-        View = sv.lSberVmeste.bPhoneBlock.View;
+        Button = sv.gButton.Button;
 
+        Block.Event = {
+            CLICK: 'view-phone-click',
+            VERIFIED: 'verify_success',
+            VERIFICATION_ERROR: 'verify_fail'
+        };
 
         Block.prototype.decorateInternal = function(element) {
             goog.base(this, 'decorateInternal', element);
@@ -134,9 +138,6 @@ goog.scope(function() {
                     this
                 );
 
-                this.dispatchEvent(eventVer);
-
-
                 break;
 
             default:
@@ -175,13 +176,14 @@ goog.scope(function() {
      * @param {Object} success
      */
     Block.prototype.handleVerificationSuccess = function(success) {
-        var eventVer =
-            new CustomEvent(View.Event.VERIFIED,{
-                detail: {
-                    phone: document.getElementsByClassName(
-                        "b-phone-block__phone-number-view")[0].innerText.toString(),
-                    response: success.data
-                }});
+        var eventVer = {
+            type: Block.Event.VERIFIED,
+            detail: {
+                phone: document.getElementsByClassName(
+                    "b-phone-block__phone-number-view")[0].innerText.toString(),
+                response: success.data
+            }
+        };
         this.dispatchEvent(eventVer);
 
     };
