@@ -1,10 +1,11 @@
 const gulp = require('gulp');
 const util = require('gulp-util');
 const path = require('path');
-const args  = require('yargs').argv;
+const args = require('yargs').argv;
 const livereload = require('gulp-livereload');
 const gulpConfig = require('./gulp/config.json');
-const configFile = require('./config/config.json')
+const configFile = args.modulesPath ? require('./config/dev/config.json') : require('./config/config.json');
+const gulpif = require('gulp-if');
 
 const apiAddress = args.apiAddress || configFile.api.url;
 const production = !!util.env.production;
@@ -17,24 +18,26 @@ const modulesPath = args.modulesPath ||
 
 const gulpHelper =
     require(path.join(modulesPath, '/clobl/gulp-helper.js'))
-        .use(gulp)
-        .setPath({
-            root: __dirname,
-            modules: modulesPath,
-            soy: {
-                root: path.join(__dirname, 'build')
-            },
-            public: pathToPublic
-        });
+    .use(gulp)
+    .setPath({
+        root: __dirname,
+        modules: modulesPath,
+        soy: {
+            root: path.join(__dirname, 'build')
+        },
+        public: pathToPublic
+    });
 
 const quizGulpHelper =
     require('./gulp/gulp-helper')
-        .setHelper(gulpHelper)
-        .setOptions({
-            modulesPath: path.resolve(__dirname, modulesPath)
-        });
+    .setHelper(gulpHelper)
+    .setOptions({
+        modulesPath: path.resolve(__dirname, modulesPath)
+    });
 
-livereload({ start: true });
+if (!args.modulesPath) livereload({
+    start: true
+});
 
 //with gulp-helper
 
@@ -46,51 +49,51 @@ gulp.task('lint', function() {
     });
 });
 
-gulp.task('soy', function () {
+gulp.task('soy', function() {
     return gulpHelper.soy.build([]);
 });
 
-gulp.task('scripts', ['soy'], function () {
+gulp.task('scripts', ['soy'], function() {
     return gulpHelper.js.build({
-        outputFiles: [
-            {
+        outputFiles: [{
                 entryPoint: 'sv.lSberVmeste.Main',
                 fileName: 'scripts.js'
-            }
-        ]
-        //,compile: true
-    }).then(liveReloader.bind(this));
+            }]
+            //,compile: true
+    }).then(() => {
+        if (!args.modulesPath) livereload.reload()
+    });
 });
 
-gulp.task('scripts-only', function () {
+gulp.task('scripts-only', function() {
     return gulpHelper.js.build({
-        outputFiles: [
-            {
+        outputFiles: [{
                 entryPoint: 'sv.lSberVmeste.Main',
                 fileName: 'scripts.js'
-            }
-        ]
-        //,compile: true
-    }).then(liveReloader.bind(this));
+            }]
+            //,compile: true
+    }).then(() => {
+        if (!args.modulesPath) livereload.reload()
+    });
 });
 
 var liveReloader = function() {
     livereload.reload();
 };
 
-gulp.task('fonts', function () {
+gulp.task('fonts', function() {
     return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
         .pipe(gulp.dest(path.join(pathToPublic + '/fonts')));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
     return gulp.src([
-        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.png'),
-        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
-        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
-        path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
-    ])
-    .pipe(gulp.dest(path.join(pathToPublic + '/images')));
+            path.join(__dirname + '/blocks/l-sber-vmeste/**/*.png'),
+            path.join(__dirname + '/blocks/l-sber-vmeste/**/*.ico'),
+            path.join(__dirname + '/blocks/l-sber-vmeste/**/*.gif'),
+            path.join(__dirname + '/blocks/l-sber-vmeste/**/*.jpg')
+        ])
+        .pipe(gulp.dest(path.join(pathToPublic + '/images')));
 });
 
 gulp.task('sprite', function() {
@@ -114,9 +117,8 @@ gulp.task('sprite', function() {
     return gulpHelper.sprite.build([params]);
 });
 
-gulp.task('styles', ['sprite', 'fonts'], function () {
-     return gulpHelper.css.build({
-    }).pipe(livereload());
+gulp.task('styles', ['sprite', 'fonts'], function() {
+    return gulpHelper.css.build({}).pipe(gulpif(!args.modulesPath, livereload()));
 });
 
 gulp.task('html', ['scripts'], function() {
@@ -131,29 +133,25 @@ gulp.task('html', ['scripts'], function() {
     });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', function() {
 
-    livereload.listen();
+    if (!args.modulesPath) livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
         path.join(__dirname, 'blocks', '/**/*.css')
     ], ['styles']);
 
     gulp.watch(
-        [path.join(__dirname, 'blocks', '/**/*.soy')],
-        ['html']
+        [path.join(__dirname, 'blocks', '/**/*.soy')], ['html']
     );
     gulp.watch(
-        [path.join(__dirname, 'blocks', '/**/*.js')],
-        ['scripts-only']
+        [path.join(__dirname, 'blocks', '/**/*.js')], ['scripts-only']
     );
-    
+
 });
 
-const tasks = function (bool) {
-    return bool ?
-        ['soy', 'scripts', 'styles','fonts','images', 'html'] :
-        ['soy', 'images', 'scripts', 'styles', 'html'];
+const tasks = function(bool) {
+    return bool ? ['soy', 'scripts', 'styles', 'fonts', 'images', 'html'] : ['soy', 'images', 'scripts', 'styles', 'html'];
 };
 
 gulp.task('default', tasks(production));
