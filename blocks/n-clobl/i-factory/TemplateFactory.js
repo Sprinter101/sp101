@@ -50,6 +50,10 @@ sv.iFactory.TemplateFactory = function() {
             sv.lSberVmeste.bPhoneBlock.Template.phoneBlock
         )
         .setTemplateListItem(
+            'PhonePage',
+             sv.lSberVmeste.bPhonePage.Template.phonePage
+        )
+        .setTemplateListItem(
             'HeaderManager',
             sv.lSberVmeste.bHeaderManager.Template.headerManager
         )
