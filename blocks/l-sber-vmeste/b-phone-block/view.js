@@ -39,8 +39,12 @@ goog.scope(function() {
      * @enum {string}
      */
     View.Event = {
-        CLICK: 'view-phone-click'
+        CLICK: 'view-phone-click',
+        VERIFIED: 'verify_success',
+        VERIFICATION_ERROR: 'verify_fail'
     };
+
+
 
     /**
      * @override

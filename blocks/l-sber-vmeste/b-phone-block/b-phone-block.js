@@ -34,7 +34,9 @@ goog.inherits(sv.lSberVmeste.bPhoneBlock.PhoneBlock, cl.iControl.Control);
 
 goog.scope(function() {
     var Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock,
-        Button = cl.gButton.Button;
+        Button = cl.gButton.Button,
+        View = sv.lSberVmeste.bPhoneBlock.View;
+
 
         Block.prototype.decorateInternal = function(element) {
             goog.base(this, 'decorateInternal', element);
@@ -62,12 +64,13 @@ goog.scope(function() {
             goog.events.listen(
                 this.buttons_[i],
                 Button.Event.CLICK,
-                this.onButtonClick_
+                this.onButtonClick_,
+                false,
+                this
             );
         }
     };
-
-    /**
+        /**
      * Button click handler
      * @param {Event} event
      * @private
@@ -87,15 +90,13 @@ goog.scope(function() {
             inputNumberBlock = document.getElementsByClassName(
                                         "b-phone-block__input_phone")[0],
             infoTextField = document.getElementsByClassName(
-                                        "b-phone-block__text")[0];
-
-
+                                        "b-phone-block__text")[0],
+            inputValue = inputNumberField.value;
 
 
         switch(ParentClass) {
             case 'b-phone-block__enter-button':
-                var confirmButton = document.getElementsByClassName("b-phone-block__confirm-button")[0],
-                    inputValue = inputNumberField.value;
+                var confirmButton = document.getElementsByClassName("b-phone-block__confirm-button")[0];
                 var phoneNumJSON = {
                     "phone" : inputValue.toString()
                 };
@@ -133,6 +134,7 @@ goog.scope(function() {
                     this
                 );
 
+                this.dispatchEvent(eventVer);
 
 
                 break;
@@ -144,17 +146,18 @@ goog.scope(function() {
     };
     /**
      *
-     * @param {Object} success
-     */
-    Block.prototype.handleSuccess = function(success) {
-        console.log("everything is fine");
-    };
-    /**
-     *
      * @param {Object} err
      */
     Block.prototype.handleRejection = function(err) {
         console.log(err);
+    };
+
+    /**
+     *
+     * @param {Object} success
+     */
+    Block.prototype.handleSuccess = function(success) {
+        console.log("everything is fine");
     };
 
     /**
@@ -163,15 +166,24 @@ goog.scope(function() {
      * @param err
      */
     Block.prototype.handleVerificationRejection = function(err) {
-        console.log(err);
+       console.log(err)
     };
+
     /**
      * Verification success handler
      * TODO functionality
      * @param {Object} success
      */
     Block.prototype.handleVerificationSuccess = function(success) {
-        alert('success');
+        var eventVer =
+            new CustomEvent(View.Event.VERIFIED,{
+                detail: {
+                    phone: document.getElementsByClassName(
+                        "b-phone-block__phone-number-view")[0].innerText.toString(),
+                    response: success.data
+                }});
+        this.dispatchEvent(eventVer);
+
     };
 
 }); //goog.scope
