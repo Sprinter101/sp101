@@ -4,8 +4,8 @@ const path = require('path');
 const args = require('yargs').argv;
 const livereload = require('gulp-livereload');
 const gulpConfig = require('./gulp/config.json');
-const configFile = require('./config/config.json');
-const gulpif = require('gulpif');
+const configFile = args.modulesPath ? require('./config/dev/config.json') : require('./config/config.json');
+const gulpif = require('gulp-if');
 
 const apiAddress = args.apiAddress || configFile.api.url;
 const production = !!util.env.production;
@@ -135,7 +135,7 @@ gulp.task('html', ['scripts'], function() {
 
 gulp.task('watch', function() {
 
-    if (args.modulesPath) livereload.listen();
+    if (!args.modulesPath) livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
         path.join(__dirname, 'blocks', '/**/*.css')
