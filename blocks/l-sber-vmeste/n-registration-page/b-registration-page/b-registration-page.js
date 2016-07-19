@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bRegistrationPage.RegistrationPage');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
@@ -38,6 +39,7 @@ goog.inherits(sv.lSberVmeste.bRegistrationPage.RegistrationPage,
 goog.scope(function() {
     var RegistrationPage = sv.lSberVmeste.bRegistrationPage.RegistrationPage,
         ProfileEdit = sv.lSberVmeste.bProfileEdit.ProfileEdit,
+        request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock;
@@ -103,6 +105,36 @@ goog.scope(function() {
     };
 
     /**
+    * Sends a POST request to register the user
+    */
+    RegistrationPage.prototype.sendRegisterUserRequest = function() {
+        request
+            .send({
+                url: 'auth/',
+                type: 'POST',
+                data: this.userInfo_
+            })
+            .then(
+                this.handleResponse,
+                this.handleRejection,
+                this);
+    };
+
+    /**
+    * Successful ajax response handler
+    */
+    RegistrationPage.prototype.handleResponse = function(response) {
+        this.redirectToStartPage();
+    };
+
+    /**
+    * Ajax rejection handler
+    */
+    RegistrationPage.prototype.handleRejection = function(err) {
+        console.log(err);
+    };
+
+    /**
     * redirects user to start page
     */
     RegistrationPage.prototype.redirectToStartPage = function() {
@@ -139,7 +171,8 @@ goog.scope(function() {
     * @private
     */
     RegistrationPage.prototype.onEditingFinished_ = function(event) {
-        //
+        goog.object.extend(this.userInfo_, event.userInfo)
+        this.sendRegisterUserRequest();
     };
 
 });  // goog.scope
