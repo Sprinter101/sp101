@@ -4,7 +4,8 @@ goog.require('goog.Promise');
 goog.require('goog.Uri.QueryData');
 goog.require('goog.net.XhrIo');
 goog.require('goog.structs.Map');
-
+goog.require('sv.lSberVmeste.iIframe.Iframe');
+goog.require('sv.lSberVmeste.iRequestStorage.RequestStorage');
 
 
 /**
@@ -19,17 +20,25 @@ goog.addSingletonGetter(sv.lSberVmeste.iRequest.Request);
 
 goog.scope(function() {
     var Request = sv.lSberVmeste.iRequest.Request,
-        Promise = goog.Promise,
-        QueryData = goog.Uri.QueryData,
-        XhrIo = goog.net.XhrIo,
-        Map = goog.structs.Map;
+        Promise = goog.Promise;
+        // QueryData = goog.Uri.QueryData,
+        // XhrIo = goog.net.XhrIo,
+        // Map = goog.structs.Map,
+
+        RequestStorage = sv.lSberVmeste.iRequestStorage.RequestStorage,
+        Iframe = sv.lSberVmeste.iIframe.Iframe;
+
     /**
-     * Request types
+     * Request methods
      * @enum {string}
      */
-    Request.Type = {
-        POST: 'post'
+    Request.Method = {
+        GET: 'GET',
+        POST: 'POST',
+        PUT: 'PUT',
+        DELETE: 'DELETE'
     };
+
     /**
      * Initial settings (optional)
      * @param {{
@@ -38,7 +47,10 @@ goog.scope(function() {
      */
     Request.prototype.init = function(opt_params) {
         var params = opt_params || {};
+        this.iframe_ = Iframe.getInstance();
+        this.reqStorage_ = RequestStorage.getInstance();
 
+        this.iframe_.init();
         this.baseUrl_ = this.makeBaseUrl_(params.baseUrl);
     };
 
@@ -48,30 +60,37 @@ goog.scope(function() {
      * If parameter {@code baseUrl} was set, then {@code url}
      * relative to {@code baseUrl}.
      *
-     * Default value of parameter {@code type} is GET
+     * Default value of parameter {@code method} is GET
      *
      * @param {{
      *     url: string,
-     *     type: ?string,
+     *     method: ?string,
      *     success: ?function,
-     *     error: ?function
+     *     error: ?function,
+     *     isJSON: boolean
+     *     data: object
      * }=} opt_params
-     * @param {Object=} opt_context
      * @return {goog.Promise}
      */
     Request.prototype.send = function(opt_params, opt_context) {
+        console.log('send', opt_params);
         var params = opt_params || {};
         var url = this.makeUrl_(params.url);
-        var type = params.type || 'GET';
-        var data = this.makeQueryData_(params.data);
-        var request = new XhrIo();
-        var success = opt_params.success.bind(opt_context) || function() {};
-        var error = opt_params.error.bind(opt_context) || function() {};
-        var res = this.makeRequestPromise_(request, success, error);
+        var method = params.method || Request.Method.GET;
+        // var data = this.makeQueryData_(params.data);
+        // request.send(url, method, data);
 
-        request.send(url, type, data);
+        return new Promise(function(resolve, reject) {
+            var reqId = 'req_' + Date.now() + Math.random();
 
-        return res;
+            this.reqStorage_.set(reqId, {resolve: resolve, reject: reject});
+            this.reqStorage_.send({
+                reqId: reqId,
+                url: url,
+                method: method,
+                data: data
+            });
+        });
     };
 
     /**
