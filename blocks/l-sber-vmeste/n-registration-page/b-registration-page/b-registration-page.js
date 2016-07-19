@@ -31,7 +31,7 @@ sv.lSberVmeste.bRegistrationPage.RegistrationPage = function(view,
     * }}
     * @private
     */
-    this.userInfo_ = {}
+    this.userInfo_ = {};
 };
 goog.inherits(sv.lSberVmeste.bRegistrationPage.RegistrationPage,
     cl.iControl.Control);
@@ -122,6 +122,7 @@ goog.scope(function() {
 
     /**
     * Successful ajax response handler
+    * @param {Object} response
     */
     RegistrationPage.prototype.handleResponse = function(response) {
         this.redirectToStartPage();
@@ -129,6 +130,7 @@ goog.scope(function() {
 
     /**
     * Ajax rejection handler
+    * @param {Object} err
     */
     RegistrationPage.prototype.handleRejection = function(err) {
         console.log(err);
@@ -154,11 +156,13 @@ goog.scope(function() {
 
     /**
     * Phone block's VERIFIED event handler
+    * @param {Object} event
+    * @private
     */
     RegistrationPage.prototype.onVerified_ = function(event) {
         var eventData = event.detail;
 
-        if (eventData.response.data === "need register") {
+        if (eventData.response.data === 'need register') {
             this.userInfo_.phone = eventData.phone;
             this.createUserInfoBlock();
         } else {
@@ -168,10 +172,11 @@ goog.scope(function() {
 
     /**
     * Profile edit button click handler;
+    * @param {Object} event
     * @private
     */
     RegistrationPage.prototype.onEditingFinished_ = function(event) {
-        goog.object.extend(this.userInfo_, event.userInfo)
+        goog.object.extend(this.userInfo_, event.userInfo);
         this.sendRegisterUserRequest();
     };
 
