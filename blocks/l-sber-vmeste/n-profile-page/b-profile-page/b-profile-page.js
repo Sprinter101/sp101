@@ -84,6 +84,7 @@ goog.scope(function() {
 
     /**
     * Successful user info request response handler
+    * @param {Object} response
     */
     ProfilePage.prototype.onGetUserInfoResponse = function(response) {
         var response = response.data;
@@ -100,6 +101,7 @@ goog.scope(function() {
 
     /**
     * Rejected user info request response handler
+    * @param {Object} err
     */
     ProfilePage.prototype.onGetUserInfoRejection = function(err) {
         console.log(err);
@@ -187,6 +189,7 @@ goog.scope(function() {
 
     /**
     * Successful user info request response handler
+    * @param {Object} response
     */
     ProfilePage.prototype.onEditUserDetailsResponse = function(response) {
         this.createProfileBlock();
@@ -194,6 +197,7 @@ goog.scope(function() {
 
     /**
     * Rejected user info request response handler
+    * @param {Object} err
     */
     ProfilePage.prototype.onEditUserDetailsRejection = function(err) {
         console.log(err);
