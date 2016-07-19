@@ -48,7 +48,6 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
         'notEmpty': 'Это поле не может быть пустым',
         'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
                         'чем 500 тыс. рублей',
-        'phone': 'Номер должен быть в формате +79999999999'
     };
 
 };
@@ -67,7 +66,6 @@ goog.scope(function() {
         INPUT: 'g-input__input',
         INPUT_FILLED: 'g-input__input_filled',
         NOT_VALID: 'g-input_not-valid',
-        VALID: 'g-input_valid',
         INPUT_NOT_VALID: 'g-input__input_not-valid',
         INPUT_DISABLED: 'g-input__input_disabled',
         ERROR_MESSAGE_BOX: 'g-input__error-message-box',

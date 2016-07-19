@@ -82,26 +82,5 @@ goog.scope(function() {
         };
 
     };
-
-
-    /**
-     * @return {string}
-     */
-    View.prototype.getPhoneNumber = function() {
-        var phoneNumber = this.dom.inputs.phoneNumber;
-
-        return phoneNumber.value.toString();
-    };
-
-    /**
-     * @return {string}
-     */
-    View.prototype.getConfirmCode = function() {
-        var confirmCodeInput = this.dom.inputs.confirmCode;
-
-        return confirmCodeInput.value.trim();
-    };
-
-
-
+    
 });// goog.scope
