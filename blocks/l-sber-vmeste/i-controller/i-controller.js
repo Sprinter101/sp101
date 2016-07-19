@@ -49,8 +49,11 @@ goog.scope(function() {
         this.headerManager_.setListHeader({
             'pageType': 'start'
         });
-        this.pageManager_.setCurrentPage('ListPage', {
-            'category': opt_params.category}
+        this.pageManager_.setCurrentPage(
+            'ListPage',
+            {
+                'category': opt_params.category
+            }
         );
     };
 

@@ -122,10 +122,16 @@ goog.scope(function() {
     ListPage.prototype.sendCategoriesRequest = function() {
         request
             .send({url: 'entity/'})
-            .then(
-                this.handleResponse,
-                this.handleRejection,
-                this);
+            .then(this.handleResponse_, this.handleRejection, this);
+    };
+
+    /**
+    * Sends ajax requests for current card
+    */
+    ListPage.prototype.sendCurrentCardRequest = function() {
+        request
+            .send({url: 'entity/'})
+            .then(this.handleResponse_, this.handleRejection_, this);
     };
 
     /**
@@ -162,8 +168,9 @@ goog.scope(function() {
     /**
     * Ajax successful response handler
     * @param {Object} response
+    * @private
     */
-    ListPage.prototype.handleResponse = function(response) {
+    ListPage.prototype.handleResponse_ = function(response) {
         var data = response.data || [];
 
         this.populateCategoriesObjects(data);
@@ -184,8 +191,9 @@ goog.scope(function() {
     /**
     * Ajax rejection handler
     * @param {Object} err
+    * @private
     */
-    ListPage.prototype.handleRejection = function(err) {
+    ListPage.prototype.handleRejection_ = function(err) {
         console.log(err);
     };
 
