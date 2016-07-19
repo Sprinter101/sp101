@@ -101,14 +101,7 @@ goog.scope(function() {
         var that = this;
         switch (opt_params.pageType) {
         case 'start':
-            Request.getInstance().send({
-                url: Manager.URL.USER_URL
-            }).
-            then(
-                this.handleSuccess,
-                this.handleRejection,
-                this
-            )
+            this.isUserLoggedIn()
             .then(function(result) {
                 params.config.roundButton = result.roundButton;
                 params.config.help_phrase = 'about_profile';
@@ -116,14 +109,7 @@ goog.scope(function() {
             });
             break;
         case 'profile':
-            Request.getInstance().send({
-                url: Manager.URL.USER_URL
-            }).
-            then(
-                this.handleSuccess,
-                this.handleRejection,
-                this
-            )
+            this.isUserLoggedIn()
             .then(function(result) {
                 params.config.roundButton = 'x';
                 params.config.help_phrase = result.help_phrase;
@@ -143,12 +129,19 @@ goog.scope(function() {
     };
 
      /**
-     * send AJAX 
-     * @return {Object} 
+     * send AJAX
+     * @return {Object} ajas response or error
      * @protected
      */
-    Manager.prototype.isUserLoggedIn = function(params) {
-
+    Manager.prototype.isUserLoggedIn = function() {
+        return Request.getInstance().send({
+            url: Manager.URL.USER_URL
+        }).
+        then(
+            this.handleSuccess,
+            this.handleRejection,
+            this
+        );
     };
 
     /**
@@ -234,14 +227,7 @@ goog.scope(function() {
     Manager.prototype.setListHeader = function(opt_params) {
         var params = Manager.HeaderStates.LIST;
         var that = this;
-        Request.getInstance().send({
-                url: Manager.URL.USER_URL
-            }).
-            then(
-                this.handleSuccess,
-                this.handleRejection,
-                this
-            )
+        this.isUserLoggedIn()
             .then(function(result) {
                 params.config.roundButton = result.roundButton;
                 params.config.help_phrase = 'about_list';
