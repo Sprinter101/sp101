@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bProfileEdit.ProfileEdit');
 
 goog.require('cl.iControl.Control');
 goog.require('sv.gButton.Button');
+goog.require('sv.gInput.Input');
 
 
 
@@ -19,7 +20,7 @@ sv.lSberVmeste.bProfileEdit.ProfileEdit = function(view, opt_domHelper) {
     * @type {{
     *   firstName: string,
     *   lastName: string,
-    *   phoneNumber: string
+    *   phone: string
     * }}
     * @private
     */
@@ -184,11 +185,11 @@ goog.scope(function() {
         this.lastNameInput_.setValue(
             this.userInfo_.lastName || '');
         this.phoneNumberInput_.setValue(
-            this.userInfo_.phoneNumber || '');
+            this.userInfo_.phone || '');
     };
 
     /**
-    * assigns userInfo_ object properties with 
+    * assigns userInfo_ object properties with
     * the current inputs' values
     */
     ProfileEdit.prototype.updateUserInfo = function() {
@@ -196,7 +197,7 @@ goog.scope(function() {
             this.firstNameInput_.getValue().trim();
         this.userInfo_.lastName =
             this.lastNameInput_.getValue().trim();
-        this.userInfo_.phoneNumber =
+        this.userInfo_.phone =
             this.phoneNumberInput_.getValue().trim();
     };
 
@@ -229,7 +230,7 @@ goog.scope(function() {
     };
 
     /**
-    * Dispatches EDITING_FINISHED event 
+    * Dispatches EDITING_FINISHED event
     * with the updated userInfo_ object
     */
     ProfileEdit.prototype.finishEditing = function() {

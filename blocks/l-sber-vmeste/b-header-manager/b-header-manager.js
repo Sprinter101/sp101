@@ -58,7 +58,7 @@ goog.scope(function() {
         CARD: {'config': {
             'type': 'card', 'roundButton': 'я',
             'choice_phrase': 'directions',
-            'help_phrase': 'donation', 'id': null}
+            'help_phrase': 'donation'}
         }
     };
 
@@ -99,27 +99,49 @@ goog.scope(function() {
     Manager.prototype.setProfileHeader = function(opt_params) {
         var params = Manager.HeaderStates.PROFILE;
         var that = this;
-
-        if (opt_params.pageType === 'start') {
-            Request.getInstance().send({
-                url: Manager.URL.USER_URL
-            }).
-            then(
-                this.handleSuccess,
-                this.handleRejection,
-                this
-            )
+        switch (opt_params.pageType) {
+        case 'start':
+            this.isUserLoggedIn()
             .then(function(result) {
                 params.config.roundButton = result.roundButton;
-                params.config.help_phrase = result.help ?
-                    result.help : 'about_profile';
+                params.config.help_phrase = 'about_profile';
                 that.renderHeader(params);
             });
-        }
-        else if (opt_params.pageType === 'registration') {
+            break;
+        case 'profile':
+            this.isUserLoggedIn()
+            .then(function(result) {
+                params.config.roundButton = 'x';
+                params.config.help_phrase = result.help_phrase;
+                that.renderHeader(params);
+            });
+            break;
+        case 'registration':
             params.config.roundButton = 'x';
+            params.config.help_phrase = 'about_profile';
             this.renderHeader(params);
+            break;
+        default:
+            params.config.roundButton = 'я';
+            params.config.help_phrase = 'about_profile';
+            that.renderHeader(params);
         }
+    };
+
+     /**
+     * send AJAX
+     * @return {Object} ajas response or error
+     * @protected
+     */
+    Manager.prototype.isUserLoggedIn = function() {
+        return Request.getInstance().send({
+            url: Manager.URL.USER_URL
+        }).
+        then(
+            this.handleSuccess,
+            this.handleRejection,
+            this
+        );
     };
 
     /**
@@ -142,15 +164,15 @@ goog.scope(function() {
     * @return {Object}
     */
     Manager.prototype.handleSuccess = function(response) {
-            var loggedIn = response.data.loggedIn;
-            var firstName = response.data.firstname;
-            var lastName = response.data.lastname;
-            if (loggedIn) {
-                return this.setProfileAuthorized(firstName, lastName);
-            }
-            else {
-               return this.setProfileAnonymous();
-            }
+        var loggedIn = response.data.loggedIn;
+        var firstName = response.data.firstName;
+        var lastName = response.data.lastName;
+        if (loggedIn) {
+            return this.setProfileAuthorized(firstName, lastName);
+        }
+        else {
+           return this.setProfileAnonymous();
+        }
     };
 
     /**
@@ -172,8 +194,8 @@ goog.scope(function() {
         var firstName = firstName[0];
         var lastName = lastName[0];
         var roundButton = firstName + lastName;
-        var help_phrase = 'logout';
-        return {'roundButton': roundButton, 'help': help_phrase};
+        help_phrase = 'logout';
+        return {'roundButton': roundButton, 'help_phrase': help_phrase};
     };
 
     /**
@@ -183,8 +205,8 @@ goog.scope(function() {
      */
     Manager.prototype.setProfileAnonymous = function() {
         var roundButton = 'я';
-        var help_phrase = '';
-        return {'roundButton': roundButton, 'help': help_phrase};
+        help_phrase = 'about_profile';
+       return {'roundButton': roundButton, 'help_phrase': help_phrase};
     };
 
      /**
@@ -194,6 +216,7 @@ goog.scope(function() {
      */
     Manager.prototype.setChoiceHeader = function(opt_params) {
         var params = Manager.HeaderStates.CHOICE;
+        params.config.choice_phrase = opt_params.choice_phrase;
         this.renderHeader(params);
     };
 
@@ -205,18 +228,10 @@ goog.scope(function() {
     Manager.prototype.setListHeader = function(opt_params) {
         var params = Manager.HeaderStates.LIST;
         var that = this;
-        Request.getInstance().send({
-                url: Manager.URL.USER_URL
-            }).
-            then(
-                this.handleSuccess,
-                this.handleRejection,
-                this
-            )
+        this.isUserLoggedIn()
             .then(function(result) {
                 params.config.roundButton = result.roundButton;
-                params.config.help_phrase = result.help ?
-                    result.help : 'about_profile';
+                params.config.help_phrase = 'about_list';
                 that.renderHeader(params);
             });
     };
@@ -229,9 +244,6 @@ goog.scope(function() {
      */
     Manager.prototype.setCardHeader = function(opt_params) {
         var params = Manager.HeaderStates.CARD;
-        if (opt_params.cardId !== undefined) {
-            params.config.id = opt_params.cardId;
-        }
         this.renderHeader(params);
     };
 
