@@ -26,7 +26,6 @@ goog.scope(function() {
      */
     Controller.prototype.actionStart = function() {
         this.headerManager_.setProfileHeader({
-            'type': 'profile',
             'pageType': 'start'
         });
         this.pageManager_.setCurrentPage('StartPage');
@@ -37,21 +36,9 @@ goog.scope(function() {
      */
     Controller.prototype.actionTest = function() {
         this.headerManager_.setProfileHeader({
-            'type': 'profile',
             'pageType': 'start'
         });
         this.pageManager_.setCurrentPage('TestPage');
-    };
-
-    /**
-     * 'Phone confirmation test' action
-     */
-    Controller.prototype.actionPhone = function() {
-        this.headerManager_.setCardHeader({
-            'type': 'card',
-            'choice_phrase': 'fund'
-        });
-        this.pageManager_.setCurrentPage('PhonePage');
     };
 
     /**
@@ -60,7 +47,6 @@ goog.scope(function() {
      */
     Controller.prototype.actionListPage = function(opt_params) {
         this.headerManager_.setListHeader({
-            'type': 'list',
             'pageType': 'start'
         });
         this.pageManager_.setCurrentPage('ListPage', {
@@ -74,11 +60,8 @@ goog.scope(function() {
      */
     Controller.prototype.actionDisplayCategoryCard = function(
         opt_params) {
-        var id = opt_params.id;
         this.headerManager_.setCardHeader({
-            'type': 'card',
-            'choice_phrase': 'fund',
-             'cardId': id
+            'choice_phrase': 'fund'
         });
         this.pageManager_.setCurrentPage('CardPage', {cardId: opt_params.id});
     };
@@ -88,7 +71,6 @@ goog.scope(function() {
      */
     Controller.prototype.actionDonate = function() {
         this.headerManager_.setChoiceHeader({
-            'type': 'choice',
             'choice_phrase': 'donation'
         });
         this.pageManager_.setCurrentPage('DonatePage');
@@ -111,8 +93,7 @@ goog.scope(function() {
      */
     Controller.prototype.actionProfilePage = function() {
         this.headerManager_.setProfileHeader({
-            'type': 'profile',
-            'pageType': 'registration'
+            'pageType': 'profile'
         });
         this.pageManager_.setCurrentPage('ProfilePage');
     };
@@ -122,7 +103,6 @@ goog.scope(function() {
      */
     Controller.prototype.actionRegistrationPage = function() {
         this.headerManager_.setProfileHeader({
-            'type': 'profile',
             'pageType': 'registration'
         });
         this.pageManager_.setCurrentPage('RegistrationPage');
