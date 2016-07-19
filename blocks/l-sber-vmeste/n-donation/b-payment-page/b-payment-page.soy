@@ -1,0 +1,25 @@
+{namespace sv.lSberVmeste.bPaymentPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__content">
+        вы направлены на оплату. 
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-payment
+{/template}

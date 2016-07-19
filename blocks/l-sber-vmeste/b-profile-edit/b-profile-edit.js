@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bProfileEdit.ProfileEdit');
 
 goog.require('cl.iControl.Control');
 goog.require('sv.gButton.Button');
+goog.require('sv.gInput.Input');
 
 
 

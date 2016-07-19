@@ -44,6 +44,13 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
     * @private
     */
     this.donateBlockPercent_ = null;
+
+     /**
+    * next page redirect to
+    * @type {sv.lSberVmeste.iRouter.Route}
+    * @private
+    */
+    this.next_route_ = '';
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
@@ -58,6 +65,14 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         View = sv.lSberVmeste.bDonatePage.View;
+
+    /**
+     * Api enum
+     * @type {string}
+     */
+    DonatePage.URL = {
+        USER_URL: '/user'
+    };
 
     /**
     * @override
@@ -92,6 +107,49 @@ goog.scope(function() {
             DonationPercentBlock.Event.DONATION_PERCENT_READY,
             this.onDonationPercentReady
         );
+
+        this.isUserLoggedIn();
+    };
+
+    /**
+     * send AJAX
+     * @return {Object} ajas response or error
+     * @protected
+     */
+    DonatePage.prototype.isUserLoggedIn = function() {
+        return Request.getInstance().send({
+            url: DonatePage.URL.USER_URL
+        }).
+        then(
+            this.handleSuccessLoginCheck,
+            this.handleRejectionLoginCheck,
+            this
+        );
+    };
+
+     /**
+    * Ajax success handler
+    * @param {Object} success message
+    * redirect user to temporary 'Sberbank web'
+    */
+    DonatePage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        if (loggedIn) {
+            this.next_route_ = Route.PAYMENT_TEMP;
+        }
+        else {
+            this.next_route_ = Route.REGISTRATION;
+        }
+    };
+
+     /**
+    * Ajax rejection handler
+    * !Temporary redirect to registration page
+    * @param {Object} err
+    */
+    DonatePage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
+        this.next_route_ = Route.REGISTRATION;
     };
 
      /**
@@ -134,7 +192,7 @@ goog.scope(function() {
     * redirect user to registration page or to Sberbank web
     */
     DonatePage.prototype.handleSuccess = function(success) {
-        Router.getInstance().changeLocation(Route.REGISTRATION);
+        Router.getInstance().changeLocation(this.next_route_);
     };
 
      /**
@@ -146,7 +204,7 @@ goog.scope(function() {
     */
     DonatePage.prototype.handleRejection = function(err) {
         console.log(err);
-        Router.getInstance().changeLocation(Route.REGISTRATION);
+        Router.getInstance().changeLocation(this.next_route_);
     };
 
 });  // goog.scope
