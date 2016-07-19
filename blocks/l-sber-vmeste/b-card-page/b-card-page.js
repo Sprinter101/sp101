@@ -50,6 +50,9 @@ goog.scope(function() {
     CardPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.headerManager_ = this.params.headerManager_;
+        this.headerManager_.setCardHeader();
+
         var domCardList = this.getView().getDom().cardList;
 
         if (this.isUserHelping_) {

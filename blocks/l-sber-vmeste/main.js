@@ -26,9 +26,9 @@ goog.scope(function() {
     Main.prototype.run = function() {
         var elem = goog.dom.getElementByClass(SberVmesteView.CssClass.ROOT);
         FactorySber.getInstance().decorate('SberVmeste', elem);
-        if (!window.location.hash) {
+        /*if (!window.location.hash) {
             window.location.href = '#start';
-        }
+        }*/
     };
 
 

@@ -202,5 +202,5 @@ goog.scope(function() {
      * Important!
      */
     Factory.getInstance().attachToManager();
-});  // goog.scope
 
+});  // goog.scope

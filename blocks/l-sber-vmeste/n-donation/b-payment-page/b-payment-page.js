@@ -18,4 +18,24 @@ sv.lSberVmeste.bPaymentPage.PaymentPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
 };
-goog.inherits(sv.lSberVmeste.bPaymentPage.PaymentPage, sv.lSberVmeste.iPage.Page);
+goog.inherits(sv.lSberVmeste.bPaymentPage.PaymentPage,
+    sv.lSberVmeste.iPage.Page);
+
+goog.scope(function() {
+    var PaymentPage = sv.lSberVmeste.bPaymentPage.PaymentPage;
+
+      /**
+    * @override
+    * @param {Element} element
+    */
+    PaymentPage.prototype.decorateInternal = function(element) {
+        goog.base(this, 'decorateInternal', element);
+
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_ !== undefined) {
+            var that = this;
+            that.headerManager_.setChoiceHeader();
+        }
+    };
+
+});  // goog.scope

@@ -13,7 +13,7 @@ goog.require('sv.lSberVmeste.iPage.View');
  * @extends {sv.lSberVmeste.iPage.View}
  */
 sv.lSberVmeste.bPaymentPage.View = function(opt_params,
-    opt_template, opt_modifier){
+    opt_template, opt_modifier) {
 
     goog.base(this, opt_params, opt_template, opt_modifier);
 

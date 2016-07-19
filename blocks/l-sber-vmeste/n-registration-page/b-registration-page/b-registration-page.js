@@ -40,6 +40,9 @@ goog.scope(function() {
     */
     RegistrationPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.headerManager_ = this.params.headerManager_;
+        this.headerManager_.setProfileHeader({'pageType': 'registration'});
     };
 
     /**

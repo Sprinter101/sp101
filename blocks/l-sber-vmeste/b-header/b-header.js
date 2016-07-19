@@ -145,9 +145,16 @@ goog.scope(function() {
      * @param {sv.gButton.Button} event
      */
     Header.prototype.onButtonClick = function(event) {
+        var roundButtonContent = this.params.config.roundButton;
         if (this.getView().checkButtonCustomClass()) {
-            Router.getInstance().changeLocation(
-            Route.PROFILE);
+            if (roundButtonContent === 'я') {
+                Router.getInstance().changeLocation(
+                    Route.REGISTRATION);
+            }
+            else {
+                 Router.getInstance().changeLocation(
+                    Route.PROFILE);
+            }
         }
         else {
             Router.getInstance().returnLocation();
