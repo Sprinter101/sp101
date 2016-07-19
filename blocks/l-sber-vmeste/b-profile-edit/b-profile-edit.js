@@ -20,7 +20,7 @@ sv.lSberVmeste.bProfileEdit.ProfileEdit = function(view, opt_domHelper) {
     * @type {{
     *   firstName: string,
     *   lastName: string,
-    *   phoneNumber: string
+    *   phone: string
     * }}
     * @private
     */
@@ -185,7 +185,7 @@ goog.scope(function() {
         this.lastNameInput_.setValue(
             this.userInfo_.lastName || '');
         this.phoneNumberInput_.setValue(
-            this.userInfo_.phoneNumber || '');
+            this.userInfo_.phone || '');
     };
 
     /**
@@ -197,7 +197,7 @@ goog.scope(function() {
             this.firstNameInput_.getValue().trim();
         this.userInfo_.lastName =
             this.lastNameInput_.getValue().trim();
-        this.userInfo_.phoneNumber =
+        this.userInfo_.phone =
             this.phoneNumberInput_.getValue().trim();
     };
 
