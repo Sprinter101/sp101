@@ -189,7 +189,7 @@ goog.scope(function() {
     };
 
     /**
-    * assigns userInfo_ object properties with 
+    * assigns userInfo_ object properties with
     * the current inputs' values
     */
     ProfileEdit.prototype.updateUserInfo = function() {
@@ -230,7 +230,7 @@ goog.scope(function() {
     };
 
     /**
-    * Dispatches EDITING_FINISHED event 
+    * Dispatches EDITING_FINISHED event
     * with the updated userInfo_ object
     */
     ProfileEdit.prototype.finishEditing = function() {
