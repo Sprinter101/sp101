@@ -58,7 +58,7 @@ goog.scope(function() {
         CARD: {'config': {
             'type': 'card', 'roundButton': 'я',
             'choice_phrase': 'directions',
-            'help_phrase': 'donation', 'id': null}
+            'help_phrase': 'donation'}
         }
     };
 
@@ -216,6 +216,7 @@ goog.scope(function() {
      */
     Manager.prototype.setChoiceHeader = function(opt_params) {
         var params = Manager.HeaderStates.CHOICE;
+        params.config.choice_phrase = opt_params.choice_phrase;
         this.renderHeader(params);
     };
 
@@ -243,9 +244,6 @@ goog.scope(function() {
      */
     Manager.prototype.setCardHeader = function(opt_params) {
         var params = Manager.HeaderStates.CARD;
-        if (opt_params.cardId !== undefined) {
-            params.config.id = opt_params.cardId;
-        }
         this.renderHeader(params);
     };
 

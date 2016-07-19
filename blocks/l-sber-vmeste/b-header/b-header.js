@@ -66,9 +66,8 @@ goog.scope(function() {
      * @type {string}
      */
     Header.URL = {
-        CARD_ID: '/entity/',
         LOG_OUT: '/auth/logout',
-        ABOUT_PROJECT: '',
+        ABOUT_PROJECT: ''
     };
 
     /**
@@ -88,7 +87,6 @@ goog.scope(function() {
             this.getView().getDom().button
         );
 
-        this.getListType();
         this.checkListHeaderLayout;
 
     };
@@ -116,46 +114,6 @@ goog.scope(function() {
         );
     };
 
-     /**
-     * only for list headerType
-     * fetches list type from server
-     * @protected
-     */
-    Header.prototype.getListType = function() {
-        if (this.params.hasOwnProperty('config')) {
-            if (this.params.config.type === 'card') {
-                var cardId = this.params.config.id;
-                var cardUrl = Header.URL.CARD_ID + cardId;
-                Request.getInstance().send({
-                    url: cardUrl})
-                    .then(this.handleSuccess,
-                        this.handleRejection,
-                        this);
-            }
-        }
-    };
-
-    /**
-    * invokes method for preparing
-    * correct rendering choice phrase
-    * @param {Object} response
-    */
-   Header.prototype.handleSuccess = function(response) {
-            var data = response.data.type;
-            this.renderCorrectTitle(data);
-    };
-
-    /**
-    * Ajax rejection handler
-    * Prints default userfunds count
-    * if server responded with error
-    * @param {Object} err
-    */
-    Header.prototype.handleRejection = function(err) {
-        var defaultPhrase = 'directions';
-        this.renderCorrectTitle(defaultPhrase);
-    };
-
     /**
     * Choose correct phrase for header title
     * @param {string} phrase
@@ -179,10 +137,7 @@ goog.scope(function() {
      * @param {cl.gIcon.Icon.Event.CLICK} event
      */
     Header.prototype.onArrowBackClick = function(event) {
-        var customEvent = new goog.events.Event(
-            Header.Event.ARROW_BACK_CLICK, this);
-            this.dispatchEvent(customEvent);
-            Router.getInstance().returnLocation();
+        Router.getInstance().returnLocation();
     };
 
     /**
@@ -190,7 +145,6 @@ goog.scope(function() {
      * @param {sv.gButton.Button} event
      */
     Header.prototype.onButtonClick = function(event) {
-        console.log('button click');
         if (this.getView().checkButtonCustomClass()) {
             Router.getInstance().changeLocation(
             Route.PROFILE);
