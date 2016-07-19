@@ -39,6 +39,7 @@ goog.scope(function() {
         ROOT: 'b-header',
         ARROW_BACK_CONTAINER: 'b-header__back-wrapper',
         HELP_PHRASE_CONTAINER: 'b-header__right-column',
+        HELP_PHRASE: 'b-header__help',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
         CHOICE_PHRASE: 'b-header__choice-phrase'
@@ -58,7 +59,7 @@ goog.scope(function() {
      * @enum {string}
      */
     View.Event = {
-
+        HELP_CLICK: 'help-click'
     };
 
     /**
@@ -89,6 +90,10 @@ goog.scope(function() {
         View.CssClass.HELP_PHRASE_CONTAINER
         );
 
+        this.dom.help = this.getElementByClass(
+            View.CssClass.HELP_PHRASE
+        );
+
         this.checkLayout();
     };
 
@@ -97,6 +102,12 @@ goog.scope(function() {
      */
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        this.getHandler().listen(
+                this.dom.help,
+                goog.events.EventType.CLICK,
+                this.onHelpClick
+            );
 
     };
 
@@ -147,6 +158,18 @@ goog.scope(function() {
             sv.lSberVmeste.bHeader.Template.title,
             soyParams
         );
+    };
+
+     /**
+     * handles help phrase click
+     * @param {goog.events.EventType.CLICK} event
+     * @protected
+     */
+    View.prototype.onHelpClick = function(event) {
+        var customEvent = new goog.events.Event(
+            View.Event.HELP_CLICK, this
+        );
+        this.dispatchEvent(customEvent);
     };
 
 });  // goog.scope

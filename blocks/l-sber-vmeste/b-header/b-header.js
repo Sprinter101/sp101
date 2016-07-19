@@ -66,7 +66,9 @@ goog.scope(function() {
      * @type {string}
      */
     Header.URL = {
-        CARD_ID: '/entity/'
+        CARD_ID: '/entity/',
+        LOG_OUT: '/auth/logout',
+        ABOUT_PROJECT: '',
     };
 
     /**
@@ -107,6 +109,11 @@ goog.scope(function() {
             Button.Event.CLICK,
             this.onButtonClick
         );
+
+        this.viewListen(
+            View.Event.HELP_CLICK,
+            this.onHelpClick
+        );
     };
 
      /**
@@ -145,7 +152,6 @@ goog.scope(function() {
     * @param {Object} err
     */
     Header.prototype.handleRejection = function(err) {
-        console.log(err);
         var defaultPhrase = 'directions';
         this.renderCorrectTitle(defaultPhrase);
     };
@@ -184,21 +190,49 @@ goog.scope(function() {
      * @param {sv.gButton.Button} event
      */
     Header.prototype.onButtonClick = function(event) {
-
-
+        console.log('button click');
         if (this.getView().checkButtonCustomClass()) {
-            var customEvent = new goog.events.Event(
-            Header.Event.BUTTON_ME_CLICK, this);
-            this.dispatchEvent(customEvent);
-             Router.getInstance().changeLocation(
+            Router.getInstance().changeLocation(
             Route.PROFILE);
         }
         else {
-            var customEvent = new goog.events.Event(
-            Header.Event.BUTTON_CLOSE_CLICK, this);
-            this.dispatchEvent(customEvent);
             Router.getInstance().returnLocation();
         }
+    };
+
+     /**
+     * Handles help phrase click event
+     * @param {sv.bHeader.View.Event.HELP_CLICK} event
+     */
+    Header.prototype.onHelpClick = function(event) {
+         if (this.params.hasOwnProperty('config')) {
+            if (this.params.config.help_phrase === 'logout') {
+                Request.getInstance().send({
+                    url: Header.URL.LOG_OUT,
+                    type: 'POST'
+                })
+                .then(this.handleSuccessLogout,
+                    this.handleRejectionLogout,
+                    this);
+            }
+        }
+    };
+
+     /**
+    * Ajax success handler
+    * @param {Object} response
+    */
+    Header.prototype.handleSuccessLogout = function(response) {
+        Router.getInstance().changeLocation(
+            Route.START);
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    Header.prototype.handleRejection = function(err) {
+        console.log(err);
     };
 
 });  // goog.scope
