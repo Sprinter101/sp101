@@ -63,8 +63,11 @@ goog.scope(function() {
             'type': 'list',
             'pageType': 'start'
         });
-        this.pageManager_.setCurrentPage('ListPage', {
-            'category': opt_params.category}
+        this.pageManager_.setCurrentPage(
+            'ListPage',
+            {
+                'category': opt_params.category
+            }
         );
     };
 
@@ -78,7 +81,7 @@ goog.scope(function() {
         this.headerManager_.setCardHeader({
             'type': 'card',
             'choice_phrase': 'fund',
-             'cardId': id
+            'cardId': id
         });
         this.pageManager_.setCurrentPage('CardPage', {cardId: opt_params.id});
     };
