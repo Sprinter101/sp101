@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.bStartPage.View');
 
 goog.require('goog.dom');
+goog.require('goog.dom.classlist');
 goog.require('goog.soy');
 goog.require('sv.lSberVmeste.iPage.View');
 
@@ -36,7 +37,8 @@ goog.scope(function() {
         ROOT: 'b-page-start',
         BLOCK_START: 'b-start-block',
         USERFUNDS_PHRASE_CONTAINER: 'b-page-start__userfunds-info-phrase',
-        USERFUNDS_COUNT_BUTTON: 'b-page-start__button_userfunds-count'
+        USERFUND_BUTTON: 'b-page-start__button_userfund',
+        REPORTS_BUTTON: 'b-page-start__button_reports'
     };
 
     /**
@@ -54,8 +56,8 @@ goog.scope(function() {
         View.CssClass.USERFUNDS_PHRASE_CONTAINER
         );
 
-       this.dom.userFundsCountButton = this.getElementByClass(
-        View.CssClass.USERFUNDS_COUNT_BUTTON
+       this.dom.userfundButton = this.getElementByClass(
+        View.CssClass.USERFUND_BUTTON
         );
     };
 
@@ -95,9 +97,51 @@ goog.scope(function() {
             userfundsCount: userfundsCount, userfundsPhrase: false}
         };
         goog.soy.renderElement(
-            this.dom.userFundsCountButton,
+            this.dom.userfundButton,
             sv.lSberVmeste.bStartPage.Template.fundsCount,
             soyParams
+        );
+        this.changeUserfundButtonClass(false);
+    };
+
+    /**
+     * Print content for 'manage reports' button
+     * @protected
+     */
+    View.prototype.printReportsButtonContent = function() {
+        goog.soy.renderElement(
+            this.dom.userfundButton,
+            sv.lSberVmeste.bStartPage.Template.reports
+        );
+        this.changeUserfundButtonClass(true);
+    };
+
+     /**
+    * Change button width
+    * @param {bool} change
+    * @protected
+    */
+    View.prototype.changeUserfundButtonClass = function(change) {
+        if (change) {
+            goog.dom.classlist.add(
+                this.dom.userfundButton, View.CssClass.REPORTS_BUTTON
+            );
+        }
+        else {
+            goog.dom.classlist.remove(
+                this.dom.userfundButton, View.CssClass.REPORTS_BUTTON
+            );
+        }
+    };
+
+    /**
+     * return button custom class
+     * @return {bool}
+     * @protected
+     */
+    View.prototype.checkUserfundButtonClass = function() {
+        return goog.dom.classlist.contains(
+            this.dom.userfundButton, View.CssClass.REPORTS_BUTTON
         );
     };
 });  // goog.scope
