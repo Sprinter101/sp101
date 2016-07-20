@@ -18,6 +18,7 @@ goog.require('sv.lSberVmeste.bDonationPercentBlock.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
+goog.require('sv.lSberVmeste.bPaymentPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bProfile.Template');
 goog.require('sv.lSberVmeste.bProfileEdit.Template');
@@ -144,6 +145,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'RegistrationPage',
             sv.lSberVmeste.bRegistrationPage.Template.registrationPage
+        )
+        .setTemplateListItem(
+            'PaymentPage',
+            sv.lSberVmeste.bPaymentPage.Template.page
         );
 
 };

@@ -18,10 +18,33 @@ sv.lSberVmeste.bPhoneBlock.PhoneBlock = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-     * @type {Array}
+     *
+     * @type {sv.gInput.Input}
      * @private
      */
-    this.inputs_ = [];
+    this.textPhone_ = null;
+
+    /**
+     *
+     * @type {sv.gInput.Input}
+     * @private
+     */
+    this.textInfo_ = null;
+
+    /**
+     * 
+     * @type {sv.gInput.Input}
+     * @private
+     */
+    this.inputPhoneNumber_ = null;
+    
+    /**
+     * 
+     * @type {sv.gInput.Input}
+     * @private
+     */
+    this.inputVerificationCode_ = null;
+    
 
     /**
      * @type {Array}
@@ -45,12 +68,15 @@ goog.scope(function() {
         Block.prototype.decorateInternal = function(element) {
             goog.base(this, 'decorateInternal', element);
 
+            var domTexts=this.getView().getDom().texts;
             var domInputs = this.getView().getDom().inputs;
             var domButtons = this.getView().getDom().buttons;
 
-            for (var i in domInputs){
-                this.inputs_.push(this.decorateChild('InputSber', domInputs[i]));
-            }
+            this.textPhone_ = domTexts.textPhoneNumber;
+            this.textInfo_ = domTexts.textOntopInput;
+
+            this.inputPhoneNumber_ = domInputs.phoneNumber;
+            this.inputVerificationCode_ = domInputs.confirmCode;
 
             for (var i in domButtons) {
                 this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
@@ -83,24 +109,22 @@ goog.scope(function() {
         var Parent = event.target.element_.parentElement,
             ParentClass = Parent.classList[0],
             Request = cl.iRequest.Request,
-            phoneTextField = document.getElementsByClassName(
-                                        "b-phone-block__phone-number-view")[0],
-            inputNumberField = document.getElementsByClassName(
-                                        "g-input__input_phone")[0],
-            inputConfirmBlock = document.getElementsByClassName(
-                                        "b-phone-block__input_confirmation")[0],
-            inputConfirmField = document.getElementsByClassName(
-                                        "g-input__input_confirmation")[0],
-            inputNumberBlock = document.getElementsByClassName(
-                                        "b-phone-block__input_phone")[0],
-            infoTextField = document.getElementsByClassName(
-                                        "b-phone-block__text")[0],
-            inputValue = inputNumberField.value;
 
+            infoTextField = this.textInfo_,
+            phoneTextField = this.textPhone_,
+
+            inputNumberBlock = this.inputPhoneNumber_.parentElement,
+            inputNumberField = this.inputPhoneNumber_.firstChild,
+
+            inputConfirmBlock = this.inputVerificationCode_.parentElement,
+            inputConfirmField = this.inputVerificationCode_.firstChild,
+
+
+            inputValue = inputNumberField.value;
 
         switch(ParentClass) {
             case 'b-phone-block__enter-button':
-                var confirmButton = document.getElementsByClassName("b-phone-block__confirm-button")[0];
+                var confirmButton = this.buttons_[1].element_.parentElement;
                 var phoneNumJSON = {
                     "phone" : inputValue.toString()
                 };
@@ -116,13 +140,13 @@ goog.scope(function() {
 
                 phoneTextField.innerText = inputValue;
                 infoTextField.innerText = 'Введите 5-ти значный пароль из СМС';
+                //
+                // this.hideElement(inputNumberBlock);
+                // this.hideElement(Parent);
 
-                /** TODO Wrap it up in function
-                 */
-                inputConfirmBlock.style.display = 'block';
-                inputNumberBlock.style.display = 'none';
-                confirmButton.style.display = 'block';
-                Parent.style.display = 'none';                
+                this.hideElements([inputNumberBlock,Parent]);
+                this.showElements([inputConfirmBlock,confirmButton],'block');
+
                 break;
 
             case 'b-phone-block__confirm-button':
@@ -146,7 +170,7 @@ goog.scope(function() {
         
     };
     /**
-     *
+     * Phone input reject handler
      * @param {Object} err
      */
     Block.prototype.handleRejection = function(err) {
@@ -154,11 +178,12 @@ goog.scope(function() {
     };
 
     /**
-     *
+     * Phone input success handler
+     * success.data contains verification code for the next step
      * @param {Object} success
      */
     Block.prototype.handleSuccess = function(success) {
-        console.log("everything is fine");
+        console.log(success);
     };
 
     /**
@@ -167,25 +192,58 @@ goog.scope(function() {
      * @param err
      */
     Block.prototype.handleVerificationRejection = function(err) {
-       console.log(err)
+        console.log(err);
+        var eventVerSuccess = {
+            type: Block.Event.VERIFICATION_ERROR,
+            detail: {
+                phone: this.textPhone_.innerText.toString(),
+                response: success.data
+            }
+        };
+        this.dispatchEvent(eventVerSuccess);
     };
 
     /**
      * Verification success handler
-     * TODO functionality
      * @param {Object} success
      */
     Block.prototype.handleVerificationSuccess = function(success) {
-        var eventVer = {
+        var eventVerSuccess = {
             type: Block.Event.VERIFIED,
             detail: {
-                phone: document.getElementsByClassName(
-                    "b-phone-block__phone-number-view")[0].innerText.toString(),
+                phone: this.textPhone_.innerText.toString(),
                 response: success.data
             }
         };
-        this.dispatchEvent(eventVer);
+        this.dispatchEvent(eventVerSuccess);
+    };
 
+    /**
+     * hide Block objects
+     * @param array
+     */
+    Block.prototype.hideElements = function(array){
+        for(var i = 0;i<array.length;i++){
+            array[i].style.display = 'none';
+        }
+    };
+
+    /**
+     * hide Block objects
+     * @param object
+     */
+    Block.prototype.hideElement = function(object){
+        object.style.display = 'none';
+    };
+    /**
+     * Show Block object
+     * @param array
+     * @param showType
+     */
+    Block.prototype.showElements = function (array,showType) {
+        for(var i = 0;i<array.length;i++){
+            array[i].style.display = showType;
+        }
     };
 
 }); //goog.scope

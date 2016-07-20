@@ -36,6 +36,8 @@ goog.require('sv.lSberVmeste.bListPage.ListPage');
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.bPaymentPage.PaymentPage');
+goog.require('sv.lSberVmeste.bPaymentPage.View');
 goog.require('sv.lSberVmeste.bProfile.Profile');
 goog.require('sv.lSberVmeste.bProfile.View');
 goog.require('sv.lSberVmeste.bProfileEdit.ProfileEdit');
@@ -182,6 +184,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('RegistrationPage', {
             control: sv.lSberVmeste.bRegistrationPage.RegistrationPage,
             view: sv.lSberVmeste.bRegistrationPage.View
+        })
+        .setControlListItem('PaymentPage', {
+            control: sv.lSberVmeste.bPaymentPage.PaymentPage,
+            view: sv.lSberVmeste.bPaymentPage.View
         });
 
 };

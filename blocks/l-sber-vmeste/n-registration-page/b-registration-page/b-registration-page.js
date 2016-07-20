@@ -1,6 +1,10 @@
 goog.provide('sv.lSberVmeste.bRegistrationPage.RegistrationPage');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
+goog.require('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
+goog.require('sv.lSberVmeste.iRouter.Route');
+goog.require('sv.lSberVmeste.iRouter.Router');
 
 
 
@@ -20,19 +24,25 @@ sv.lSberVmeste.bRegistrationPage.RegistrationPage = function(view,
     * @private
     */
     this.registrationBlock_ = null;
+
+    /**
+    * @type {{
+    *    phone: string
+    * }}
+    * @private
+    */
+    this.userInfo_ = {};
 };
 goog.inherits(sv.lSberVmeste.bRegistrationPage.RegistrationPage,
     cl.iControl.Control);
 
 goog.scope(function() {
     var RegistrationPage = sv.lSberVmeste.bRegistrationPage.RegistrationPage,
-        ProfileEdit = sv.lSberVmeste.bProfileEdit.ProfileEdit;
-
-    /**
-     * Events
-     * @enum {string}
-     */
-    RegistrationPage.Event = {};
+        ProfileEdit = sv.lSberVmeste.bProfileEdit.ProfileEdit,
+        request = cl.iRequest.Request.getInstance(),
+        Route = sv.lSberVmeste.iRouter.Route,
+        Router = sv.lSberVmeste.iRouter.Router,
+        Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock;
 
     /**
     * @override
@@ -48,7 +58,28 @@ goog.scope(function() {
     RegistrationPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.createUserInfoBlock();
+        this.createPhoneBlock();
+    };
+
+    /**
+    * Phone block creator
+    */
+    RegistrationPage.prototype.createPhoneBlock = function() {
+        this.removeRegistrationBlock_();
+
+        var domRegistrationBlock =
+            this.getView().getDom().registrationBlock;
+
+        this.registrationBlock_ = this.renderChild('PhoneBlock',
+            domRegistrationBlock);
+
+        this.getHandler().listen(
+            this.registrationBlock_,
+            Block.Event.VERIFIED,
+            this.onVerified_,
+            false,
+            this
+        );
     };
 
     /**
@@ -61,16 +92,55 @@ goog.scope(function() {
             this.getView().getDom().registrationBlock;
 
         this.registrationBlock_ = this.renderChild('ProfileEdit',
-            domRegistrationBlock, {userInfo: this.userInfo,
+            domRegistrationBlock, {userInfo: this.userInfo_,
                 registrationState: true});
 
         this.getHandler().listen(
             this.registrationBlock_,
             ProfileEdit.Event.EDITING_FINISHED,
-            this.onContinueButtonClick_,
+            this.onEditingFinished_,
             false,
             this
         );
+    };
+
+    /**
+    * Sends a POST request to register the user
+    */
+    RegistrationPage.prototype.sendRegisterUserRequest = function() {
+        request
+            .send({
+                url: 'auth/',
+                type: 'POST',
+                data: this.userInfo_
+            })
+            .then(
+                this.handleResponse,
+                this.handleRejection,
+                this);
+    };
+
+    /**
+    * Successful ajax response handler
+    * @param {Object} response
+    */
+    RegistrationPage.prototype.handleResponse = function(response) {
+        this.redirectToStartPage();
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    RegistrationPage.prototype.handleRejection = function(err) {
+        console.log(err);
+    };
+
+    /**
+    * redirects user to start page
+    */
+    RegistrationPage.prototype.redirectToStartPage = function() {
+        Router.getInstance().changeLocation(Route['START']);
     };
 
     /**
@@ -85,11 +155,29 @@ goog.scope(function() {
     };
 
     /**
-    * Profile edit button click handler;
+    * Phone block's VERIFIED event handler
+    * @param {Object} event
     * @private
     */
-    RegistrationPage.prototype.onContinueButtonClick_ = function() {
-        console.log('<<HANDLED!!!>>');
+    RegistrationPage.prototype.onVerified_ = function(event) {
+        var eventData = event.detail;
+
+        if (eventData.response.data === 'need register') {
+            this.userInfo_.phone = eventData.phone;
+            this.createUserInfoBlock();
+        } else {
+            this.redirectToStartPage();
+        }
+    };
+
+    /**
+    * Profile edit button click handler;
+    * @param {Object} event
+    * @private
+    */
+    RegistrationPage.prototype.onEditingFinished_ = function(event) {
+        goog.object.extend(this.userInfo_, event.userInfo);
+        this.sendRegisterUserRequest();
     };
 
 });  // goog.scope
