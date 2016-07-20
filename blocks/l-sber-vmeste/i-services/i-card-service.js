@@ -37,4 +37,15 @@ goog.scope(function() {
 
         return request.send({url: cardUrl});
     };
+
+    /**
+     * Get funds by parent id
+     * @param  {number} cardId parent card id
+     * @return {goog.Promise}
+     */
+    CardService.getFundsByParendId = function(cardId) {
+        var cardUrl = '/entity/' + cardId + '/fund';
+
+        return request.send({url: cardUrl});
+    };
 });  // goog.scope
