@@ -53,7 +53,7 @@ gulp.task('soy', function() {
     return gulpHelper.soy.build([]);
 });
 
-gulp.task('scripts', ['soy'], function() {
+gulp.task('scripts', ['lint', 'soy'], function() {
     return gulpHelper.js.build({
         outputFiles: [{
                 entryPoint: 'sv.lSberVmeste.Main',
@@ -65,7 +65,7 @@ gulp.task('scripts', ['soy'], function() {
     });
 });
 
-gulp.task('scripts-only', function() {
+gulp.task('scripts-only', ['lint'], function() {
     return gulpHelper.js.build({
         outputFiles: [{
                 entryPoint: 'sv.lSberVmeste.Main',

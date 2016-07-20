@@ -34,4 +34,28 @@ goog.scope(function() {
         });
     };
 
+    /**
+     * Remove user entity by id
+     * @param {number} entityId
+     * @return {object}
+     */
+    UserService.prototype.removeEntity = function(entityId) {
+        return Request.getInstance().send({
+            url: '/user-fund/' + entityId,
+            type: 'DELETE'
+        });
+    };
+
+    /**
+     * Add user entity by id
+     * @param {number} entityId
+     * @return {object}
+     */
+    UserService.prototype.addEntity = function(entityId) {
+        return Request.getInstance().send({
+            url: '/user-fund/' + entityId,
+            type: 'POST'
+        });
+    };
+
 });  // goog.scope

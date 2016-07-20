@@ -105,11 +105,18 @@ goog.scope(function() {
      * 'Payment' action
      */
     Controller.prototype.actionPayment = function() {
-        this.headerManager_.setProfileHeader({
-            'type': 'profile',
-            'pageType': 'start'
-        });
-        this.pageManager_.setCurrentPage('PaymentPage');
+        this.pageManager_.setCurrentPage('PaymentPage',
+            {'headerManager_': this.headerManager_}
+        );
+    };
+
+    /**
+     * 'manage userfund' action
+     */
+    Controller.prototype.actionManageUserfund = function() {
+        this.pageManager_.setCurrentPage('UserfundPage',
+            {'headerManager_': this.headerManager_}
+        );
     };
 
 });  // goog.scope

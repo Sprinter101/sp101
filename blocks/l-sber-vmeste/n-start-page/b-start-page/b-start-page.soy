@@ -34,14 +34,14 @@
 /**
  * template for "path line"
  */
-{template .pathLine}
+{template .pathLine autoescape="strict" kind="html"}
     <hr class="{call .rootClass/}__path_vertical" />
 {/template}
 
 /**
  * template for useerfunds actual info
  */
-{template .userfundsInfo}
+{template .userfundsInfo autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__userfunds-info">
         <div class="{call .rootClass/}__userfunds-info-phrase">
             С нами работают
@@ -61,7 +61,7 @@
                                 'text-color_white'
                             ],
                             'customClasses': [
-                                'b-page-start__button_userfunds-count'
+                                'b-page-start__button_userfund'
                             ]
                         ]
                     ]
@@ -77,7 +77,7 @@
  *            userfundsPhrase: ?bool
  *        }
  */
-{template .fundsCount}
+{template .fundsCount autoescape="strict" kind="html"}
     {let $fundsCount: $data?.userfundsCount /}
     {let $fundsPhrase: $data?.userfundsPhrase /}
         {if $fundsPhrase == true}
@@ -99,6 +99,13 @@
                      ]"
             /}
         {/if}
+{/template}
+
+/**
+ * reports buttonc content template
+ */
+{template .reports autoescape="strict" kind="html"}
+    отчёты
 {/template}
 
 /**
