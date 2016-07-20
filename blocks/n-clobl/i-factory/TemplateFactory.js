@@ -29,6 +29,8 @@ goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
+goog.require('sv.lSberVmeste.bUserfundPage.Template');
+
 
 
 /**
@@ -150,6 +152,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'PaymentPage',
             sv.lSberVmeste.bPaymentPage.Template.page
+        )
+        .setTemplateListItem(
+            'UserfundPage',
+            sv.lSberVmeste.bUserfundPage.Template.page
         );
 
 };

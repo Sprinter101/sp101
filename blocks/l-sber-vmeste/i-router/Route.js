@@ -13,5 +13,6 @@ sv.lSberVmeste.iRouter.Route = {
     DONATE: 'donate',
     PROFILE: 'profile',
     REGISTRATION: 'registration',
-    PAYMENT_TEMP: 'payment'
+    PAYMENT_TEMP: 'payment',
+    USERFUND_PAGE: 'userfund'
 };

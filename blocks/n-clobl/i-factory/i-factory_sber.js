@@ -52,6 +52,8 @@ goog.require('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
 goog.require('sv.lSberVmeste.bUserBlock.View');
+goog.require('sv.lSberVmeste.bUserfundPage.UserfundPage');
+goog.require('sv.lSberVmeste.bUserfundPage.View');
 
 
 
@@ -69,7 +71,7 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.SberVmeste,
             view: sv.lSberVmeste.View
         })
-        .setControlListItem('PhoneBlock',{
+        .setControlListItem('PhoneBlock', {
             control: sv.lSberVmeste.bPhoneBlock.PhoneBlock,
             view: sv.lSberVmeste.bPhoneBlock.View
         })
@@ -188,6 +190,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('PaymentPage', {
             control: sv.lSberVmeste.bPaymentPage.PaymentPage,
             view: sv.lSberVmeste.bPaymentPage.View
+        })
+        .setControlListItem('UserfundPage', {
+            control: sv.lSberVmeste.bUserfundPage.UserfundPage,
+            view: sv.lSberVmeste.bUserfundPage.View
         });
 
 };
