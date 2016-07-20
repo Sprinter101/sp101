@@ -52,6 +52,12 @@ goog.scope(function() {
     TestPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_ !== undefined) {
+            var that = this;
+            that.headerManager_.setChoiceHeader();
+        }
+
         var domButtons = this.getView().getDom().buttons,
             domTabs = this.getView().getDom().tabs,
             domInputs = this.getView().getDom().inputs,
