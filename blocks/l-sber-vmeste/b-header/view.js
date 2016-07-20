@@ -89,7 +89,7 @@ goog.scope(function() {
         );
 
         this.dom.HelpPhraseContainer = this.getElementByClass(
-        View.CssClass.HELP_PHRASE_CONTAINER
+            View.CssClass.HELP_PHRASE_CONTAINER
         );
 
         this.dom.help = this.getElementByClass(
@@ -105,7 +105,8 @@ goog.scope(function() {
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
+        this.getHandler()
+            .listen(
                 this.dom.help,
                 goog.events.EventType.CLICK,
                 this.onHelpClick
@@ -150,10 +151,9 @@ goog.scope(function() {
      * @param {string} phrase
      * @protected
      */
-    View.prototype.renderCorrectTitle = function(
-        phrase) {
-        var soyParams = {'data': {
-            choice_phrase: phrase}
+    View.prototype.renderCorrectTitle = function(phrase) {
+        var soyParams = {
+            'data': {choice_phrase: phrase}
         };
         goog.soy.renderElement(
             this.dom.choicePhrase,

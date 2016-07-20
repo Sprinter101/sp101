@@ -4,6 +4,7 @@ goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bCardList.CardList');
+goog.require('sv.lSberVmeste.iCardService.CardService');
 
 
 
@@ -41,6 +42,7 @@ goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 goog.scope(function() {
     var CardPage = sv.lSberVmeste.bCardPage.CardPage,
         Button = cl.gButton.Button,
+        CardService = sv.lSberVmeste.iCardService.CardService,
         request = cl.iRequest.Request.getInstance();
 
     /**
@@ -51,6 +53,14 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         var domCardList = this.getView().getDom().cardList;
+        var cardId = this.params.cardId;
+        var cardUrl = '/entity/' + cardId;
+
+        CardService.getCard(cardId).then(
+            this.cardLoadResolveHandler_,
+            this.cardLoadRejectHandler_,
+            this
+        );
 
         if (this.isUserHelping_) {
             this.setHelpingButton_();
@@ -66,6 +76,40 @@ goog.scope(function() {
                 cardsCustomClasses: ['b-card_full-line']
             }
         );
+    };
+
+    /**
+     * Will be called when card data was successful loaded
+     * @param  {object} res
+     * @private
+     */
+    CardPage.prototype.cardLoadResolveHandler_ = function(res) {
+        var data = res.data;
+        var type = data.type;
+        var title = data.title;
+        var description = data.description;
+
+        // TODO: replace on real data when it will available
+        var donations = 123;
+        var fullPrice = 100500;
+
+        // customize header
+        this.params.header.renderCorrectTitle(type);
+
+        this.getView().setIconTitle(title);
+        this.getView().setTextTitle(title);
+        this.getView().setDescription(description);
+        this.getView().setDonations(donations);
+        this.getView().setFullPrice(fullPrice);
+    };
+
+    /**
+     * Will be called when card data wasn't loaded
+     * @param  {object} err error object
+     * @private
+     */
+    CardPage.prototype.cardLoadRejectHandler_ = function(err) {
+        console.error(err);
     };
 
     /**
@@ -98,8 +142,7 @@ goog.scope(function() {
      * @private
      */
     CardPage.prototype.loadCards_ = function() {
-        request
-            .send({url: 'entity/fund'})
+        CardService.getDirectionsByParendId(this.params.cardId)
             .then(
                 this.loadCardsResolveHandler_,
                 this.loadCardsRejectHandler_,

@@ -119,8 +119,7 @@ goog.scope(function() {
     * @param {string} phrase
     * @protected
     */
-    Header.prototype.renderCorrectTitle = function(
-       phrase) {
+    Header.prototype.renderCorrectTitle = function(phrase) {
         this.getView().renderCorrectTitle(phrase);
     };
 
@@ -190,4 +189,3 @@ goog.scope(function() {
     };
 
 });  // goog.scope
-

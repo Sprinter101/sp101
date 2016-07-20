@@ -61,12 +61,15 @@ goog.scope(function() {
      * 'Display category card' action
      * @param {Object=} opt_params
      */
-    Controller.prototype.actionDisplayCategoryCard = function(
-        opt_params) {
+    Controller.prototype.actionDisplayCategoryCard = function(opt_params) {
+        console.log('opt_params ==', opt_params);
         this.headerManager_.setCardHeader({
             'choice_phrase': 'fund'
         });
-        this.pageManager_.setCurrentPage('CardPage', {cardId: opt_params.id});
+        this.pageManager_.setCurrentPage('CardPage', {
+            cardId: opt_params.id,
+            header: this.headerManager_.getCurrentHeader()
+        });
     };
 
     /**
