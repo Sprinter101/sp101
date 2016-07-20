@@ -74,16 +74,6 @@ goog.scope(function() {
     };
 
     /**
-     * Registration action
-     * (phone number + name,surname)
-     */
-    Controller.prototype.actionRegistration = function() {
-        this.pageManager_.setCurrentPage('RegistrationPage',
-            {'headerManager_': this.headerManager_}
-        );
-    };
-
-    /**
      * 'Profile' action
      */
     Controller.prototype.actionProfilePage = function() {
@@ -94,10 +84,12 @@ goog.scope(function() {
 
     /**
      * 'Registration' action
+     * @param {Object=} opt_params
      */
-    Controller.prototype.actionRegistrationPage = function() {
+    Controller.prototype.actionRegistrationPage = function(opt_params) {
         this.pageManager_.setCurrentPage('RegistrationPage',
-            {'headerManager_': this.headerManager_}
+            {'headerManager_': this.headerManager_,
+            'action': opt_params.action}
         );
     };
 

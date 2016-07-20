@@ -18,12 +18,17 @@ goog.require('sv.lSberVmeste.iRouter.Router');
 sv.lSberVmeste.bRegistrationPage.RegistrationPage = function(view,
     opt_domHelper) {
     goog.base(this, view, opt_domHelper);
-
     /**
     * @type {Object}
     * @private
     */
     this.registrationBlock_ = null;
+
+    /**
+     * @type {string} where to redirect the user after the registration
+     * @private
+     */
+    this.redirectTo_ = this.params.action || null;
 
     /**
     * @type {{
@@ -128,7 +133,7 @@ goog.scope(function() {
     * @param {Object} response
     */
     RegistrationPage.prototype.handleResponse = function(response) {
-        this.redirectToStartPage();
+        this.redirectUser();
     };
 
     /**
@@ -142,8 +147,12 @@ goog.scope(function() {
     /**
     * redirects user to start page
     */
-    RegistrationPage.prototype.redirectToStartPage = function() {
-        Router.getInstance().changeLocation(Route['START']);
+    RegistrationPage.prototype.redirectUser = function() {
+        if (this.redirectTo_) {
+            Router.getInstance().changeLocation(Route[this.redirectTo_]);
+        } else {
+            Router.getInstance().changeLocation(Route['START']);
+        }
     };
 
     /**
@@ -169,7 +178,7 @@ goog.scope(function() {
             this.userInfo_.phone = eventData.phone;
             this.createUserInfoBlock();
         } else {
-            this.redirectToStartPage();
+            this.redirectUser();
         }
     };
 
