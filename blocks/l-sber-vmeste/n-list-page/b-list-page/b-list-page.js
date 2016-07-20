@@ -87,7 +87,7 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.headerManager_ = this.params.headerManager_;
-        if (this.headerManager_ !== undefined) {
+        if (this.headerManager_) {
             var that = this;
             UserService.getInstance().isUserLoggedIn()
                 .then(function(result) {
@@ -135,15 +135,6 @@ goog.scope(function() {
         request
             .send({url: 'entity/'})
             .then(this.handleResponse_, this.handleRejection, this);
-    };
-
-    /**
-    * Sends ajax requests for current card
-    */
-    ListPage.prototype.sendCurrentCardRequest = function() {
-        request
-            .send({url: 'entity/'})
-            .then(this.handleResponse_, this.handleRejection_, this);
     };
 
     /**
@@ -303,7 +294,26 @@ goog.scope(function() {
     * @private
     */
     ListPage.prototype.onUserBlockButtonClick_ = function() {
-        Router.getInstance().changeLocation(Route['DONATE']);
+        UserService.getInstance().isUserLoggedIn()
+        .then(
+            this.redirectUser,
+            this.handleRejection,
+            this);
+    };
+
+    /**
+     * Redirects user to another page
+     * @param {Object} response
+     */
+    ListPage.prototype.redirectUser = function(response) {
+        isLoggedIn = response.data.loggedIn;
+
+        if (isLoggedIn) {
+            Router.getInstance().changeLocation(Route['DONATE']);
+        } else {
+            Router.getInstance().changeLocation(Route['REGISTRATION'],
+                null, {action: 'DONATE'});
+        }
     };
 
     /**
