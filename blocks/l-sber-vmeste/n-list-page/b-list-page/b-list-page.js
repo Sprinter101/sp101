@@ -139,7 +139,6 @@ goog.scope(function() {
     */
     ListPage.prototype.addListCardsListeners = function() {
         for (var i = 0; i < this.cardLists_.length; i++) {
-
             var cardList = this.cardLists_[i];
 
             this.getHandler()

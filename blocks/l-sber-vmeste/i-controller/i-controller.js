@@ -62,7 +62,6 @@ goog.scope(function() {
      * @param {Object=} opt_params
      */
     Controller.prototype.actionDisplayCategoryCard = function(opt_params) {
-        console.log('opt_params ==', opt_params);
         this.headerManager_.setCardHeader({
             'choice_phrase': 'fund'
         });
