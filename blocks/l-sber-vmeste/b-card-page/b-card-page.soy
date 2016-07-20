@@ -18,27 +18,29 @@
                 <div class="{call .rootClass /}__icon-image-wrapper">
                     <img src="images/b-card-page/icon_345.png" alt="" class="{call .rootClass /}__icon-image">
                 </div>
-                <div class="{call .rootClass /}__icon-text">ПОМОЩЬ ДЕТЯМ</div>
+                <div class="{call .rootClass /}__icon-text"></div>
             </div>{sp}
             <div class="{call .rootClass /}__card-info">
-                <div class="{call .rootClass /}__donations"> Ежемесячно 289 человек перечисляет</div>
-                <div class="{call .rootClass /}__amount">11 378 рублей</div>
+                <div class="{call .rootClass /}__donations"></div>
+                <div class="{call .rootClass /}__amount"></div>
                 <div class="{call .rootClass /}__card-button"></div>
-                <div class="{call .rootClass /}__stop-helping i-utils__hidden">Остановить</div>
+                <div class="{call .rootClass /}__stop-helping i-utils__hidden">
+                    Остановить
+                </div>
             </div>
         </div>
     </div>
 
     <div class="{call .rootClass /}__description">
         <div class="{call .rootClass /}__description-wrapper">
-            <div class="{call .rootClass /}__text-title">Помощь детям</div>
-            <div class="{call .rootClass /}__text">«Дорогие друзья! На сегодняшний день благотворительность — это, пожалуй, единственная территория, где люди не пытаются реализовывать свои амбиции и достигать каких-либо целей, кроме одной — бескорыстная помощь человеку. Деятельность нашего Фонда направлена на спасение детей с заболеваниями головного мозга. Любой, даже самый скромный ваш вклад очень важен. Ведь каждая спасенная жизнь — бесценна!»</div>
+            <div class="{call .rootClass /}__text-title"></div>
+            <div class="{call .rootClass /}__text"></div>
         </div>
     </div>
 
     <div class="{call .rootClass /}__bottom">
         <div class="{call .rootClass /}__bottom-wrapper">
-            <div class="{call .rootClass /}__directions-count">3 Направления</div>
+            <div class="{call .rootClass /}__directions-count"></div>
             <div class="{call .rootClass /}__directions">
                 {call .renderChild}
                   {param params: [
@@ -51,7 +53,6 @@
             </div>
         </div>
     </div>
-
 {/template}
 
 /**
@@ -59,4 +60,12 @@
  */
 {template .rootClass}
     b-card-page
+{/template}
+
+/**
+ * Text template
+ * @param text {string}
+ */
+{template .text}
+    {$text}
 {/template}
