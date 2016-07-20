@@ -77,7 +77,6 @@ goog.scope(function() {
      */
     Utils.declensionPrint = function(data) {
         var num = Math.abs(data.num);
-
         var word = '';
 
         if (num.toString().indexOf('.') > -1) {

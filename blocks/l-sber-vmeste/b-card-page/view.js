@@ -27,6 +27,7 @@ goog.inherits(sv.lSberVmeste.bCardPage.View, cl.iControl.View);
 goog.scope(function() {
     var View = sv.lSberVmeste.bCardPage.View;
     var Template = sv.lSberVmeste.bCardPage.Template;
+    var Utils = sv.iUtils.Utils;
 
     /**
      * Css class enum
@@ -74,8 +75,7 @@ goog.scope(function() {
     */
     View.prototype.showStopHelpingLink = function() {
         goog.dom.classlist.remove(
-            this.dom.stopHelpingLink,
-            View.CssClass.HIDDEN
+            this.dom.stopHelpingLink, View.CssClass.HIDDEN
         );
     };
 
@@ -83,10 +83,7 @@ goog.scope(function() {
     * Hides stop helping link
     */
     View.prototype.hideStopHelpingLink = function() {
-        goog.dom.classlist.add(
-            this.dom.stopHelpingLink,
-            View.CssClass.HIDDEN
-        );
+        goog.dom.classlist.add(this.dom.stopHelpingLink, View.CssClass.HIDDEN);
     };
 
     /**
@@ -95,9 +92,7 @@ goog.scope(function() {
      */
     View.prototype.setIconTitle = function(title) {
         goog.soy.renderElement(
-            this.dom.iconTitle,
-            Template.text,
-            {text: title}
+            this.dom.iconTitle, Template.text, {text: title}
         );
     };
 
@@ -130,10 +125,17 @@ goog.scope(function() {
      * @param  {number} num donations
      */
     View.prototype.setDonations = function(num) {
+        var declension = Utils.declensionPrint({
+            num: num,
+            nom: 'человек',
+            gen: 'человека',
+            plu: 'людей'
+        });
+
         goog.soy.renderElement(
             this.dom.donations,
             Template.text,
-            {text: 'Ежемесячно ' + num + ' человек перечисляет'}
+            {text: 'Ежемесячно ' + num + ' ' + declension + ' перечисляет'}
         );
     };
 
@@ -142,10 +144,17 @@ goog.scope(function() {
      * @param  {number} price number of money
      */
     View.prototype.setFullPrice = function(price) {
+        var declension = Utils.declensionPrint({
+            num: price,
+            nom: 'рубль',
+            gen: 'рубля',
+            plu: 'рублей'
+        });
+
         goog.soy.renderElement(
             this.dom.fullPrice,
             Template.text,
-            {text: price + ' рублей'}
+            {text: price + ' ' + declension}
         );
     };
 
@@ -154,10 +163,17 @@ goog.scope(function() {
      * @param  {number} num number of money
      */
     View.prototype.setNumDirections = function(num) {
+        var declension = Utils.declensionPrint({
+            num: num,
+            nom: 'направление',
+            gen: 'направления',
+            plu: 'направлений'
+        });
+
         goog.soy.renderElement(
             this.dom.numDirections,
             Template.text,
-            {text: num + ' направления'}
+            {text: num + ' ' + declension}
         );
     };
 

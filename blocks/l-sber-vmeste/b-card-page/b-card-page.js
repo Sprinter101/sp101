@@ -83,11 +83,12 @@ goog.scope(function() {
         CardService.getCard(cardId).then(
             this.cardLoadResolveHandler_, this.cardLoadRejectHandler_, this
         ).then(function(data) {
-            console.log('this.cardType_ === ', this.cardType_, data);
             if (data.type === 'direction') {
-                return CardService.getFundsByParendId(cardId);
+                return CardService.getFundsByAssociatedId(cardId);
+            } else if (data.type === 'fund') {
+                return CardService.getFundEntitiesById(cardId);
             } else {
-                return CardService.getDirectionsByParendId(cardId);
+                return CardService.getDirectionsByAssociatedId(cardId);
             }
         }).then(
             this.loadCardsResolveHandler_, this.loadCardsRejectHandler_, this
@@ -98,6 +99,7 @@ goog.scope(function() {
      * Will be called when card data was successful loaded
      * @param  {object} res
      * @private
+     * @return {object}
      */
     CardPage.prototype.cardLoadResolveHandler_ = function(res) {
         var data = res.data;
@@ -161,20 +163,26 @@ goog.scope(function() {
      * @private
      */
     CardPage.prototype.cardClickHandler_ = function(event) {
-        console.log('clicked on', event);
-
         Router.getInstance().changeLocation(Route['CARD'], {
-            id: event.cardId
+            'id': event.cardId
         });
     };
 
     /**
      * Load success cards handler
-     * @param {Object} response
+     * @param {Object|Array} response
      * @private
      */
     CardPage.prototype.loadCardsResolveHandler_ = function(response) {
-        this.cardList_.renderCards(response.data);
+        var cardList = null;
+
+        if (Array.isArray(response)) {
+            cardList = response[0].data.concat(response[1].data);
+        } else {
+            cardList = response.data;
+        }
+
+        this.cardList_.renderCards(cardList);
     };
 
     /**
@@ -300,9 +308,9 @@ goog.scope(function() {
     CardPage.prototype.renderButton_ = function(buttonConfig) {
         var domButtonContainer = this.getView().getDom().buttonContainer;
 
-        this.cardButton_ = this.renderChild('ButtonSber',
-                                             domButtonContainer,
-                                             buttonConfig);
+        this.cardButton_ = this.renderChild(
+            'ButtonSber', domButtonContainer, buttonConfig
+        );
     };
 
     /**

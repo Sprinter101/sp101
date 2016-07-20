@@ -27,25 +27,44 @@ goog.scope(function() {
         return request.send({url: cardUrl});
     };
 
+
     /**
      * Get directions by parent id
      * @param  {number} cardId parent card id
      * @return {goog.Promise}
      */
-    CardService.getDirectionsByParendId = function(cardId) {
+    CardService.getDirectionsByAssociatedId = function(cardId) {
         var cardUrl = '/entity/' + cardId + '/direction';
 
         return request.send({url: cardUrl});
     };
+
 
     /**
      * Get funds by parent id
      * @param  {number} cardId parent card id
      * @return {goog.Promise}
      */
-    CardService.getFundsByParendId = function(cardId) {
+    CardService.getFundsByAssociatedId = function(cardId) {
         var cardUrl = '/entity/' + cardId + '/fund';
 
         return request.send({url: cardUrl});
     };
+
+
+    /**
+     * Get funds by parent id
+     * @param  {number} cardId parent card id
+     * @return {goog.Promise}
+     */
+    CardService.getFundEntitiesById = function(cardId) {
+        var directionsUrl = '/entity/' + cardId + '/direction';
+        var topicsUrl = '/entity/' + cardId + '/topic';
+
+        var reqDirections = request.send({url: directionsUrl});
+        var reqTopics = request.send({url: topicsUrl});
+
+        return Promise.all([reqDirections, reqTopics]);
+    };
+
 });  // goog.scope
