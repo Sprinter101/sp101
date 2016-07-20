@@ -39,7 +39,17 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardList_ = null;
 
+    /**
+    * @type {string}
+    * @private
+    */
     this.cardType_ = null;
+
+    /**
+    * @type {object}
+    * @private
+    */
+    this.headerManager_ = this.params.headerManager_;
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
@@ -114,7 +124,8 @@ goog.scope(function() {
         var fullPrice = 100500;
 
         // customize header
-        this.params.header.renderCorrectTitle(type);
+        this.headerManager_.setCardHeader();
+        this.headerManager_.getCurrentHeader().renderCorrectTitle(type);
 
         this.getView().setIconTitle(title);
         this.getView().setTextTitle(title);
@@ -191,7 +202,7 @@ goog.scope(function() {
      * @private
      */
     CardPage.prototype.loadCardsRejectHandler_ = function(response) {
-        console.error(response.data);
+        console.error(response);
     };
 
     /**
