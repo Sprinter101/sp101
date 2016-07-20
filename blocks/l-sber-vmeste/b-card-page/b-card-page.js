@@ -7,6 +7,7 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.iCardService.CardService');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -22,12 +23,6 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-    * @type {Boolean}
-    * @private
-    */
-    this.isUserHelping_ = true;
-
-    /**
     * @type {sv.gButton.Button}
     * @private
     */
@@ -39,7 +34,17 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardList_ = null;
 
+    /**
+    * @type {string}
+    * @private
+    */
     this.cardType_ = null;
+
+    /**
+    * @type {object}
+    * @private
+    */
+    this.headerManager_ = this.params.headerManager_;
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
@@ -49,7 +54,8 @@ goog.scope(function() {
         CardService = sv.lSberVmeste.iCardService.CardService,
         request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
-        Router = sv.lSberVmeste.iRouter.Router;
+        Router = sv.lSberVmeste.iRouter.Router,
+        UserService = sv.lSberVmeste.iUserService.UserService;
 
 
     /**
@@ -65,13 +71,6 @@ goog.scope(function() {
         var domCardList = this.getView().getDom().cardList;
         var cardId = this.params.cardId;
 
-        if (this.isUserHelping_) {
-            this.setHelpingButton_();
-            this.getView().showStopHelpingLink();
-        } else {
-            this.setStartHelpingButton_();
-        }
-
         this.cardList_ = this.decorateChild(
             'CardList',
             domCardList,
@@ -80,9 +79,12 @@ goog.scope(function() {
             }
         );
 
+        // loading card info
         CardService.getCard(cardId).then(
             this.cardLoadResolveHandler_, this.cardLoadRejectHandler_, this
-        ).then(function(data) {
+        )
+        // loading associated cards
+        .then(function(data) {
             if (data.type === 'direction') {
                 return CardService.getFundsByAssociatedId(cardId);
             } else if (data.type === 'fund') {
@@ -90,7 +92,9 @@ goog.scope(function() {
             } else {
                 return CardService.getDirectionsByAssociatedId(cardId);
             }
-        }).then(
+        })
+        // Handling associated cards
+        .then(
             this.loadCardsResolveHandler_, this.loadCardsRejectHandler_, this
         );
     };
@@ -105,6 +109,7 @@ goog.scope(function() {
         var data = res.data;
         var type = data.type;
         var title = data.title;
+        var isChecked = data.checked;
         var description = data.description;
 
         this.cardType_ = type;
@@ -114,7 +119,15 @@ goog.scope(function() {
         var fullPrice = 100500;
 
         // customize header
-        this.params.header.renderCorrectTitle(type);
+        this.headerManager_.setCardHeader();
+        this.headerManager_.getCurrentHeader().renderCorrectTitle(type);
+
+        if (isChecked) {
+            this.setHelpingButton_();
+            this.getView().showStopHelpingLink();
+        } else {
+            this.setStartHelpingButton_();
+        }
 
         this.getView().setIconTitle(title);
         this.getView().setTextTitle(title);
@@ -187,11 +200,11 @@ goog.scope(function() {
 
     /**
      * Load fail cards handler
-     * @param {Object} response
+     * @param {Object} err
      * @private
      */
-    CardPage.prototype.loadCardsRejectHandler_ = function(response) {
-        console.error(response.data);
+    CardPage.prototype.loadCardsRejectHandler_ = function(err) {
+        console.error(err);
     };
 
     /**
