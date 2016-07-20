@@ -212,9 +212,14 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
-        this.setThanksButton_();
+        UserService.getInstance().addEntity(this.params.cardId)
+        .then(function() {
+            this.setThanksButton_();
+            this.getView().showStopHelpingLink();
+        }, function(err) {
+            console.error(err);
+        }, this);
 
-        this.getView().showStopHelpingLink();
     };
 
     /**
@@ -222,9 +227,13 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
-        this.setStartHelpingButton_();
-
-        this.getView().hideStopHelpingLink();
+        UserService.getInstance().removeEntity(this.params.cardId)
+        .then(function() {
+            this.setStartHelpingButton_();
+            this.getView().hideStopHelpingLink();
+        }, function(err) {
+            console.error(err);
+        }, this);
     };
 
     /**
@@ -272,8 +281,6 @@ goog.scope(function() {
             'config': {
                 'buttonStyles': [
                     'background_green',
-                    'border_green',
-                    'border_thick',
                     'font-size_smaller',
                     'width_l'
                 ]
@@ -297,8 +304,6 @@ goog.scope(function() {
             'config': {
                 'buttonStyles': [
                     'background_green',
-                    'border_green',
-                    'border_thick'
                 ]
             }
         };
