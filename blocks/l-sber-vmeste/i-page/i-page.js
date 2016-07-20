@@ -16,6 +16,7 @@ goog.require('sv.lSberVmeste.iPage.View');
  */
 sv.lSberVmeste.iPage.Page = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
+
 };
 goog.inherits(sv.lSberVmeste.iPage.Page, cl.iControl.Control);
 

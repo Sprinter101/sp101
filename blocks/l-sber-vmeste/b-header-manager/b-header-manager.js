@@ -1,7 +1,6 @@
 goog.provide('sv.lSberVmeste.bHeaderManager.HeaderManager');
 
 goog.require('cl.iContentManager.ContentManager');
-goog.require('cl.iRequest.Request');
 goog.require('sv.lSberVmeste.bHeader.Header');
 
 
@@ -30,11 +29,9 @@ goog.inherits(
     cl.iContentManager.ContentManager
 );
 
-
 goog.scope(function() {
     var Manager = sv.lSberVmeste.bHeaderManager.HeaderManager,
-        Header = sv.lSberVmeste.bHeader.Header,
-        Request = cl.iRequest.Request;
+        Header = sv.lSberVmeste.bHeader.Header;
 
      /**
      * header params enum
@@ -60,14 +57,6 @@ goog.scope(function() {
             'choice_phrase': 'directions',
             'help_phrase': 'donation'}
         }
-    };
-
-    /**
-     * Api enum
-     * @type {string}
-     */
-    Manager.URL = {
-        USER_URL: '/user'
     };
 
     /**
@@ -99,22 +88,17 @@ goog.scope(function() {
     Manager.prototype.setProfileHeader = function(opt_params) {
         var params = Manager.HeaderStates.PROFILE;
         var that = this;
+        var loggedIn = opt_params.loggedIn;
         switch (opt_params.pageType) {
         case 'start':
-            this.isUserLoggedIn()
-            .then(function(result) {
-                params.config.roundButton = result.roundButton;
-                params.config.help_phrase = 'about_profile';
-                that.renderHeader(params);
-            });
+            params.config.roundButton = this.setButtonContent(opt_params);
+            params.config.help_phrase = 'about_profile';
+            that.renderHeader(params);
             break;
         case 'profile':
-            this.isUserLoggedIn()
-            .then(function(result) {
-                params.config.roundButton = 'x';
-                params.config.help_phrase = result.help_phrase;
-                that.renderHeader(params);
-            });
+            params.config.roundButton = 'x';
+            params.config.help_phrase = 'logout';
+            that.renderHeader(params);
             break;
         case 'registration':
             params.config.roundButton = 'x';
@@ -129,19 +113,21 @@ goog.scope(function() {
     };
 
      /**
-     * send AJAX
-     * @return {Object} ajas response or error
+     * set content for 'me'
+     * @param {Object} params
+     * @return {string}
      * @protected
      */
-    Manager.prototype.isUserLoggedIn = function() {
-        return Request.getInstance().send({
-            url: Manager.URL.USER_URL
-        }).
-        then(
-            this.handleSuccess,
-            this.handleRejection,
-            this
-        );
+    Manager.prototype.setButtonContent = function(params) {
+        var roundButton;
+        if (params.loggedIn) {
+            roundButton = params.firstName[0] +
+                params.lastName[0];
+        }
+        else {
+            roundButton = 'я';
+        }
+        return roundButton;
     };
 
     /**
@@ -159,64 +145,11 @@ goog.scope(function() {
     };
 
      /**
-    * Ajax success handler
-    * @param {Object} response
-    * @return {Object}
-    */
-    Manager.prototype.handleSuccess = function(response) {
-        var loggedIn = response.data.loggedIn;
-        var firstName = response.data.firstName;
-        var lastName = response.data.lastName;
-        if (loggedIn) {
-            return this.setProfileAuthorized(firstName, lastName);
-        }
-        else {
-           return this.setProfileAnonymous();
-        }
-    };
-
-    /**
-    * Ajax rejection handler
-    * @param {Object} err
-    */
-    Manager.prototype.handleRejection = function(err) {
-        console.log(err);
-    };
-
-    /**
-     * set correct value to round button
-     * @param {string} firstName
-     * @param {string} lastName
-     * @return {string}
-     * @protected
-     */
-    Manager.prototype.setProfileAuthorized = function(firstName, lastName) {
-        var firstName = firstName[0];
-        var lastName = lastName[0];
-        var roundButton = firstName + lastName;
-        help_phrase = 'logout';
-        return {'roundButton': roundButton, 'help_phrase': help_phrase};
-    };
-
-    /**
-     * set correct value to round button
-     * @return {Object}
-     * @protected
-     */
-    Manager.prototype.setProfileAnonymous = function() {
-        var roundButton = 'я';
-        help_phrase = 'about_profile';
-       return {'roundButton': roundButton, 'help_phrase': help_phrase};
-    };
-
-     /**
      * set donation choice header
-     * @param {Object=} opt_params
      * @protected
      */
-    Manager.prototype.setChoiceHeader = function(opt_params) {
+    Manager.prototype.setChoiceHeader = function() {
         var params = Manager.HeaderStates.CHOICE;
-        params.config.choice_phrase = opt_params.choice_phrase;
         this.renderHeader(params);
     };
 
@@ -228,12 +161,10 @@ goog.scope(function() {
     Manager.prototype.setListHeader = function(opt_params) {
         var params = Manager.HeaderStates.LIST;
         var that = this;
-        this.isUserLoggedIn()
-            .then(function(result) {
-                params.config.roundButton = result.roundButton;
-                params.config.help_phrase = 'about_list';
-                that.renderHeader(params);
-            });
+        var loggedIn = opt_params.loggedIn;
+        params.config.roundButton = this.setButtonContent(opt_params);
+        params.config.help_phrase = 'about_list';
+        that.renderHeader(params);
     };
 
 

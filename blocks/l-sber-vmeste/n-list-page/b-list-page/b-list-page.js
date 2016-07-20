@@ -9,6 +9,7 @@ goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -69,7 +70,8 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         CardList = sv.lSberVmeste.bCardList.CardList,
-        UserBlock = sv.lSberVmeste.bUserBlock.UserBlock;
+        UserBlock = sv.lSberVmeste.bUserBlock.UserBlock,
+        UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
     * Array of card types
@@ -83,6 +85,16 @@ goog.scope(function() {
     */
     ListPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_ !== undefined) {
+            var that = this;
+            UserService.getInstance().isUserLoggedIn()
+                .then(function(result) {
+                    var params = that.handleSuccessLoginCheck(result);
+                    that.headerManager_.setListHeader(params);
+            });
+       }
 
         this.sendCategoriesRequest();
 
@@ -292,6 +304,28 @@ goog.scope(function() {
     */
     ListPage.prototype.onUserBlockButtonClick_ = function() {
         Router.getInstance().changeLocation(Route['DONATE']);
+    };
+
+    /**
+    * Ajax success handler
+    * @param {Object} response
+    * @return {Object}
+    */
+    ListPage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        var firstName = response.data.firstName;
+        var lastName = response.data.lastName;
+        var pageType = 'list';
+        return {'loggedIn': loggedIn, 'firstName': firstName,
+            'lastName': lastName, 'pageType': pageType};
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    ListPage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
     };
 
 });  // goog.scope

@@ -10,6 +10,7 @@ goog.require('sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -64,7 +65,8 @@ goog.scope(function() {
         Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
-        View = sv.lSberVmeste.bDonatePage.View;
+        View = sv.lSberVmeste.bDonatePage.View,
+        UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
      * Api enum
@@ -90,6 +92,12 @@ goog.scope(function() {
 
         this.donateBlockPercent_ = this.decorateChild('DonationPercentBlock',
             this.getView().getDom().donateBlockPercent);
+
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_ !== undefined) {
+            var that = this;
+            that.headerManager_.setChoiceHeader();
+        }
     };
 
     /**

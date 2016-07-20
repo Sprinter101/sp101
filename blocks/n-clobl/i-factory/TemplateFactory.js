@@ -20,6 +20,8 @@ goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
 goog.require('sv.lSberVmeste.bPaymentPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
+goog.require('sv.lSberVmeste.bPaymentPage.Template');
+goog.require('sv.lSberVmeste.bPhoneBlock.Template');
 goog.require('sv.lSberVmeste.bProfile.Template');
 goog.require('sv.lSberVmeste.bProfileEdit.Template');
 goog.require('sv.lSberVmeste.bProfilePage.Template');
@@ -27,7 +29,6 @@ goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
-goog.require('sv.lSberVmeste.bPhoneBlock.Template');
 
 
 /**
