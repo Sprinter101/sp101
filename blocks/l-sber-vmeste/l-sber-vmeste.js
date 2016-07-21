@@ -25,58 +25,8 @@ sv.lSberVmeste.SberVmeste = function(view, opt_domHelper) {
     * @private
     */
     this.dataParams_ = null;
-
-    var iframe = document.querySelector('.frame-request');
-    var store = {};
-    var request = {
-        send: function(data) {
-            return new Promise(function(resolve, reject) {
-                var reqId = 'req_' + Date.now() + Math.random();
-
-                data.reqId = reqId;
-
-                store[reqId] = {
-                    resolve: resolve,
-                    reject: reject
-                };
-                iframe.contentWindow.postMessage(data, '*');
-            });
-        }
-    };
-
-    window.addEventListener('message', function(res) {
-        var data = res.data;
-
-        store[data.reqId][data.type](data.response);
-    });
-
-    var r1 = request.send({url: 'http://localhost:3000/entity'});
-    var r2 = request.send({url: 'http://localhost:3000/entity/fund'});
-
-    console.log('---1---', r1, r2);
-
-    Promise.all([r1, r2]).then(function(arr) {
-        console.log('res === ', arr);
-    }).catch(function(err) {
-        console.log('catch', err);
-    });
-
-    // this.dataParams_ = JSON.parse(
-    //     goog.dom.dataset.get(this.getView().getElement(), 'params')
-    // );
-    //
-    // var request = sv.lSberVmeste.iRequest.Request.getInstance();
-    // request.init({baseUrl: this.dataParams_.apiUrl});
-    //
-    // console.log('request == ', request);
 };
 goog.inherits(sv.lSberVmeste.SberVmeste, cl.iControl.Control);
-
-
-
-
-
-
 
 
 goog.scope(function() {
@@ -118,17 +68,6 @@ goog.scope(function() {
             headerManager: this.headerManager_,
             pageManager: this.pageManager_
         });
-
-
-        var that = this;
-
-        (function() {
-            var request = sv.lSberVmeste.iRequest.Request.getInstance();
-            request.init({baseUrl: that.dataParams_.apiUrl});
-
-            console.log('request == ', request);
-        })();
-
     };
 
     /**
@@ -151,28 +90,13 @@ goog.scope(function() {
 
         this.router_.enable();
 
-        this.initRoute_(
-            Route.START, controller.actionStart
-        );
-        this.initRoute_(
-            Route.TEST, controller.actionTest
-        );
-        this.initRoute_(
-            Route.LIST_PAGE, controller.actionListPage
-        );
-        this.initRoute_(
-            Route.CARD, controller.actionDisplayCategoryCard
-        );
-        this.initRoute_(
-            Route.DONATE, controller.actionDonate
-        );
-        this.initRoute_(
-            Route.PROFILE, controller.actionProfilePage
-        );
-        this.initRoute_(
-            Route.REGISTRATION, controller.actionRegistrationPage
-        );
-
+        this.initRoute_(Route.START, controller.actionStart);
+        this.initRoute_(Route.TEST, controller.actionTest);
+        this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
+        this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
+        this.initRoute_(Route.DONATE, controller.actionDonate);
+        this.initRoute_(Route.PROFILE, controller.actionProfilePage);
+        this.initRoute_(Route.REGISTRATION, controller.actionRegistrationPage);
         this.initRoute_(Route.START, controller.actionStart);
         this.initRoute_(Route.TEST, controller.actionTest);
         this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
