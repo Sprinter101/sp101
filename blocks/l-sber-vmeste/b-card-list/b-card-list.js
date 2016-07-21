@@ -51,7 +51,9 @@ goog.scope(function() {
      * @param {Array} cards
      */
     CardList.prototype.renderCards = function(cards) {
-        var domCardsBlock = this.getView().getDom().cardsBlock;
+        var domCardsBlock = this.getView().getDom().cardsBlock,
+            href = window.location.href,
+            url = href.slice(0, href.indexOf('#'));
 
         for (var i = 0; cards && i < cards.length; i++) {
 
@@ -65,8 +67,7 @@ goog.scope(function() {
 
             var cardParams = {
                 data: {
-                    logoSrc: 'http://lorempixel.com/79/87/?hash' +
-                        i + card.type,
+                    logoSrc: url + card.imgUrl,
                     title: card.title
                 },
                 config: {
