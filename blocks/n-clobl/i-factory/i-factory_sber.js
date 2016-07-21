@@ -28,6 +28,8 @@ goog.require('sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock');
 goog.require('sv.lSberVmeste.bDonationFixedBlock.View');
 goog.require('sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock');
 goog.require('sv.lSberVmeste.bDonationPercentBlock.View');
+goog.require('sv.lSberVmeste.bHeader.Header');
+goog.require('sv.lSberVmeste.bHeader.View');
 goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bHeaderManager.View');
 goog.require('sv.lSberVmeste.bListPage.ListPage');

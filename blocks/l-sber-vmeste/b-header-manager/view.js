@@ -42,9 +42,7 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
-        this.dom.header = this.getElementByClass(HeaderView.CssClass.ROOT);
-    };
+};
 
     /**
      * @override

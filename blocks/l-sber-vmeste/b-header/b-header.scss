@@ -6,6 +6,10 @@
     vertical-align: middle;
 }
 
+.b-header__inner-wrap {
+    margin: 0 auto;
+}
+
 .b-header__inner-wrap_profile {
     height: 98px;
 }
@@ -23,18 +27,6 @@
     height: 104px;
 }
 
-.b-header__logo_small-wrapper {
-    display: inline-block;
-    float: left;
-    width: 66px;
-    margin-left: 26px;
-    margin-top: 34px;
-}
-
-.b-header__logo_large-wrapper {
-    display: none;
-}
-
 .b-header__right-column {
     display: inline-block;
     float: right;
@@ -45,6 +37,7 @@
     display: inline-block;
     float: left;
     width: 26%;
+    height: 70px;
 }
 
 .b-header__central-column {
@@ -74,23 +67,25 @@
     text-transform: uppercase;
 }
 
-.b-header__help {
+.b-header__help-wrapper {
     display: inline-block;
     float: right;
-    cursor: pointer;
 }
 
-.b-header__help_about_profile {
+.b-header__help_about-profile {
+    width: 86px;
     margin-top: 49px;
     margin-right: 4px;
 }
 
 .b-header__help_logout {
+    width: 86px;
     margin-top: 49px;
     margin-right: 4px;
+    cursor: pointer;
 }
 
-.b-header__help_about_list {
+.b-header__help_about-list {
     width: 86px;
     margin-top: 49px;
     margin-right: 4px;
@@ -101,7 +96,7 @@
     margin: 39px 4px 0 20px;
 }
 
-.b-header__help-text {
+.b-header__help {
     color: #e7f038;
     font-size: 13px;
     text-align: center;
@@ -112,6 +107,7 @@
     float: left;
     margin-left: 28px;
     margin-top: 36px;
+    cursor: pointer;
 }
 
 .b-header__choice-phrase {
@@ -148,13 +144,14 @@
 }
 
 @include media-m {
+    .b-header__inner-wrap {
+        width: 768px;
+    }
     .b-header__inner-wrap_profile {
         height: 110px;
     }
     .b-header__inner-wrap_card {
-        width: 768px;
         height: 78px;
-        margin: 0 auto;
     }
     .b-header__inner-wrap_choice {
         height: 102px;
@@ -174,16 +171,17 @@
     .b-header__help {
         margin-top: 45px;
     }
-    .b-header__help_about_profile {
-        margin-right: 8px;
+    .b-header__help_about-profile {
+        margin-right: 40px;
     }
     .b-header__help_logout {
-        margin-right: 8px;
+        margin-right: 40px;
     }
-    .b-header__help_about_list {
+    .b-header__help_about-list {
         margin-right: 40px;
     }
     .b-header__help_donation {
+        width: 100px;
         margin-top: 40px;
         margin-right: 40px;
     }
@@ -193,7 +191,7 @@
     }
     .b-header__back-wrapper {
         margin-top: 36px;
-        margin-left: 57px;
+        margin-left: 19px;
     }
     .b-header__share-wrapper {
         margin-top: 30px;
@@ -205,19 +203,14 @@
     .b-header__inner-wrap_card {
         border-radius: 7px 7px 0 0;
     }
-    .b-header__help_about_list {
-       margin-right: 77px;
-    }
-     .b-header__logo_small-wrapper {
-        display: none;
-    }
     .b-header__logo_large-wrapper {
-        display: inline-block;
+        position: absolute;
+        margin-left: -80px;
     }
     .b-header__help_donation {
         width: 86px;
         margin-top: 40px;
-        margin-right: 77px;
+        margin-right: 40px;
     }
 }
 
@@ -225,7 +218,7 @@
     .b-header__button_wrapper {
         top: 35px;
     }
-    .b-header__back-wrapper {
-        margin-top: 30px;
+     .b-header__logo_large-wrapper {
+        margin-left: -80px;
     }
 }

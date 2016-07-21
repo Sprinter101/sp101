@@ -6,6 +6,7 @@ goog.require('sv.lSberVmeste.bProfile.Profile');
 goog.require('sv.lSberVmeste.bProfileEdit.ProfileEdit');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -45,7 +46,8 @@ goog.scope(function() {
         request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
-        ProfileEdit = sv.lSberVmeste.bProfileEdit.ProfileEdit;
+        ProfileEdit = sv.lSberVmeste.bProfileEdit.ProfileEdit,
+        UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
      * Events
@@ -60,8 +62,20 @@ goog.scope(function() {
     ProfilePage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.headerManager_ = this.params.headerManager_;
-        this.headerManager_.setProfileHeader({'pageType': 'profile'});
+        this.header_ = this.params.header;
+        if (this.header_) {
+            var that = this;
+            UserService.getInstance().isUserLoggedIn()
+                .then(function(result) {
+                    var params = that.handleSuccessLoginCheck(result);
+                    that.header_.renderButton(params);
+                    that.header_.renderCorrectHelp(params);
+            }, function(err) {
+                    var params = that.handleRejectionLoginCheck(err);
+                    that.header_.renderButton(params);
+                }
+            );
+        }
     };
 
     /**
@@ -215,6 +229,40 @@ goog.scope(function() {
             this.profileBlock_.dispose();
             this.profileBlock_ = null;
         }
+    };
+
+    /**
+    * Ajax success handler
+    * @param {Object} response
+    * @return {Object}
+    */
+    ProfilePage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        var help_phrase = '';
+        if (loggedIn) {
+            help_phrase = 'logout';
+        }
+        var pageType = 'profile';
+        var firstName = response.data.firstName;
+        var lastName = response.data.lastName;
+        return {'loggedIn': loggedIn, 'firstName': firstName,
+            'lastName': lastName, 'help_phrase': help_phrase,
+            'pageType': pageType
+        };
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    * @return {Object}
+    */
+    ProfilePage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
+        var default_params = {'loggedIn': false, 'firstName': undefined,
+            'lastName': undefined, 'draft': false,
+            'pageType': 'profile'
+        };
+        return default_params;
     };
 
 });  // goog.scope

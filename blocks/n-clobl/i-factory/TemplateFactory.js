@@ -33,7 +33,6 @@ goog.require('sv.lSberVmeste.bUserfundPage.Template');
 
 
 
-
 /**
  * Template factory
  * @constructor

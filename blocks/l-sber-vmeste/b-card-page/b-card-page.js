@@ -65,8 +65,7 @@ goog.scope(function() {
     CardPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.headerManager_ = this.params.headerManager_;
-        this.headerManager_.setCardHeader();
+        this.header_ = this.params.header;
 
         var domCardList = this.getView().getDom().cardList;
         var cardId = this.params.cardId;
@@ -119,8 +118,7 @@ goog.scope(function() {
         var fullPrice = 100500;
 
         // customize header
-        this.headerManager_.setCardHeader();
-        this.headerManager_.getCurrentHeader().renderCorrectTitle(type);
+        this.header_.renderCorrectTitle(type);
 
         if (isChecked) {
             this.setHelpingButton_();

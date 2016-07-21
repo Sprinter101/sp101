@@ -10,53 +10,6 @@
 
 /**
  * @override
- * @param params {{
-        data: {
-            type: ?string
-        },
- *     config: {
- *          type: ?string,
- *         roundButton: ?string,
- *         help_phrase: ?string
- *     }
- * }}
- */
-{template .body}
-    {let $roundButton: $params?.config?.roundButton /}
-    {let $help_phrase: $params?.config?.help_phrase /}
-    {call .initChildWithState}
-        {param params: [
-            'states': [
-                [
-                    'type': 'profile',
-                    'config': ['type': 'profile', 'roundButton': $roundButton,
-                        'help_phrase': $help_phrase]
-                ],
-                [
-                    'type': 'card',
-                    'config': ['type': 'card', 'roundButton': $roundButton]
-                ],
-                [
-                    'type': 'choice',
-                    'config': ['type': 'choice', 'roundButton': $roundButton]
-                ],
-                [
-                    'type': 'list',
-                    'config': ['type': 'list', 'roundButton': $roundButton]
-                ]
-            ],
-            'defaultControl': 'Header',
-            'currentState': $params?.config?.type ?
-                $params?.config?.type : 'profile',
-            'defaultConfig': ['type': 'profile', 'roundButton': $roundButton ?
-                $roundButton : 'я',
-                'choice_phrase': $help_phrase ? $help_phrase : 'about_profile']
-        ]/}
-    {/call}
-{/template}
-
-/**
- * @override
  */
 {template .rootClass}
     b-header-manager

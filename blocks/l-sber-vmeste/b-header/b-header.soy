@@ -61,10 +61,9 @@
         {let $hiddenButton: $headerType == 'profile' ? false : 
             $headerType == 'list' ? false : true /}
         {let $roundButton: $params.config?.roundButton /}
-            {call .button }
-                {param roundButton: $roundButton/}
-                {param hidden: $hiddenButton /}
-            {/call}
+        <div class="{call .rootClass/}__button-wrapper{if $hiddenButton}
+        {sp}{call .hidden/}{/if}">
+        </div>
         {let $hiddenChoice: $headerType == 'profile' ? true : false /}
         {let $choice_phrase: $params.config?.choice_phrase /}
             <div class="{call .rootClass/}__choice-phrase">
@@ -85,8 +84,8 @@
  * @param hidden {?bool}
  */
 {template .icon}
-    <div class="{call .rootClass/}__icon-wrapper{sp}
-        {call .rootClass/}__{$wrapper}-wrapper{if $hidden}
+    <div class="{call .rootClass/}__{$wrapper}-wrapper{sp}
+        {call .rootClass/}__{$iconType}{if $hidden}
         {sp}{call .hidden/}{/if}">
             {call .renderChild}
                 {param params: [
@@ -102,10 +101,10 @@
 
 /**
  * button template
- * @param roundButton {string},
- * @param hidden {?bool}
+ * @param roundButton {string}
  */
 {template .button}
+    {let $buttonContent: $roundButton ? $roundButton : 'я' /}
     {let $buttonType: $roundButton == 'x' ? 'b-header__button_close' :
         'b-header__button_me' /}
     {let $buttonStyleTransparent: $roundButton == 'x' ? 
@@ -113,27 +112,24 @@
     {let $buttonStyleTextColor: $roundButton == 'x' ? 
         'text-color_white' : ''/}
     {let $buttonStyleBorder: $roundButton == 'x' ? 'border_yellow' : '' /}
-    <div class="{call .rootClass/}__button-wrapper{if $hidden}
-        {sp}{call .hidden/}{/if}">
-            {call .renderChild}
-                {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': $roundButton,
-                        ],
-                        'config': [
-                        'buttonStyles': 
-                        ['width_m', 'height_big', 'font_SFUI',
-                            $buttonStyleTransparent, $buttonStyleTextColor,
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': $roundButton,
+                    ],
+                    'config': [
+                    'buttonStyles': 
+                    ['width_m', 'height_big', 'font_SFUI',
+                     $buttonStyleTransparent, $buttonStyleTextColor,
                             $buttonStyleBorder],
-                        'customClasses': 
-                            ['b-header__button', $buttonType]
-                        ]
+                    'customClasses': 
+                        ['b-header__button', $buttonType]
                     ]
-                ]/}
-            {/call}
-    </div>
+                ]
+            ]/}
+        {/call}
 {/template}
 
 /**
@@ -175,14 +171,14 @@
  * @param hidden {?bool}
  */
 {template .help}
-    <div class="{call .rootClass/}__help{sp}
-        {call .rootClass/}__help_{$help_phrase}{if $hidden}{sp}
+    <div class="{call .rootClass/}__help-wrapper{if $hidden}{sp}
         {call .hidden/}{/if}">
-        <div class="{call .rootClass/}__help-text">
+        <div class="{call .rootClass/}__help{sp}
+            {call .rootClass/}__help_{$help_phrase}">
         {switch $help_phrase}
-            {case 'about_profile'}
+            {case 'about-profile'}
                 О проекте
-            {case 'about_list'}
+            {case 'about-list'}
                 О проекте
             {case 'logout'}
                 Выйти
