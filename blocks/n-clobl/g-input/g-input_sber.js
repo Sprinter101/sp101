@@ -7,9 +7,8 @@ goog.require('sv.gInput.View');
 
 /**
  * Input control
- * @param {sv.gInput.View} view View used to render or
- *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
+ * @param {sv.gInput.View} view
+ * @param {goog.dom.DomHelper=} opt_domHelper
  * @constructor
  * @extends {cl.gInput.Input}
  */
@@ -28,12 +27,6 @@ sv.gInput.Input = function(view, opt_domHelper) {
      */
 
     this.valueParams = {};
-    this.const = {
-        MAX_NUMBER: this.params.MAX_NUMBER ?
-                            this.params.MAX_NUMBER : Infinity,
-        MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
-                            this.params.MAX_CHARACTERS : 11
-    };
 
     /**
      * Possible validation type handlers
