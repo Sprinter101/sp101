@@ -14,6 +14,7 @@
  */
 {template .body}
     <div class="{call .rootClass/}__phone-number-view">
+
     </div>
     <div class="{call .rootClass/}__text">
         Введите свой номер мобильного телефона
@@ -70,7 +71,11 @@
                         'content': 'Войти'
                     ],
                     'config': [
-                        'buttonStyles': []
+                        'buttonStyles': [],
+                        'stylesForDisabled': [
+                            'border_grey',
+                            'background_transparent'
+                        ]
                     ]
                 ]
             ]/}
@@ -85,11 +90,11 @@
                         'content': 'Подтвердить'
                     ],
                     'config': [
-                        'buttonStyles': ['font-size_med',
-                                         'border_green',
-                                         'text-color_white',
-                                         'background_green'
-                                        ]
+                        'buttonStyles': [],
+                        'stylesForDisabled': [
+                            'border_grey',
+                            'background_transparent'
+                        ]
                     ]
                 ]
             ]/}

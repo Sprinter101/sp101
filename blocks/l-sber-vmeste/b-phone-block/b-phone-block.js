@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
 goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
+goog.require('sv.gInput.Input');
 goog.require('sv.lSberVmeste.bPhoneBlock.View');
 
 /**
@@ -53,7 +54,9 @@ goog.inherits(sv.lSberVmeste.bPhoneBlock.PhoneBlock, cl.iControl.Control);
 
 goog.scope(function() {
     var Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock,
-        Button = sv.gButton.Button;
+        Button = sv.gButton.Button,
+        Input = sv.gInput.Input;
+
 
     /**
      * Events
@@ -78,13 +81,19 @@ goog.scope(function() {
             this.textPhone_ = domTexts.textPhoneNumber;
             this.textInfo_ = domTexts.textOntopInput;
 
-            this.inputPhoneNumber_ = domInputs.phoneNumber;
-            this.inputVerificationCode_ = domInputs.confirmCode;
+            this.inputPhoneNumber_ = this.decorateChild(
+                            'InputSber', domInputs.phoneNumber);
+            this.inputVerificationCode_ = this.decorateChild(
+                            'InputSber', domInputs.confirmCode);
 
             for (var i in domButtons) {
                 this.buttons_.push(
                     this.decorateChild('ButtonSber', domButtons[i])
                 );
+            }
+
+            for (var i = 0; i < this.buttons_.length; i++){
+                this.buttons_[i].disable();
             }
         };
     /**
@@ -102,7 +111,52 @@ goog.scope(function() {
                 this
             );
         }
+
+        this.addInputsListeners();
     };
+
+    /**
+     * Inputs listeners adder
+     */
+    Block.prototype.addInputsListeners = function () {
+        var inputs = [
+            this.inputPhoneNumber_,
+            this.inputVerificationCode_
+        ];
+        this.getHandler()
+            .listen(
+                inputs[0],
+                Input.Event.NOT_VALID,
+                this.onPhoneInputNotValid_,
+                false,
+                this
+            )
+            .listen(
+                inputs[0],
+                Input.Event.VALID,
+                this.onPhoneInputValid_,
+                false,
+                this
+            );
+
+        this.getHandler()
+            .listen(
+                inputs[1],
+                Input.Event.NOT_VALID,
+                this.onCodeInputNotValid_,
+                false,
+                this
+            )
+            .listen(
+                inputs[1],
+                Input.Event.VALID,
+                this.onCodeInputValid_,
+                false,
+                this
+            );
+
+    };
+
     /**
      * Button click handler
      * @param {Event} event
@@ -116,11 +170,11 @@ goog.scope(function() {
             infoTextField = this.textInfo_,
             phoneTextField = this.textPhone_,
 
-            inputNumberBlock = this.inputPhoneNumber_.parentElement,
-            inputNumberField = this.inputPhoneNumber_.firstChild,
+            inputNumberBlock = this.inputPhoneNumber_.element_.parentElement,
+            inputNumberField = this.inputPhoneNumber_.element_.firstChild,
 
-            inputConfirmBlock = this.inputVerificationCode_.parentElement,
-            inputConfirmField = this.inputVerificationCode_.firstChild,
+            inputConfirmBlock = this.inputVerificationCode_.element_.parentElement,
+            inputConfirmField = this.inputVerificationCode_.element_.firstChild,
 
 
             inputValue = inputNumberField.value;
@@ -142,10 +196,7 @@ goog.scope(function() {
                 );
 
                 phoneTextField.innerText = inputValue;
-                infoTextField.innerText = 'Введите 5-ти значный пароль из СМС';
-                //
-                // this.hideElement(inputNumberBlock);
-                // this.hideElement(Parent);
+                infoTextField.innerText = 'Введите 3-х значный пароль из СМС';
 
                 this.hideElements([inputNumberBlock, Parent]);
                 this.showElements([inputConfirmBlock, confirmButton], 'block');
@@ -246,4 +297,37 @@ goog.scope(function() {
             array[i].style.display = showType;
         }
     };
+
+    /**
+     * verification Code VALID handler
+     * @private
+     */
+    Block.prototype.onCodeInputValid_ = function () {
+        this.buttons_[1].enable();
+    };
+
+    /**
+     * verification Code NOT_VALID handler
+     * @private
+     */
+    Block.prototype.onCodeInputNotValid_ = function () {
+        this.buttons_[1].disable();
+    };
+
+    /**
+     * Phone Number VALID handler
+     * @private
+     */
+    Block.prototype.onPhoneInputValid_ = function () {
+        this.buttons_[0].enable();
+    };
+
+    /**
+     * Phone Number NOT_VALID handler
+     * @private
+     */
+    Block.prototype.onPhoneInputNotValid_ = function () {
+        this.buttons_[0].disable();
+    };
+
 });  // goog.scope
