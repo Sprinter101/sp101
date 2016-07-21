@@ -88,18 +88,23 @@ goog.scope(function() {
                     var params = that.handleSuccessLoginCheck(result);
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
-                    if (params.loggedIn) {
+                    var draft = params.draft;
+                    var loggedIn = params.loggedIn;
+                    if (!draft) {
+                        that.startBlock_.renderStartButtonContent(
+                            loggedIn, draft);
                         that.printReportsButtonContent();
                     }
                     else {
-                        that.getFundsCount();
+                        that.startBlock_.renderStartButtonContent(
+                                loggedIn, draft);
+                        that.getFundsCount_();
                     }
-            }, function(err) {
+                }, function(err) {
                     var params = that.handleRejectionLoginCheck(err);
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
-                }
-            );
+            });
        }
     };
 
@@ -156,9 +161,9 @@ goog.scope(function() {
      /**
      * Gets count of funds from server and then sends it
      * for further processing if request was successful
-     * @protected
+     * @private
      */
-    StartPage.prototype.getFundsCount = function() {
+    StartPage.prototype.getFundsCount_ = function() {
         Request.getInstance().send({
             url: StartPage.URL.USERFUNDS_COUNT})
             .then(this.handleSuccess,

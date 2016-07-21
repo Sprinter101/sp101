@@ -40,7 +40,6 @@ goog.scope(function() {
         ARROW_BACK_CONTAINER: 'b-header__back-wrapper',
         HELP_PHRASE_CONTAINER: 'b-header__right-column',
         HELP_PHRASE: 'b-header__help',
-        HELP_WTAPPER: 'b-header__help-wrapper',
         LOGOUT_PHRASE: 'b-header__help_logout',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
@@ -163,15 +162,13 @@ goog.scope(function() {
             sv.lSberVmeste.bHeader.Template.help,
             soyParams
         );
-        this.dom.helpWrapper = this.getElementByClass(
-            View.CssClass.HELP_WTAPPER
-        );
+
         this.dom.help = this.getElementByClass(
             View.CssClass.HELP_PHRASE
         );
         this.getHandler()
             .listen(
-                this.dom.helpWrapper,
+                this.dom.help,
                 goog.events.EventType.CLICK,
                 this.onHelpClick
             );

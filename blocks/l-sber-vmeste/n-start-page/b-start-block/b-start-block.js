@@ -66,7 +66,7 @@ goog.scope(function() {
         this.getHandler().listen(
             this.startButton_,
             Button.Event.CLICK,
-            this.onStartButtonClick
+            this.onStartButtonClick_
         );
     };
 
@@ -79,16 +79,16 @@ goog.scope(function() {
         var firstName = params.firstName;
         var lastName = params.lastName;
         var draft = params.draft;
-        this.renderUserfundLogo(loggedIn);
-        this.renderUserfundTitle(loggedIn, firstName, lastName);
-        this.renderStartButtonContent(loggedIn, draft);
+        this.renderUserfundLogo_(loggedIn);
+        this.renderUserfundTitle_(loggedIn, firstName, lastName);
     };
 
     /**
     * render correct icon as userfund logo
     * @param {bool} loggedIn
+     * @private
     */
-    StartBlock.prototype.renderUserfundLogo = function(loggedIn) {
+    StartBlock.prototype.renderUserfundLogo_ = function(loggedIn) {
         this.getView().renderUserfundLogo(loggedIn);
     };
 
@@ -97,8 +97,9 @@ goog.scope(function() {
     * @param {bool} loggedIn
     * @param {string} firstName
     * @param {string} lastName
+    * @private
     */
-    StartBlock.prototype.renderUserfundTitle = function(loggedIn,
+    StartBlock.prototype.renderUserfundTitle_ = function(loggedIn,
         firstName, lastName) {
         this.getView().renderUserfundTitle(loggedIn, firstName, lastName);
     };
@@ -114,9 +115,10 @@ goog.scope(function() {
 
     /**
      * detect start button type to correct event's handle
+     * @private
      * @return {bool}
     */
-    StartBlock.prototype.checkStartButtonClass = function() {
+    StartBlock.prototype.checkStartButtonClass_ = function() {
         return this.getView().checkStartButtonClass();
     };
 
@@ -124,10 +126,11 @@ goog.scope(function() {
      * Handles view click event by pushing it
      * to the start page
      * @param {View.Event.BUTTON_START_CLICK} event
+     * @private
      */
-    StartBlock.prototype.onStartButtonClick = function(event) {
+    StartBlock.prototype.onStartButtonClick_ = function(event) {
         var customEvent;
-        if (this.checkStartButtonClass()) {
+        if (this.checkStartButtonClass_()) {
             customEvent = new goog.events.Event(StartBlock.Event
             .MANAGE_USERFUND, this);
         }

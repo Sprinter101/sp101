@@ -97,6 +97,11 @@ goog.scope(function() {
             this.onArrowBackClick_
         );
 
+        this.viewListen(
+            View.Event.HELP_CLICK,
+            this.onHelpClick_
+        );
+
     };
 
      /**
@@ -140,11 +145,6 @@ goog.scope(function() {
         if (params.help_phrase === 'logout') {
              this.getView().renderCorrectHelp(params.help_phrase);
         }
-
-        this.viewListen(
-            View.Event.HELP_CLICK,
-            this.onHelpClick_
-        );
     };
 
     /**
@@ -206,8 +206,8 @@ goog.scope(function() {
                 url: Header.URL.LOG_OUT,
                 type: 'POST'
             })
-            .then(this.handleSuccessLogout,
-                this.handleRejectionLogout,
+            .then(this.handleSuccessLogout_,
+                this.handleRejectionLogout_,
                 this
             );
         }
@@ -228,7 +228,7 @@ goog.scope(function() {
     * @param {Object} err
     * @private
     */
-    Header.prototype.handleRejection_ = function(err) {
+    Header.prototype.handleRejectionLogout_ = function(err) {
         console.log(err);
     };
 
