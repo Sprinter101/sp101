@@ -62,40 +62,42 @@ goog.scope(function() {
      * Events
      * @enum {string}
      */
-        Block.Event = {
-            CLICK: 'view-phone-click',
-            VERIFIED: 'verify_success',
-            VERIFICATION_ERROR: 'verify_fail'
-        };
+    Block.Event = {
+        CLICK: 'view-phone-click',
+        VERIFIED: 'verify_success',
+        VERIFICATION_ERROR: 'verify_fail'
+    };
+
     /**
      * @override
      * @param {Element} element
      */
     Block.prototype.decorateInternal = function(element) {
-            goog.base(this, 'decorateInternal', element);
+        goog.base(this, 'decorateInternal', element);
 
-            var domTexts = this.getView().getDom().texts;
-            var domInputs = this.getView().getDom().inputs;
-            var domButtons = this.getView().getDom().buttons;
+        var domTexts = this.getView().getDom().texts;
+        var domInputs = this.getView().getDom().inputs;
+        var domButtons = this.getView().getDom().buttons;
 
-            this.textPhone_ = domTexts.textPhoneNumber;
-            this.textInfo_ = domTexts.textOntopInput;
+        this.textPhone_ = domTexts.textPhoneNumber;
+        this.textInfo_ = domTexts.textOntopInput;
 
-            this.inputPhoneNumber_ = this.decorateChild(
-                            'InputSber', domInputs.phoneNumber);
-            this.inputVerificationCode_ = this.decorateChild(
-                            'InputSber', domInputs.confirmCode);
+        this.inputPhoneNumber_ = this.decorateChild(
+                        'InputSber', domInputs.phoneNumber);
+        this.inputVerificationCode_ = this.decorateChild(
+                        'InputSber', domInputs.confirmCode);
 
-            for (var i in domButtons) {
-                this.buttons_.push(
-                    this.decorateChild('ButtonSber', domButtons[i])
-                );
-            }
+        for (var i in domButtons) {
+            this.buttons_.push(
+                this.decorateChild('ButtonSber', domButtons[i])
+            );
+        }
 
-            for (var i = 0; i < this.buttons_.length; i++){
-                this.buttons_[i].disable();
-            }
-        };
+        for (var i = 0; i < this.buttons_.length; i++) {
+            this.buttons_[i].disable();
+        }
+    };
+
     /**
      * @override
      */
@@ -118,7 +120,7 @@ goog.scope(function() {
     /**
      * Inputs listeners adder
      */
-    Block.prototype.addInputsListeners = function () {
+    Block.prototype.addInputsListeners = function() {
         var inputs = [
             this.inputPhoneNumber_,
             this.inputVerificationCode_
@@ -173,10 +175,9 @@ goog.scope(function() {
             inputNumberBlock = this.inputPhoneNumber_.element_.parentElement,
             inputNumberField = this.inputPhoneNumber_.element_.firstChild,
 
-            inputConfirmBlock = this.inputVerificationCode_.element_.parentElement,
+            inputConfirmBlock =
+                this.inputVerificationCode_.element_.parentElement,
             inputConfirmField = this.inputVerificationCode_.element_.firstChild,
-
-
             inputValue = inputNumberField.value;
 
         switch (ParentClass) {
@@ -222,6 +223,7 @@ goog.scope(function() {
                 break;
         }
     };
+
     /**
      * Phone input reject handler
      * @param {Object} err
@@ -302,7 +304,7 @@ goog.scope(function() {
      * verification Code VALID handler
      * @private
      */
-    Block.prototype.onCodeInputValid_ = function () {
+    Block.prototype.onCodeInputValid_ = function() {
         this.buttons_[1].enable();
     };
 
@@ -310,7 +312,7 @@ goog.scope(function() {
      * verification Code NOT_VALID handler
      * @private
      */
-    Block.prototype.onCodeInputNotValid_ = function () {
+    Block.prototype.onCodeInputNotValid_ = function() {
         this.buttons_[1].disable();
     };
 
@@ -318,7 +320,7 @@ goog.scope(function() {
      * Phone Number VALID handler
      * @private
      */
-    Block.prototype.onPhoneInputValid_ = function () {
+    Block.prototype.onPhoneInputValid_ = function() {
         this.buttons_[0].enable();
     };
 
@@ -326,7 +328,7 @@ goog.scope(function() {
      * Phone Number NOT_VALID handler
      * @private
      */
-    Block.prototype.onPhoneInputNotValid_ = function () {
+    Block.prototype.onPhoneInputNotValid_ = function() {
         this.buttons_[0].disable();
     };
 

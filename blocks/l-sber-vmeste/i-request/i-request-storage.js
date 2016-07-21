@@ -20,7 +20,7 @@ goog.scope(function() {
      * @param  {string} reqId          [description]
      * @param  {object} resolve        [description]
      * @param  {object} reject         [description]
-     * @param  {boolean} opt_autoRemove       [description]
+     * @param  {boolean=} opt_autoRemove       [description]
      */
     Storage.prototype.set = function(reqId, resolve, reject, opt_autoRemove) {
         var autoRemove = true;
