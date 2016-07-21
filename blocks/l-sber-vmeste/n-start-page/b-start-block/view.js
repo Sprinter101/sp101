@@ -70,7 +70,7 @@ goog.scope(function() {
     /**
      * Render correct userfund logo
      * @param {bool} loggedIn
-     * @protected
+     * @public
      */
     View.prototype.renderUserfundLogo = function(loggedIn) {
         var soyParams = {'data': {'loggedIn': loggedIn} };
@@ -87,7 +87,7 @@ goog.scope(function() {
      * @param {bool} loggedIn
      * @param {string} firstName
      * @param {string} lastName
-     * @protected
+     * @public
      */
     View.prototype.renderUserfundTitle = function(loggedIn,
         firstName, lastName) {
@@ -106,7 +106,7 @@ goog.scope(function() {
     * render correct icon as userfund logo
     * @param {bool} loggedIn
     * @param {bool} draft
-    * @protected
+    * @public
     */
     View.prototype.renderStartButtonContent = function(loggedIn, draft) {
         var soyParams = {'data': { 'loggedIn': loggedIn, 'draft': draft}};
@@ -116,16 +116,16 @@ goog.scope(function() {
             soyParams,
             {'factory': 'sber'}
         );
-        this.changeButtonWidth(loggedIn, draft);
+        this.changeButtonWidth_(loggedIn, draft);
     };
 
      /**
     * Change button width
     * @param {bool} loggedIn
     * @param {bool} draft
-    * @protected
+    * @private
     */
-    View.prototype.changeButtonWidth = function(loggedIn, draft) {
+    View.prototype.changeButtonWidth_ = function(loggedIn, draft) {
         if (loggedIn && !draft) {
             goog.dom.classlist.add(
                 this.dom.startButton, View.CssClass.WIDE_BUTTON
@@ -141,7 +141,7 @@ goog.scope(function() {
     /**
      * return button custom class
      * @return {bool}
-     * @protected
+     * @public
      */
     View.prototype.checkStartButtonClass = function() {
         return goog.dom.classlist.contains(

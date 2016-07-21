@@ -40,21 +40,13 @@ goog.scope(function() {
         ARROW_BACK_CONTAINER: 'b-header__back-wrapper',
         HELP_PHRASE_CONTAINER: 'b-header__right-column',
         HELP_PHRASE: 'b-header__help',
+        LOGOUT_PHRASE: 'b-header__help_logout',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
         CHOICE_PHRASE: 'b-header__choice-phrase',
-        LOGO_SMALL: 'g-icon_img_logo-sber_small',
-        LOGO_LARGE: 'g-icon_img_logo-sber_large'
+        ME_BUTTON: 'b-header__button_me',
+        CLOSE_BUTTON: 'b-header__button_close'
     };
-
-    /**
-     * header types const
-     * @const
-     */
-    View.HEADER_TYPES = [
-        'b-header_profile', 'b-header_list',
-        'b-header_choice', 'b-header_card'
-    ];
 
     /**
      * Event enum
@@ -80,20 +72,12 @@ goog.scope(function() {
             View.CssClass.BUTTON_CONTAINER
         );
 
-        this.dom.button = this.getElementByClass(
-            View.CssClass.BUTTON
-        );
-
         this.dom.choicePhrase = this.getElementByClass(
             View.CssClass.CHOICE_PHRASE
         );
 
         this.dom.HelpPhraseContainer = this.getElementByClass(
             View.CssClass.HELP_PHRASE_CONTAINER
-        );
-
-        this.dom.help = this.getElementByClass(
-            View.CssClass.HELP_PHRASE
         );
 
         this.checkLayout();
@@ -104,13 +88,6 @@ goog.scope(function() {
      */
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
-        this.getHandler()
-            .listen(
-                this.dom.help,
-                goog.events.EventType.CLICK,
-                this.onHelpClick
-            );
 
     };
 
@@ -136,13 +113,24 @@ goog.scope(function() {
     };
 
     /**
-     * return button custom class
+     * check if button has 'me' class
      * @return {bool}
      * @protected
      */
     View.prototype.checkButtonCustomClass = function() {
         return goog.dom.classlist.contains(
-            this.dom.button, 'b-header__button_me'
+            this.dom.button, View.CssClass.ME_BUTTON
+        );
+    };
+
+    /**
+     * check if help has 'logout' class
+     * @return {bool}
+     * @protected
+     */
+    View.prototype.checkHelpClass = function() {
+        return goog.dom.classlist.contains(
+            this.dom.help, View.CssClass.LOGOUT_PHRASE
         );
     };
 
@@ -160,6 +148,73 @@ goog.scope(function() {
             sv.lSberVmeste.bHeader.Template.title,
             soyParams
         );
+    };
+
+    /**
+     * render help phrase
+     * @param {string} help_phrase
+     * @protected
+     */
+    View.prototype.renderCorrectHelp = function(help_phrase) {
+        var soyParams = {'help_phrase': help_phrase};
+        goog.soy.renderElement(
+            this.dom.HelpPhraseContainer,
+            sv.lSberVmeste.bHeader.Template.help,
+            soyParams
+        );
+
+        this.dom.help = this.getElementByClass(
+            View.CssClass.HELP_PHRASE
+        );
+        this.getHandler()
+            .listen(
+                this.dom.help,
+                goog.events.EventType.CLICK,
+                this.onHelpClick
+            );
+    };
+
+    /**
+     * render correct button
+     * @param {string} content
+     * @protected
+     */
+    View.prototype.renderButton = function(content) {
+        var soyParams = {'roundButton': content};
+        goog.soy.renderElement(
+            this.dom.buttonContainer,
+            sv.lSberVmeste.bHeader.Template.button,
+            soyParams,
+            {'factory': 'sber'}
+        );
+        this.dom.button = this.getElementByClass(
+            View.CssClass.BUTTON
+        );
+        this.changeButtonClass(content);
+    };
+
+    /**
+    * Change button class
+    * @param {string} content
+    * @protected
+    */
+    View.prototype.changeButtonClass = function(content) {
+        if (content === 'x') {
+            goog.dom.classlist.add(
+                this.dom.button, View.CssClass.CLOSE_BUTTON
+            );
+            goog.dom.classlist.remove(
+                 this.dom.button, View.CssClass.ME_BUTTON
+            );
+        }
+        else {
+                goog.dom.classlist.add(
+                this.dom.button, View.CssClass.ME_BUTTON
+            );
+                goog.dom.classlist.remove(
+                this.dom.button, View.CssClass.CLOSE_BUTTON
+            );
+        }
     };
 
      /**

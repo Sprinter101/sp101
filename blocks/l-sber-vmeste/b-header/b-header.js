@@ -66,8 +66,7 @@ goog.scope(function() {
      * @type {string}
      */
     Header.URL = {
-        LOG_OUT: '/auth/logout',
-        ABOUT_PROJECT: ''
+        LOG_OUT: '/auth/logout'
     };
 
     /**
@@ -82,12 +81,7 @@ goog.scope(function() {
             this.getView().getDom().arrowBack
         );
 
-        this.button_ = this.decorateChild(
-            'ButtonSber',
-            this.getView().getDom().button
-        );
-
-        this.checkListHeaderLayout;
+        this.checkListHeaderLayout_;
 
     };
 
@@ -100,51 +94,92 @@ goog.scope(function() {
         this.getHandler().listen(
             this.arrowBack_,
             Icon.Event.CLICK,
-            this.onArrowBackClick
-        )
-        .listen(
-            this.button_,
-            Button.Event.CLICK,
-            this.onButtonClick
+            this.onArrowBackClick_
         );
 
         this.viewListen(
             View.Event.HELP_CLICK,
-            this.onHelpClick
+            this.onHelpClick_
         );
+
+    };
+
+     /**
+    * Choose correct content for header button
+    * @param {Object} params
+    * @public
+    */
+    Header.prototype.renderButton = function(params) {
+        var content;
+        if (params.pageType === 'start' || params.pageType === 'list') {
+            if (params.loggedIn) {
+            content = params.firstName[0] + params.lastName[0];
+        }
+            else {
+                content = 'я';
+            }
+        }
+        else if (params.pageType === 'profile' ||
+            params.pageType === 'registration') {
+                content = 'x';
+        }
+        this.getView().renderButton(content);
+
+         this.button_ = this.decorateChild(
+            'ButtonSber',
+            this.getView().getDom().button
+        );
+        this.getHandler().listen(
+            this.button_,
+            Button.Event.CLICK,
+            this.onButtonClick_
+        );
+    };
+
+     /**
+    * Choose correct phrase for header help_phrase
+    * @param {Object} params
+    * @public
+    */
+    Header.prototype.renderCorrectHelp = function(params) {
+        if (params.help_phrase === 'logout') {
+             this.getView().renderCorrectHelp(params.help_phrase);
+        }
     };
 
     /**
     * Choose correct phrase for header title
     * @param {string} phrase
-    * @protected
+    * @public
     */
     Header.prototype.renderCorrectTitle = function(phrase) {
         this.getView().renderCorrectTitle(phrase);
     };
 
     /**
-    * Render correct help phrase
-    * @protected
+    * check layout for correct rendering list header
+    * @private
     */
-    Header.prototype.checkListHeaderLayout = function() {
+    Header.prototype.checkListHeaderLayout_ = function() {
         this.getView().checkLayout();
     };
 
      /**
      * Handles 'back' click event
      * @param {cl.gIcon.Icon.Event.CLICK} event
+     * @private
      */
-    Header.prototype.onArrowBackClick = function(event) {
+    Header.prototype.onArrowBackClick_ = function(event) {
         Router.getInstance().returnLocation();
     };
 
     /**
      * Handles 'me' button click event
      * @param {sv.gButton.Button} event
+     * @private
      */
-    Header.prototype.onButtonClick = function(event) {
-        var roundButtonContent = this.params.config.roundButton;
+    Header.prototype.onButtonClick_ = function(event) {
+        var roundButtonContent = this.getView().getDom().button.innerHTML;
         if (this.getView().checkButtonCustomClass()) {
             if (roundButtonContent === 'я') {
                 Router.getInstance().changeLocation(
@@ -163,26 +198,27 @@ goog.scope(function() {
      /**
      * Handles help phrase click event
      * @param {sv.bHeader.View.Event.HELP_CLICK} event
+     * @private
      */
-    Header.prototype.onHelpClick = function(event) {
-         if (this.params.hasOwnProperty('config')) {
-            if (this.params.config.help_phrase === 'logout') {
-                Request.getInstance().send({
-                    url: Header.URL.LOG_OUT,
-                    type: 'POST'
-                })
-                .then(this.handleSuccessLogout,
-                    this.handleRejectionLogout,
-                    this);
-            }
+    Header.prototype.onHelpClick_ = function(event) {
+        if (this.getView().checkHelpClass()) {
+            Request.getInstance().send({
+                url: Header.URL.LOG_OUT,
+                type: 'POST'
+            })
+            .then(this.handleSuccessLogout_,
+                this.handleRejectionLogout_,
+                this
+            );
         }
     };
 
      /**
     * Ajax success handler
     * @param {Object} response
+    * @private
     */
-    Header.prototype.handleSuccessLogout = function(response) {
+    Header.prototype.handleSuccessLogout_ = function(response) {
         Router.getInstance().changeLocation(
             Route.START);
     };
@@ -190,8 +226,9 @@ goog.scope(function() {
     /**
     * Ajax rejection handler
     * @param {Object} err
+    * @private
     */
-    Header.prototype.handleRejection = function(err) {
+    Header.prototype.handleRejectionLogout_ = function(err) {
         console.log(err);
     };
 
