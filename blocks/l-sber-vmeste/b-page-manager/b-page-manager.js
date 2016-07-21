@@ -43,8 +43,6 @@ goog.scope(function() {
     PageManager.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.currentPage_ =
-            this.decorateChild('StartPage', this.getView().getDom().startPage);
     };
 
      /**
@@ -62,7 +60,9 @@ goog.scope(function() {
      * @protected
      */
     PageManager.prototype.setCurrentPage = function(page, opt_params) {
-        this.removeChild(this.currentPage_, true);
+        if (this.currentPage_) {
+            this.removeChild(this.currentPage_, true);
+        }
         this.currentPage_ =
             this.renderChild(page, this.getElement(), opt_params);
     };

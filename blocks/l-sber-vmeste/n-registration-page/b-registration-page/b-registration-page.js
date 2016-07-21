@@ -5,6 +5,7 @@ goog.require('cl.iRequest.Request');
 goog.require('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -47,8 +48,8 @@ goog.scope(function() {
         request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
-        Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock;
-
+        Block = sv.lSberVmeste.bPhoneBlock.PhoneBlock,
+        UserService = sv.lSberVmeste.iUserService.UserService;
     /**
     * @override
     * @param {Element} element
@@ -56,8 +57,20 @@ goog.scope(function() {
     RegistrationPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.headerManager_ = this.params.headerManager_;
-        this.headerManager_.setProfileHeader({'pageType': 'registration'});
+        this.header_ = this.params.header;
+        if (this.header_) {
+            var that = this;
+            UserService.getInstance().isUserLoggedIn()
+                .then(function(result) {
+                    var params = that.handleSuccessLoginCheck(result);
+                    that.header_.renderButton(params);
+                    that.header_.renderCorrectHelp(params);
+            }, function(err) {
+                    var params = that.handleRejectionLoginCheck(err);
+                    that.header_.renderButton(params);
+                }
+            );
+        }
     };
 
     /**
@@ -190,6 +203,33 @@ goog.scope(function() {
     RegistrationPage.prototype.onEditingFinished_ = function(event) {
         goog.object.extend(this.userInfo_, event.userInfo);
         this.sendRegisterUserRequest();
+    };
+
+    /**
+    * Ajax success handler
+    * @param {Object} response
+    * @return {Object}
+    */
+    RegistrationPage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        var firstName = response.data.firstName;
+        var lastName = response.data.lastName;
+        var pageType = 'registration';
+        return {'loggedIn': loggedIn, 'firstName': firstName,
+            'lastName': lastName, 'pageType': pageType
+        };
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    * @return {Object}
+    */
+    RegistrationPage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
+        var default_params = {'loggedIn': false, 'firstName': undefined,
+            'lastName': undefined, 'pageType': 'registration'};
+        return default_params;
     };
 
 });  // goog.scope

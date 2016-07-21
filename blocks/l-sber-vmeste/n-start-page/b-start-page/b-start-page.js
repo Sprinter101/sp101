@@ -80,13 +80,13 @@ goog.scope(function() {
             this.getView().getDom().userfundButton
         );
 
-        this.headerManager_ = this.params.headerManager_;
-        if (this.headerManager_ !== undefined) {
+        this.header_ = this.params.header;
+            if (this.header_) {
             var that = this;
             UserService.getInstance().isUserLoggedIn()
                 .then(function(result) {
                     var params = that.handleSuccessLoginCheck(result);
-                    that.headerManager_.setProfileHeader(params);
+                    that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
                     if (params.loggedIn) {
                         that.printReportsButtonContent();
@@ -96,7 +96,7 @@ goog.scope(function() {
                     }
             }, function(err) {
                     var params = that.handleRejectionLoginCheck(err);
-                    that.headerManager_.setProfileHeader(params);
+                    that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
                 }
             );
@@ -112,10 +112,10 @@ goog.scope(function() {
         var loggedIn = response.data.loggedIn;
         var firstName = response.data.firstName;
         var lastName = response.data.lastName;
-        var pageType = 'start';
         var draft = response.data.userFund.draft;
+        var pageType = 'start';
         return {'loggedIn': loggedIn, 'firstName': firstName,
-            'lastName': lastName, 'pageType': pageType, 'draft': draft};
+            'lastName': lastName, 'draft': draft, 'pageType': pageType};
     };
 
     /**
@@ -126,7 +126,7 @@ goog.scope(function() {
     StartPage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
         var default_params = {'loggedIn': false, 'firstName': undefined,
-            'lastName': undefined, 'pageType': 'start', 'draft': false};
+            'lastName': undefined, 'draft': false, 'pageType': 'start'};
         return default_params;
     };
 

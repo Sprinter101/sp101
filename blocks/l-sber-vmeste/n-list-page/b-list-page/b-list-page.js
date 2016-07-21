@@ -86,14 +86,18 @@ goog.scope(function() {
     ListPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.headerManager_ = this.params.headerManager_;
-        if (this.headerManager_) {
+        this.header_ = this.params.header;
+        if (this.header_) {
             var that = this;
             UserService.getInstance().isUserLoggedIn()
                 .then(function(result) {
                     var params = that.handleSuccessLoginCheck(result);
-                    that.headerManager_.setListHeader(params);
-            });
+                    that.header_.renderButton(params);
+            }, function(err) {
+                    var params = that.handleRejectionLoginCheck(err);
+                    that.header_.renderButton(params);
+                }
+            );
        }
 
         this.sendCategoriesRequest();
@@ -333,9 +337,13 @@ goog.scope(function() {
     /**
     * Ajax rejection handler
     * @param {Object} err
+    * @return {Object}
     */
     ListPage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
+        var default_params = {'loggedIn': false, 'firstName': undefined,
+            'lastName': undefined, 'pageType': 'list', 'draft': false};
+        return default_params;
     };
 
 });  // goog.scope

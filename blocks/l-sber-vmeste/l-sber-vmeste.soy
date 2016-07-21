@@ -29,8 +29,8 @@
                 'factory': 'sber',
                 'type': 'HeaderManager',
                 'renderParams': [
-                    'data': ['state': 'profile'],
-                    'config': ['type': 'profile', 'roundButton': 'я', 'help_phrase' : 'about_profile']
+                    'data': [],
+                    'config': []
                 ]
             ]/}
         {/call}
@@ -39,10 +39,8 @@
                 'factory': 'sber',
                 'type': 'PageManager',
                 'renderParams': [
-                    'data': $params?.data,
-                    'config': [
-                        'state': 'startPage'
-                    ]
+                    'data': $params?.data ? $params?.data : [],
+                    'config': []
                 ]
             ]/}
         {/call}

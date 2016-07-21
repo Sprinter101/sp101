@@ -25,18 +25,18 @@ goog.scope(function() {
      * 'Start' action
      */
     Controller.prototype.actionStart = function() {
-        this.pageManager_.setCurrentPage('StartPage',
-            {'headerManager_': this.headerManager_
-        });
+        this.headerManager_.setProfileHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('StartPage', {'header': header});
     };
 
     /**
      * 'Buttons test' action
      */
     Controller.prototype.actionTest = function() {
-        this.pageManager_.setCurrentPage('TestPage', {
-            'headerManager_': this.headerManager_
-        });
+        this.headerManager_.setListHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('TestPage', {'header': header});
     };
 
     /**
@@ -44,11 +44,13 @@ goog.scope(function() {
      * @param {Object=} opt_params
      */
     Controller.prototype.actionListPage = function(opt_params) {
+        this.headerManager_.setListHeader();
+        var header = this.headerManager_.getCurrentHeader();
         this.pageManager_.setCurrentPage(
             'ListPage',
             {
                 'category': opt_params.category,
-                'headerManager_': this.headerManager_
+                'header': header
             }
         );
     };
@@ -58,9 +60,11 @@ goog.scope(function() {
      * @param {Object=} opt_params
      */
     Controller.prototype.actionDisplayCategoryCard = function(opt_params) {
+        this.headerManager_.setCardHeader();
+        var header = this.headerManager_.getCurrentHeader();
         this.pageManager_.setCurrentPage('CardPage', {
             cardId: opt_params.id,
-            'headerManager_': this.headerManager_
+            'header': header
         });
     };
 
@@ -68,18 +72,18 @@ goog.scope(function() {
      * 'Donate' action
      */
     Controller.prototype.actionDonate = function() {
-        this.pageManager_.setCurrentPage('DonatePage',
-            {'headerManager_': this.headerManager_}
-        );
+        this.headerManager_.setChoiceHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('DonatePage', {'header': header});
     };
 
     /**
      * 'Profile' action
      */
     Controller.prototype.actionProfilePage = function() {
-        this.pageManager_.setCurrentPage('ProfilePage',
-            {'headerManager_': this.headerManager_}
-        );
+        this.headerManager_.setProfileHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('ProfilePage', {'header': header});
     };
 
     /**
@@ -87,9 +91,10 @@ goog.scope(function() {
      * @param {Object=} opt_params
      */
     Controller.prototype.actionRegistrationPage = function(opt_params) {
+        this.headerManager_.setProfileHeader();
+        var header = this.headerManager_.getCurrentHeader();
         this.pageManager_.setCurrentPage('RegistrationPage',
-            {'headerManager_': this.headerManager_,
-            'action': opt_params.action}
+            {'header': header, 'action': opt_params.action}
         );
     };
 
@@ -97,8 +102,10 @@ goog.scope(function() {
      * 'Payment' action
      */
     Controller.prototype.actionPayment = function() {
+        this.headerManager_.setChoiceHeader();
+        var header = this.headerManager_.getCurrentHeader();
         this.pageManager_.setCurrentPage('PaymentPage',
-            {'headerManager_': this.headerManager_}
+            {'header': this.header}
         );
     };
 
@@ -106,8 +113,10 @@ goog.scope(function() {
      * 'manage userfund' action
      */
     Controller.prototype.actionManageUserfund = function() {
+        this.headerManager_.setChoiceHeader();
+        var header = this.headerManager_.getCurrentHeader();
         this.pageManager_.setCurrentPage('UserfundPage',
-            {'headerManager_': this.headerManager_}
+            {'header': header}
         );
     };
 

@@ -41,8 +41,6 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.startPage = this.getElementByClass(
-            StartPageView.CssClass.ROOT);
     };
 
      /**

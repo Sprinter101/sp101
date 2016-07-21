@@ -18,7 +18,6 @@ goog.require('sv.lSberVmeste.bDonationPercentBlock.Template');
 goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
-goog.require('sv.lSberVmeste.bPaymentPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
 goog.require('sv.lSberVmeste.bPaymentPage.Template');
 goog.require('sv.lSberVmeste.bPhoneBlock.Template');

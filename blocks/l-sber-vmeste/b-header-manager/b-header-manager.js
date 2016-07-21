@@ -39,21 +39,21 @@ goog.scope(function() {
      */
     Manager.HeaderStates = {
         PROFILE: {'config': {
-            'type': 'profile', 'roundButton': 'я',
-            'choice_phrase': '', 'help_phrase': 'about_profile'}
+            'type': 'profile', 'roundButton': '',
+            'choice_phrase': '', 'help_phrase': 'about-profile'}
         },
         LIST: {'config': {
-            'type': 'list', 'roundButton': 'я',
+            'type': 'list', 'roundButton': '',
             'choice_phrase': 'list',
-            'help_phrase': 'about_list'}
+            'help_phrase': 'about-list'}
         },
         CHOICE: {'config': {
-            'type': 'choice', 'roundButton': 'я',
+            'type': 'choice', 'roundButton': '',
             'choice_phrase': 'donation',
             'help_phrase': 'donation'}
         },
         CARD: {'config': {
-            'type': 'card', 'roundButton': 'я',
+            'type': 'card', 'roundButton': '',
             'choice_phrase': 'directions',
             'help_phrase': 'donation'}
         }
@@ -65,11 +65,6 @@ goog.scope(function() {
      */
     Manager.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
-        this.header_ = this.decorateChild(
-            'Header',
-            this.getView().getDom().header
-        );
     };
 
     /**
@@ -82,62 +77,23 @@ goog.scope(function() {
 
     /**
      * set profile header
-     * @param {Object=} opt_params
-     * @protected
+     * @public
      */
-    Manager.prototype.setProfileHeader = function(opt_params) {
+    Manager.prototype.setProfileHeader = function() {
         var params = Manager.HeaderStates.PROFILE;
-        var that = this;
-        var loggedIn = opt_params.loggedIn;
-        switch (opt_params.pageType) {
-        case 'start':
-            params.config.roundButton = this.setButtonContent(opt_params);
-            params.config.help_phrase = 'about_profile';
-            that.renderHeader(params);
-            break;
-        case 'profile':
-            params.config.roundButton = 'x';
-            params.config.help_phrase = 'logout';
-            that.renderHeader(params);
-            break;
-        case 'registration':
-            params.config.roundButton = 'x';
-            params.config.help_phrase = 'about_profile';
-            this.renderHeader(params);
-            break;
-        default:
-            params.config.roundButton = 'я';
-            params.config.help_phrase = 'about_profile';
-            that.renderHeader(params);
-        }
-    };
-
-     /**
-     * set content for 'me'
-     * @param {Object} params
-     * @return {string}
-     * @protected
-     */
-    Manager.prototype.setButtonContent = function(params) {
-        var roundButton;
-        if (params.loggedIn) {
-            roundButton = params.firstName[0] +
-                params.lastName[0];
-        }
-        else {
-            roundButton = 'я';
-        }
-        return roundButton;
+        this.renderHeader_(params);
     };
 
     /**
      * render header
      * @param {Object} params
      * @return {Object} Returns current header
-     * @protected
+     * @private
      */
-    Manager.prototype.renderHeader = function(params) {
-        this.removeChild(this.header_, true);
+    Manager.prototype.renderHeader_ = function(params) {
+        if (this.header_) {
+            this.removeChild(this.header_, true);
+        }
         this.header_ = this.renderChild(
             'Header', this.getElement(), params
         );
@@ -146,42 +102,39 @@ goog.scope(function() {
 
      /**
      * set donation choice header
-     * @protected
+     * @public
      */
     Manager.prototype.setChoiceHeader = function() {
         var params = Manager.HeaderStates.CHOICE;
-        this.renderHeader(params);
+        this.renderHeader_(params);
     };
 
     /**
      * set header with items list
      * @param {Object=} opt_params
-     * @protected
+     * @public
      */
     Manager.prototype.setListHeader = function(opt_params) {
         var params = Manager.HeaderStates.LIST;
-        var that = this;
-        var loggedIn = opt_params.loggedIn;
-        params.config.roundButton = this.setButtonContent(opt_params);
-        params.config.help_phrase = 'about_list';
-        that.renderHeader(params);
+        this.renderHeader_(params);
     };
 
 
      /**
      * set card header
      * @param {Object=} opt_params
-     * @protected
+     * @public
      */
     Manager.prototype.setCardHeader = function(opt_params) {
         var params = Manager.HeaderStates.CARD;
-        this.renderHeader(params);
+        this.renderHeader_(params);
     };
 
 
     /**
      * Return current header
      * @return {sv.lSberVmeste.bHeader.Header}
+     * @public
      */
     Manager.prototype.getCurrentHeader = function() {
         return this.header_;
