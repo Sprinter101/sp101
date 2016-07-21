@@ -38,19 +38,6 @@
         {$noCategoriesMsg}
     {else}
 
-        {if $data.directionCount}
-            {let $word kind="text"}
-                {call sv.iUtils.Utils.declensionPrint 
-                    data="[ 'num': $data.directionCount,
-                            'nom': 'направление',
-                            'gen': 'направления',
-                            'plu': 'направлений'
-                        ]"}
-                {/call}
-            {/let}
-            {$data.directionCount}{$nbsp}{$word}
-        {/if}
-
         {if $data.topicCount}
             {let $word kind="text"}
                 {call sv.iUtils.Utils.declensionPrint 
@@ -61,10 +48,23 @@
                         ]"}
                 {/call}
             {/let}
-            {if $data.directionCount}
+            {$data.topicCount}{$nbsp}{$word}
+        {/if}
+
+        {if $data.directionCount}
+            {let $word kind="text"}
+                {call sv.iUtils.Utils.declensionPrint 
+                    data="[ 'num': $data.directionCount,
+                            'nom': 'направление',
+                            'gen': 'направления',
+                            'plu': 'направлений'
+                        ]"}
+                {/call}
+            {/let}
+            {if $data.topicCount}
                 {$comma}
             {/if}
-            {$data.topicCount}{$nbsp}{$word}
+            {$data.directionCount}{$nbsp}{$word}
         {/if}
 
         {if $data.fundsCount}

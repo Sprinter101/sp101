@@ -39,18 +39,21 @@ body, html {
     width: 100%;
     height: 100%;
 }
+body {
+    overflow: hidden;
+}
 
 .l-sber-vmeste {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
     font-family: AndaleMono;
     font-weight: normal;
-    background-image: url('images/l-sber-vmeste/fon_SV.png'); /* fallback for older browsers */
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(49, 49, 49, 0.9) 100%), url('images/l-sber-vmeste/fon_SV.png');
+    background-image: url('images/fon_SV.png'); /* fallback for older browsers */
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(49, 49, 49, 0.9) 100%), url('images/fon.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    overflow: auto;
 }
 
 .i-layout_mobile,

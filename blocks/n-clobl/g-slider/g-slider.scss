@@ -3,7 +3,7 @@
 .g-slider_sber {
     position: relative;
     display: block;
-    width: 263px;
+    width: 253px;
     margin: 70px 0 0 0;
 }
 
@@ -16,7 +16,6 @@
 .g-slider__slider {
     position: absolute;
     top: -50px;
-    width: 80px;
     height: 90px;
 }
 
@@ -28,9 +27,7 @@
     height: 50px;
     padding: 3px;
     color: #ffffff;
-    font-family: AndaleMono;
-    font-size: 62px;
-    font-weight: normal;
+    font-size: 52px;
     line-height: 0.6em;
     user-select: none;
 }
@@ -38,16 +35,16 @@
 .g-slider__label_small {
     position: absolute;
     top: -10px;
-    left: 28px;
+    left: 25px;
     color: #ffffff;
     font-family: SFUIDisplay;
-    font-size: 21px;
+    font-size: 15px;
     user-select: none;
 }
 
 .g-slider__track {
     position: relative;
-    width: 263px;
+    width: 253px;
     height: 2px;
     border-bottom: 2px solid #ffffff;
     border-radius: 1px;
@@ -68,10 +65,17 @@
 
 @include media-s {
     .g-slider_sber {
-        width: 290px;
+        width: 263px;
     }
     .g-slider__track {
-        width: 290px;
+        width: 263px;
+    }
+    .g-slider__label {
+        font-size: 52px;
+    }
+    .g-slider__label_small {
+        left: 25px;
+        font-size: 15px;
     }
 }
 
@@ -81,6 +85,13 @@
     }
     .g-slider__track {
         width: 290px;
+    }
+    .g-slider__label {
+        font-size: 62px;
+    }
+    .g-slider__label_small {
+        left: 28px;
+        font-size: 21px;
     }
 }
 

@@ -26,7 +26,14 @@ sv.gInput.Input = function(view, opt_domHelper) {
      * constraint params
      * @type {Object}
      */
+
     this.valueParams = {};
+    this.const = {
+        MAX_NUMBER: this.params.MAX_NUMBER ?
+                            this.params.MAX_NUMBER : Infinity,
+        MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
+                            this.params.MAX_CHARACTERS : 11
+    };
 
     /**
      * Possible validation type handlers
@@ -73,7 +80,8 @@ goog.scope(function() {
         BLUR: View.Event.BLUR,
         INPUT: View.Event.INPUT,
         CHANGE: View.Event.CHANGE,
-        FOCUS: View.Event.FOCUS
+        FOCUS: View.Event.FOCUS,
+        ENTER_KEY_PRESS: View.Event.ENTER_KEY_PRESS
     };
 
     /**
@@ -82,12 +90,13 @@ goog.scope(function() {
     Input.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.populateValueParams()
+        this.populateValueParams();
 
         this.viewListen(View.Event.BLUR, this.onBlur);
 
         this.viewListen(View.Event.INPUT, this.onInput);
-
+        this.viewListen(View.Event.ENTER_KEY_PRESS,
+            this.onEnterKeyPress);
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
         this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
 
@@ -106,6 +115,20 @@ goog.scope(function() {
             minIncome: +valueParams.minIncome || -Infinity,
             minDonation: +valueParams.minDonation || -Infinity
         };
+    };
+
+    /**
+    * Disables input
+    */
+    Input.prototype.disable = function() {
+        this.getView().disable();
+    };
+
+    /**
+    * Enables input
+    */
+    Input.prototype.enable = function() {
+        this.getView().enable();
     };
 
     /**
@@ -169,6 +192,15 @@ goog.scope(function() {
     };
 
     /**
+    * Enter key press handler
+    */
+    Input.prototype.onEnterKeyPress = function() {
+        this.validate();
+
+        this.dispatchEvent(Input.Event.ENTER_KEY_PRESS);
+    };
+
+    /**
      * Execute a validation of given type and returns true
      * if validation of given type not successful
      * @param {string} validationType
@@ -208,6 +240,15 @@ goog.scope(function() {
      */
     Input.prototype.constraintDigitsOnly_ = function(oldValue) {
         return oldValue.replace(/[\D]/g, '');
+    };
+    /**
+     * Removes all non-phone-number characters from the string
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintPhoneOnly_ = function(oldValue) {
+        return oldValue.replace(/[.*!"@#$%^&;:?=()_[:space:]-]/g, '');
     };
 
     /**

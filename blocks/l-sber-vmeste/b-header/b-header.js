@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bHeader.Header');
 
 goog.require('cl.gIcon.Icon');
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('goog.events');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bHeader.View');
@@ -46,6 +47,7 @@ goog.scope(function() {
         Button = sv.gButton.Button,
         Icon = cl.gIcon.Icon,
         View = sv.lSberVmeste.bHeader.View,
+        Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router;
 
@@ -57,6 +59,15 @@ goog.scope(function() {
         ARROW_BACK_CLICK: 'arrow-back-click',
         BUTTON_ME_CLICK: 'button-me-click',
         BUTTON_CLOSE_CLICK: 'button-close-click'
+    };
+
+    /**
+     * Api enum
+     * @type {string}
+     */
+    Header.URL = {
+        LOG_OUT: '/auth/logout',
+        ABOUT_PROJECT: ''
     };
 
     /**
@@ -96,15 +107,20 @@ goog.scope(function() {
             Button.Event.CLICK,
             this.onButtonClick
         );
+
+        this.viewListen(
+            View.Event.HELP_CLICK,
+            this.onHelpClick
+        );
     };
 
     /**
-    * Get current header type
-    * @return {string}
+    * Choose correct phrase for header title
+    * @param {string} phrase
     * @protected
     */
-    Header.prototype.getCurrentHeaderType = function() {
-        return this.getView().getCurrentHeaderType();
+    Header.prototype.renderCorrectTitle = function(phrase) {
+        this.getView().renderCorrectTitle(phrase);
     };
 
     /**
@@ -120,10 +136,7 @@ goog.scope(function() {
      * @param {cl.gIcon.Icon.Event.CLICK} event
      */
     Header.prototype.onArrowBackClick = function(event) {
-        var customEvent = new goog.events.Event(
-            Header.Event.ARROW_BACK_CLICK, this);
-            this.dispatchEvent(customEvent);
-            Router.getInstance().returnLocation();
+        Router.getInstance().returnLocation();
     };
 
     /**
@@ -131,22 +144,55 @@ goog.scope(function() {
      * @param {sv.gButton.Button} event
      */
     Header.prototype.onButtonClick = function(event) {
-
-
+        var roundButtonContent = this.params.config.roundButton;
         if (this.getView().checkButtonCustomClass()) {
-            var customEvent = new goog.events.Event(
-            Header.Event.BUTTON_ME_CLICK, this);
-            this.dispatchEvent(customEvent);
-             Router.getInstance().changeLocation(
-            Route.PROFILE);
+            if (roundButtonContent === 'я') {
+                Router.getInstance().changeLocation(
+                    Route.REGISTRATION);
+            }
+            else {
+                 Router.getInstance().changeLocation(
+                    Route.PROFILE);
+            }
         }
         else {
-            var customEvent = new goog.events.Event(
-            Header.Event.BUTTON_CLOSE_CLICK, this);
-            this.dispatchEvent(customEvent);
             Router.getInstance().returnLocation();
         }
     };
 
-});  // goog.scope
+     /**
+     * Handles help phrase click event
+     * @param {sv.bHeader.View.Event.HELP_CLICK} event
+     */
+    Header.prototype.onHelpClick = function(event) {
+         if (this.params.hasOwnProperty('config')) {
+            if (this.params.config.help_phrase === 'logout') {
+                Request.getInstance().send({
+                    url: Header.URL.LOG_OUT,
+                    type: 'POST'
+                })
+                .then(this.handleSuccessLogout,
+                    this.handleRejectionLogout,
+                    this);
+            }
+        }
+    };
 
+     /**
+    * Ajax success handler
+    * @param {Object} response
+    */
+    Header.prototype.handleSuccessLogout = function(response) {
+        Router.getInstance().changeLocation(
+            Route.START);
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    Header.prototype.handleRejection = function(err) {
+        console.log(err);
+    };
+
+});  // goog.scope

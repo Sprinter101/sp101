@@ -19,7 +19,7 @@ sv.lSberVmeste.bProfile.Profile = function(view, opt_domHelper) {
     * @type {{
     *   firstName: string,
     *   lastName: string,
-    *   phoneNumber: string
+    *   phone: string
     * }}
     * @private
     */
@@ -59,7 +59,7 @@ goog.scope(function() {
         this.getView().setName(this.userInfo_.firstName,
             this.userInfo_.lastName);
 
-        this.getView().setPhoneNumber(this.userInfo_.phoneNumber);
+        this.getView().setPhoneNumber(this.userInfo_.phone);
 
         this.editButton_ = this.decorateChild('ButtonSber',
             domEditButton);

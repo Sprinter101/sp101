@@ -10,6 +10,7 @@ goog.require('sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -44,6 +45,13 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
     * @private
     */
     this.donateBlockPercent_ = null;
+
+     /**
+    * next page redirect to
+    * @type {sv.lSberVmeste.iRouter.Route}
+    * @private
+    */
+    this.next_route_ = '';
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
@@ -57,7 +65,16 @@ goog.scope(function() {
         Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
-        View = sv.lSberVmeste.bDonatePage.View;
+        View = sv.lSberVmeste.bDonatePage.View,
+        UserService = sv.lSberVmeste.iUserService.UserService;
+
+    /**
+     * Api enum
+     * @type {string}
+     */
+    DonatePage.URL = {
+        USER_URL: '/user'
+    };
 
     /**
     * @override
@@ -75,6 +92,12 @@ goog.scope(function() {
 
         this.donateBlockPercent_ = this.decorateChild('DonationPercentBlock',
             this.getView().getDom().donateBlockPercent);
+
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_ !== undefined) {
+            var that = this;
+            that.headerManager_.setChoiceHeader();
+        }
     };
 
     /**
@@ -92,6 +115,49 @@ goog.scope(function() {
             DonationPercentBlock.Event.DONATION_PERCENT_READY,
             this.onDonationPercentReady
         );
+
+        this.isUserLoggedIn();
+    };
+
+    /**
+     * send AJAX
+     * @return {Object} ajas response or error
+     * @protected
+     */
+    DonatePage.prototype.isUserLoggedIn = function() {
+        return Request.getInstance().send({
+            url: DonatePage.URL.USER_URL
+        }).
+        then(
+            this.handleSuccessLoginCheck,
+            this.handleRejectionLoginCheck,
+            this
+        );
+    };
+
+     /**
+    * Ajax success handler
+    * @param {Object} response message
+    * redirect user to temporary 'Sberbank web'
+    */
+    DonatePage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        if (loggedIn) {
+            this.next_route_ = Route.PAYMENT_TEMP;
+        }
+        else {
+            this.next_route_ = Route.REGISTRATION;
+        }
+    };
+
+     /**
+    * Ajax rejection handler
+    * !Temporary redirect to registration page
+    * @param {Object} err
+    */
+    DonatePage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
+        this.next_route_ = Route.REGISTRATION;
     };
 
      /**
@@ -134,7 +200,7 @@ goog.scope(function() {
     * redirect user to registration page or to Sberbank web
     */
     DonatePage.prototype.handleSuccess = function(success) {
-        Router.getInstance().changeLocation(Route.REGISTRATION);
+        Router.getInstance().changeLocation(this.next_route_);
     };
 
      /**
@@ -146,7 +212,7 @@ goog.scope(function() {
     */
     DonatePage.prototype.handleRejection = function(err) {
         console.log(err);
-        Router.getInstance().changeLocation(Route.REGISTRATION);
+        Router.getInstance().changeLocation(this.next_route_);
     };
 
 });  // goog.scope

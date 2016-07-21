@@ -19,6 +19,9 @@ goog.require('sv.lSberVmeste.bHeader.Template');
 goog.require('sv.lSberVmeste.bHeaderManager.Template');
 goog.require('sv.lSberVmeste.bListPage.Template');
 goog.require('sv.lSberVmeste.bPageManager.Template');
+goog.require('sv.lSberVmeste.bPaymentPage.Template');
+goog.require('sv.lSberVmeste.bPaymentPage.Template');
+goog.require('sv.lSberVmeste.bPhoneBlock.Template');
 goog.require('sv.lSberVmeste.bProfile.Template');
 goog.require('sv.lSberVmeste.bProfileEdit.Template');
 goog.require('sv.lSberVmeste.bProfilePage.Template');
@@ -40,6 +43,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'SberVmeste',
             sv.lSberVmeste.Template.sberVmeste
+        )
+        .setTemplateListItem(
+            'PhoneBlock',
+            sv.lSberVmeste.bPhoneBlock.Template.phoneBlock
         )
         .setTemplateListItem(
             'HeaderManager',
@@ -140,6 +147,10 @@ sv.iFactory.TemplateFactory = function() {
         .setTemplateListItem(
             'RegistrationPage',
             sv.lSberVmeste.bRegistrationPage.Template.registrationPage
+        )
+        .setTemplateListItem(
+            'PaymentPage',
+            sv.lSberVmeste.bPaymentPage.Template.page
         );
 
 };

@@ -12,6 +12,7 @@
     border: 0;
     border-radius: 30px;
     background-color: #e7f038;
+    user-select: none;
 }
 
 .g-button_disabled {
@@ -76,10 +77,6 @@
     padding: 0;
 }
 
-.g-button_font_big {
-    font-size: 20px;
-}
-
 .g-button_text-color_white {
     color: #fff;
 }
@@ -92,8 +89,20 @@
     width: 250px;
 }
 
+.g-button_font-size_big {
+    font-size: 20px;
+}
+
+.g-button_font-size_med {
+    font-size: 18px;
+}
+
 .g-button_font-size_smaller {
     font-size: 16px;
+}
+
+.g-button_font-size_small {
+    font-size: 14px;
 }
 
 .g-button_font_l {

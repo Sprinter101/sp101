@@ -10,6 +10,7 @@
 /.sass-cache
 /config/config.json
 /**/*.log
+/blocks/n-clobl/g-icon/*.css
 
 # node modules
 /node_modules

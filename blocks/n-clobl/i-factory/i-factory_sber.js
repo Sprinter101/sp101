@@ -34,6 +34,10 @@ goog.require('sv.lSberVmeste.bListPage.ListPage');
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
+goog.require('sv.lSberVmeste.bPaymentPage.PaymentPage');
+goog.require('sv.lSberVmeste.bPaymentPage.View');
+goog.require('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
+goog.require('sv.lSberVmeste.bPhoneBlock.View');
 goog.require('sv.lSberVmeste.bProfile.Profile');
 goog.require('sv.lSberVmeste.bProfile.View');
 goog.require('sv.lSberVmeste.bProfileEdit.ProfileEdit');
@@ -64,6 +68,10 @@ sv.iFactory.FactorySber = function() {
     this.setControlListItem('SberVmeste', {
             control: sv.lSberVmeste.SberVmeste,
             view: sv.lSberVmeste.View
+        })
+        .setControlListItem('PhoneBlock', {
+            control: sv.lSberVmeste.bPhoneBlock.PhoneBlock,
+            view: sv.lSberVmeste.bPhoneBlock.View
         })
         .setControlListItem('HeaderManager', {
             control: sv.lSberVmeste.bHeaderManager.HeaderManager,
@@ -176,6 +184,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('RegistrationPage', {
             control: sv.lSberVmeste.bRegistrationPage.RegistrationPage,
             view: sv.lSberVmeste.bRegistrationPage.View
+        })
+        .setControlListItem('PaymentPage', {
+            control: sv.lSberVmeste.bPaymentPage.PaymentPage,
+            view: sv.lSberVmeste.bPaymentPage.View
         });
 
 };
@@ -190,5 +202,5 @@ goog.scope(function() {
      * Important!
      */
     Factory.getInstance().attachToManager();
-});  // goog.scope
 
+});  // goog.scope

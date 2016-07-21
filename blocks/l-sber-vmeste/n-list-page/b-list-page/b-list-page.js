@@ -5,9 +5,11 @@ goog.require('goog.object');
 goog.require('sv.gTab.gListTab.Tab');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bListPage.View');
+goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -68,13 +70,14 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         CardList = sv.lSberVmeste.bCardList.CardList,
-        UserBlock = sv.lSberVmeste;
+        UserBlock = sv.lSberVmeste.bUserBlock.UserBlock,
+        UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
     * Array of card types
     * @type {Array.<string>}
     */
-    ListPage.CardTypes = ['direction', 'fund'];
+    ListPage.CardTypes = ['topic', 'fund'];
 
     /**
     * @override
@@ -82,6 +85,16 @@ goog.scope(function() {
     */
     ListPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
+
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_) {
+            var that = this;
+            UserService.getInstance().isUserLoggedIn()
+                .then(function(result) {
+                    var params = that.handleSuccessLoginCheck(result);
+                    that.headerManager_.setListHeader(params);
+            });
+       }
 
         this.sendCategoriesRequest();
 
@@ -121,28 +134,52 @@ goog.scope(function() {
     ListPage.prototype.sendCategoriesRequest = function() {
         request
             .send({url: 'entity/'})
-            .then(
-                this.handleResponse,
-                this.handleRejection,
-                this);
+            .then(this.handleResponse_, this.handleRejection, this);
+    };
+
+    /**
+    * Adds event listeners to ListCards' events
+    */
+    ListPage.prototype.addListCardsListeners = function() {
+        for (var i = 0; i < this.cardLists_.length; i++) {
+            var cardList = this.cardLists_[i];
+
+            this.getHandler()
+                .listenOnce(
+                    cardList,
+                    CardList.Event.SELECTED_CARDS_PRESENT,
+                    this.onSelectedCardsPresent_.bind(this, i)
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARD_CLICK,
+                    this.onCardListCardClick_,
+                    null,
+                    this
+                )
+                .listen(
+                    cardList,
+                    CardList.Event.CARDS_RENDERED,
+                    this.onCardsRendered_,
+                    null,
+                    this
+                );
+        }
     };
 
     /**
     * Ajax successful response handler
     * @param {Object} response
+    * @private
     */
-    ListPage.prototype.handleResponse = function(response) {
+    ListPage.prototype.handleResponse_ = function(response) {
         var data = response.data || [];
 
         this.populateCategoriesObjects(data);
 
         if (!goog.object.isEmpty(this.chosenCategoriesData_)) {
 
-            this.userBlock_ = this.renderChild(
-                'ListPageUserBlock',
-                this.getView().getDom().userBlock,
-                {categories: this.chosenCategoriesData_}
-            );
+            this.createUserBlock();
 
             this.getView().createPageTitleText(true);
         } else {
@@ -156,8 +193,9 @@ goog.scope(function() {
     /**
     * Ajax rejection handler
     * @param {Object} err
+    * @private
     */
-    ListPage.prototype.handleRejection = function(err) {
+    ListPage.prototype.handleRejection_ = function(err) {
         console.log(err);
     };
 
@@ -176,7 +214,26 @@ goog.scope(function() {
     };
 
     /**
-    * populates this.categoriesData_ and this.chosenCategoriesData_ objecs 
+    * creates user block
+    */
+    ListPage.prototype.createUserBlock = function() {
+        this.userBlock_ = this.renderChild(
+            'ListPageUserBlock',
+            this.getView().getDom().userBlock,
+            {categories: this.chosenCategoriesData_}
+        );
+
+        this.getHandler().listen(
+            this.userBlock_,
+            UserBlock.Event.BUTTON_CLICK,
+            this.onUserBlockButtonClick_,
+            false,
+            this
+        );
+    };
+
+    /**
+    * populates this.categoriesData_ and this.chosenCategoriesData_ objecs
     * based on "data" array from an ajax  response
     * @param {Array.<Object>} data
     */
@@ -201,37 +258,6 @@ goog.scope(function() {
                     chosenCategories[dataType] = 1;
                 }
             }
-        }
-    };
-
-    /**
-    * Adds event listeners to ListCards' events
-    */
-    ListPage.prototype.addListCardsListeners = function() {
-        for (var i = 0; i < this.cardLists_.length; i++) {
-
-            var cardList = this.cardLists_[i];
-
-            this.getHandler()
-                .listenOnce(
-                    cardList,
-                    CardList.Event.SELECTED_CARDS_PRESENT,
-                    this.onSelectedCardsPresent_.bind(this, i)
-                )
-                .listen(
-                    cardList,
-                    CardList.Event.CARD_CLICK,
-                    this.onCardListCardClick_,
-                    null,
-                    this
-                )
-                .listen(
-                    cardList,
-                    CardList.Event.CARDS_RENDERED,
-                    this.onCardsRendered_,
-                    null,
-                    this
-                );
         }
     };
 
@@ -261,6 +287,55 @@ goog.scope(function() {
      */
     ListPage.prototype.onCardsRendered_ = function() {
         this.listTab_.resizeActiveTab();
+    };
+
+    /**
+    * User Block button click handler
+    * @private
+    */
+    ListPage.prototype.onUserBlockButtonClick_ = function() {
+        UserService.getInstance().isUserLoggedIn()
+        .then(
+            this.redirectUser,
+            this.handleRejection,
+            this);
+    };
+
+    /**
+     * Redirects user to another page
+     * @param {Object} response
+     */
+    ListPage.prototype.redirectUser = function(response) {
+        isLoggedIn = response.data.loggedIn;
+
+        if (isLoggedIn) {
+            Router.getInstance().changeLocation(Route['DONATE']);
+        } else {
+            Router.getInstance().changeLocation(Route['REGISTRATION'],
+                null, {action: 'DONATE'});
+        }
+    };
+
+    /**
+    * Ajax success handler
+    * @param {Object} response
+    * @return {Object}
+    */
+    ListPage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        var firstName = response.data.firstName;
+        var lastName = response.data.lastName;
+        var pageType = 'list';
+        return {'loggedIn': loggedIn, 'firstName': firstName,
+            'lastName': lastName, 'pageType': pageType};
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    ListPage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
     };
 
 });  // goog.scope

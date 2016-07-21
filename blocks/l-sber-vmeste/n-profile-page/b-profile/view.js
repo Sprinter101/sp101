@@ -46,19 +46,19 @@ goog.scope(function() {
         this.dom = {
             photoBlockText: this.getElementByClass(View.CssClass.
                 PHOTO_BLOCK_TEXT,
-                this.getElement()
+                element
             ),
             nameBlock: this.getElementByClass(View.CssClass.
                 NAME_BLOCK,
-                this.getElement()
+                element
             ),
             phoneBlock: this.getElementByClass(View.CssClass.
                 PHONE_BLOCK,
-                this.getElement()
+                element
             ),
             editButton: this.getElementByClass(View.CssClass.
                 EDIT_BUTTON_BLOCK,
-                this.getElement()
+                element
             ).firstChild,
         };
     };

@@ -2,6 +2,7 @@ goog.provide('sv.lSberVmeste.bProfileEdit.ProfileEdit');
 
 goog.require('cl.iControl.Control');
 goog.require('sv.gButton.Button');
+goog.require('sv.gInput.Input');
 
 
 
@@ -19,7 +20,7 @@ sv.lSberVmeste.bProfileEdit.ProfileEdit = function(view, opt_domHelper) {
     * @type {{
     *   firstName: string,
     *   lastName: string,
-    *   phoneNumber: string
+    *   phone: string
     * }}
     * @private
     */
@@ -68,7 +69,7 @@ goog.scope(function() {
      * @enum {string}
      */
     ProfileEdit.Event = {
-        BUTTON_CLICK: 'profile-edit-button-click'
+        EDITING_FINISHED: 'profile-edit-editing-finished'
     };
 
     /**
@@ -91,6 +92,7 @@ goog.scope(function() {
 
         this.setInputsValues();
 
+        this.phoneNumberInput_.disable();
     };
 
     /**
@@ -99,10 +101,18 @@ goog.scope(function() {
     ProfileEdit.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
+        this.getHandler()
+        .listen(
             this.button_,
             Button.Event.CLICK,
             this.onButtonClick_,
+            false,
+            this
+        )
+        .listen(
+            this.button_,
+            Button.Event.ENTER_KEY_PRESS,
+            this.onButtonEnterKeyPress_,
             false,
             this
         );
@@ -155,6 +165,13 @@ goog.scope(function() {
                 this.onInputValid_,
                 false,
                 this
+            )
+            .listen(
+                input,
+                Input.Event.ENTER_KEY_PRESS,
+                this.onInputEnterKeyPress_,
+                false,
+                this
             );
         }
     };
@@ -168,7 +185,20 @@ goog.scope(function() {
         this.lastNameInput_.setValue(
             this.userInfo_.lastName || '');
         this.phoneNumberInput_.setValue(
-            this.userInfo_.phoneNumber || '');
+            this.userInfo_.phone || '');
+    };
+
+    /**
+    * assigns userInfo_ object properties with
+    * the current inputs' values
+    */
+    ProfileEdit.prototype.updateUserInfo = function() {
+        this.userInfo_.firstName =
+            this.firstNameInput_.getValue().trim();
+        this.userInfo_.lastName =
+            this.lastNameInput_.getValue().trim();
+        this.userInfo_.phone =
+            this.phoneNumberInput_.getValue().trim();
     };
 
     /**
@@ -200,21 +230,42 @@ goog.scope(function() {
     };
 
     /**
-    * Confirm button click handler
+    * Dispatches EDITING_FINISHED event
+    * with the updated userInfo_ object
+    */
+    ProfileEdit.prototype.finishEditing = function() {
+        this.updateUserInfo();
+
+        this.dispatchEvent({
+            'type': ProfileEdit.Event.EDITING_FINISHED,
+            'userInfo': this.userInfo_
+        });
+    };
+
+    /**
+    * Button click handler
     * @private
     */
     ProfileEdit.prototype.onButtonClick_ = function() {
-        this.userInfo_.firstName =
-            this.firstNameInput_.getValue().trim();
-        this.userInfo_.lastName =
-            this.lastNameInput_.getValue().trim();
-        this.userInfo_.phoneNumber =
-            this.phoneNumberInput_.getValue().trim();
+        this.finishEditing();
+    };
 
-        this.dispatchEvent({
-            'type': ProfileEdit.Event.BUTTON_CLICK,
-            'userInfo': this.userInfo_
-        });
+    /**
+    * Confirm button enter key press event handler
+    * @private
+    */
+    ProfileEdit.prototype.onButtonEnterKeyPress_ = function() {
+        this.finishEditing();
+    };
+
+    /**
+    * Input enter key press event handler
+    * @private
+    */
+    ProfileEdit.prototype.onInputEnterKeyPress_ = function() {
+        if (this.areAllInputsValid()) {
+            this.finishEditing();
+        }
     };
 
 });  // goog.scope

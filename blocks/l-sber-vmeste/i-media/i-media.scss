@@ -34,6 +34,12 @@ $breakpointXXL: 1280px;
     }
 }
 
+@mixin landscape {
+    @media only screen and (orientation:landscape) {
+      @content;
+    }
+}
+
 @mixin retina {
     @media
         only screen and ( min-device-pixel-ratio: 2),

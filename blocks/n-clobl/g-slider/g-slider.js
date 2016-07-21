@@ -70,16 +70,14 @@ goog.scope(function() {
      * slider enable
      */
     Slider.prototype.enable = function() {
-        var classes = this.getView().getClassNames(this);
-        this.getView().enable(classes);
+        this.getView().enable();
     };
 
     /**
      * slider disable
      */
     Slider.prototype.disable = function() {
-        var classes = this.getView().getClassNames(this);
-        this.getView().disable(classes);
+        this.getView().disable();
     };
 
      /**

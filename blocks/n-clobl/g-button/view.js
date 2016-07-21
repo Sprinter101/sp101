@@ -1,6 +1,7 @@
 goog.provide('sv.gButton.View');
 
 goog.require('cl.gButton.View');
+goog.require('goog.events.KeyCodes');
 
 
 
@@ -39,7 +40,8 @@ goog.scope(function() {
     View.Event = {
         CLICK: 'button-click',
         TOUCH_START: 'button-touch-start',
-        TOUCH_END: 'button-touch-end'
+        TOUCH_END: 'button-touch-end',
+        ENTER_KEY_PRESS: 'button-enter-key-press'
     };
 
     /**
@@ -50,6 +52,49 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.parseDataParams(element);
+    };
+
+    /**
+     * @override
+     */
+    View.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
+        var handler = this.getHandler();
+
+        if (!this.params.config.isDisabled) {
+            handler.listen(
+                this.getElement(),
+                goog.events.EventType.CLICK,
+                this.onClick
+            )
+            .listen(
+                this.getElement(),
+                goog.events.EventType.KEYDOWN,
+                this.onKeyDown
+            );
+        }
+
+        handler.listen(
+            this.getElement(),
+            goog.events.EventType.TOUCHSTART,
+            this.onTouchStart
+        ).listen(
+            this.getElement(),
+            goog.events.EventType.TOUCHEND,
+            this.onTouchEnd
+        );
+    };
+
+    /**
+    * Keydown event handler
+    * @param {Object} event
+    */
+    View.prototype.onKeyDown = function(event) {
+        var keyCode = event.keyCode;
+        if (keyCode == goog.events.KeyCodes.ENTER) {
+            this.dispatchEvent(View.Event.ENTER_KEY_PRESS);
+        }
     };
 
     /**
@@ -72,7 +117,6 @@ goog.scope(function() {
             this.params[paramName] = params[paramName];
         }
     };
-
 
     /**
      * disable
@@ -102,7 +146,13 @@ goog.scope(function() {
                 this.getElement(),
                 goog.events.EventType.CLICK,
                 this.onClick
+            )
+            .unlisten(
+                this.getElement(),
+                goog.events.EventType.KEYDOWN,
+                this.onKeyDown
             );
+
             this.params.config.isDisabled = true;
         }
     };
@@ -134,7 +184,13 @@ goog.scope(function() {
                 this.getElement(),
                 goog.events.EventType.CLICK,
                 this.onClick
+            )
+            .listen(
+                this.getElement(),
+                goog.events.EventType.KEYDOWN,
+                this.onKeyDown
             );
+
             this.params.config.isDisabled = false;
         }
     };

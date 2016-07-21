@@ -5,11 +5,13 @@ goog.require('cl.iRequest.Request');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.gButton.Button');
+goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -50,8 +52,9 @@ goog.scope(function() {
         Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
-        Utils = sv.iUtils.Utils,
-        View = sv.lSberVmeste.bStartPage.View;
+        UserService = sv.lSberVmeste.iUserService.UserService,
+        View = sv.lSberVmeste.bStartPage.View,
+        HeaderManager = sv.lSberVmeste.bHeaderManager.HeaderManager;
 
     /**
      * Url enum
@@ -76,7 +79,37 @@ goog.scope(function() {
        this.userfundsCountButton_ = this.decorateChild('ButtonSber',
             this.getView().getDom().userFundsCountButton
             );
+        this.headerManager_ = this.params.headerManager_;
+        if (this.headerManager_ !== undefined) {
+            var that = this;
+            UserService.getInstance().isUserLoggedIn()
+                .then(function(result) {
+                    var params = that.handleSuccessLoginCheck(result);
+                    that.headerManager_.setProfileHeader(params);
+            });
+       }
+    };
 
+    /**
+    * Ajax success handler
+    * @param {Object} response
+    * @return {Object}
+    */
+    StartPage.prototype.handleSuccessLoginCheck = function(response) {
+        var loggedIn = response.data.loggedIn;
+        var firstName = response.data.firstName;
+        var lastName = response.data.lastName;
+        var pageType = 'start';
+        return {'loggedIn': loggedIn, 'firstName': firstName,
+            'lastName': lastName, 'pageType': pageType};
+    };
+
+    /**
+    * Ajax rejection handler
+    * @param {Object} err
+    */
+    StartPage.prototype.handleRejectionLoginCheck = function(err) {
+        console.log(err);
     };
 
     /**
@@ -91,6 +124,11 @@ goog.scope(function() {
             this.startBlock_,
             StartBlock.Event.START_CREATING_USERFUND,
             this.onStartCreatingUserfund
+        )
+        .listen(
+            this.userfundsCountButton_,
+            Button.Event.CLICK,
+            this.onUserfundsCountButtonClick
         );
     };
 
@@ -115,7 +153,7 @@ goog.scope(function() {
     */
     StartPage.prototype.handleRejection = function(err) {
         console.log(err);
-        var defaultCount = 20;
+        var defaultCount = 10;
         this.changeUserfundsCountButton(defaultCount);
     };
 
@@ -164,13 +202,23 @@ goog.scope(function() {
     };
 
     /**
-     * Handles start button CLICK and redirect to TestPage
-     * @param {goog.events.BrowserEvent} event Click event
+     * Handles start button CLICK and redirect to ListPage
+     * @param {sv.gButton.Button.Event.CLICK} event
      * @protected
      */
     StartPage.prototype.onStartCreatingUserfund = function(event) {
         Router.getInstance().changeLocation(
-            Route.LIST_PAGE, {'category': 'directions'});
+            Route.LIST_PAGE, {'category': 'topics'});
+    };
+
+    /**
+     * Handles funds count button CLICK and redirect to ListPage
+     * @param {sv.gButton.Button.Event.CLICK} event
+     * @protected
+     */
+    StartPage.prototype.onUserfundsCountButtonClick = function(event) {
+        Router.getInstance().changeLocation(
+            Route.LIST_PAGE, {'category': 'funds'});
     };
 
 });  // goog.scope

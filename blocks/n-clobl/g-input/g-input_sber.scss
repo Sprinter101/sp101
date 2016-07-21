@@ -63,7 +63,27 @@ $error_color: #F76464;
     opacity: .4;
 }
 
+.g-input__input_phone {
+    width: 270px;
+    border: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom-color: black;
+    font-family: AndaleMono;
+    font-size: 35px;
+    color: #93991a ;
+}
 
+.g-input__input_confirmation{
+    width: 270px;
+    border: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom-color: black;
+    font-family: AndaleMono;
+    font-size: 40px;
+    color: black ;
+}
 
 .g-input_profile {
     width: 237px;
@@ -121,5 +141,10 @@ $error_color: #F76464;
 
 .g-input_profile .g-input__input.g-input__input_filled {
     border-bottom: 1px solid rgba(70, 70, 70, .4);
+}
+
+.g-input__input_disabled {
+    opacity: 0.4;
+    user-select: none;
 }
 

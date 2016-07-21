@@ -73,24 +73,14 @@ goog.scope(function() {
     };
 
     /**
-     * Key codes for managing key events
-     * @const {Array}
-     */
-    DonationPercentBlock.KEYCODES = [8, 48, 49, 50, 51,
-         52, 53, 54, 55, 56, 57];
-
-    /**
     * @override
     * @param {Element} element
     */
     DonationPercentBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
         this.monthlyIncome_ = this.decorateChild('InputSber',
-            this.getView().getDom().inputControl, {
-            MAX_NUMBER: 50000000,
-            MAX_CHARACTERS: 8,
-            MIN_INCOME: 1000
-        });
+            this.getView().getDom().inputControl
+        );
         this.monthlyIncome_.sum = 0;
 
         this.donationSlider_ = this.decorateChild('SliderSber',
@@ -108,15 +98,9 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.KeyHandler_ = new goog.events.KeyHandler(document);
-        this.incomeKeyHandler_ = new goog.events.KeyHandler(
-            this.monthlyIncome_.getElement());
 
         this.getHandler()
             .listen(
-                this.monthlyIncome_,
-                Input.Event.FOCUS,
-                this.onMonthlyIncomeFocus
-            ).listen(
                 this.monthlyIncome_,
                 Input.Event.BLUR,
                 this.onMonthlyIncomeBlur
@@ -131,10 +115,10 @@ goog.scope(function() {
                 Slider.Event.SLIDER_MOVE,
                 this.onSliderMove
             )
-            .listen(
-                this.incomeKeyHandler_,
-                goog.events.KeyHandler.EventType.KEY,
-                this.onIncomeKeyEvent_
+           .listen(
+                this.monthlyIncome_,
+                Input.Event.ENTER_KEY_PRESS,
+                this.onEnterPress_
             )
             .listen(
                 this.KeyHandler_,
@@ -144,22 +128,11 @@ goog.scope(function() {
     };
 
     /**
-     * Focus event handler
-     * @param {sv.gInput.Event.Focus} event
-     */
-    DonationPercentBlock.prototype.onMonthlyIncomeFocus = function(event) {
-        var input = this.getView().getDom().inputControlInput;
-        goog.dom.setProperties(input, {'placeholder': ''});
-    };
-
-    /**
      * Blur event handler
      * @param {sv.gInput.Input.Event.Blur} event
      */
     DonationPercentBlock.prototype.onMonthlyIncomeBlur = function(event) {
-        var input = this.getView().getDom().inputControlInput;
-        goog.dom.setProperties(input, {'placeholder': '0'});
-        this.monthlyIncome_.sum = input.value;
+        this.monthlyIncome_.sum = this.monthlyIncome_.getValue();
         var currentPercent = this.donationSlider_.getValue();
 
         if (this.checkMonthlyIncomeSum_()) {
@@ -215,8 +188,6 @@ goog.scope(function() {
      * @private
      */
     DonationPercentBlock.prototype.checkMonthlyIncomeSum_ = function() {
-        var inputControlInput = this.getView().getDom().inputControlInput;
-        inputControlInput.blur();
         return this.monthlyIncome_.validate();
     };
 
@@ -236,20 +207,15 @@ goog.scope(function() {
     };
 
      /**
-     * Handles 'monthly input' key event
-     * @param {goog.events.KeyHandler.EventType.KEY} event
+     * Handles Enter press key event
+     * @param {sv.gInput.Input.Event.ENTER_KEY_PRESS} event
      * @private
      */
-    DonationPercentBlock.prototype.onIncomeKeyEvent_ = function(event) {
+    DonationPercentBlock.prototype.onEnterPress_ = function(event) {
         event.stopPropagation();
-        var that = this;
-        var digits = DonationPercentBlock.KEYCODES;
-        if (event.keyCode === goog.events.KeyCodes.ENTER) {
-            this.onMonthlyIncomeBlur();
-        }
-        else if (digits.indexOf(event.keyCode) != -1) {
-            this.monthlyIncome_.onFocus();
-        }
+        this.onMonthlyIncomeBlur();
+        var inputInput = this.getView().getDom().inputInput;
+        inputInput.blur();
     };
 
     /**
@@ -257,8 +223,7 @@ goog.scope(function() {
      * @param {goog.events.KeyHandler.EventType.KEY} event
      * @private
      */
-    DonationPercentBlock.prototype.onCommonKeyEvent_ = function(
-        event) {
+    DonationPercentBlock.prototype.onCommonKeyEvent_ = function(event) {
         event.stopPropagation();
         var that = this;
         var digits = DonationPercentBlock.KEYCODES;

@@ -34,7 +34,12 @@
                                 'content': 'Готово',
                             ],
                             'config': ['customClasses': 
-                                ['b-donation-percent-block__button_ready']
+                                ['b-donation-percent-block__button_ready'],
+                                    'stylesForDisabled': [
+                                    'border_yellow',
+                                    'background_transparent',
+                                    'text-color_white'
+                                ]
                             ]
                         ]
                     ]/}
@@ -85,6 +90,11 @@
                         'charactersLimit',
                         'noLeadingZero'
                     ],
+                    'valueParams': [
+                       'maxNumber': 50000000,
+                       'maxCharacters': 8,
+                       'minIncome': 1000
+                   ],
                     'customClasses': ['b-donation-percent-block__input']
                 ]
             ]

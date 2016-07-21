@@ -35,7 +35,7 @@ goog.scope(function() {
      * @type {Object}
      */
     Tab.TabMap = {
-        'directions': 0,
+        'topics': 0,
         'funds': 1
     };
 
