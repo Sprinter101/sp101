@@ -1,10 +1,8 @@
 goog.provide('sv.lSberVmeste.iRequest.Request');
 
 goog.require('goog.Promise');
-goog.require('goog.Uri.QueryData');
-goog.require('goog.net.XhrIo');
-goog.require('goog.structs.Map');
-
+goog.require('sv.lSberVmeste.iIframe.Iframe');
+goog.require('sv.lSberVmeste.iRequestStorage.RequestStorage');
 
 
 /**
@@ -19,17 +17,22 @@ goog.addSingletonGetter(sv.lSberVmeste.iRequest.Request);
 
 goog.scope(function() {
     var Request = sv.lSberVmeste.iRequest.Request,
-        Promise = goog.Promise,
-        QueryData = goog.Uri.QueryData,
-        XhrIo = goog.net.XhrIo,
-        Map = goog.structs.Map;
+        Promise = goog.Promise;
+
+        RequestStorage = sv.lSberVmeste.iRequestStorage.RequestStorage,
+        Iframe = sv.lSberVmeste.iIframe.Iframe;
+
     /**
-     * Request types
+     * Request methods
      * @enum {string}
      */
-    Request.Type = {
-        POST: 'post'
+    Request.Method = {
+        GET: 'GET',
+        POST: 'POST',
+        PUT: 'PUT',
+        DELETE: 'DELETE'
     };
+
     /**
      * Initial settings (optional)
      * @param {{
@@ -38,8 +41,23 @@ goog.scope(function() {
      */
     Request.prototype.init = function(opt_params) {
         var params = opt_params || {};
+        this.iframe_ = Iframe.getInstance();
+        this.iframe_.init();
+        this.reqStorage_ = RequestStorage.getInstance();
 
+        window.addEventListener(
+            'message', this.messageHandler_.bind(this), false
+        );
         this.baseUrl_ = this.makeBaseUrl_(params.baseUrl);
+    };
+
+    /**
+     * Handle message event from iFrame
+     * @param  {MessageEvent} event
+     * @private
+     */
+    Request.prototype.messageHandler_ = function(event) {
+        this.reqStorage_.exec(event.data);
     };
 
     /**
@@ -48,30 +66,35 @@ goog.scope(function() {
      * If parameter {@code baseUrl} was set, then {@code url}
      * relative to {@code baseUrl}.
      *
-     * Default value of parameter {@code type} is GET
+     * Default value of parameter {@code method} is GET
      *
      * @param {{
      *     url: string,
-     *     type: ?string,
+     *     method: ?string,
      *     success: ?function,
-     *     error: ?function
+     *     error: ?function,
+     *     isJSON: boolean
+     *     data: object
      * }=} opt_params
-     * @param {Object=} opt_context
      * @return {goog.Promise}
      */
-    Request.prototype.send = function(opt_params, opt_context) {
+    Request.prototype.send = function(opt_params) {
         var params = opt_params || {};
         var url = this.makeUrl_(params.url);
-        var type = params.type || 'GET';
-        var data = this.makeQueryData_(params.data);
-        var request = new XhrIo();
-        var success = opt_params.success.bind(opt_context) || function() {};
-        var error = opt_params.error.bind(opt_context) || function() {};
-        var res = this.makeRequestPromise_(request, success, error);
+        var method = params.method || Request.Method.GET;
+        var data = params.data;
 
-        request.send(url, type, data);
+        return new Promise(function(resolve, reject) {
+            var reqId = 'req_' + Date.now() + Math.random();
 
-        return res;
+            this.reqStorage_.set(reqId, resolve, reject);
+            this.iframe_.send({
+                reqId: reqId,
+                url: url,
+                method: method,
+                data: data || {}
+            });
+        }, this);
     };
 
     /**
@@ -101,62 +124,4 @@ goog.scope(function() {
         return url;
     };
 
-    /**
-     * Make query data from given parameters
-     * @param {object=} opt_data
-     * @return {goog.Uri.QueryData}
-     * @private
-     */
-    Request.prototype.makeQueryData_ = function(opt_data) {
-        return QueryData.createFromMap(new Map(opt_data));
-    };
-
-    /**
-     * Wrap XhrIo request 'complete' event in promise
-     * @param {goog.net.XhrIo} request
-     * @param {function} successCallback
-     * @param {function} errorCallback
-     * @return {goog.Promise}
-     * @private
-     */
-    Request.prototype.makeRequestPromise_ = function(request,
-                                                     successCallback,
-                                                     errorCallback) {
-
-        return new Promise(function(resolve, reject) {
-            goog.events.listenOnce(request, 'complete', function() {
-                var responseText = request.getResponseText(),
-                    response = this.tryParseResponseText_(responseText),
-                    status = request.getStatus();
-
-                if (request.isSuccess()) {
-                    successCallback(response, status);
-                    resolve(response);
-                }
-                else {
-                    errorCallback(response, status, request.getLastError());
-                    reject(response);
-                }
-            }, false, this);
-        }, this);
-    };
-
-    /**
-     * Try parse response text to object
-     * @param {string} responseText
-     * @return {(string|object)}
-     * @private
-     */
-    Request.prototype.tryParseResponseText_ = function(responseText) {
-        var response;
-
-        try {
-            response = JSON.parse(responseText);
-        }
-        catch (error) {
-            response = responseText;
-        }
-
-        return response;
-    };
 });  // goog.scope
