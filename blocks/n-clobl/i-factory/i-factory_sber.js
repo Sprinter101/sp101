@@ -18,8 +18,6 @@ goog.require('sv.lSberVmeste.SberVmeste');
 goog.require('sv.lSberVmeste.View');
 goog.require('sv.lSberVmeste.bCard.Card');
 goog.require('sv.lSberVmeste.bCard.View');
-goog.require('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
-goog.require('sv.lSberVmeste.bPhoneBlock.View');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
@@ -38,6 +36,8 @@ goog.require('sv.lSberVmeste.bPageManager.PageManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
 goog.require('sv.lSberVmeste.bPaymentPage.PaymentPage');
 goog.require('sv.lSberVmeste.bPaymentPage.View');
+goog.require('sv.lSberVmeste.bPhoneBlock.PhoneBlock');
+goog.require('sv.lSberVmeste.bPhoneBlock.View');
 goog.require('sv.lSberVmeste.bProfile.Profile');
 goog.require('sv.lSberVmeste.bProfile.View');
 goog.require('sv.lSberVmeste.bProfileEdit.ProfileEdit');
@@ -69,7 +69,7 @@ sv.iFactory.FactorySber = function() {
             control: sv.lSberVmeste.SberVmeste,
             view: sv.lSberVmeste.View
         })
-        .setControlListItem('PhoneBlock',{
+        .setControlListItem('PhoneBlock', {
             control: sv.lSberVmeste.bPhoneBlock.PhoneBlock,
             view: sv.lSberVmeste.bPhoneBlock.View
         })

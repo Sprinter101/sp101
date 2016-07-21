@@ -41,7 +41,7 @@ goog.scope(function() {
      */
     UserService.prototype.removeEntity = function(entityId) {
         return Request.getInstance().send({
-            url :'/user-fund/' + entityId,
+            url: '/user-fund/' + entityId,
             type: 'DELETE'
         });
     };

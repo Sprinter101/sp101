@@ -137,7 +137,7 @@ goog.scope(function() {
 
      /**
     * Ajax success handler
-    * @param {Object} success message
+    * @param {Object} response message
     * redirect user to temporary 'Sberbank web'
     */
     DonatePage.prototype.handleSuccessLoginCheck = function(response) {
