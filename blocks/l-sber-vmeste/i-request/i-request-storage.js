@@ -25,8 +25,8 @@ goog.scope(function() {
     Storage.prototype.set = function(reqId, resolve, reject, opt_autoRemove) {
         var autoRemove = true;
 
-        if (opt_autoremove != undefined) {
-            autoRemove = opt_autoRemove;
+        if (opt_autoRemove === false) {
+            var autoRemove = false;
         }
 
         this.requests[reqId] = {
@@ -63,24 +63,27 @@ goog.scope(function() {
      * }} data object contains info about response from server
      */
     Storage.prototype.exec = function(data) {
-        var type = data.type;
-        var reqId = data.reqId;
-        var serverResponse = data.response;
-        var response;
+        var request = this.get(data.reqId);
+        var serverResponse = data.serverResponse;
+        var resolveObj = {status: data.status};
+        var rejectObj = {err: data.err, status: data.status};
 
-        if (type == 'resolve') {
-            this.get(reqId).resolve(data.response);
+        if (data.type === 'resolve') {
+            if (typeof data.serverResponse == 'string') {
+                try {
+                    resolveObj.res = JSON.parse(serverResponse);
+                } catch (err) {
+                    resolveObj.res = serverResponse;
+                }
+            }
+            request.resolve(resolveObj);
         } else {
-            this.get(reqId).reject(serverResponse);
+            request.reject(rejectObj);
         }
 
-        // if (typeof data.response == 'string') {
-        //     try {
-        //         response = JSON.parse(data.response);
-        //     } catch (err) {
-        //         throw new Error(err);
-        //     }
-        // }
+        if (request.autoRemove) {
+            this.remove(data.reqId);
+        }
     };
 
 });  // goog.scope

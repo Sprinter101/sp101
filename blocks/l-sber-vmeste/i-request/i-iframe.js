@@ -34,7 +34,7 @@ goog.scope(function() {
      * Return iframe element or null if not found
      * @return {?HTMLIFrameElement} iframe node or null
      */
-    Iframe.prototype.get = function() {
+    Iframe.prototype.getNode = function() {
         return this.iframeNode_;
     };
 
