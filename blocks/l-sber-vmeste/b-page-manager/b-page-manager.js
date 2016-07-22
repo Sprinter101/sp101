@@ -32,9 +32,7 @@ goog.inherits(
 
 goog.scope(function() {
     var PageManager = sv.lSberVmeste.bPageManager.PageManager,
-        HeaderManager = sv.lSberVmeste.bHeaderManager.HeaderManager,
-        Router = sv.lSberVmeste.iRouter.Router,
-        Request = cl.iRequest.Request;
+        Router = sv.lSberVmeste.iRouter.Router;
 
     /**
      * @override

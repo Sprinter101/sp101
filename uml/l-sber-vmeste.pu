@@ -1,0 +1,53 @@
+@startuml
+
+title SV-109 l-sber-vmeste
+
+
+lSberVmeste <|-- iControl
+lSberVmeste *--  bHeaderManager
+lSberVmeste *-- bPageManager
+
+lSberVmeste --> iController
+lSberVmeste --> iRouter
+
+
+bHeaderManager *-- bHeader
+bPageManager --> iRouter
+
+    
+class iRouter <extend cl.iRouter> {
+    use()
+    changeLocation()
+    getMaskByUrl()
+    parseMaskDataFromUrl()
+}
+
+class bHeaderManager <extend iContentManager> {
+    setProfileHeader()
+    setChoiceHeader()
+    setCardHeader()
+    setListHeader()
+    getCurrentHeader()
+}
+
+class bPageManager <extend iContentManager> {
+    setCurrentPage()
+    getCurrentPage()
+    getLocation()
+}
+
+class iController {
+    actionStart()
+    actionListPage()
+    actionTest()
+    actionDisplayCategoryCard()
+    actionProfilePage()
+    actionRegistrationPage()
+    actionDonate()
+    actionPayment()
+    actionManageUserfund()
+}
+
+class iControl <<clobl class>>
+
+@enduml

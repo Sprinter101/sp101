@@ -10,8 +10,8 @@ goog.require('sv.lSberVmeste.iRouter.Router');
 
 
 /**
- * aa.lActiveAge.ActiveAge control
- * @param {aa.lActiveAge.View} view View used to render or
+ * sv.lSberVmeste.SberVmeste control
+ * @param {sv.lSberVmeste.View} view View used to render or
  *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  *     document interaction.
