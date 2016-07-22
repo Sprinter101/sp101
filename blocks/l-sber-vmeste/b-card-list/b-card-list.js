@@ -51,12 +51,9 @@ goog.scope(function() {
      * @param {Array} cards
      */
     CardList.prototype.renderCards = function(cards) {
-        var domCardsBlock = this.getView().getDom().cardsBlock,
-            href = window.location.href,
-            url = href.slice(0, href.indexOf('#'));
+        var domCardsBlock = this.getView().getDom().cardsBlock;
 
         for (var i = 0; cards && i < cards.length; i++) {
-
             var card = cards[i];
 
             if (card.checked) {
@@ -67,7 +64,7 @@ goog.scope(function() {
 
             var cardParams = {
                 data: {
-                    logoSrc: url + card.imgUrl,
+                    logoSrc: card.imgUrl,
                     title: card.title
                 },
                 config: {
