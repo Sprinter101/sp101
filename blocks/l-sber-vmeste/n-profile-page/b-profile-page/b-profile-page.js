@@ -259,7 +259,7 @@ goog.scope(function() {
     ProfilePage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
         var default_params = {'loggedIn': false, 'firstName': undefined,
-            'lastName': undefined, 'draft': false,
+            'lastName': undefined, 'draft': true,
             'pageType': 'profile'
         };
         return default_params;

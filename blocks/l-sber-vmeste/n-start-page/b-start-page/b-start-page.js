@@ -57,14 +57,6 @@ goog.scope(function() {
         HeaderManager = sv.lSberVmeste.bHeaderManager.HeaderManager;
 
     /**
-     * Url enum
-     * @enum {string}
-     */
-    StartPage.URL = {
-        USERFUNDS_COUNT: '/user-fund/count'
-    };
-
-    /**
     * @override
     * @param {Element} element
     */
@@ -89,7 +81,6 @@ goog.scope(function() {
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
                     var draft = params.draft;
-                    console.log(draft);
                     var loggedIn = params.loggedIn;
                     if (!draft) {
                         that.printReportsButtonContent();
@@ -128,7 +119,7 @@ goog.scope(function() {
     StartPage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
         var default_params = {'loggedIn': false, 'firstName': undefined,
-            'lastName': undefined, 'draft': false, 'pageType': 'start'};
+            'lastName': undefined, 'draft': true, 'pageType': 'start'};
         return default_params;
     };
 
@@ -161,8 +152,7 @@ goog.scope(function() {
      * @private
      */
     StartPage.prototype.getFundsCount_ = function() {
-        Request.getInstance().send({
-            url: StartPage.URL.USERFUNDS_COUNT})
+        UserService.getInstance().getUserfundsCount()
             .then(this.handleSuccess,
                 this.handleRejection,
                 this);

@@ -227,7 +227,7 @@ goog.scope(function() {
     */
     RegistrationPage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
-        var default_params = {'loggedIn': false, 'firstName': undefined,
+        var default_params = {'loggedIn': true, 'firstName': undefined,
             'lastName': undefined, 'pageType': 'registration'};
         return default_params;
     };

@@ -113,12 +113,11 @@ goog.scope(function() {
 
     /**
     * render correct icon as userfund logo
-    * @param {bool} loggedIn
     * @param {bool} draft
     * @public
     */
-    View.prototype.renderStartButton = function(loggedIn, draft) {
-        var soyParams = {'loggedIn': loggedIn, 'draft': draft};
+    View.prototype.renderStartButton = function(draft) {
+        var soyParams = {'draft': draft};
         goog.soy.renderElement(
             this.dom.buttonContainer,
             sv.lSberVmeste.bStartBlock.Template.button,
@@ -128,7 +127,7 @@ goog.scope(function() {
         this.dom.button = this.getElementByClass(
             View.CssClass.BUTTON
         );
-        this.changeButtonClass_(loggedIn, draft);
+        this.changeButtonClass_(draft);
         this.getHandler()
             .listen(
                 this.dom.button,
@@ -139,12 +138,11 @@ goog.scope(function() {
 
      /**
     * Change button custom class
-    * @param {bool} loggedIn
     * @param {bool} draft
     * @private
     */
-    View.prototype.changeButtonClass_ = function(loggedIn, draft) {
-        if (loggedIn && !draft) {
+    View.prototype.changeButtonClass_ = function(draft) {
+        if (!draft) {
             goog.dom.classlist.add(
                 this.dom.button, View.CssClass.MANAGE_BUTTON
             );
@@ -163,7 +161,7 @@ goog.scope(function() {
      */
     View.prototype.checkStartButtonClass = function() {
         return goog.dom.classlist.contains(
-            this.dom.startButton, View.CssClass.MANAGE_BUTTON
+            this.dom.button, View.CssClass.MANAGE_BUTTON
         );
     };
 

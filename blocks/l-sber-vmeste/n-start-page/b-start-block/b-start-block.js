@@ -75,7 +75,7 @@ goog.scope(function() {
         var draft = params.draft;
         this.renderUserfundLogo_(loggedIn);
         this.renderUserfundTitle_(loggedIn, firstName, lastName);
-        this.renderStartButton_(loggedIn, draft);
+        this.renderStartButton_(draft);
     };
 
     /**
@@ -101,12 +101,11 @@ goog.scope(function() {
 
     /**
     * render correct icon as userfund logo
-    * @param {bool} loggedIn
     * @param {bool} draft
     * @private
     */
-    StartBlock.prototype.renderStartButton_ = function(loggedIn, draft) {
-        this.getView().renderStartButton(loggedIn, draft);
+    StartBlock.prototype.renderStartButton_ = function(draft) {
+        this.getView().renderStartButton(draft);
 
         this.startButton_ = this.decorateChild(
             'ButtonSber',

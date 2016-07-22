@@ -85,13 +85,11 @@
 
 /**
  * template for start button
- * @param loggedIn {bool}
  * @param draft {bool}
  */
 {template .button autoescape="strict" kind="html"}
-    {let $content: $draft ? $loggedIn ? 'Начать' : 'Начать' :
-        'Управление фондом' /}
-    {let $buttonClass: $draft ? 'b-start-block__button_start' : 
+    {let $content: $draft ? 'Начать' : 'Управление фондом' /}
+    {let $buttonClass: $draft ? 'b-start-block__button_start' :
         'b-start-block__button_manage'/}
         {call .renderChild}
             {param params: [
