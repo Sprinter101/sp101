@@ -46,7 +46,8 @@ goog.scope(function() {
         CHOICE_CONTAINER: 'b-header__choice-wrapper',
         ME_BUTTON: 'b-header__button_me',
         CLOSE_BUTTON: 'b-header__button_close',
-        HEADER_EDIT: 'b-header_edit'
+        HEADER_EDIT: 'b-header_edit',
+        SHARE_BUTTON: 'b-header__share-wrapper'
     };
 
     /**
@@ -68,6 +69,15 @@ goog.scope(function() {
             View.CssClass.ARROW_BACK_CONTAINER
         );
         this.dom.arrowBack = goog.dom.getChildren(arrowBackContainer)[0];
+
+        this.dom.shareButton = this.getElementByClass(
+            View.CssClass.SHARE_BUTTON
+        ).firstChild;
+
+        this.dom.documentRoot = this.getElementByClass(
+            sv.lSberVmeste.View.CssClass.ROOT,
+            document
+        );
 
         this.dom.buttonContainer = this.getElementByClass(
             View.CssClass.BUTTON_CONTAINER

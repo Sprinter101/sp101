@@ -160,7 +160,7 @@ gulp.task('watch', function() {
 });
 
 const tasks = function(bool) {
-    return bool ? ['soy', 'lint', 'scripts', 'styles', 'fonts', 'images', 'html', 'assets-html'] : ['soy', 'lint', 'images', 'scripts', 'styles', 'html', 'assets-html'];
+    return bool ? ['soy', 'scripts', 'lint', 'styles', 'fonts', 'images', 'html', 'assets-html'] : ['soy', 'images', 'scripts', 'lint', 'styles', 'html', 'assets-html'];
 };
 
 gulp.task('default', tasks(production));
