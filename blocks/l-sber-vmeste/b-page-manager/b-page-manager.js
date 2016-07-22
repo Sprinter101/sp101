@@ -57,7 +57,6 @@ goog.scope(function() {
      * Change page
      * @param  {string} page
      * @param  {Object=} opt_params
-     * @protected
      */
     PageManager.prototype.setCurrentPage = function(page, opt_params) {
         if (this.currentPage_) {

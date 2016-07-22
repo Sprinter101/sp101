@@ -77,7 +77,6 @@ goog.scope(function() {
 
     /**
      * set profile header
-     * @public
      */
     Manager.prototype.setProfileHeader = function() {
         var params = Manager.HeaderStates.PROFILE;
@@ -102,7 +101,6 @@ goog.scope(function() {
 
      /**
      * set donation choice header
-     * @public
      */
     Manager.prototype.setChoiceHeader = function() {
         var params = Manager.HeaderStates.CHOICE;
@@ -112,7 +110,6 @@ goog.scope(function() {
     /**
      * set header with items list
      * @param {Object=} opt_params
-     * @public
      */
     Manager.prototype.setListHeader = function(opt_params) {
         var params = Manager.HeaderStates.LIST;
@@ -123,7 +120,6 @@ goog.scope(function() {
      /**
      * set card header
      * @param {Object=} opt_params
-     * @public
      */
     Manager.prototype.setCardHeader = function(opt_params) {
         var params = Manager.HeaderStates.CARD;
@@ -134,7 +130,6 @@ goog.scope(function() {
     /**
      * Return current header
      * @return {sv.lSberVmeste.bHeader.Header}
-     * @public
      */
     Manager.prototype.getCurrentHeader = function() {
         return this.header_;

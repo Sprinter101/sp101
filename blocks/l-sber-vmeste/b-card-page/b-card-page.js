@@ -40,11 +40,6 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardType_ = null;
 
-    /**
-    * @type {object}
-    * @private
-    */
-    this.headerManager_ = this.params.headerManager_;
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 

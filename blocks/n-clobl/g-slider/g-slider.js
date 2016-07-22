@@ -49,15 +49,16 @@ goog.scope(function() {
 
         this.viewListen(
             View.Event.SLIDER_MOVE,
-            this.onSliderMove
+            this.onSliderMove_
         );
     };
 
     /**
     * dispatches event with current slider value
     * @param {View.Event.SLIDER_MOVE} event
+    * @private
     */
-    Slider.prototype.onSliderMove = function(event) {
+    Slider.prototype.onSliderMove_ = function(event) {
         var currentPercent = event.payload.percent;
          var customEvent = new goog.events.Event(Slider.Event
             .SLIDER_MOVE, this);
@@ -81,10 +82,9 @@ goog.scope(function() {
     };
 
      /**
-    * returns slider current value
-    * @return {number} value
-    * @protected
-    */
+     * returns slider current value
+     * @return {number} value
+     */
     Slider.prototype.getValue = function() {
        return this.getView().getValue();
     };
