@@ -1,7 +1,6 @@
 goog.provide('sv.lSberVmeste.bDonatePage.DonatePage');
 
 goog.require('cl.iControl.Control');
-goog.require('cl.iRequest.Request');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.lSberVmeste.bDonatePage.View');
@@ -69,14 +68,6 @@ goog.scope(function() {
         UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
-     * Api enum
-     * @type {string}
-     */
-    DonatePage.URL = {
-        USER_URL: '/user'
-    };
-
-    /**
     * @override
     * @param {Element} element
     */
@@ -109,38 +100,36 @@ goog.scope(function() {
         this.getHandler().listen(
             this.donateBlockFixedSum_,
             DonationFixedBlock.Event.DONATION_FIXED_READY,
-            this.onDonationFixedReady
+            this.onDonationFixedReady_
         )
         .listen(this.donateBlockPercent_,
             DonationPercentBlock.Event.DONATION_PERCENT_READY,
-            this.onDonationPercentReady
+            this.onDonationPercentReady_
         );
 
-        this.isUserLoggedIn();
+        this.isUserLoggedIn_();
     };
 
     /**
-     * send AJAX
-     * @return {Object} ajas response or error
-     * @protected
+     * check if user is logged in
+     * @private
      */
-    DonatePage.prototype.isUserLoggedIn = function() {
-        return Request.getInstance().send({
-            url: DonatePage.URL.USER_URL
-        }).
-        then(
-            this.handleSuccessLoginCheck,
-            this.handleRejectionLoginCheck,
-            this
-        );
+    DonatePage.prototype.isUserLoggedIn_ = function() {
+        UserService.getInstance().isUserLoggedIn()
+            .then(
+                this.handleSuccessLoginCheck_,
+                this.handleRejectionLoginCheck_,
+                this
+            );
     };
 
      /**
     * Ajax success handler
     * @param {Object} response message
     * redirect user to temporary 'Sberbank web'
+    * @private
     */
-    DonatePage.prototype.handleSuccessLoginCheck = function(response) {
+    DonatePage.prototype.handleSuccessLoginCheck_ = function(response) {
         var loggedIn = response.data.loggedIn;
         if (loggedIn) {
             this.next_route_ = Route.PAYMENT_TEMP;
@@ -154,64 +143,40 @@ goog.scope(function() {
     * Ajax rejection handler
     * !Temporary redirect to registration page
     * @param {Object} err
+    * @private
     */
-    DonatePage.prototype.handleRejectionLoginCheck = function(err) {
+    DonatePage.prototype.handleRejectionLoginCheck_ = function(err) {
         console.log(err);
         this.next_route_ = Route.REGISTRATION;
     };
 
      /**
      * Handles fixed donation ready event
+     * TODO: made request to save donation sum on server
      * @param {DonationFixedBlock.Event.DONATION_FIXED_READY} event
-     * @protected
+     * @private
      */
-    DonatePage.prototype.onDonationFixedReady = function(event) {
+    DonatePage.prototype.onDonationFixedReady_ = function(event) {
         var sumValue = JSON.stringify(event.payload.fixedSum);
-        Request.getInstance().send({
-            url: '/user-fund/donation-sum',
-            type: 'POST',
-             data: sumValue})
-            .then(this.handleSuccess,
-                this.handleRejection,
-                this
-        );
+        this.redirectToNextPage_();
     };
 
      /**
      * Handles percent donation ready event
+     * TODO: made request to save donation sum on server
      * @param {DonationPercentBlock.Event.DONATION_PERCENT_READY} event
-     * @protected
+     * @private
      */
-    DonatePage.prototype.onDonationPercentReady = function(event) {
-       var sumValue = JSON.stringify(event.payload.percentSum);
-       Request.getInstance().send({
-            url: '/user-fund/',
-            type: 'POST',
-             data: sumValue})
-            .then(this.handleSuccess,
-                this.handleRejection,
-                this
-        );
+    DonatePage.prototype.onDonationPercentReady_ = function(event) {
+        var sumValue = JSON.stringify(event.payload.percentSum);
+        this.redirectToNextPage_();
     };
 
     /**
-    * Ajax success handler
-    * @param {Object} success message
     * redirect user to registration page or to Sberbank web
+    * @private
     */
-    DonatePage.prototype.handleSuccess = function(success) {
-        Router.getInstance().changeLocation(this.next_route_);
-    };
-
-     /**
-    * Ajax rejection handler
-    * TODO: make different errors handling
-    * and show convenient error message
-    * !Temporary redirect to registration page
-    * @param {Object} err
-    */
-    DonatePage.prototype.handleRejection = function(err) {
-        console.log(err);
+    DonatePage.prototype.redirectToNextPage_ = function() {
         Router.getInstance().changeLocation(this.next_route_);
     };
 

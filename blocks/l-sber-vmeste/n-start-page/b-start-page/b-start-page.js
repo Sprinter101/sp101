@@ -1,11 +1,9 @@
 goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 
 goog.require('cl.iControl.Control');
-goog.require('cl.iRequest.Request');
 goog.require('goog.dom');
 goog.require('goog.events.EventType');
 goog.require('sv.gButton.Button');
-goog.require('sv.lSberVmeste.bHeaderManager.HeaderManager');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.iPage.Page');
@@ -49,12 +47,10 @@ goog.scope(function() {
     var StartPage = sv.lSberVmeste.bStartPage.StartPage,
         StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
         Button = sv.gButton.Button,
-        Request = cl.iRequest.Request,
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         UserService = sv.lSberVmeste.iUserService.UserService,
-        View = sv.lSberVmeste.bStartPage.View,
-        HeaderManager = sv.lSberVmeste.bHeaderManager.HeaderManager;
+        View = sv.lSberVmeste.bStartPage.View;
 
     /**
     * @override
@@ -132,17 +128,17 @@ goog.scope(function() {
         this.getHandler().listen(
             this.startBlock_,
             StartBlock.Event.START_CREATING_USERFUND,
-            this.onStartCreatingUserfund
+            this.onStartCreatingUserfund_
         )
         .listen(
             this.startBlock_,
             StartBlock.Event.MANAGE_USERFUND,
-            this.onManageUserfund
+            this.onManageUserfund_
         )
         .listen(
             this.userfundButton_,
             Button.Event.CLICK,
-            this.onUserfundButtonClick
+            this.onUserfundButtonClick_
         );
     };
 
@@ -153,8 +149,8 @@ goog.scope(function() {
      */
     StartPage.prototype.getFundsCount_ = function() {
         UserService.getInstance().getUserfundsCount()
-            .then(this.handleSuccess,
-                this.handleRejection,
+            .then(this.handleSuccess_,
+                this.handleRejection_,
                 this);
         };
 
@@ -163,8 +159,9 @@ goog.scope(function() {
     * Prints default userfunds count
     * if server responded with error
     * @param {Object} err
+    * @private
     */
-    StartPage.prototype.handleRejection = function(err) {
+    StartPage.prototype.handleRejection_ = function(err) {
         console.log(err);
         var defaultCount = 10;
         this.changeUserfundButton(defaultCount);
@@ -174,8 +171,9 @@ goog.scope(function() {
     * invokes method for preparing
     * correct rendering info block
     * @param {Object} response - number of new opened userfunds
+    * @private
     */
-    StartPage.prototype.handleSuccess =
+    StartPage.prototype.handleSuccess_ =
         function(response) {
             var data = response.data;
             if (data.today < 1) {
@@ -185,21 +183,21 @@ goog.scope(function() {
                 data = data.today;
             }
             if (data > 0) {
-                this.renderUserfundsCountInfo(data);
-                this.changeUserfundButton(data);
+                this.renderUserfundsCountInfo_(data);
+                this.changeUserfundButton_(data);
             }
             else {
                 data = 20;
-                this.changeUserfundButton(data);
+                this.changeUserfundButton_(data);
             }
     };
 
     /**
     * Applies correct grammar to the phrase
     * @param {string} userfundsCount number of new opened userfunds
-    * @protected
+    * @private
     */
-    StartPage.prototype.renderUserfundsCountInfo = function(
+    StartPage.prototype.renderUserfundsCountInfo_ = function(
        userfundsCount) {
         this.getView().printCorrectPhrase(userfundsCount);
     };
@@ -207,35 +205,36 @@ goog.scope(function() {
      /**
      * Applies data to userfunds count button
      * @param {string} userfundsCount number of new opened userfunds
-     * @protected
+     * @private
      */
-    StartPage.prototype.changeUserfundButton =
+    StartPage.prototype.changeUserfundButton_ =
         function(userfundsCount) {
             this.getView().printCorrectCount(userfundsCount);
     };
 
      /**
     * print correct 'reports' button content
-    * @protected
+    * @private
     */
-    StartPage.prototype.printReportsButtonContent = function() {
+    StartPage.prototype.printReportsButtonContent_ = function() {
         this.getView().printReportsButtonContent();
     };
 
      /**
      * detect start button type to correct event's handle
      * @return {bool}
+     * @private
     */
-    StartPage.prototype.checkUserfundButtonClass = function() {
+    StartPage.prototype.checkUserfundButtonClass_ = function() {
         return this.getView().checkUserfundButtonClass();
     };
 
     /**
      * Handles start button CLICK and redirect to temporary userfund page
      * @param {sv.gButton.Button.Event.CLICK} event
-     * @protected
+     * @private
      */
-    StartPage.prototype.onManageUserfund = function(event) {
+    StartPage.prototype.onManageUserfund_ = function(event) {
         Router.getInstance().changeLocation(
             Route.USERFUND_PAGE);
     };
@@ -243,9 +242,9 @@ goog.scope(function() {
      /**
      * Handles start button CLICK and redirect to ListPage
      * @param {sv.gButton.Button.Event.CLICK} event
-     * @protected
+     * @private
      */
-    StartPage.prototype.onStartCreatingUserfund = function(event) {
+    StartPage.prototype.onStartCreatingUserfund_ = function(event) {
         Router.getInstance().changeLocation(
             Route.LIST_PAGE, {'category': 'topics'});
     };
@@ -253,10 +252,10 @@ goog.scope(function() {
     /**
      * Handles funds count button CLICK and redirect to ListPage
      * @param {sv.gButton.Button.Event.CLICK} event
-     * @protected
+     * @private
      */
-    StartPage.prototype.onUserfundButtonClick = function(event) {
-        if (this.checkUserfundButtonClass()) {
+    StartPage.prototype.onUserfundButtonClick_ = function(event) {
+        if (this.checkUserfundButtonClass_()) {
             Router.getInstance().changeLocation(
                 Route.USERFUND_PAGE);
         }

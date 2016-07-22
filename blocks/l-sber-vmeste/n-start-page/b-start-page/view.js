@@ -72,7 +72,7 @@ goog.scope(function() {
      /**
      * Applies data to userfunds count phrase
      * @param {number} userfundsCount
-     * @protected
+     * @public
      */
     View.prototype.printCorrectPhrase = function(
         userfundsCount) {
@@ -89,7 +89,7 @@ goog.scope(function() {
     /**
      * Applies data to userfunds count button
      * @param {number} userfundsCount
-     * @protected
+     * @public
      */
     View.prototype.printCorrectCount = function(
         userfundsCount) {
@@ -106,7 +106,7 @@ goog.scope(function() {
 
     /**
      * Print content for 'manage reports' button
-     * @protected
+     * @public
      */
     View.prototype.printReportsButtonContent = function() {
         goog.soy.renderElement(
@@ -119,7 +119,7 @@ goog.scope(function() {
      /**
     * Change button width
     * @param {bool} change
-    * @protected
+    * @public
     */
     View.prototype.changeUserfundButtonClass = function(change) {
         if (change) {
@@ -137,7 +137,7 @@ goog.scope(function() {
     /**
      * return button custom class
      * @return {bool}
-     * @protected
+     * @public
      */
     View.prototype.checkUserfundButtonClass = function() {
         return goog.dom.classlist.contains(

@@ -81,7 +81,7 @@ goog.scope(function() {
     /**
     * render correct icon as userfund logo
     * @param {bool} loggedIn
-     * @private
+    * @private
     */
     StartBlock.prototype.renderUserfundLogo_ = function(loggedIn) {
         this.getView().renderUserfundLogo(loggedIn);
