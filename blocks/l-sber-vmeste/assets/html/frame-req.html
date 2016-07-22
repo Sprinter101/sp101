@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+    <script>
+        var parent = window.parent;
+
+        function loadHandler(reqId, status, serverResponse) {
+            parent.postMessage({
+                reqId: reqId,
+                status: status,
+                serverResponse: serverResponse,
+                type: 'resolve',
+                cookie: document.cookie
+            }, '*');
+        }
+
+        function errorHandler(reqId, status, err) {
+            parent.postMessage({
+                reqId: reqId,
+                status: status,
+                serverResponse: null,
+                type: 'reject',
+                err: err,
+                cookie: document.cookie
+            }, '*');
+        }
+
+        function setHeaders(xhr, data) {
+            var headers = {
+                'X-Requested-With': 'XMLHttpRequest'
+            };
+
+            //prepare headers
+            if (data.isJSON !== false) {
+                headers['Content-Type'] = 'application/json; charset=utf-8';
+            }
+
+            Object.keys(headers).forEach(function(headerName) {
+                xhr.setRequestHeader(headerName, headers[headerName]);
+            });
+            // if data has headers
+            if (data.headers) {
+                Object.keys(data.headers).forEach(function(headerName) {
+                    xhr.setRequestHeader(headerName, data.headers[headerName]);
+                });
+            }
+        }
+
+
+        window.addEventListener('message', function(event) {
+            var xhr = new XMLHttpRequest();
+            var data = event.data;
+            var url = data.url;
+            var method = data.method;
+            var reqId = data.reqId;
+            var reqData = data.data;
+
+            // set params
+            if (method === 'GET') {
+                var getQuery = '';
+                var getQueryMap = [];
+
+                Object.keys(reqData).forEach(function(param) {
+                    getQueryMap.push(
+                        param + '=' + encodeURIComponent(reqData[param])
+                    );
+                });
+
+                getQuery = getQueryMap.join('&');
+            }
+
+            if (method === 'GET') {
+                getQuery = getQuery ? '?' + getQuery : '';
+                xhr.open(method, url + getQuery, true);
+            } else {
+                xhr.open(method, url, true);
+            }
+
+            setHeaders(xhr, data);
+
+            xhr.withCredentials = true;
+            xhr.onload = function() {
+                loadHandler(reqId, xhr.status, xhr.responseText);
+            };
+            xhr.onerror = function(err) {
+                errorHandler(reqId, xhr.status, err);
+            };
+
+            var body = method === 'GET' ? null : JSON.stringify(reqData);
+
+            xhr.send(body);
+        });
+
+    </script>
+    </body>
+</html>

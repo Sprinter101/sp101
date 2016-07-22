@@ -61,7 +61,9 @@ gulp.task('scripts', ['lint', 'soy'], function() {
             }]
             //,compile: true
     }).then(() => {
-        if (!args.modulesPath) livereload.reload()
+        if (!args.modulesPath) {
+            livereload.reload();
+        }
     });
 });
 
@@ -73,7 +75,9 @@ gulp.task('scripts-only', ['lint'], function() {
             }]
             //,compile: true
     }).then(() => {
-        if (!args.modulesPath) livereload.reload()
+        if (!args.modulesPath) {
+            livereload.reload();
+        }
     });
 });
 
@@ -84,6 +88,11 @@ var liveReloader = function() {
 gulp.task('fonts', function() {
     return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/fonts/*.*'))
         .pipe(gulp.dest(path.join(pathToPublic + '/fonts')));
+});
+
+gulp.task('assets-html', function() {
+    return gulp.src(path.join(__dirname + '/blocks/l-sber-vmeste/assets/html/*.*'))
+        .pipe(gulp.dest(path.join(pathToPublic)));
 });
 
 gulp.task('images', function() {
@@ -118,7 +127,8 @@ gulp.task('sprite', function() {
 });
 
 gulp.task('styles', ['sprite', 'fonts'], function() {
-    return gulpHelper.css.build({}).pipe(gulpif(!args.modulesPath, livereload()));
+    return gulpHelper.css.build({})
+            .pipe(gulpif(!args.modulesPath, livereload()));
 });
 
 gulp.task('html', ['scripts'], function() {
@@ -151,7 +161,7 @@ gulp.task('watch', function() {
 });
 
 const tasks = function(bool) {
-    return bool ? ['soy', 'scripts', 'styles', 'fonts', 'images', 'html'] : ['soy', 'images', 'scripts', 'styles', 'html'];
+    return bool ? ['soy', 'scripts', 'styles', 'fonts', 'images', 'html', 'assets-html'] : ['soy', 'images', 'scripts', 'styles', 'html', 'assets-html'];
 };
 
 gulp.task('default', tasks(production));
