@@ -3,9 +3,6 @@
 .b-card {
     position: relative;
 
-    display: block;
-
-    width: 100%;
     min-width: 270px;
     height: 90px;
     margin: 0 auto;
@@ -19,6 +16,9 @@
     background: #fff;
 
     font-size: 15px;
+
+    display: inline-block;
+    width: 50%;
 }
 
 .b-card_half-line {
@@ -36,7 +36,7 @@
 
     display: inline-block;
 
-    width: 70px;
+    width: 50px;
     height: 100%;
 }
 
@@ -98,7 +98,7 @@
 .b-card__check-mark {
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 20px;
 
     display: none;
 
@@ -121,9 +121,6 @@
     display: inline-block;
 }
 
-.b-card_full-line .b-card__arrow {
-    display: inline-block;
-}
 
 @media screen and (max-width: $breakpointM) {
     .b-card__arrow {
@@ -135,11 +132,11 @@
 
         width: 100%;
     }
-}
+    .b-card:last-child {
+        border-bottom: 0;
+    }
 
-@media screen and (min-width: $breakpointM + 1) {
-    .b-card_half-line .b-card__check-mark,
-    .b-card_half-line .b-card__arrow {
-        right: 20px;
+    .b-card__info {
+        max-width: 70%;
     }
 }
