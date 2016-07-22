@@ -81,6 +81,21 @@ goog.scope(function() {
     };
 
     /**
+     * Execute a validation of given type and returns true
+     * if validation of given type not successful
+     * @param {string} validationType
+     * @private
+     * @return {boolean}
+     */
+    Validation.prototype.doValidationType_ = function(validationType) {
+        var validationFunction =
+                this.validationHandlers_[validationType];
+
+        return validationFunction ?
+            !validationFunction.call(this, this.value_) : false;
+    };
+
+    /**
      * returns an array with the failed validations' error messages
      * @return {Array.<string>}
      * @private
@@ -95,21 +110,6 @@ goog.scope(function() {
         }, this);
 
         return errorMessageText;
-    };
-
-    /**
-     * Execute a validation of given type and returns true
-     * if validation of given type not successful
-     * @param {string} validationType
-     * @private
-     * @return {boolean}
-     */
-    Validation.prototype.doValidationType_ = function(validationType) {
-        var validationFunction =
-                this.validationHandlers_[validationType];
-
-        return validationFunction ?
-            !validationFunction.call(this, this.value_) : false;
     };
 
     /**

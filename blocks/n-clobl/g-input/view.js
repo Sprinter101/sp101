@@ -1,6 +1,7 @@
 goog.provide('sv.gInput.View');
 
 goog.require('cl.gInput.View');
+goog.require('sv.gInput.Constraint');
 goog.require('goog.events.KeyCodes');
 goog.require('sv.iUtils.Utils');
 
@@ -31,18 +32,27 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     */
     this.placeholder_ = null;
 
-
     /**
     * @type {boolean}
     * @private
     */
     this.showErrorsOnFocus_ = !!this.params.showErrorsOnFocus;
+<<<<<<< HEAD
+=======
+
+    /**
+     * @type {sv.gInput.Constraint}
+     */
+    this.constraint_ = null
+
+>>>>>>> Constraints in progress
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
 
 goog.scope(function() {
-    var View = sv.gInput.View;
+    var View = sv.gInput.View,
+        Constraint = sv.gInput.Constraint;
 
     /**
      * Css class enum
@@ -98,6 +108,8 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.constraint_ = new Constraint(this.params.valueParams);
+
         this.dom.input = this.getElementByClass(
             View.CssClass.INPUT, element);
         this.dom.errorMessage = this.getElementByClass(
@@ -107,7 +119,6 @@ goog.scope(function() {
 
         this.label_ = this.dom.label && this.dom.label.innerText.trim();
         this.placeholder_ = this.dom.input.getAttribute('placeholder');
-
 
         this.getDataParams(element);
     };
@@ -141,7 +152,7 @@ goog.scope(function() {
             .listen(
                 this.dom.input,
                 goog.events.EventType.KEYDOWN,
-                this.onEnterKeyPress
+                this.onKeyDown_
             );
     };
 
@@ -259,11 +270,28 @@ goog.scope(function() {
     /**
     * Enter key press event handler
     * @param {Object} event
+    * @private
     */
-    View.prototype.onEnterKeyPress = function(event) {
+    View.prototype.onKeyDown_ = function(event) {
         var keyCode = event.keyCode;
+        var keysToIgnore = [8,9,16,17,18,20,27];
+
         if (keyCode == goog.events.KeyCodes.ENTER) {
             this.dispatchEvent(View.Event.ENTER_KEY_PRESS);
+            return;
+        } else if (keysToIgnore.indexOf(keyCode) + 1) {
+            return;
+        }
+
+        var that = this;
+
+        var isCorrect = this.constraint_.check(
+            event.event_.key,
+            this.getValue(),
+            this.params['constraints']);
+
+        if (!isCorrect) {
+            event.preventDefault();
         }
     };
 
