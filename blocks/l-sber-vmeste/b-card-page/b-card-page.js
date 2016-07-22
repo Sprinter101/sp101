@@ -7,7 +7,6 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.iCardService.CardService');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
-goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -49,8 +48,7 @@ goog.scope(function() {
         CardService = sv.lSberVmeste.iCardService.CardService,
         request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
-        Router = sv.lSberVmeste.iRouter.Router,
-        UserService = sv.lSberVmeste.iUserService.UserService;
+        Router = sv.lSberVmeste.iRouter.Router;
 
 
     /**
@@ -205,7 +203,7 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
-        UserService.getInstance().addEntity(this.params.cardId)
+        CardService.addEntity(this.params.cardId)
         .then(function() {
             this.setThanksButton_();
             this.getView().showStopHelpingLink();
@@ -220,7 +218,7 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
-        UserService.getInstance().removeEntity(this.params.cardId)
+        CardService.removeEntity(this.params.cardId)
         .then(function() {
             this.setStartHelpingButton_();
             this.getView().hideStopHelpingLink();

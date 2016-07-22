@@ -60,7 +60,7 @@ goog.scope(function() {
         this.header_ = this.params.header;
         if (this.header_) {
             var that = this;
-            UserService.getInstance().isUserLoggedIn()
+            UserService.isUserLoggedIn()
                 .then(function(result) {
                     var params = that.handleSuccessLoginCheck_(result);
                     that.header_.renderButton(params);

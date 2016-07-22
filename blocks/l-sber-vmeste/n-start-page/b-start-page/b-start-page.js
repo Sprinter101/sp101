@@ -10,6 +10,7 @@ goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 goog.require('sv.lSberVmeste.iUserService.UserService');
+goog.require('sv.lSberVmeste.iUserfundService.UserfundService');
 
 
 
@@ -50,6 +51,7 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         UserService = sv.lSberVmeste.iUserService.UserService,
+        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService,
         View = sv.lSberVmeste.bStartPage.View;
 
     /**
@@ -71,7 +73,7 @@ goog.scope(function() {
         this.header_ = this.params.header;
             if (this.header_) {
             var that = this;
-            UserService.getInstance().isUserLoggedIn()
+            UserService.isUserLoggedIn()
                 .then(function(result) {
                     var params = that.handleSuccessLoginCheck_(result);
                     that.header_.renderButton(params);
@@ -150,7 +152,7 @@ goog.scope(function() {
      * @private
      */
     StartPage.prototype.getFundsCount_ = function() {
-        UserService.getInstance().getUserfundsCount()
+        UserfundService.getUserfundsCount()
             .then(this.handleSuccess_,
                 this.handleRejection_,
                 this);
