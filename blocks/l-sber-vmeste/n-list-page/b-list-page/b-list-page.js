@@ -342,7 +342,7 @@ goog.scope(function() {
     ListPage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
         var default_params = {'loggedIn': false, 'firstName': undefined,
-            'lastName': undefined, 'pageType': 'list', 'draft': false};
+            'lastName': undefined, 'pageType': 'list', 'draft': true};
         return default_params;
     };
 

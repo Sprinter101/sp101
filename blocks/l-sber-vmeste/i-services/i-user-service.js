@@ -20,13 +20,14 @@ goog.scope(function() {
      * @type {string}
      */
     UserService.URL = {
-        USER_URL: '/user'
+        USER_URL: '/user',
+        USERFUNDS_COUNT: '/user-fund/count'
     };
 
     /**
-     * send AJAX
+     * check if user is logged in
      * @return {Object} ajas response or error
-     * @protected
+     * @public
      */
     UserService.prototype.isUserLoggedIn = function() {
         return Request.getInstance().send({
@@ -55,6 +56,17 @@ goog.scope(function() {
         return Request.getInstance().send({
             url: '/user-fund/' + entityId,
             type: 'POST'
+        });
+    };
+
+    /**
+     * get userfunds count
+     * @return {Object} ajax response or error
+     * @public
+     */
+    UserService.prototype.getUserfundsCount = function() {
+        return Request.getInstance().send({
+            url: UserService.URL.USERFUNDS_COUNT
         });
     };
 
