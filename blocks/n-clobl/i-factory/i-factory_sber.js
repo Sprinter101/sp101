@@ -2,6 +2,8 @@ goog.provide('sv.iFactory.FactorySber');
 
 goog.require('cl.gIcon.Icon');
 goog.require('cl.gIcon.View');
+goog.require('cl.gTab.Tab');
+goog.require('cl.gTab.View');
 goog.require('cl.iFactory.Factory');
 goog.require('sv.gButton.Button');
 goog.require('sv.gButton.View');
