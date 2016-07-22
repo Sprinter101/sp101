@@ -1,0 +1,58 @@
+@startuml
+
+title SV-55 b-donate-page
+
+iPage <|-- bDonatePage
+bDonatePage *--  gTab
+bDonatePage *--  bDonationFixedBlock
+bDonatePage *--  bDonationPercentBlock
+
+bDonatePage --> iRouter
+bDonatePage --> iUserService
+
+bDonationFixedBlock *-- gButton
+bDonationFixedBlock *-- gInput
+
+bDonationPercentBlock *-- gButton
+bDonationPercentBlock *-- gInput
+bDonationPercentBlock *-- gSlider
+
+iUserService --> iRequest
+
+class gSlider {
+    enable()
+    disable()
+    getValue()    
+}
+
+class iRouter <extend cl.iRouter> {
+    use()
+    changeLocation()
+    getMaskByUrl()
+    parseMaskDataFromUrl()
+}
+
+class iUserService {
+    isUserLoggedIn()
+}
+
+class gInput <extend cl.gInput> {
+    setValue()
+    enable()
+    disable()
+    isValid()
+    validate()
+}
+
+class bDonationFixedBlock <extend iControl>
+class bDonationPercentBlock <extend iControl>
+class gButton <extend cl.gButton>
+
+class iPage  <extend iControl>
+
+
+class iRequest <<clobl class>>
+class gTab <<clobl class>>
+
+
+@enduml
