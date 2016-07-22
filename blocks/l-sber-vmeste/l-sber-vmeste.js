@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.SberVmeste');
 goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
 goog.require('sv.lSberVmeste.iController.Controller');
+goog.require('sv.lSberVmeste.iRequest.Request');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 
@@ -19,8 +20,15 @@ goog.require('sv.lSberVmeste.iRouter.Router');
  */
 sv.lSberVmeste.SberVmeste = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
+
+    /**
+    * @type {Object}
+    * @private
+    */
+    this.dataParams_ = null;
 };
 goog.inherits(sv.lSberVmeste.SberVmeste, cl.iControl.Control);
+
 
 goog.scope(function() {
     var SberVmeste = sv.lSberVmeste.SberVmeste,
@@ -35,9 +43,14 @@ goog.scope(function() {
     SberVmeste.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
+        this.dataParams_ = JSON.parse(
+            goog.dom.dataset.get(this.getView().getElement(), 'params')
+        );
+
         this.request_ = Request.getInstance();
+
         this.request_.init({
-            baseUrl: 'http://localhost:3000'
+            baseUrl: this.dataParams_.apiUrl
         });
 
         this.headerManager_ = this.decorateChild(
@@ -56,7 +69,6 @@ goog.scope(function() {
             headerManager: this.headerManager_,
             pageManager: this.pageManager_
         });
-
     };
 
     /**
@@ -66,6 +78,8 @@ goog.scope(function() {
         goog.base(this, 'enterDocument');
 
         this.initRouting_();
+
+        Router.getInstance().initLocation();
     };
 
     /**
@@ -76,12 +90,21 @@ goog.scope(function() {
         var controller = this.controller_;
 
         this.router_.enable();
+
         this.initRoute_(Route.START, controller.actionStart);
         this.initRoute_(Route.TEST, controller.actionTest);
         this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
-        this.initRoute_(Route.DIRECTIONS, controller.actionChooseDirections);
         this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
         this.initRoute_(Route.DONATE, controller.actionDonate);
+        this.initRoute_(Route.PROFILE, controller.actionProfilePage);
+        this.initRoute_(Route.REGISTRATION, controller.actionRegistrationPage);
+        this.initRoute_(Route.START, controller.actionStart);
+        this.initRoute_(Route.TEST, controller.actionTest);
+        this.initRoute_(Route.LIST_PAGE, controller.actionListPage);
+        this.initRoute_(Route.CARD, controller.actionDisplayCategoryCard);
+        this.initRoute_(Route.DONATE, controller.actionDonate);
+        this.initRoute_(Route.PAYMENT_TEMP, controller.actionPayment);
+        this.initRoute_(Route.USERFUND_PAGE, controller.actionManageUserfund);
     };
 
     /**

@@ -1,0 +1,116 @@
+{namespace sv.lSberVmeste.bStartPage.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+        {call .pathLine /}
+        <div class="{call .rootClass/}__content">
+            {call .renderChild}
+                {param params: [
+                    'type': 'StartBlock',
+                    'renderParams': [
+                        'data': [],
+                        'config': [
+                            'customClasses': ['b-page-start__start-block']
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+        {call .userfundsInfo /}
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine autoescape="strict" kind="html"}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+/**
+ * template for useerfunds actual info
+ */
+{template .userfundsInfo autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__userfunds-info">
+        <div class="{call .rootClass/}__userfunds-info-phrase">
+            С нами работают
+        </div>
+        <div class="{call .rootClass/}__userfunds-info-count">
+            {call .renderChild}
+                {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': '10 фондов',
+                        ],
+                        'config': [
+                            'buttonStyles': [
+                                'font_big', 'height_small',
+                                'background_transparent', 'border_green',
+                                'text-color_white'
+                            ],
+                            'customClasses': [
+                                'b-page-start__button_userfund'
+                            ]
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+    </div>
+{/template}
+
+/**
+ * @param? data {
+ *            userfundsCount: ?number,
+ *            userfundsPhrase: ?bool
+ *        }
+ */
+{template .fundsCount autoescape="strict" kind="html"}
+    {let $fundsCount: $data?.userfundsCount /}
+    {let $fundsPhrase: $data?.userfundsPhrase /}
+        {if $fundsPhrase == true}
+            С нами{sp}
+            {call sv.iUtils.Utils.declensionPrint
+                data="['num': $fundsCount,
+                       'nom': 'работает',
+                       'gen': 'работает',
+                       'plu': 'работают'
+                    ]"
+            /}
+        {else}
+            {$fundsCount}{sp}
+            {call sv.iUtils.Utils.declensionPrint
+                data="['num': $fundsCount,
+                       'nom': 'фонд',
+                       'gen': 'фонда',
+                       'plu': 'фондов'
+                     ]"
+            /}
+        {/if}
+{/template}
+
+/**
+ * reports button content template
+ */
+{template .reports autoescape="strict" kind="html"}
+    отчёты
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-start
+{/template}

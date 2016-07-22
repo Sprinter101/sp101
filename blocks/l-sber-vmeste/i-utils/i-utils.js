@@ -1,5 +1,6 @@
 goog.provide('sv.iUtils.Utils');
 
+goog.require('cl.iUtils.Utils');
 goog.require('goog.dom.classlist');
 
 
@@ -19,7 +20,8 @@ goog.scope(function() {
      * @enum {string}
      */
     Utils.CssClass = {
-        HIDDEN: 'i-utils__hidden'
+        HIDDEN: 'i-utils__hidden',
+        CLEARFIX: 'i-utils__clearfix'
     };
 
     /**
@@ -59,5 +61,35 @@ goog.scope(function() {
             element,
             Utils.CssClass.HIDDEN
         );
+    };
+
+    /**
+     * Return word with right ending (for soy)
+     * Example - {num: 2, nom: 'час', gen: 'часа', plu: 'часов'},
+     * that returns 'часа'
+     * @param {{
+     *     num: number,
+     *     nom: string,
+     *     gen: string,
+     *     plu: string
+     * }} data
+     * @return {String}
+     */
+    Utils.declensionPrint = function(data) {
+        var num = Math.abs(data.num);
+        var word = '';
+
+        if (num.toString().indexOf('.') > -1) {
+            word = data.gen;
+        } else {
+            word = num % 10 == 1 && num % 100 != 11 ?
+                data.nom :
+                num % 10 >= 2 &&
+                num % 10 <= 4 &&
+                (num % 100 < 10 || num % 100 >= 20) ?
+                    data.gen : data.plu;
+        }
+
+        return word;
     };
 });  // goog.scope

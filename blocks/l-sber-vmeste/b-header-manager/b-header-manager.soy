@@ -10,43 +10,6 @@
 
 /**
  * @override
- * @param params {
- *     config: {
- *         state: ?string
- *     }
- * }
- */
-{template .body}
-    {call .initChildWithState}
-        {param params: [
-            'states': [
-                [
-                    'type': 'start',
-                    'config': ['headerType': 'start']
-                ],
-                [
-                    'type': 'directions',
-                    'config': ['headerType': 'directions']
-                ],
-                [
-                    'type': 'card',
-                    'config': ['headerType': 'card', 'category': 'theme']
-                ],
-                [
-                    'type': 'donate',
-                    'config': ['headerType': 'donate']
-                ]
-                
-            ],
-            'defaultControl': 'Header',
-            'currentState': $params?.config?.state ?: 'start',
-            'defaultConfig': ['headerType': 'start']
-        ]/}
-    {/call}
-{/template}
-
-/**
- * @override
  */
 {template .rootClass}
     b-header-manager

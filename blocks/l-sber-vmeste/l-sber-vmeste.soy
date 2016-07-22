@@ -29,9 +29,8 @@
                 'factory': 'sber',
                 'type': 'HeaderManager',
                 'renderParams': [
-                    'config': [
-                        'state': 'start'
-                    ]
+                    'data': [],
+                    'config': []
                 ]
             ]/}
         {/call}
@@ -40,10 +39,8 @@
                 'factory': 'sber',
                 'type': 'PageManager',
                 'renderParams': [
-                    'data': $params?.data,
-                    'config': [
-                        'state': 'startPage'
-                    ]
+                    'data': $params?.data ? $params?.data : [],
+                    'config': []
                 ]
             ]/}
         {/call}
@@ -78,6 +75,8 @@
  * @override
  */
 {template .scripts autoescape="strict" kind="html"}
+    <iframe class="frame-request" src="/frame-req.html" width="1" height="1" align="left">
+    </iframe>
     <script type="text/javascript" src="external.min.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
 {/template}

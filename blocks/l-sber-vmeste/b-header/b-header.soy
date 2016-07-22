@@ -11,147 +11,198 @@
 /**
  * @override
  * @param params {{
- *     config: {
- *         headerType: string,
- *         category: ?string
+ *      config: {
+           type: string,
+ *         roundButton: ?string,
+ *         choice_phrase: ?string
  *     }
  *  }}
  */
 {template .body}
-    {let $headerType: $params.config.headerType/}
-    <div class="{call .rootClass/}__wrapper{sp}{call .rootClass/}__wrapper_{$headerType}">
-        {if $headerType != 'start'}
-            <div class="{call .rootClass/}__logo-wrapper{sp}{call .hidden/}">
-        {else}
-            <div class="{call .rootClass/}__logo-wrapper">
-        {/if}
+    {let $headerType: $params.config.type/}
+    <div class="{call .rootClass/}__inner-wrap{sp}
+        {call .rootClass/}__inner-wrap_{$headerType}">
+    <div class="{call .rootClass/}__left-column">
+        {let $hiddenLogo: $headerType == 'profile' ? false : true /}
+            {call .icon}
+                {param wrapper: 'logo_small'/}
+                {param iconType: 'logo-sber_small'/}
+                {param hidden: $hiddenLogo/}
+            {/call}
+            {call .icon}
+                {param wrapper: 'logo_large'/}
+                {param iconType: 'logo-sber_large'/}
+                {param hidden: $hiddenLogo/}
+            {/call}
+        {let $arrowBack: $headerType == 'card' ? 'arrow-back_grey' :
+            'arrow-back_white' /}
+        {let $hiddenArrow: $headerType == 'profile' ? true : false /}
+        {call .icon}
+            {param wrapper: 'back'/}
+            {param iconType: $arrowBack/}
+            {param hidden: $hiddenArrow/}
+        {/call}
+    </div>
+    <div class="{call .rootClass/}__right-column">
+        {let $hiddenHelp: $headerType == 'card' ? true : false /}
+        {let $help_phrase: $params.config?.help_phrase /}
+            {call .help}
+                {param help_phrase: $help_phrase /}
+                {param hidden: $hiddenHelp/}
+            {/call}
+        {let $hiddenShare: $headerType == 'card' ? false : true /}
+            {call .icon}
+                {param wrapper: 'share'/}
+                {param iconType: 'share'/}
+                {param hidden: $hiddenShare/}
+            {/call}
+        </div>
+        <div class="{call .rootClass/}__central-column">
+        {let $hiddenButton: $headerType == 'profile' ? false : 
+            $headerType == 'list' ? false : true /}
+        {let $roundButton: $params.config?.roundButton /}
+        <div class="{call .rootClass/}__button-wrapper{if $hiddenButton}
+        {sp}{call .hidden/}{/if}">
+        </div>
+        {let $hiddenChoice: $headerType == 'profile' ? true : false /}
+        {let $choice_phrase: $params.config?.choice_phrase /}
+            <div class="{call .rootClass/}__choice-phrase">
+                {call .choicePhrase}
+                    {param choice_phrase: $choice_phrase /}
+                    {param headerType: $headerType /}
+                    {param hidden: $hiddenChoice/}
+                {/call}
+            </div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * icon template
+ * @param wrapper {string},
+ * @param iconType {string},
+ * @param hidden {?bool}
+ */
+{template .icon}
+    <div class="{call .rootClass/}__{$wrapper}-wrapper{sp}
+        {call .rootClass/}__{$iconType}{if $hidden}
+        {sp}{call .hidden/}{/if}">
             {call .renderChild}
                 {param params: [
                     'type': 'IconSber',
                     'renderParams': [
-                        'data': [],
-                        'config': [
-                        'iconStyles': ['logo-sber']
-                        ]
+                        'data': ['type': $iconType],
+                        'config': []
                     ]
                 ]/}
             {/call}
-            </div>
-        {if $headerType == 'start'}
-            <div class="{call .rootClass/}__icon_arrow_back-wrapper{sp}{call .hidden/}">
-        {elseif $headerType != 'card'}
-            <div class="{call .rootClass/}__icon_arrow_back-wrapper">
-        {else}
-            <div class="{call .rootClass/}__icon_arrow_back-wrapper_white-header">
-        {/if}
-            {let $arrowColor: ($headerType == 'card') ? 'arrow-back_grey' : 'arrow-back_white'/}
-                {call .renderChild}
-                    {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['arrow-back', $arrowColor]
-                            ]
-                        ]
-                    ]/}
-                {/call}
-            </div>
-        {if $headerType == 'card' or $headerType == 'donate'}
-            <div class="{call .rootClass/}__button_me-wrapper{sp}{call .hidden/}">
-        {else}
-            <div class="{call .rootClass/}__button_me-wrapper">
-        {/if}
-            {call .renderChild}
-                {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': 'Я',
-                        ],
-                        'config': [
-                        'buttonStyles': 
-                        ['width_m', 'height_big', 'font_SFUI'],
-                        'customClasses': 
-                            ['b-header__button_me']
-                        ]
-                    ]
-                ]/}
-            {/call}
-            </div>
-        {if $headerType == 'card'}
-            {let $category: $params.config.category/}
-                {call .cardCategory }
-                    {param category: $category /}
-                {/call}
-        {elseif $headerType == 'donate'}
-            {call .donate__type /}
-        {/if}
-        {if $headerType == 'start' or $headerType == 'directions'}
-            {call .more /}
-        {elseif $headerType == 'card'}
-            <div class="{call .rootClass/}__icon_share-wrapper">
-                {call .renderChild}
-                    {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': [],
-                            'config': [
-                                'iconStyles': ['share']
-                            ]
-                        ]
-                    ]/}
-                {/call}
-            </div>
-        {elseif $headerType == 'donate'}
-            {call .donate__tip /}
-        {/if}
     </div>
 {/template}
 
 /**
- * Div for 'more info' link
+ * button template
+ * @param roundButton {string}
  */
-{template .more}
-    <div class="{call .rootClass/}__more-link">
-        <div class="{call .rootClass/}__more-link-text">
-            О проекте
-        </div>
-    </div>
+{template .button}
+    {let $buttonContent: $roundButton ? $roundButton : 'я' /}
+    {let $buttonType: $roundButton == 'x' ? 'b-header__button_close' :
+        'b-header__button_me' /}
+    {let $buttonStyleTransparent: $roundButton == 'x' ? 
+        'background_transparent' : '' /}
+    {let $buttonStyleTextColor: $roundButton == 'x' ? 
+        'text-color_white' : ''/}
+    {let $buttonStyleBorder: $roundButton == 'x' ? 'border_yellow' : '' /}
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': $roundButton,
+                    ],
+                    'config': [
+                    'buttonStyles': 
+                    ['width_m', 'height_big', 'font_SFUI',
+                     $buttonStyleTransparent, $buttonStyleTextColor,
+                            $buttonStyleBorder],
+                    'customClasses': 
+                        ['b-header__button', $buttonType]
+                    ]
+                ]
+            ]/}
+        {/call}
 {/template}
 
 /**
  * Div for cards' filter category
- * @param category {string}
+ * @param headerType {?string}
+ * @param choice_phrase {string}
+ * @param hidden {?bool}
  */
-{template .cardCategory}
-    <div class="{call .rootClass/}__card-category">
-        {if $category == 'theme'}
-        ТЕМА
-        {else}
-        ФОНД
-        {/if}
+{template .choicePhrase}
+    {if $headerType == 'card'}
+        <div class="{call .rootClass/}__choice-phrase_{$choice_phrase}{sp}
+            {call .rootClass/}__choice-phrase_{$headerType}{sp}{if $hidden}{sp}
+            {call .hidden/}{/if}">
+    {else}
+        <div class="{call .rootClass/}__choice-phrase_{$choice_phrase}
+        {if $hidden}{sp}{call .hidden/}{/if}">
+    {/if}
+        {switch $choice_phrase}
+            {case 'list'}
+                Начните помогать
+            {case 'topic'}
+                Тема
+            {case 'direction'}
+                Направление
+            {case 'fund'}
+                Фонд
+            {case 'donation'}
+                Выберите тип финансирования
+            {default}
+                Направление
+        {/switch}
     </div>
 {/template}
 
-/**
- * Template for donate type offer
- */
-{template .donate__type}
-    <div class="{call .rootClass/}__donate-type">
-        Выберите тип финансирования
-    </div>
-{/template}
 
 /**
- * Div for tip about donate type
+ * Div for help link about
+ * @param help_phrase {string}
+ * @param hidden {?bool}
  */
-{template .donate__tip}
-    <div class="{call .rootClass/}__donate-tip">
-        <div class="{call .rootClass/}__donate-tip-text">
-            Что делать?
+{template .help}
+    <div class="{call .rootClass/}__help-wrapper{if $hidden}{sp}
+        {call .hidden/}{/if}">
+        <div class="{call .rootClass/}__help{sp}
+            {call .rootClass/}__help_{$help_phrase}">
+        {switch $help_phrase}
+            {case 'about-profile'}
+                О проекте
+            {case 'about-list'}
+                О проекте
+            {case 'logout'}
+                Выйти
+            {case 'donation'}
+                Что делать?
+            {default}
+                О проекте
+            {/switch}
         </div>
     </div>
+{/template}
+
+/**
+ * @param data {
+ *            choice_phrase: string
+ *        }
+ */
+{template .title}
+    {let $choice_phrase: $data.choice_phrase /}
+    {call .choicePhrase}
+        {param choice_phrase: $choice_phrase /}
+        {param headerType: 'card' /}
+        {param hidden: false /}
+    {/call}
 {/template}
 
 /**
@@ -164,13 +215,13 @@
 /**
 * @param? params {{
  *     config: {
- *         headerType: string
+ *         type: ?string
  *     }
  *  }}
 */
 {template .additionalClasses}
-    {let $headerType: $params.config.headerType/}
-        {call .rootClass/}_{$headerType}
+    {let $type: $params.config?.type/}
+        {call .rootClass/}_{$type}
 {/template}
 
 /**

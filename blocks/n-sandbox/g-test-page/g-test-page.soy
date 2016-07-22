@@ -20,6 +20,8 @@
     {call .tab_ /}
     <div class="{call .rootClass /}__title">Инпут</div>
     {call .input_ /}
+     <div class="{call .rootClass /}__title">Ползунок</div>
+    {call .slider_ /}
 {/template}
 
 /**
@@ -76,7 +78,7 @@
     {foreach $item in $buttonTypes}
         <div class="{call .rootClass /}__element">
             {call .renderChild}
-              {param params: [
+                {param params: [
                     'type': 'ButtonSber',
                     'renderParams': [
                         'data': [
@@ -96,23 +98,22 @@
 * Icons template
 */
 {template .icons_ autoescape="strict" kind="html"}
-    {let $iconTypes: ['arrow-back_white', 'arrow-back_grey',
-                      'arrow-right', 'share', 'logo-sber', 'logo-userfund'
+    {let $iconTypes: ['arrow-back',
+                      'arrow-right', 'share', 'logo-userfund', 'logo-sber',
+                      'logo-userfund_authorized', 'checked', 'user-avatar'
                      ]/}
     {foreach $item in $iconTypes}
         <div class="{call .rootClass /}__element">
-            {call .renderChild}
-              {param params: [
-                    'type': 'IconSber',
-                    'renderParams': [
-                        'data': [],
-                        'config': [
-                            'iconStyles': [$item]
+                {call .renderChild}
+                    {param params: [
+                        'type': 'IconSber',
+                        'renderParams': [
+                            'data': ['type': $item],
+                            'config': []
                         ]
-                    ]
-                ]/}
-            {/call}
-        </div>
+                    ]/}
+                {/call}
+            </div>
     {/foreach}
 {/template}
 
@@ -122,7 +123,7 @@
 {template .tab_ autoescape="strict" kind="html"}
     <div class="{call .rootClass /}__element">
         {call .renderChild}
-          {param params: [
+            {param params: [
                 'type': 'TabSber',
                 'renderParams': [
                     'data': [
@@ -148,7 +149,7 @@
 
     <div class="{call .rootClass /}__element">
         {call .renderChild}
-          {param params: [
+            {param params: [
                 'type': 'TabSber',
                 'renderParams': [
                     'data': [
@@ -202,24 +203,114 @@
 * Input template
 */
 {template .input_ autoescape="strict" kind="html"}
-    {call .renderChild}
-      {param params: [
-            'type': 'InputSber',
-            'renderParams': [
-                'data': [
-                    'inputType': 'text'
-                ],
-                'config': [
-                    'validations': [
-                        'notEmpty',
-                        'digits',
-                        'maxDonation'
-                    ],
-                    'constraints': [
-                        'digitsOnly',
-                        'charactersLimit',
-                        'noLeadingZero'
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">digits, maxDonation:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': ['inputType': 'text'],
+                    'config': [
+                        'validations': ['notEmpty', 'digits', 'maxDonation'],
+                        'constraints': [
+                            'digitsOnly',
+                            'charactersLimit',
+                            'noLeadingZero'
+                        ]
                     ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">name:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': ['inputType': 'text'],
+                    'config': [
+                        'validations': ['notEmpty', 'name'],
+                        'constraints': ['noLeadingZero', 'name']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">phone number:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': ['inputType': 'text', 'value': '+7'],
+                    'config': [
+                        'validations': ['phoneNumber'],
+                        'constraints': ['phoneNumber']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block">
+        <div class="b-test-page__input-title">placeholder:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'placeholder'
+                    ],
+                    'config': [
+                        'validations': ['notEmpty'],
+                        'constraints': ['noLeadingZero']
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+
+    <div class="b-test-page__input-block b-test-page__input-block_white">
+        <div class="b-test-page__input-title">label:</div>
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'placeholder',
+                        'label': 'label text',
+                        'customClasses': ['g-input_profile']
+                    ],
+                    'config': [
+                        'validations': ['notEmpty'],
+                        'constraints': ['noLeadingZero'],
+                        'customClasses': [
+                            'g-input_profile'
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+* Slider template
+
+*/
+{template .slider_ autoescape="strict" kind="html"}
+    {call .renderChild}
+        {param params: [
+            'type': 'SliderSber',
+            'renderParams': [
+                'data': [],
+                'config': [
+                    'customClasses': ['g-slider_test']
                 ]
             ]
         ]/}

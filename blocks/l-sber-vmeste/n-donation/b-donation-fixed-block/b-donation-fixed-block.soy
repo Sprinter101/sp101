@@ -1,0 +1,94 @@
+{namespace sv.lSberVmeste.bDonationFixedBlock.Template} 
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .block}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__inner-wrap">
+        <div class="{call .rootClass/}__sum-choice">
+            {call .inputTip /}
+            {call .input /}
+        </div>
+         <div class="{call .rootClass/}__button-wrapper">
+            {call .renderChild}
+              {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': 'Продолжить',
+                        ],
+                        'config': ['customClasses': 
+                            ['b-donation-fixed-block__button_ready'],
+                              'stylesForDisabled': [
+                               'border_yellow',
+                               'background_transparent',
+                               'text-color_white'
+                           ]
+                        ]
+                    ]
+                ]/}
+            {/call}
+        </div>
+    </div>
+{/template}
+
+/**
+ * template for sum or income input's tip
+ */
+{template .inputTip autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__input-tip">
+    Сумма ежемесячного пожертвования
+    </div>
+{/template}
+
+
+/**
+ * template for input
+ */
+{template .input autoescape="strict" kind="html"}
+    {call .renderChild}
+        {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'inputType': 'text',
+                    'placeholder': '0'
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty',
+                        'digits',
+                        'maxDonation', 
+                        'minDonation'
+                    ],
+                    'constraints': [
+                        'digitsOnly',
+                        'charactersLimit',
+                        'noLeadingZero'
+                    ],
+                      'valueParams': [
+                       'maxNumber': 500000,
+                       'maxCharacters': 6,
+                       'minDonation': 100
+                   ],
+                    'customClasses': ['b-donation-fixed-block__input']
+                ]
+            ]
+        ]/}
+    {/call}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-donation-fixed-block
+{/template}

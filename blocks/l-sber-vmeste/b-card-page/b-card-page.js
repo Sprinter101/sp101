@@ -1,7 +1,13 @@
 goog.provide('sv.lSberVmeste.bCardPage.CardPage');
 
 goog.require('cl.iControl.Control');
+goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
+goog.require('sv.lSberVmeste.bCardList.CardList');
+goog.require('sv.lSberVmeste.iCardService.CardService');
+goog.require('sv.lSberVmeste.iRouter.Route');
+goog.require('sv.lSberVmeste.iRouter.Router');
+goog.require('sv.lSberVmeste.iUserService.UserService');
 
 
 
@@ -17,12 +23,6 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-    * @type {Boolean}
-    * @private
-    */
-    this.isUserHelping_ = true;
-
-    /**
     * @type {sv.gButton.Button}
     * @private
     */
@@ -34,12 +34,29 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardList_ = null;
 
+    /**
+    * @type {string}
+    * @private
+    */
+    this.cardType_ = null;
+
+    /**
+    * @type {object}
+    * @private
+    */
+    this.headerManager_ = this.params.headerManager_;
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
 goog.scope(function() {
     var CardPage = sv.lSberVmeste.bCardPage.CardPage,
-        Button = cl.gButton.Button;
+        Button = cl.gButton.Button,
+        CardService = sv.lSberVmeste.iCardService.CardService,
+        request = cl.iRequest.Request.getInstance(),
+        Route = sv.lSberVmeste.iRouter.Route,
+        Router = sv.lSberVmeste.iRouter.Router,
+        UserService = sv.lSberVmeste.iUserService.UserService;
+
 
     /**
     * @override
@@ -48,16 +65,84 @@ goog.scope(function() {
     CardPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        var domCardList = this.getView().getDom().cardList;
+        this.header_ = this.params.header;
 
-        if (this.isUserHelping_) {
+        var domCardList = this.getView().getDom().cardList;
+        var cardId = this.params.cardId;
+
+        this.cardList_ = this.decorateChild(
+            'CardList',
+            domCardList,
+            {
+                cardsCustomClasses: ['b-card_full-line']
+            }
+        );
+
+        // loading card info
+        CardService.getCard(cardId).then(
+            this.cardLoadResolveHandler_, this.cardLoadRejectHandler_, this
+        )
+        // loading associated cards
+        .then(function(data) {
+            if (data.type === 'direction') {
+                return CardService.getFundsByAssociatedId(cardId);
+            } else if (data.type === 'fund') {
+                return CardService.getFundEntitiesById(cardId);
+            } else {
+                return CardService.getDirectionsByAssociatedId(cardId);
+            }
+        })
+        // Handling associated cards
+        .then(
+            this.loadCardsResolveHandler_, this.loadCardsRejectHandler_, this
+        );
+    };
+
+    /**
+     * Will be called when card data was successful loaded
+     * @param  {object} res
+     * @private
+     * @return {object}
+     */
+    CardPage.prototype.cardLoadResolveHandler_ = function(res) {
+        var data = res.data;
+        var type = data.type;
+        var title = data.title;
+        var isChecked = data.checked;
+        var description = data.description;
+
+        this.cardType_ = type;
+
+        // TODO: replace on real data when it will available
+        var donations = 123;
+        var fullPrice = 100500;
+
+        // customize header
+        this.header_.renderCorrectTitle(type);
+
+        if (isChecked) {
             this.setHelpingButton_();
             this.getView().showStopHelpingLink();
         } else {
             this.setStartHelpingButton_();
         }
 
-        this.cardList_ = this.decorateChild('CardList', domCardList);
+        this.getView().setIconTitle(title);
+        this.getView().setTextTitle(title);
+        this.getView().setDescription(description);
+        this.getView().setDonations(donations);
+        this.getView().setFullPrice(fullPrice);
+
+        return data;
+    };
+
+    /**
+     * Will be called when card data wasn't loaded
+     * @param  {object} err error object
+     * @private
+     */
+    CardPage.prototype.cardLoadRejectHandler_ = function(err) {
+        console.error(err);
     };
 
     /**
@@ -73,6 +158,51 @@ goog.scope(function() {
             null,
             this
         );
+
+        goog.events.listen(
+            this.cardList_,
+            sv.lSberVmeste.bCardList.CardList.Event.CARD_CLICK,
+            this.cardClickHandler_,
+            null,
+            this
+        );
+    };
+
+    /**
+     * Card click handler
+     * @param {Object} event
+     * @private
+     */
+    CardPage.prototype.cardClickHandler_ = function(event) {
+        Router.getInstance().changeLocation(Route['CARD'], {
+            'id': event.cardId
+        });
+    };
+
+    /**
+     * Load success cards handler
+     * @param {Object|Array} response
+     * @private
+     */
+    CardPage.prototype.loadCardsResolveHandler_ = function(response) {
+        var cardList = null;
+
+        if (Array.isArray(response)) {
+            cardList = response[0].data.concat(response[1].data);
+        } else {
+            cardList = response.data;
+        }
+
+        this.cardList_.renderCards(cardList);
+    };
+
+    /**
+     * Load fail cards handler
+     * @param {Object} err
+     * @private
+     */
+    CardPage.prototype.loadCardsRejectHandler_ = function(err) {
+        console.error(err);
     };
 
     /**
@@ -80,9 +210,14 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
-        this.setThanksButton_();
+        UserService.getInstance().addEntity(this.params.cardId)
+        .then(function() {
+            this.setThanksButton_();
+            this.getView().showStopHelpingLink();
+        }, function(err) {
+            console.error(err);
+        }, this);
 
-        this.getView().showStopHelpingLink();
     };
 
     /**
@@ -90,9 +225,13 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
-        this.setStartHelpingButton_();
-
-        this.getView().hideStopHelpingLink();
+        UserService.getInstance().removeEntity(this.params.cardId)
+        .then(function() {
+            this.setStartHelpingButton_();
+            this.getView().hideStopHelpingLink();
+        }, function(err) {
+            console.error(err);
+        }, this);
     };
 
     /**
@@ -104,7 +243,7 @@ goog.scope(function() {
 
         var buttonConfig = {
             'data': {
-                'content': 'Помогать',
+                'content': 'Помогать'
             },
             'config': {
                 'buttonStyles': [
@@ -135,13 +274,11 @@ goog.scope(function() {
 
         var buttonConfig = {
             'data': {
-                'content': 'Помогаете 4 месяцa',
+                'content': 'Помогаете 4 месяцa'
             },
             'config': {
                 'buttonStyles': [
                     'background_green',
-                    'border_green',
-                    'border_thick',
                     'font-size_smaller',
                     'width_l'
                 ]
@@ -160,13 +297,11 @@ goog.scope(function() {
 
         var buttonConfig = {
             'data': {
-                'content': 'Спасибо!',
+                'content': 'Спасибо!'
             },
             'config': {
                 'buttonStyles': [
                     'background_green',
-                    'border_green',
-                    'border_thick'
                 ]
             }
         };
@@ -189,9 +324,9 @@ goog.scope(function() {
     CardPage.prototype.renderButton_ = function(buttonConfig) {
         var domButtonContainer = this.getView().getDom().buttonContainer;
 
-        this.cardButton_ = this.renderChild('ButtonSber',
-                                             domButtonContainer,
-                                             buttonConfig);
+        this.cardButton_ = this.renderChild(
+            'ButtonSber', domButtonContainer, buttonConfig
+        );
     };
 
     /**

@@ -25,62 +25,99 @@ goog.scope(function() {
      * 'Start' action
      */
     Controller.prototype.actionStart = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'start'}
-            });
-        this.pageManager_.setCurrentPage('StartPage');
+        this.headerManager_.setProfileHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('StartPage', {'header': header});
     };
 
     /**
-    * 'Buttons test' action
-    */
+     * 'Buttons test' action
+     */
     Controller.prototype.actionTest = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'directions'}
-            });
-        this.pageManager_.setCurrentPage('TestPage');
+        this.headerManager_.setListHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('TestPage', {'header': header});
     };
 
     /**
-    * 'List page' action
-    */
-    Controller.prototype.actionListPage = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'directions'}
-            });
-        this.pageManager_.setCurrentPage('ListPage');
+     * 'List page' action
+     * @param {Object=} opt_params
+     */
+    Controller.prototype.actionListPage = function(opt_params) {
+        this.headerManager_.setListHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage(
+            'ListPage',
+            {
+                'category': opt_params.category,
+                'header': header
+            }
+        );
     };
 
     /**
-    * 'choose directions/theme/funds' action
-    */
-    Controller.prototype.actionChooseDirections = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'directions'}
-            });
-        this.pageManager_.setCurrentPage('StartPage');
-    };
-
-    /**
-    * 'Display category card' action
-    * @param {Object=} opt_params
-    */
-    Controller.prototype.actionDisplayCategoryCard = function(
-        opt_params) {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'card', 'category': 'theme'}
-            });
-        this.pageManager_.setCurrentPage('CardPage', {cardId: opt_params.id});
+     * 'Display category card' action
+     * @param {Object=} opt_params
+     */
+    Controller.prototype.actionDisplayCategoryCard = function(opt_params) {
+        this.headerManager_.setCardHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('CardPage', {
+            cardId: opt_params.id,
+            'header': header
+        });
     };
 
     /**
      * 'Donate' action
      */
     Controller.prototype.actionDonate = function() {
-        this.headerManager_.setCurrentHeader('Header', {
-            'config' : {'headerType': 'donate'}
-            });
-        this.pageManager_.setCurrentPage('StartPage');
+        this.headerManager_.setChoiceHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('DonatePage', {'header': header});
+    };
+
+    /**
+     * 'Profile' action
+     */
+    Controller.prototype.actionProfilePage = function() {
+        this.headerManager_.setProfileHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('ProfilePage', {'header': header});
+    };
+
+    /**
+     * 'Registration' action
+     * @param {Object=} opt_params
+     */
+    Controller.prototype.actionRegistrationPage = function(opt_params) {
+        this.headerManager_.setProfileHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('RegistrationPage',
+            {'header': header, 'action': opt_params.action}
+        );
+    };
+
+    /**
+     * 'Payment' action
+     */
+    Controller.prototype.actionPayment = function() {
+        this.headerManager_.setChoiceHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('PaymentPage',
+            {'header': this.header}
+        );
+    };
+
+    /**
+     * 'manage userfund' action
+     */
+    Controller.prototype.actionManageUserfund = function() {
+        this.headerManager_.setChoiceHeader();
+        var header = this.headerManager_.getCurrentHeader();
+        this.pageManager_.setCurrentPage('UserfundPage',
+            {'header': header}
+        );
     };
 
 });  // goog.scope

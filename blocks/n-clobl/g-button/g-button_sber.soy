@@ -20,3 +20,24 @@
         {/foreach}
     {/if}
 {/template}
+
+/**
+ * @override
+ * @param? params {
+ *     config: {
+ *         stylesForDisabled: list<?string>,
+ *         tabIndex: string
+ *     }
+ * }}
+ */
+{template .attributes kind="attributes"}
+    {let $data: [
+        'stylesForDisabled': $params?.config?.stylesForDisabled ?
+            $params?.config?.stylesForDisabled :
+            []
+    ]/}
+    data-params="{call goog.json.serialize data="$data" /}"
+    {if $params?.config?.tabIndex}
+        {sp}tabindex="{$params?.config?.tabIndex}"
+    {/if}
+{/template}

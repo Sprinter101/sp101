@@ -1,0 +1,122 @@
+{namespace sv.lSberVmeste.bProfileEdit.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .profileEdit}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__first-name-input">
+      {call .renderChild}
+          {param params: [
+              'type': 'InputSber',
+              'renderParams': [
+                  'data': [
+                      'inputType': 'text',
+                      'placeholder': 'Имя',
+                      'label': 'Имя',
+                      'customClasses': ['g-input_profile']
+                  ],
+                  'config': [
+                      'tabIndex': '1',
+                      'validations': ['notEmpty'],
+                      'constraints': ['name', 'charactersLimit'],
+                      'valueParams': [
+                            'maxCharacters': 20
+                      ],
+                      'customClasses': [
+                          'g-input_profile'
+                      ]
+                  ]
+              ]
+          ]/}
+      {/call}
+    </div>
+    <div class="{call .rootClass /}__last-name-input">
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'Фамилия',
+                        'label': 'Фамилия',
+                        'customClasses': ['g-input_profile']
+                    ],
+                    'config': [
+                        'tabIndex': '2',
+                        'validations': ['notEmpty'],
+                        'constraints': ['name', 'charactersLimit'],
+                        'valueParams': [
+                            'maxCharacters': 20
+                        ],
+                        'customClasses': [
+                            'g-input_profile'
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass /}__phone-number-input">
+        {call .renderChild}
+            {param params: [
+                'type': 'InputSber',
+                'renderParams': [
+                    'data': [
+                        'inputType': 'text',
+                        'placeholder': 'Номер мобильного',
+                        'label': 'Номер мобильного',
+                        'customClasses': ['g-input_profile']
+                    ],
+                    'config': [
+                        'tabIndex': '3',
+                        'validations': ['notEmpty', 'phoneNumber'],
+                        'constraints': [
+                            'phoneNumber',
+                            'charactersLimit'],
+                        'valueParams': [
+                            'maxCharacters': 12
+                        ],
+                        'customClasses': [
+                            'g-input_profile'
+                        ]
+                    ]
+                ]
+            ]/}
+        {/call}
+    </div>
+    <div class="{call .rootClass /}__button">
+        {call .renderChild }
+            {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                            'data': [
+                            'content': 'Сохранить'
+                        ],
+                        'config': [
+                            'tabIndex': '4',
+                            'stylesForDisabled': [
+                                'border_grey',
+                                'background_transparent'
+                            ]
+                        ]
+                    ]
+              ]/}
+        {/call}
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-profile-edit
+{/template}

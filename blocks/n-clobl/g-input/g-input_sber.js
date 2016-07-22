@@ -17,14 +17,22 @@ sv.gInput.Input = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-     * Const enum
-     * @enum {number}
+    * @type {Boolean}
+    * @private
+    */
+    this.isValid_ = false;
+
+    /**
+     * constraint params
+     * @type {Object}
      */
+
+    this.valueParams = {};
     this.const = {
         MAX_NUMBER: this.params.MAX_NUMBER ?
                             this.params.MAX_NUMBER : Infinity,
         MAX_CHARACTERS: this.params.MAX_CHARACTERS ?
-                            this.params.MAX_CHARACTERS : Infinity
+                            this.params.MAX_CHARACTERS : 11
     };
 
     /**
@@ -35,7 +43,11 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'digits': this.validateDigits_,
         'email': this.validateEmail_,
         'notEmpty': this.validateNotEmpty_,
-        'maxDonation': this.validateMaxDonation_
+        'maxDonation': this.validateMaxDonation_,
+        'name': this.validateName_,
+        'phoneNumber': this.validatePhoneNumber_,
+        'minInput': this.validateMinInput_,
+        'minDonation': this.validateMinDonation_
     };
 
     /**
@@ -45,7 +57,9 @@ sv.gInput.Input = function(view, opt_domHelper) {
     this.constraintsHandlers = {
         'digitsOnly': this.constraintDigitsOnly_,
         'charactersLimit': this.constraintCharactersLimit_,
-        'noLeadingZero': this.constraintNoLeadingZero_
+        'noLeadingZero': this.constraintNoLeadingZero_,
+        'name': this.constraintName_,
+        'phoneNumber': this.constraintPhoneNumber_
     };
 
 };
@@ -62,9 +76,12 @@ goog.scope(function() {
      */
     Input.Event = {
         NOT_VALID: 'notValid',
+        VALID: 'valid',
         BLUR: View.Event.BLUR,
         INPUT: View.Event.INPUT,
-        CHANGE: View.Event.CHANGE
+        CHANGE: View.Event.CHANGE,
+        FOCUS: View.Event.FOCUS,
+        ENTER_KEY_PRESS: View.Event.ENTER_KEY_PRESS
     };
 
     /**
@@ -73,24 +90,53 @@ goog.scope(function() {
     Input.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.viewListen(
-            View.Event.BLUR,
-            this.onBlur
-        );
+        this.populateValueParams();
 
-        this.viewListen(
-            View.Event.INPUT,
-            this.onInput
-        );
+        this.viewListen(View.Event.BLUR, this.onBlur);
 
+        this.viewListen(View.Event.INPUT, this.onInput);
+        this.viewListen(View.Event.ENTER_KEY_PRESS,
+            this.onEnterKeyPress);
         this.autoDispatch(View.Event.CHANGE, Input.Event.CHANGE);
+        this.autoDispatch(View.Event.FOCUS, Input.Event.FOCUS);
+
+        this.validate(true);
+    };
+
+    /**
+    * populates ValueParams
+    */
+    Input.prototype.populateValueParams = function() {
+        var valueParams = this.params.valueParams;
+
+        this.valueParams = {
+            maxNumber: +valueParams.maxNumber || Infinity,
+            maxCharacters: +valueParams.maxCharacters || Infinity,
+            minIncome: +valueParams.minIncome || -Infinity,
+            minDonation: +valueParams.minDonation || -Infinity
+        };
+    };
+
+    /**
+    * Disables input
+    */
+    Input.prototype.disable = function() {
+        this.getView().disable();
+    };
+
+    /**
+    * Enables input
+    */
+    Input.prototype.enable = function() {
+        this.getView().enable();
     };
 
     /**
      * Validate input depends of it type
+     * @param {boolean} quietMode
      * @return {boolean}
      */
-    Input.prototype.validate = function() {
+    Input.prototype.validate = function(quietMode) {
         var that = this,
             failedValidations;
 
@@ -102,21 +148,34 @@ goog.scope(function() {
             }
         );
 
-        /** If array of failed validations is empty => input is valid **/
         var isValid = !failedValidations.length;
-        if (isValid) {
-            this.getView().unSetNotValidState();
-            this.getView().hideErrorMessage();
-        } else {
-            this.getView().setNotValidState();
-            this.getView().showErrorMessage(failedValidations);
 
-            this.dispatchEvent({
-                'type': Input.Event.NOT_VALID,
-                'failedValidations': failedValidations
-            });
+        this.isValid_ = isValid;
+
+        this.dispatchEvent(isValid ?
+            Input.Event.VALID :
+            {'type': Input.Event.NOT_VALID,
+             'failedValidations': failedValidations}
+        );
+
+        if (!quietMode) {
+            if (isValid) {
+                this.getView().unSetNotValidState();
+                this.getView().hideErrorMessage();
+            } else {
+                this.getView().setNotValidState();
+                this.getView().showErrorMessage(failedValidations);
+            }
         }
+
         return isValid;
+    };
+
+    /**
+    * @return {Boolean}
+    */
+    Input.prototype.isValid = function() {
+        return this.isValid_;
     };
 
     /**
@@ -126,9 +185,19 @@ goog.scope(function() {
         var that = this;
 
         this.params['constraints'].forEach(function(constraintType) {
-                that.doConstraintType_(constraintType);
+            that.doConstraintType_(constraintType);
         });
 
+        this.validate(true);
+    };
+
+    /**
+    * Enter key press handler
+    */
+    Input.prototype.onEnterKeyPress = function() {
+        this.validate();
+
+        this.dispatchEvent(Input.Event.ENTER_KEY_PRESS);
     };
 
     /**
@@ -144,7 +213,7 @@ goog.scope(function() {
             value = this.getValue();
 
         return validationFunction ?
-                        !validationFunction.call(this, value) : false;
+            !validationFunction.call(this, value) : false;
     };
 
     /**
@@ -158,8 +227,9 @@ goog.scope(function() {
 
         var oldValue_ = this.getValue();
         var newValue_ = constraintFunction.call(this, oldValue_);
-
-        this.setValue(newValue_);
+        if (oldValue_ !== newValue_) {
+            this.setValue(newValue_);
+        }
     };
 
     /**
@@ -171,6 +241,15 @@ goog.scope(function() {
     Input.prototype.constraintDigitsOnly_ = function(oldValue) {
         return oldValue.replace(/[\D]/g, '');
     };
+    /**
+     * Removes all non-phone-number characters from the string
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintPhoneOnly_ = function(oldValue) {
+        return oldValue.replace(/[.*!"@#$%^&;:?=()_[:space:]-]/g, '');
+    };
 
     /**
      * Removes all extra characters
@@ -179,7 +258,7 @@ goog.scope(function() {
      * @return {string}
      */
     Input.prototype.constraintCharactersLimit_ = function(oldValue) {
-        return oldValue.slice(0, this.const.MAX_CHARACTERS);
+        return oldValue.slice(0, this.valueParams.maxCharacters);
     };
 
     /**
@@ -190,6 +269,37 @@ goog.scope(function() {
      */
     Input.prototype.constraintNoLeadingZero_ = function(oldValue) {
         return oldValue.replace(/^0/, '');
+    };
+
+    /**
+     * Remove extra characters from name.
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintName_ = function(oldValue) {
+        oldValue = oldValue.trim();
+        var nameRegex = /[^ёа-яА-Яa-zA-Z- ]/g;
+
+        return oldValue.replace(nameRegex, '');
+    };
+
+    /**
+     * Remove extra characters from phone number.
+     * @private
+     * @param {string} oldValue
+     * @return {string}
+     */
+    Input.prototype.constraintPhoneNumber_ = function(oldValue) {
+        oldValue = oldValue.trim();
+        var nameRegex = /.{1,}[+]/g;
+        var nameRegex2 = /[^+\d]/g;
+
+        if (oldValue == '') {
+            return '+';
+        }
+
+        return oldValue.replace(nameRegex, '+').replace(nameRegex2, '');
     };
 
     /**
@@ -216,7 +326,67 @@ goog.scope(function() {
      */
     Input.prototype.validateMaxDonation_ = function(text) {
         var donationAmount = Number(text);
-        return !(donationAmount > this.const.MAX_NUMBER);
+        return !(donationAmount > this.valueParams.maxNumber);
+    };
+
+    /**
+     * Validate min donation value
+     * @param {string} text text to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateMinInput_ = function(text) {
+        var inputAmount = Number(text);
+        return !(inputAmount < this.valueParams.minIncome);
+    };
+
+    /**
+     * Validate digit
+     * @param {string} text text to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateMinDonation_ = function(text) {
+        var donationAmount = Number(text);
+        return !(donationAmount < this.valueParams.minDonation);
+    };
+
+    /**
+     * Validate name
+     * @param {string} name name to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateName_ = function(name) {
+        name = name.trim();
+        var nameRegex = new RegExp(
+            '^[ёа-яА-Яa-zA-Z- ]{2,' + this.valueParams.maxNumber + '}$'
+        );
+
+        return nameRegex.test(name);
+    };
+
+    /**
+     * Validate phone number
+     * @param {string} phoneNumber phone number to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validatePhoneNumber_ = function(phoneNumber) {
+        phoneNumber = phoneNumber.trim();
+        var numberRegex = /^\+\d{11}$/;
+
+        return numberRegex.test(phoneNumber);
+    };
+
+    /**
+     * Set value
+     * @param {string} value
+     */
+    Input.prototype.setValue = function(value) {
+        this.getView().setValue(value);
+
+        this.validate(true);
     };
 
 });  // goog.scope

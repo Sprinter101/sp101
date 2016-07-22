@@ -2,7 +2,6 @@ goog.provide('sv.lSberVmeste.bPageManager.PageManager');
 
 goog.require('cl.iContentManager.ContentManager');
 goog.require('sv.lSberVmeste.bPageManager.View');
-goog.require('sv.lSberVmeste.iRouter.Router');
 
 
 
@@ -33,7 +32,9 @@ goog.inherits(
 
 goog.scope(function() {
     var PageManager = sv.lSberVmeste.bPageManager.PageManager,
-        Router = sv.lSberVmeste.iRouter.Router;
+        HeaderManager = sv.lSberVmeste.bHeaderManager.HeaderManager,
+        Router = sv.lSberVmeste.iRouter.Router,
+        Request = cl.iRequest.Request;
 
     /**
      * @override
@@ -42,8 +43,14 @@ goog.scope(function() {
     PageManager.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.currentPage_ =
-            this.decorateChild('StartPage', this.getView().getDom().startPage);
+    };
+
+     /**
+     * @override
+     */
+    PageManager.prototype.enterDocument = function() {
+        goog.base(this, 'enterDocument');
+
     };
 
     /**
@@ -53,7 +60,9 @@ goog.scope(function() {
      * @protected
      */
     PageManager.prototype.setCurrentPage = function(page, opt_params) {
-        this.removeChild(this.currentPage_, true);
+        if (this.currentPage_) {
+            this.removeChild(this.currentPage_, true);
+        }
         this.currentPage_ =
             this.renderChild(page, this.getElement(), opt_params);
     };

@@ -1,0 +1,37 @@
+{namespace sv.lSberVmeste.bProfilePage.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .profilePage}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body}
+    <div class="{call .rootClass/}__wrapper">
+        {call .pathLine /}
+        <div class="{call .rootClass/}__content">
+            <div class="{call .rootClass/}__profile-block">
+            </div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-profile-page
+{/template}

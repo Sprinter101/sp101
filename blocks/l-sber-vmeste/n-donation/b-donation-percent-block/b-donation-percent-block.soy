@@ -1,0 +1,156 @@
+{namespace sv.lSberVmeste.bDonationPercentBlock.Template} 
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .block}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__inner-wrap">
+        <div class="{call .rootClass/}__choice-wrap{sp}{call .clearfix/}">
+        <div class="{call .rootClass/}__user-income{sp}{call .clearfix/}">
+                {call .inputTip/}
+                {call .input/}
+        </div>
+        <div class="{call .rootClass/}__donation-percent{sp}{call .clearfix/}">
+        {call .sliderTip /}
+        {call .slider /}
+        </div>
+        </div>
+        {call .result/}
+        {call .pathLine/}
+        <div class="{call .rootClass/}__button-wrapper">
+            {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Готово',
+                            ],
+                            'config': ['customClasses': 
+                                ['b-donation-percent-block__button_ready'],
+                                    'stylesForDisabled': [
+                                    'border_yellow',
+                                    'background_transparent',
+                                    'text-color_white'
+                                ]
+                            ]
+                        ]
+                    ]/}
+            {/call}
+        </div>
+    </div>
+{/template}
+
+
+/**
+ * template for sum or income input's tip
+ */
+{template .inputTip autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__input-tip">
+    Укажите Ваш месячный доход
+    </div>
+{/template}
+
+/**
+ * template for donation slider's tip
+ */
+{template .sliderTip autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__slider-tip">
+         Переводить в мой фонд
+    </div>
+{/template}
+
+/**
+ * template for input
+ */
+{template .input autoescape="strict" kind="html"}
+    {call .renderChild}
+        {param params: [
+            'type': 'InputSber',
+            'renderParams': [
+                'data': [
+                    'inputType': 'text',
+                    'placeholder': '0'
+                ],
+                'config': [
+                    'validations': [
+                        'notEmpty',
+                        'digits',
+                        'minInput'
+                    ],
+                    'constraints': [
+                        'digitsOnly',
+                        'charactersLimit',
+                        'noLeadingZero'
+                    ],
+                    'valueParams': [
+                       'maxNumber': 50000000,
+                       'maxCharacters': 8,
+                       'minIncome': 1000
+                   ],
+                    'customClasses': ['b-donation-percent-block__input']
+                ]
+            ]
+        ]/}
+    {/call}
+{/template}
+
+/**
+ * temporary template for donation slider
+ */
+{template .slider autoescape="strict" kind="html"}
+     {call .renderChild}
+        {param params: [
+            'type': 'SliderSber',
+            'renderParams': [
+                'data': [
+                ],
+                'config': [
+                    'customClasses': ['b-donation-percent-block__slider'],
+                    'isDisabled': false
+                ]
+            ]
+        ]/}
+    {/call}
+{/template}
+
+/**
+ * template for result's phrase
+ */
+{template .result autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__result">
+        <div class="{call .rootClass/}__result-phrase">
+        Итого в месяц
+        </div>
+        <div class="{call .rootClass/}__result-sum">
+        —</div>
+    </div>
+{/template}
+
+/**
+ * template for "path line"
+ */
+{template .pathLine}
+    <hr class="{call .rootClass/}__path_vertical" />
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-donation-percent-block
+{/template}
+
+/**
+ * Additional class for css clearfix
+ */
+{template .clearfix}
+    i-utils__clearfix
+{/template}

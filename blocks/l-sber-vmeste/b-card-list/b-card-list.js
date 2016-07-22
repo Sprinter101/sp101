@@ -19,22 +19,21 @@ sv.lSberVmeste.bCardList.CardList = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
 
     /**
-    * @type {string}
-    * @private
-    */
-    this.cardsType_ = this.params.cardsType || null;
-
-    /**
     * @type {Array}
     * @private
     */
     this.cards_ = [];
+
+    /**
+     * @type {Array}
+     * @private
+     */
+    this.cardsCustomClasses_ = this.params.cardsCustomClasses || [];
 };
 goog.inherits(sv.lSberVmeste.bCardList.CardList, cl.iControl.Control);
 
 goog.scope(function() {
     var CardList = sv.lSberVmeste.bCardList.CardList,
-        request = cl.iRequest.Request.getInstance(),
         Card = sv.lSberVmeste.bCard.Card;
 
     /**
@@ -42,38 +41,9 @@ goog.scope(function() {
      * @enum {string}
      */
     CardList.Event = {
-        SELECTED_CARDS_PRESENT: 'user-choice-present',
-        CARD_CLICK: 'card-list-card-click'
-    };
-
-    /**
-     * @override
-     * @param {Element} element
-     */
-    CardList.prototype.decorateInternal = function(element) {
-        goog.base(this, 'decorateInternal', element);
-
-        request
-            .send({url: 'entity/' + this.cardsType_})
-            .then(this.handleResponse,
-                this.handleRejection,
-                this);
-    };
-
-    /**
-    * Ajax successful response handler
-    * @param {Object} response
-    */
-    CardList.prototype.handleResponse = function(response) {
-        this.renderCards(response.data);
-    };
-
-    /**
-    * Ajax rejection handler
-    * @param {Object} err
-    */
-    CardList.prototype.handleRejection = function(err) {
-        console.log(err);
+        SELECTED_CARDS_PRESENT: 'card-list-user-choice-present',
+        CARD_CLICK: 'card-list-card-click',
+        CARDS_RENDERED: 'card-list-cards-rendered'
     };
 
     /**
@@ -81,28 +51,33 @@ goog.scope(function() {
      * @param {Array} cards
      */
     CardList.prototype.renderCards = function(cards) {
-        var domCardsBlock = this.getView().getDom().cardsBlock;
+        var domCardsBlock = this.getView().getDom().cardsBlock,
+            href = window.location.href,
+            url = href.slice(0, href.indexOf('#'));
 
-        for (var i = 0; i < cards.length; i++) {
+        for (var i = 0; cards && i < cards.length; i++) {
 
             var card = cards[i];
 
-            if (/*card.isSelected*/true) {
+            if (card.checked) {
                 this.dispatchEvent(
                     CardList.Event.SELECTED_CARDS_PRESENT
                 );
             }
 
-            cardParams = {
+            var cardParams = {
                 data: {
-                    logoSrc: 'http://lorempixel.com/79/87/?hash' +
-                        i + card.type,
+                    logoSrc: url + card.imgUrl,
                     title: card.title
+                },
+                config: {
+                    customClasses: this.cardsCustomClasses_,
+                    isSelected: !!card.checked
                 },
                 cardId: card.id
             };
 
-            cardInstance = this.renderChild(
+            var cardInstance = this.renderChild(
                 'Card',
                 domCardsBlock,
                 cardParams
@@ -117,8 +92,10 @@ goog.scope(function() {
                 null,
                 this
             );
+
         }
 
+        this.dispatchEvent(CardList.Event.CARDS_RENDERED);
     };
 
     /**

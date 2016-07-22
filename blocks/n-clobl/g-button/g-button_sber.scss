@@ -1,26 +1,22 @@
 .g-button_sber {
-    font-family: AndaleMono;
     font-size: 18px;
     font-weight: normal;
     
     width: 180px;
     height: 43px;
-    padding: 3px 0 0 0;
-
-    vertical-align: middle;
+    padding: 0;
+    line-height: 43px;
+    white-space: nowrap;
 
     color: #03371a;
     border: 0;
     border-radius: 30px;
     background-color: #e7f038;
-    &:after {
-        display: inline-block;
+    user-select: none;
+}
 
-        height: 100%;
-
-        content: '';
-        vertical-align: middle;
-    }
+.g-button_disabled {
+    cursor: default;
 }
 
 .g-button_background_transparent {
@@ -33,6 +29,18 @@
 
 .g-button_border_white {
     border: solid 1px #fff;
+}
+
+.g-button_border_grey {
+    border: solid 1px #737373;
+}
+
+.g-button_border_yellow {
+    border: solid 1px #e7f038;
+}
+
+.g-button_border_dark-gold {
+    border: solid 1px #686a3d;
 }
 
 .g-button_border_thick {
@@ -49,10 +57,12 @@
 
 .g-button_height_small {
     height: 33px;
+    line-height: 30px;
 }
 
 .g-button_height_big {
     height: 56px;
+    line-height: 56px;
 }
 
 .g-button_width_m {
@@ -67,10 +77,6 @@
     padding: 0;
 }
 
-.g-button_font_big {
-    font-size: 20px;
-}
-
 .g-button_text-color_white {
     color: #fff;
 }
@@ -83,6 +89,30 @@
     width: 250px;
 }
 
+.g-button_font-size_big {
+    font-size: 20px;
+}
+
+.g-button_font-size_med {
+    font-size: 18px;
+}
+
 .g-button_font-size_smaller {
     font-size: 16px;
+}
+
+.g-button_font-size_small {
+    font-size: 14px;
+}
+
+.g-button_font_l {
+    font-size: 25px;
+}
+
+.g-button_border_yellow {
+    border: solid 1px #e7f038;
+}
+
+.g-button_wide {
+    width: 220px;
 }

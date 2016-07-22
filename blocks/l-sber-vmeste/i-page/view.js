@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.iPage.View');
 
 goog.require('cl.iControl.View');
+goog.require('goog.dom');
 
 
 
@@ -22,7 +23,6 @@ goog.inherits(sv.lSberVmeste.iPage.View, cl.iControl.View);
 
 goog.scope(function() {
     var View = sv.lSberVmeste.iPage.View;
-
     /**
      * Css class enum
      * @enum {string}
@@ -30,4 +30,5 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'i-page'
     };
+
 });  // goog.scope

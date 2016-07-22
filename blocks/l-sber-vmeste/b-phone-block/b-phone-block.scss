@@ -1,0 +1,68 @@
+@import '../../l-sber-vmeste/i-media/i-media.scss';
+
+.b-phone-block {
+  position: relative;
+
+  display: block;
+
+  width: 500px;
+  height: 500px;
+  top: 10%;
+  margin: 0 auto;
+  padding: 10px 0;
+
+  text-align: center;
+  vertical-align: middle;
+
+  border-radius: 8px;
+  border-bottom: solid 1px #979797;
+  background: #fff;
+
+  font-size: 15px;
+}
+
+
+.b-phone-block__phone-number-view{
+  margin-top: 10%;
+  min-height: 30px;
+  display: block;
+  opacity: .32;
+  text-align: center;
+  font-size: 30px;
+  color: black;
+}
+
+.b-phone-block__text{
+  margin-top: 10%;
+  display: block;
+  text-align: center;
+  font-size: 14px;
+  color: black;
+}
+
+.b-phone-block__input_confirmation{
+  position: inherit;
+  display:none;
+  text-align: center;
+  font-size: 20px;
+  color: black;
+}
+
+.b-phone-block__input_phone{
+  position: inherit;
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  color: #93991a;
+}
+
+.b-phone-block__enter-button{
+  position: inherit;
+  text-align: center;
+}
+
+.b-phone-block__confirm-button{
+  position: inherit;
+  display: none;
+  text-align: center;
+}

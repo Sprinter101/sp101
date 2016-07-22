@@ -1,25 +1,27 @@
 {
-  "name": "sber-vmeste",
+  "name": "sber-together",
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "config": "node console/createConfig.js"
+    "config": "node console/createConfig.js",
+    "createDest": "node console/createDestinationPath.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/c7s/active-age.git"
+    "url": "git+https://github.com/c7s/sber-together.git"
   },
   "author": "",
   "license": "",
   "dependencies": {
     "clobl": "git+ssh://git@github.com:c7s/clobl.git#dev",
-    "nodules": "git+ssh://git@github.com/c7s/nodules.git#dev",
     "closure-templates": "^20151008.0.0",
-    "google-closure-library": "^20160517.0.0"
+    "google-closure-library": "^20160517.0.0",
+    "gulp-if": "^2.0.1",
+    "gulp-livereload": "^3.8.1",
+    "nodules": "git+ssh://git@github.com/c7s/nodules.git#dev"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-livereload": "^3.8.1",
     "q": "^1.4.1",
     "yargs": "^4.4.0"
   }

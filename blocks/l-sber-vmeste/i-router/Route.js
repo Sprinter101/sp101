@@ -9,7 +9,10 @@ sv.lSberVmeste.iRouter.Route = {
     START: 'start',
     TEST: 'test',
     LIST_PAGE: 'list',
-    DIRECTIONS: 'directions',
     CARD: 'card',
-    DONATE: 'donate'
+    DONATE: 'donate',
+    PROFILE: 'profile',
+    REGISTRATION: 'registration',
+    PAYMENT_TEMP: 'payment',
+    USERFUND_PAGE: 'userfund'
 };

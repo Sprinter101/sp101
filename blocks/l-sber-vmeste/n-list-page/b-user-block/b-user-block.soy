@@ -1,0 +1,88 @@
+{namespace sv.lSberVmeste.bUserBlock.Template}
+
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .userBlock}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ */
+{template .body autoescape="strict" kind="html"}
+    <div class="{call .rootClass /}__chosen-categories"></div>
+    <div class="{call .rootClass /}__button"></div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-user-block
+{/template}
+
+/**
+ * @param data
+ */
+{template .generateCategoriesText}
+    {let $nbsp: '\u00A0' /}
+    {let $comma: ', ' /}
+    {let $noCategoriesMsg: 'Вы не выбрали ни одной категории' /}
+
+    {if not $data.topicCount
+        and not $data.directionCount
+        and not $data.fundsCount}
+        {$noCategoriesMsg}
+    {else}
+
+        {if $data.topicCount}
+            {let $word kind="text"}
+                {call sv.iUtils.Utils.declensionPrint 
+                    data="[ 'num': $data.topicCount,
+                            'nom': 'тема',
+                            'gen': 'темы',
+                            'plu': 'тем'
+                        ]"}
+                {/call}
+            {/let}
+            {$data.topicCount}{$nbsp}{$word}
+        {/if}
+
+        {if $data.directionCount}
+            {let $word kind="text"}
+                {call sv.iUtils.Utils.declensionPrint 
+                    data="[ 'num': $data.directionCount,
+                            'nom': 'направление',
+                            'gen': 'направления',
+                            'plu': 'направлений'
+                        ]"}
+                {/call}
+            {/let}
+            {if $data.topicCount}
+                {$comma}
+            {/if}
+            {$data.directionCount}{$nbsp}{$word}
+        {/if}
+
+        {if $data.fundsCount}
+            {let $word kind="text"}
+                {call sv.iUtils.Utils.declensionPrint 
+                    data="[ 'num': $data.fundsCount,
+                            'nom': 'фонд',
+                            'gen': 'фонда',
+                            'plu': 'фондов'
+                        ]"}
+                {/call}
+            {/let}
+            {if $data.topicCount or $data.directionCount}
+                {$comma}
+            {/if}
+            {$data.fundsCount}{$nbsp}{$word}
+        {/if}
+
+    {/if}
+
+{/template}

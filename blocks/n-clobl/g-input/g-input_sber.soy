@@ -15,16 +15,28 @@
  * Input template
  * @param? params {{
  *     data: {
+           inputClass: ?string,
  *         inputType: ?string,
  *         placeholder: ?string,
+ *         label: ?string,
  *         value: ?string,
  *         name: ?string,
  *         maxLength: ?number
+ *     },
+ *     config: {
+ *         customClasses: ?list<string>
  *     }
  * }}
  */
 {template .inputTemplate}
-    <input class="{call .rootClass/}__input"
+    {if $params?.data?.label}
+        <div class="{call .rootClass/}__label">{$params.data.label}</div>
+    {/if}
+    <input  class="{call .rootClass/}__input
+        {if $params?.data?.inputClass}
+            {sp}
+            {call .rootClass/}__{$params?.data?.inputClass}
+        {/if}"
         {if $params?.data?.inputType}
             {sp}
             type="{$params?.data?.inputType}"
@@ -42,7 +54,11 @@
             maxlength="{$params.data.maxLength}"
         {/if}
         {sp}
-        value="{$params?.data?.value ? $params?.data?.value : ''}">
+        value="{$params?.data?.value ? $params?.data?.value : ''}"
+        {if $params?.config?.tabIndex}
+            {sp}tabindex="{$params.config.tabIndex}"
+        {/if}
+        >
     </input>
     <div class="{call .rootClass/}__error-message-box"></div>
 {/template}
@@ -51,8 +67,9 @@
  * @override
  * @param? params {
  *     config: {
- *         validations: list<?string>
+ *         validations: list<?string>,
  *         constraints: list<?string>
+ *         valueParams: list<?string>
  *     }
  * }}
  */
@@ -63,7 +80,10 @@
             [],
         'constraints': $params?.config?.constraints ?
             $params?.config?.constraints :
-            []
+            [],
+        'valueParams': $params?.config?.valueParams ?
+            $params?.config?.valueParams :
+            [],
     ]/}
     data-params="{call goog.json.serialize data="$data" /}"
 {/template}

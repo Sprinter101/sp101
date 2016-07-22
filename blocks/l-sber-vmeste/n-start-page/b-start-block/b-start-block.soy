@@ -1,0 +1,119 @@
+{namespace sv.lSberVmeste.bStartBlock.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .block}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * @override
+ * @param? data {
+ *            loggedIn: ?bool
+ *        }
+ */
+{template .body autoescape="strict" kind="html"}
+    {let $userStatus: $data?.loggedIn ? 'authorized' : 'anonymous' /}
+        <div class="{call .rootClass/}__inner-wrap">
+            <div class="{call .rootClass/}__logo-wrapper">
+            </div>
+            <div class="{call .rootClass/}__title-wrapper">
+            </div>
+            {call .slogan /}
+            <div class="{call .rootClass/}__button-wrapper">
+                {call .renderChild}
+                {param params: [
+                    'type': 'ButtonSber',
+                    'renderParams': [
+                        'data': [
+                            'content': '',
+                        ],
+                        'config': ['customClasses': 
+                            ['b-start-block__button_start']
+                        ]
+                    ]
+                    ]/}
+            {/call}
+            </div>
+        </div>
+{/template}
+
+/**
+ * template for userfund's logo
+ * @param? data {
+ *              loggedIn: bool
+ *        }
+ */
+{template .logo autoescape="strict" kind="html"}
+    {let $userStatus: $data?.loggedIn ? 'authorized' : 'anonymous' /}
+        <div class="{call .rootClass/}__logo{sp}
+            {call .rootClass/}__logo_{$userStatus}">
+            {call .renderChild}
+                {param params: [
+                    'type': 'IconSber',
+                    'renderParams': [
+                        'data': [
+                            'type': $data.loggedIn ?
+                            'logo-userfund_authorized' : 'logo-userfund'
+                        ],
+                        'config': []
+                    ]
+                ]/}
+            {/call}
+        </div>
+{/template}
+
+/**
+ * template for userfund's title
+ * @param data {
+ *            loggedIn: bool,  
+ *            firstName: {(string|undefined)},
+ *            lastName: {(string|undefined)}
+ *        }
+ */
+{template .titleText autoescape="strict" kind="html"}
+    {let $userStatus: $data.loggedIn ? 'authorized' : 'anonymous' /}
+    {let $firstName: $data.firstName ? $data.firstName : 'мой' /}
+    {let $lastName: $data.lastName ? $data.lastName : 'фонд' /}
+        <div class="{call .rootClass/}__title{sp}
+            {call .rootClass/}__title_{$userStatus}">
+            {if $data.loggedIn}
+                фонд
+                <br>
+            {/if}
+                {$firstName}{sp}{$lastName}
+        </div>
+{/template}
+
+/**
+ * template for slogan
+ */
+{template .slogan autoescape="strict" kind="html"}
+    <div class="{call .rootClass/}__slogan">
+        Начните помогать осознанно
+    </div>
+{/template}
+
+/**
+ * template for userfund's logo
+ * @param data {
+ *              loggedIn: bool,
+ *              draft: bool
+ *        }
+ */
+{template .buttonContent autoescape="strict" kind="html"}
+    {let $userStatus: $data.loggedIn /}
+    {let $draft: $data.draft /}
+    {let $buttonContent: $userStatus ? $draft ? 'Начать' : 'Управление фондом' :
+        'Начать' /}
+    {$buttonContent}
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-start-block
+{/template}

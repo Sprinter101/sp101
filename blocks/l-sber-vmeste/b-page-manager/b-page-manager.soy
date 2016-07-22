@@ -10,28 +10,6 @@
 
 /**
  * @override
- * @param params {
- *     config: {
- *         state: ?string
- *     }
- * }
- */
-{template .body}
-    {call .initChildWithState}
-        {param params: [
-            'states': [
-                [
-                    'type': 'startPage',
-                ]
-            ],
-            'defaultControl': 'StartPage',
-            'currentState': $params?.config?.state ?: 'startPage'
-        ]/}
-    {/call}
-{/template}
-
-/**
- * @override
  */
 {template .rootClass}
     b-page-manager

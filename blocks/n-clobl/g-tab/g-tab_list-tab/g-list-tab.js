@@ -2,7 +2,6 @@ goog.provide('sv.gTab.gListTab.Tab');
 
 goog.require('cl.gTab.Tab');
 goog.require('sv.gTab.gListTab.View');
-goog.require('sv.lSberVmeste.bCardList.CardList');
 
 
 
@@ -15,59 +14,29 @@ goog.require('sv.lSberVmeste.bCardList.CardList');
  */
 sv.gTab.gListTab.Tab = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
-
-    /**
-    * @type {Array}
-    * @private
-    */
-    this.cardLists_ = [];
-
 };
 goog.inherits(sv.gTab.gListTab.Tab, cl.gTab.Tab);
 
 
 goog.scope(function() {
     var Tab = sv.gTab.gListTab.Tab,
-        View = sv.gTab.gListTab.View,
-        CardList = sv.lSberVmeste.bCardList.CardList;
+        View = sv.gTab.gListTab.View;
 
     /**
      * Event enum
      * @enum {string}
      */
     Tab.Event = {
-        TAB_SELECT: View.Event.TAB_SELECT,
-        CHANGE_PAGE_REQUEST: 'list-tab-change-page-request'
+        TAB_SELECT: View.Event.TAB_SELECT
     };
 
     /**
-     * Map enum
-     * @enum {string}
+     * Tab map
+     * @type {Object}
      */
-    Tab.Map = {
-        0: 'topic',
-        1: 'fund'
-    };
-
-    /**
-     * @override
-     * @param {Element} element
-     */
-    Tab.prototype.decorateInternal = function(element) {
-        goog.base(this, 'decorateInternal', element);
-
-        var domContentTabs = this.getView().getDom().contentTabs;
-
-        for (var i = 0; i < domContentTabs.length; i++) {
-            this.cardLists_.push(
-                this.decorateChild(
-                    'CardList',
-                    domContentTabs[i].firstChild,
-                    { cardsType: Tab.Map[i] }
-                )
-            );
-
-        }
+    Tab.TabMap = {
+        'topics': 0,
+        'funds': 1
     };
 
     /**
@@ -76,24 +45,38 @@ goog.scope(function() {
     Tab.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        for (var i = 0; i < this.cardLists_.length; i++) {
+        this.getHandler()
+            .listen(
+                window,
+                goog.events.EventType.RESIZE,
+                this.onResize_,
+                null,
+                this);
 
-            var cardList = this.cardLists_[i];
+        setTimeout(this.resizeActiveTab.bind(this), 0);
+    };
 
-            this.getHandler()
-                .listenOnce(
-                    cardList,
-                    CardList.Event.SELECTED_CARDS_PRESENT,
-                    this.onUserChoicePresent_.bind(this, i)
-                )
-                .listen(
-                    cardList,
-                    CardList.Event.CARD_CLICK,
-                    this.onCardListCardClick_,
-                    null,
-                    this
-                );
+    /**
+    * @return {Array.<Element>}
+    */
+    Tab.prototype.getContentTabs = function() {
+        return this.getView().getDom().contentTabs;
+    };
+
+    /**
+    * @param {string} category
+    */
+    Tab.prototype.setActiveTab = function(category) {
+        if (category && Tab.TabMap[category]) {
+            this.getView().changeTab(Tab.TabMap[category]);
         }
+    };
+
+    /**
+    * Calls View's resizeActiveTab function
+    */
+    Tab.prototype.resizeActiveTab = function() {
+        this.getView().resizeActiveTab();
     };
 
     /**
@@ -103,7 +86,7 @@ goog.scope(function() {
     Tab.prototype.createIcon = function(tabId) {
         var tab = this.getView().getDom().tabs[tabId],
             iconContainer = goog.dom.createDom('div',
-                ['g-tab__icon', 
+                ['g-tab__icon',
                 View.CssClass.HIDDEN,
                 View.IconClasses[tabId]
                 ]
@@ -111,7 +94,8 @@ goog.scope(function() {
 
         this.renderChild('IconSber', iconContainer,
             {
-                'config': { 'iconStyles': ['check-mark']}
+                'data': { 'type': ['checked']},
+                'config': {}
             }
         );
 
@@ -124,26 +108,11 @@ goog.scope(function() {
     };
 
     /**
-     * Gets called if there is a user-chosen card in a card list
-     * @param {number} tabId
-     * @private
-     */
-    Tab.prototype.onUserChoicePresent_ = function(tabId) {
-        this.createIcon(tabId);
-    };
-
-
-    /**
-     * Activates tab icon if there is a user-chosen card in a card list
-     * @param {Object} event
-     * @private
-     */
-    Tab.prototype.onCardListCardClick_ = function(event) {
-        this.dispatchEvent({
-            type: Tab.Event.CHANGE_PAGE_REQUEST,
-            page: 'CARD',
-            cardId: event.cardId
-        });
+    * Window resize event handler
+    * @private
+    */
+    Tab.prototype.onResize_ = function() {
+        this.resizeActiveTab();
     };
 
 });  // goog.scope

@@ -1,270 +1,224 @@
 @import '../i-media/i-media';
 
-$buttonMeWidth: 56px;
-
 .b-header {
     box-sizing: border-box;
     width: 100%;
     vertical-align: middle;
 }
 
-.b-header__wrapper {
-    position: relative;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-    height: 97px;
+.b-header__inner-wrap {
+    margin: 0 auto;
 }
 
-.b-header__wrapper_start {
+.b-header__inner-wrap_profile {
     height: 98px;
 }
 
-.b-header__wrapper_directions {
-    height: 121px;
+.b-header__inner-wrap_list {
+    height: 98px;
 }
 
-.b-header__wrapper_card {
-    height: 68px;
+.b-header__inner-wrap_card {
+    height: 78px;
     background-color: #FFFFFF;
 }
 
-.b-header__wrapper_donate {
+.b-header__inner-wrap_choice {
     height: 104px;
 }
 
-.b-header__logo-wrapper {
+.b-header__right-column {
+    display: inline-block;
+    float: right;
+    width: 26%;
+}
+
+.b-header__left-column {
+    display: inline-block;
+    float: left;
+    width: 26%;
+    height: 70px;
+}
+
+.b-header__central-column {
+    display: inline-block;
+    overflow: hidden;
+    width: 48%;
+    text-align: center;
+}
+
+.b-header__logo_small-wrapper {
     display: inline-block;
     float: left;
     margin-left: 26px;
     margin-top: 34px;
 }
 
-.b-header__button_me-wrapper {
-    position: absolute;
-    top: 30px;
-    left: 50%;
+.b-header__logo_large-wrapper {
+    display: none;
+}
+
+.b-header__button-wrapper {
     display: inline-block;
-    margin-left: -($buttonMeWidth / 2);
+    margin: 30px auto 0;
 }
 
-.b-header__button_me {
-
+.b-header__button {
+    text-transform: uppercase;
 }
 
-.b-header__more-link {
+.b-header__help-wrapper {
     display: inline-block;
     float: right;
+}
+
+.b-header__help_about-profile {
     width: 86px;
-    height: 15px;
+    margin-top: 49px;
+    margin-right: 4px;
+}
+
+.b-header__help_logout {
+    width: 86px;
     margin-top: 49px;
     margin-right: 4px;
     cursor: pointer;
 }
 
-.b-header__more-link-text {
-    font-family: AndaleMono, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: normal;
-    text-align: center;
-    color: #e7f038;
-}
-
-.b-header__icon_arrow_back-wrapper {
-    display: inline-block;
-    float: left;
-    margin-left: 28px;
-    margin-top: 36px;
-}
-
-.b-header__icon_arrow_back-wrapper_white-header {
-    display: inline-block;
-    float: left;
-    margin-left: 28px;
-    margin-top: 36px;
-}
-
-.b-header__card-category {
-    position: absolute;
-    top: 42px;
-    left: 50%;
-    display: inline-block;
-    width: 41px;
-    height: 15px;
-    margin-left: -(41px /2);
-    font-family: AffectBold;
-    font-size: 15px;
-    font-weight: bold;
-    color: #ff6666;
-}
-
-.b-header__donate-type {
-    position: absolute;
-    top: 41px;
-    left: 50%;
-    display: inline-block;
-    margin-left: -(190px / 2);
-    width: 190px;
-    height: 57px;
-    font-family: AndaleMono;
-    font-size: 17px;
-    font-weight: normal;
-    text-align: center;
-    color: #ffffff;
-}
-
-.b-header__donate-tip {
-    display: inline-block;
-    float: right;
+.b-header__help_about-list {
     width: 86px;
-    height: 15px;
-    margin-top: 46px;
+    margin-top: 49px;
     margin-right: 4px;
+}
+
+.b-header__help_donation {
+    width: 56px;
+    margin: 39px 4px 0 20px;
+}
+
+.b-header__help {
+    color: #e7f038;
+    font-size: 13px;
+    text-align: center;
+}
+
+.b-header__back-wrapper {
+    display: inline-block;
+    float: left;
+    margin-left: 28px;
+    margin-top: 36px;
     cursor: pointer;
 }
 
-.b-header__donate-tip-text {
-    font-family: AndaleMono, Arial, sans-serif;
-    font-size: 13px;
-    font-weight: normal;
+.b-header__choice-phrase {
+    display: inline-block;
     text-align: center;
-    color: #e7f038;
 }
 
-.b-header__icon_share-wrapper {
+.b-header__choice-phrase_list {
+    text-transform: uppercase;
+    margin-top: 41px;
+    color: #e7f038;
+    font-size: 13px;
+}
+
+.b-header__choice-phrase_card {
+    margin-top: 46px;
+    color: #ff6666;
+    font-family: AffectBold;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.b-header__choice-phrase_donation {
+    width: 130px;
+    margin-top: 41px;
+    color: #ffffff;
+    font-size: 17px;
+}
+
+.b-header__share-wrapper {
     display: inline-block;
     float: right;
-    margin-right: 13px;
-    margin-top: 30px;
+    margin: 30px 13px 0 0;
 }
 
 @include media-m {
-    .b-header__wrapper {
-        height: 110px;
-    }
-    .b-header__wrapper_start {
-        height: 110px;
-    }
-    .b-header__wrapper_directions {
-    height: 110px;
-    }
-    .b-header__wrapper_card {
+    .b-header__inner-wrap {
         width: 768px;
-        height: 68px;
-        margin: 0 auto;
     }
-    .b-header__wrapper_donate {
+    .b-header__inner-wrap_profile {
+        height: 110px;
+    }
+    .b-header__inner-wrap_card {
+        height: 78px;
+    }
+    .b-header__inner-wrap_choice {
         height: 102px;
     }
-    .b-header__logo-wrap {
-        width: 207px;
-        height: 50px;
+    .b-header__logo_small-wrapper {
+        display: none;
+    }
+    .b-header__logo_large-wrapper {
+        display: inline-block;
+        float: left;
         margin-left: 38px;
         margin-top: 39px;
     }
-    .b-header__button_me-wrapper {
-        top: 32px;
+    .b-header__button_wrapper {
+        margin-top: 32px;
     }
-    .b-header__more-link {
-        width: 86px;
+    .b-header__help {
         margin-top: 45px;
+    }
+    .b-header__help_about-profile {
         margin-right: 40px;
     }
-    .b-header__icon_arrow_back-wrapper {
-        margin-left: 57px;
-    }
-    .b-header__icon_arrow_back-wrapper_white-header {
-        margin-left: 49px;
-    }
-    .b-header__card-category {
-        top: 46px;
-        width: 38px;
-        margin-left: -(38px /2);
-    }
-    .b-header__donate-type {
-        top: 42px;
-        width: 290px;
-        margin-left: -(290px /2);
-    }
-    .b-header__donate-tip {
-        margin-top: 45px;
+    .b-header__help_logout {
         margin-right: 40px;
     }
-    .b-header__icon_share-wrapper {
+    .b-header__help_about-list {
+        margin-right: 40px;
+    }
+    .b-header__help_donation {
+        width: 100px;
+        margin-top: 40px;
+        margin-right: 40px;
+    }
+    .b-header__choice-phrase_donation {
+        width: 321px;
+        margin-top: 42px;
+    }
+    .b-header__back-wrapper {
+        margin-top: 36px;
+        margin-left: 19px;
+    }
+    .b-header__share-wrapper {
+        margin-top: 30px;
         margin-right: 45px;
     }
 }
 
 @include media-l {
-    .b-header__wrapper {
-        height: 107px;
-    }
-    .b-header__wrapper_card {
-        width: 768px;
-        height: 68px;
-        margin: 0 auto;
+    .b-header__inner-wrap_card {
         border-radius: 7px 7px 0 0;
     }
-    .b-header__icon_arrow_back-wrapper_white-header {
-        margin-left: 49px;
+    .b-header__logo_large-wrapper {
+        position: absolute;
+        margin-left: -80px;
+    }
+    .b-header__help_donation {
+        width: 86px;
+        margin-top: 40px;
+        margin-right: 40px;
     }
 }
 
 @include media-xl {
-    .b-header__wrapper {
-        height: 107px;
-    }
-    .b-header__wrapper_start {
-        height: 107px;
-    }
-    .b-header__wrapper_directions {
-    height: 110px;
-    }
-    .b-header__wrapper_card {
-        width: 768px;
-        height: 66px;
-        margin: 0 auto;
-        border-radius: 7px 7px 0 0;
-    }
-    .b-header__wrapper_donate {
-        height: 102px;
-    }
-    .b-header__logo-wrap {
-        width: 207px;
-        height: 50px;
-        margin-left: 38px;
-        margin-top: 39px;
-    }
-    .b-header__button_me-wrapper {
+    .b-header__button_wrapper {
         top: 35px;
     }
-    .b-header__more-link {
-        width: 215px;
-        margin-top: 56px;
-        margin-right: 0;
-    }
-    .b-header__icon_arrow_back-wrapper {
-        margin-left: 175px;
-    }
-    .b-header__icon_arrow_back-wrapper_white-header {
-        margin-left: 42.5px;
-    }
-    .b-header__card-category {
-        top: 41px;
-        width: 38px;
-        margin-left: -(38px /2);
-    }
-    .b-header__donate-type {
-        top: 42px;
-        width: 300px;
-        margin-left: -(320px / 2);
-    }
-    .b-header__donate-tip {
-        margin-top: 45px;
-        margin-right: 77px
-    }
-    .b-header__icon_share-wrapper {
-        margin-top: 25px;
-        margin-right: 42px;
+     .b-header__logo_large-wrapper {
+        margin-left: -80px;
     }
 }
