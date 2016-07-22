@@ -203,18 +203,10 @@ goog.scope(function() {
 
     /**
     * Shows error message
-    * @param {Array} failedValidations
+    * @param {string} errorMessageText
     */
-    View.prototype.showErrorMessage = function(failedValidations) {
-        var errorMessageText = '';
-
-        failedValidations.forEach(function(type) {
-            var errorMessage = View.ValidationErrorMessages[type];
-            errorMessageText += errorMessageText ? '. ' : ' ';
-            errorMessageText += errorMessage;
-        }, this);
-
-        this.dom.errorMessage.textContent = errorMessageText.trim();
+    View.prototype.showErrorMessage = function(errorMessageText) {
+        this.dom.errorMessage.textContent = errorMessageText;
     };
 
     /**

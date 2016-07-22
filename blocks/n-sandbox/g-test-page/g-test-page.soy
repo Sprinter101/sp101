@@ -166,13 +166,12 @@
                                             'config': [
                                                 'validations': [
                                                     'notEmpty',
-                                                    'digits',
+                                                    'minDonation',
                                                     'maxDonation'
                                                 ],
-                                                'constraints': [
-                                                    'digitsOnly',
-                                                    'charactersLimit',
-                                                    'noLeadingZero'
+                                                'valueParams': [
+                                                      'maxNumber': 500000,
+                                                      'minDonation': 100
                                                 ]
                                             ]
                                         ]
