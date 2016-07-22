@@ -32,8 +32,7 @@ goog.inherits(sv.lSberVmeste.bStartBlock.StartBlock, cl.iControl.Control);
 
 goog.scope(function() {
     var StartBlock = sv.lSberVmeste.bStartBlock.StartBlock,
-        View = sv.lSberVmeste.bStartBlock.View,
-        Button = sv.gButton.Button;
+        View = sv.lSberVmeste.bStartBlock.View;
 
     /**
      * Event enum
@@ -51,10 +50,6 @@ goog.scope(function() {
     StartBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.startButton_ = this.decorateChild(
-            'ButtonSber',
-            this.getView().getDom().startButton
-        );
     };
 
      /**
@@ -63,9 +58,8 @@ goog.scope(function() {
     StartBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
-            this.startButton_,
-            Button.Event.CLICK,
+        this.viewListen(
+           View.Event.START_BLOCK_BUTTON_CLICK,
             this.onStartButtonClick_
         );
     };
@@ -81,6 +75,7 @@ goog.scope(function() {
         var draft = params.draft;
         this.renderUserfundLogo_(loggedIn);
         this.renderUserfundTitle_(loggedIn, firstName, lastName);
+        this.renderStartButton_(loggedIn, draft);
     };
 
     /**
@@ -108,9 +103,15 @@ goog.scope(function() {
     * render correct icon as userfund logo
     * @param {bool} loggedIn
     * @param {bool} draft
+    * @private
     */
-    StartBlock.prototype.renderStartButtonContent = function(loggedIn, draft) {
-        this.getView().renderStartButtonContent(loggedIn, draft);
+    StartBlock.prototype.renderStartButton_ = function(loggedIn, draft) {
+        this.getView().renderStartButton(loggedIn, draft);
+
+        this.startButton_ = this.decorateChild(
+            'ButtonSber',
+            this.getView().getDom().button
+        );
     };
 
     /**

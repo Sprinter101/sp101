@@ -23,19 +23,6 @@
             </div>
             {call .slogan /}
             <div class="{call .rootClass/}__button-wrapper">
-                {call .renderChild}
-                {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': '',
-                        ],
-                        'config': ['customClasses': 
-                            ['b-start-block__button_start']
-                        ]
-                    ]
-                    ]/}
-            {/call}
             </div>
         </div>
 {/template}
@@ -97,18 +84,28 @@
 {/template}
 
 /**
- * template for userfund's logo
- * @param data {
- *              loggedIn: bool,
- *              draft: bool
- *        }
+ * template for start button
+ * @param loggedIn {bool}
+ * @param draft {bool}
  */
-{template .buttonContent autoescape="strict" kind="html"}
-    {let $userStatus: $data.loggedIn /}
-    {let $draft: $data.draft /}
-    {let $buttonContent: $userStatus ? $draft ? 'Начать' : 'Управление фондом' :
-        'Начать' /}
-    {$buttonContent}
+{template .button autoescape="strict" kind="html"}
+    {let $content: $draft ? $loggedIn ? 'Начать' : 'Начать' :
+        'Управление фондом' /}
+    {let $buttonClass: $draft ? 'b-start-block__button_start' : 
+        'b-start-block__button_manage'/}
+        {call .renderChild}
+            {param params: [
+                'type': 'ButtonSber',
+                'renderParams': [
+                    'data': [
+                        'content': $content,
+                    ],
+                    'config': ['customClasses': 
+                        [$buttonClass]
+                    ]
+                ]
+            ]/}
+        {/call}
 {/template}
 
 /**

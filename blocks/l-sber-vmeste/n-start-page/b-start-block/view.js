@@ -33,10 +33,19 @@ goog.scope(function() {
      */
     View.CssClass = {
         ROOT: 'b-start-block',
-        BUTTON_START: 'b-start-block__button_start',
+        BUTTON_CONTAINER: 'b-start-block__button-wrapper',
+        BUTTON: 'g-button_sber',
         LOGO_CONTAINER: 'b-start-block__logo-wrapper',
         TITLE_CONTAINER: 'b-start-block__title-wrapper',
-        WIDE_BUTTON: 'g-button_wide'
+        MANAGE_BUTTON: 'b-start-block__button_manage'
+    };
+
+    /**
+     * Event enum
+     * @enum {string}
+     */
+    View.Event = {
+        START_BLOCK_BUTTON_CLICK: 'start-block-button-click'
     };
 
     /**
@@ -54,8 +63,8 @@ goog.scope(function() {
             View.CssClass.TITLE_CONTAINER
         );
 
-        this.dom.startButton = this.getElementByClass(
-            View.CssClass.BUTTON_START
+        this.dom.buttonContainer = this.getElementByClass(
+            View.CssClass.BUTTON_CONTAINER
         );
     };
 
@@ -108,32 +117,41 @@ goog.scope(function() {
     * @param {bool} draft
     * @public
     */
-    View.prototype.renderStartButtonContent = function(loggedIn, draft) {
-        var soyParams = {'data': { 'loggedIn': loggedIn, 'draft': draft}};
+    View.prototype.renderStartButton = function(loggedIn, draft) {
+        var soyParams = {'loggedIn': loggedIn, 'draft': draft};
         goog.soy.renderElement(
-            this.dom.startButton,
-            sv.lSberVmeste.bStartBlock.Template.buttonContent,
+            this.dom.buttonContainer,
+            sv.lSberVmeste.bStartBlock.Template.button,
             soyParams,
             {'factory': 'sber'}
         );
-        this.changeButtonWidth_(loggedIn, draft);
+        this.dom.button = this.getElementByClass(
+            View.CssClass.BUTTON
+        );
+        this.changeButtonClass_(loggedIn, draft);
+        this.getHandler()
+            .listen(
+                this.dom.button,
+                goog.events.EventType.CLICK,
+                this.onButtonClick_
+            );
     };
 
      /**
-    * Change button width
+    * Change button custom class
     * @param {bool} loggedIn
     * @param {bool} draft
     * @private
     */
-    View.prototype.changeButtonWidth_ = function(loggedIn, draft) {
+    View.prototype.changeButtonClass_ = function(loggedIn, draft) {
         if (loggedIn && !draft) {
             goog.dom.classlist.add(
-                this.dom.startButton, View.CssClass.WIDE_BUTTON
+                this.dom.button, View.CssClass.MANAGE_BUTTON
             );
         }
         else {
             goog.dom.classlist.remove(
-                this.dom.startButton, View.CssClass.WIDE_BUTTON
+                this.dom.button, View.CssClass.MANAGE_BUTTON
             );
         }
     };
@@ -145,8 +163,20 @@ goog.scope(function() {
      */
     View.prototype.checkStartButtonClass = function() {
         return goog.dom.classlist.contains(
-            this.dom.startButton, View.CssClass.WIDE_BUTTON
+            this.dom.startButton, View.CssClass.MANAGE_BUTTON
         );
+    };
+
+     /**
+     * handles button click
+     * @param {goog.events.EventType.CLICK} event
+     * @private
+     */
+    View.prototype.onButtonClick_ = function(event) {
+        var customEvent = new goog.events.Event(
+            View.Event.START_BLOCK_BUTTON_CLICK, this
+        );
+        this.dispatchEvent(customEvent);
     };
 
 });  // goog.scope

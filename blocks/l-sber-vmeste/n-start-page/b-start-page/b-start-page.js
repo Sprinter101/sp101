@@ -89,15 +89,12 @@ goog.scope(function() {
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
                     var draft = params.draft;
+                    console.log(draft);
                     var loggedIn = params.loggedIn;
                     if (!draft) {
-                        that.startBlock_.renderStartButtonContent(
-                            loggedIn, draft);
                         that.printReportsButtonContent();
                     }
                     else {
-                        that.startBlock_.renderStartButtonContent(
-                                loggedIn, draft);
                         that.getFundsCount_();
                     }
                 }, function(err) {
