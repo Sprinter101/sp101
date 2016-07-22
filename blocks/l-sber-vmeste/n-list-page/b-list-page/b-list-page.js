@@ -91,10 +91,10 @@ goog.scope(function() {
             var that = this;
             UserService.getInstance().isUserLoggedIn()
                 .then(function(result) {
-                    var params = that.handleSuccessLoginCheck(result);
+                    var params = that.handleSuccessLoginCheck_(result);
                     that.header_.renderButton(params);
             }, function(err) {
-                    var params = that.handleRejectionLoginCheck(err);
+                    var params = that.handleRejectionLoginCheck_(err);
                     that.header_.renderButton(params);
                 }
             );
@@ -324,8 +324,9 @@ goog.scope(function() {
     * Ajax success handler
     * @param {Object} response
     * @return {Object}
+    * @private
     */
-    ListPage.prototype.handleSuccessLoginCheck = function(response) {
+    ListPage.prototype.handleSuccessLoginCheck_ = function(response) {
         var loggedIn = response.data.loggedIn;
         var firstName = response.data.firstName;
         var lastName = response.data.lastName;
@@ -338,8 +339,9 @@ goog.scope(function() {
     * Ajax rejection handler
     * @param {Object} err
     * @return {Object}
+    * @private
     */
-    ListPage.prototype.handleRejectionLoginCheck = function(err) {
+    ListPage.prototype.handleRejectionLoginCheck_ = function(err) {
         console.log(err);
         var default_params = {'loggedIn': false, 'firstName': undefined,
             'lastName': undefined, 'pageType': 'list', 'draft': true};

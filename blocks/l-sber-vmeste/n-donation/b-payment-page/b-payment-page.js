@@ -31,11 +31,6 @@ goog.scope(function() {
     PaymentPage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.headerManager_ = this.params.headerManager_;
-        if (this.headerManager_ !== undefined) {
-            var that = this;
-            that.headerManager_.setChoiceHeader();
-        }
     };
 
 });  // goog.scope

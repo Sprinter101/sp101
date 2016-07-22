@@ -108,7 +108,7 @@ goog.scope(function() {
             .listen(
                 this.buttonReady_,
                 Button.Event.CLICK,
-                this.onButtonReadyClick
+                this.onButtonReadyClick_
             )
             .listen(
                 this.donationSlider_,
@@ -168,9 +168,9 @@ goog.scope(function() {
      /**
      * Handles ready button CLICK
      * @param {sv.gButton.Button.Event.CLICK} event
-     * @protected
+     * @private
      */
-    DonationPercentBlock.prototype.onButtonReadyClick = function(event) {
+    DonationPercentBlock.prototype.onButtonReadyClick_ = function(event) {
         var customEvent = new goog.events.Event(DonationPercentBlock.Event
             .DONATION_PERCENT_READY, this);
 

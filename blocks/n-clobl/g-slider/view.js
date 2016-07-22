@@ -85,32 +85,32 @@ goog.scope(function() {
         this.getHandler().listen(
             this.dom.slider,
             goog.events.EventType.MOUSEDOWN,
-            this.onThumbFocus
+            this.onThumbFocus_
         )
         .listen(
             document,
             goog.events.EventType.MOUSEMOVE,
-            this.onThumbMove
+            this.onThumbMove_
         )
         .listen(
             document,
              goog.events.EventType.MOUSEUP,
-             this.onThumbBlur
+             this.onThumbBlur_
         )
         .listen(
             this.dom.slider,
             goog.events.EventType.TOUCHSTART,
-            this.onThumbFocus
+            this.onThumbFocus_
         )
         .listen(
             this.getElement(),
             goog.events.EventType.TOUCHMOVE,
-            this.onThumbMove
+            this.onThumbMove_
         )
         .listen(
             document,
              goog.events.EventType.TOUCHEND,
-             this.onThumbBlur
+             this.onThumbBlur_
         );
     };
 
@@ -118,8 +118,9 @@ goog.scope(function() {
          * handles mousedown or touchstart event
          * @param {goog.events.EventType.MOUSEDOWN} event -
          * signal to start moving
+         * @private
          */
-        View.prototype.onThumbFocus = function(event) {
+        View.prototype.onThumbFocus_ = function(event) {
             this.is_move_ = 1;
             this.start_ = event.clientX;
         };
@@ -128,8 +129,9 @@ goog.scope(function() {
          * handles mousemove or touchmove event
          * by changing thumb left coordinates
          * @param {goog.events.EventType.MOUSEMOVE} event
+         * @private
          */
-        View.prototype.onThumbMove = function(event) {
+        View.prototype.onThumbMove_ = function(event) {
             this.track_size = goog.style.getSize(this.dom.track).width;
             if (this.is_move_ == 1) {
                 var step = event.clientX - this.start_;
@@ -140,11 +142,11 @@ goog.scope(function() {
                 else if (this.currentPos_ < 1) {
                     this.currentPos_ = 0;
                 }
-                var currentPercent = this.CalculatePercent(this.currentPos_);
+                var currentPercent = this.CalculatePercent_(this.currentPos_);
                 currentPercent = Math.floor(currentPercent) + 1;
                 this.dom.label.innerHTML = currentPercent;
-                this.applyMovement(currentPercent);
-                this.dispatchMoveEvent(currentPercent);
+                this.applyMovement_(currentPercent);
+                this.dispatchMoveEvent_(currentPercent);
                 this.currentPercent = currentPercent;
             }
         };
@@ -152,8 +154,9 @@ goog.scope(function() {
          /**
          * applies tranform translateX to thumb and label
          * @param {number} currentPercent
+         * @private
          */
-        View.prototype.applyMovement = function(currentPercent) {
+        View.prototype.applyMovement_ = function(currentPercent) {
             var percent_right_move;
             if (Media.isExtraSmall() || Media.isSmall()) {
                     percent_right_move = 12;
@@ -178,8 +181,9 @@ goog.scope(function() {
          /**
          * dispatches view event with slider value
          * @param {number} currentPercent
+         * @private
          */
-        View.prototype.dispatchMoveEvent = function(currentPercent) {
+        View.prototype.dispatchMoveEvent_ = function(currentPercent) {
             var customEvent = new goog.events.Event(View.Event
                 .SLIDER_MOVE, this);
 
@@ -191,8 +195,9 @@ goog.scope(function() {
          * calculates current donation percent
          * @param {number} delta_x
          * @return {number} current percent value
+         * @private
          */
-        View.prototype.CalculatePercent = function(delta_x) {
+        View.prototype.CalculatePercent_ = function(delta_x) {
             var currentPercent = delta_x / this.track_size * 14;
             return currentPercent;
         };
@@ -201,8 +206,9 @@ goog.scope(function() {
          * handles mouseup or touchend event by stopping movement
          * @param {goog.events.EventType.MOUSEUP} event
          * @return {number}
+         * @private
          */
-         View.prototype.onThumbBlur = function(event) {
+         View.prototype.onThumbBlur_ = function(event) {
             this.is_move_ = 0;
             this.dom.thumb.style.left = this.currentPos_ + 'px';
             this.left_ = this.currentPos_;
