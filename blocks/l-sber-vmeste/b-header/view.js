@@ -45,7 +45,8 @@ goog.scope(function() {
         BUTTON: 'g-button_sber',
         CHOICE_PHRASE: 'b-header__choice-phrase',
         ME_BUTTON: 'b-header__button_me',
-        CLOSE_BUTTON: 'b-header__button_close'
+        CLOSE_BUTTON: 'b-header__button_close',
+        SHARE_BUTTON: 'b-header__share-wrapper'
     };
 
     /**
@@ -67,6 +68,15 @@ goog.scope(function() {
             View.CssClass.ARROW_BACK_CONTAINER
         );
         this.dom.arrowBack = goog.dom.getChildren(arrowBackContainer)[0];
+
+        this.dom.shareButton = this.getElementByClass(
+            View.CssClass.SHARE_BUTTON
+        ).firstChild;
+
+        this.dom.documentRoot = this.getElementByClass(
+            sv.lSberVmeste.View.CssClass.ROOT,
+            document
+        );
 
         this.dom.buttonContainer = this.getElementByClass(
             View.CssClass.BUTTON_CONTAINER

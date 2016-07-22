@@ -123,6 +123,8 @@ goog.scope(function() {
      */
     Manager.prototype.setCardHeader = function(opt_params) {
         var params = Manager.HeaderStates.CARD;
+        params.data || (params.data = []);
+        params.data.cardId = opt_params.cardId;
         this.renderHeader_(params);
     };
 

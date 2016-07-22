@@ -3,6 +3,7 @@ goog.provide('sv.lSberVmeste.bHeader.Header');
 goog.require('cl.gIcon.Icon');
 goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
+goog.require('goog.dom');
 goog.require('goog.events');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bHeader.View');
@@ -37,6 +38,11 @@ sv.lSberVmeste.bHeader.Header = function(view, opt_domHelper) {
      */
     this.button_ = null;
 
+    /**
+     * @type {cl.gIcon.Icon}
+     * @private
+     */
+    this.shareButton_ = null;
 
 };
 goog.inherits(sv.lSberVmeste.bHeader.Header, cl.iControl.Control);
@@ -81,6 +87,11 @@ goog.scope(function() {
             this.getView().getDom().arrowBack
         );
 
+        this.shareButton_ = this.decorateChild(
+            'IconSber',
+            this.getView().getDom().shareButton
+        );
+
         this.checkListHeaderLayout_;
 
     };
@@ -91,10 +102,16 @@ goog.scope(function() {
     Header.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-        this.getHandler().listen(
+        this.getHandler()
+        .listen(
             this.arrowBack_,
             Icon.Event.CLICK,
             this.onArrowBackClick_
+        )
+        .listen(
+            this.shareButton_,
+            Icon.Event.CLICK,
+            this.onShareButtonClick_
         );
 
         this.viewListen(
@@ -208,6 +225,37 @@ goog.scope(function() {
                 this
             );
         }
+    };
+
+    /**
+     * Share button click handler
+     * @private
+     */
+    Header.prototype.onShareButtonClick_ = function() {
+        var currentUrl = JSON.parse(
+            goog.dom.dataset.get(
+                this.getView().getDom().documentRoot, 'params'
+            )
+        ).apiUrl;
+
+        var cardId = this.params.data.cardId;
+
+        var currentUrl = 'http://24c55cfa.ngrok.io';
+
+        var shareUrl = currentUrl + '/?entity=' + cardId + window.location.hash;
+        // FB.init({
+        //     xfbml      : true,
+        //     version    : 'v2.7'
+        // });
+
+        // FB.ui({
+        //   method: 'share',
+        // href: '"https://www.facebook.com/sharer/sharer.'+
+        // 'php?u=https%3A%2F%2Fparse.com"',
+        // }, function(response) {});
+
+        window.open('https://www.facebook.com/sharer/sharer.php?u=' +
+            shareUrl, 'Facebook share', 'width=600, height=400, scrollbars=no');
     };
 
      /**
