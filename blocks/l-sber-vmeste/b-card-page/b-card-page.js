@@ -70,13 +70,7 @@ goog.scope(function() {
         var domCardList = this.getView().getDom().cardList;
         var cardId = this.params.cardId;
 
-        this.cardList_ = this.decorateChild(
-            'CardList',
-            domCardList,
-            {
-                cardsCustomClasses: ['b-card_full-line']
-            }
-        );
+        this.cardList_ = this.decorateChild('CardList', domCardList);
 
         // loading card info
         CardService.getCard(cardId).then(
@@ -186,14 +180,20 @@ goog.scope(function() {
      */
     CardPage.prototype.loadCardsResolveHandler_ = function(response) {
         var cardList = null;
+        var directionsCount = 0;
+        var topicsCount = 0;
 
         if (Array.isArray(response)) {
             cardList = response[0].data.concat(response[1].data);
+            directionsCount = response[0].data.length;
+            topicsCount = response[1].data.length;
         } else {
             cardList = response.data;
+            directionsCount = response.data.length;
         }
 
         this.cardList_.renderCards(cardList);
+        this.getView().setDirectionsCount(directionsCount, topicsCount);
     };
 
     /**

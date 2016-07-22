@@ -102,22 +102,19 @@ goog.scope(function() {
 
         this.sendCategoriesRequest();
 
-        this.listTab_ = this.decorateChild('ListTab',
-            this.getView().getDom().listTab);
+        this.listTab_ = this.decorateChild(
+            'ListTab', this.getView().getDom().listTab
+        );
 
         this.listTab_.setActiveTab(this.listTabCategory_);
 
         var listTabContentTabs = this.listTab_.getContentTabs();
 
         for (var i = 0; i < listTabContentTabs.length; i++) {
-
             this.cardLists_.push(
                 this.decorateChild(
                     'CardList',
-                    listTabContentTabs[i].firstChild,
-                    {
-                        cardsCustomClasses: ['b-card_half-line']
-                    }
+                    listTabContentTabs[i].firstChild
                 )
             );
         }
@@ -299,10 +296,7 @@ goog.scope(function() {
     */
     ListPage.prototype.onUserBlockButtonClick_ = function() {
         UserService.getInstance().isUserLoggedIn()
-        .then(
-            this.redirectUser,
-            this.handleRejection,
-            this);
+        .then(this.redirectUser, this.handleRejection, this);
     };
 
     /**
@@ -330,8 +324,12 @@ goog.scope(function() {
         var firstName = response.data.firstName;
         var lastName = response.data.lastName;
         var pageType = 'list';
-        return {'loggedIn': loggedIn, 'firstName': firstName,
-            'lastName': lastName, 'pageType': pageType};
+        return {
+            'loggedIn': loggedIn,
+            'firstName': firstName,
+            'lastName': lastName,
+            'pageType': pageType
+        };
     };
 
     /**
@@ -341,8 +339,13 @@ goog.scope(function() {
     */
     ListPage.prototype.handleRejectionLoginCheck = function(err) {
         console.log(err);
-        var default_params = {'loggedIn': false, 'firstName': undefined,
-            'lastName': undefined, 'pageType': 'list', 'draft': true};
+        var default_params = {
+            'loggedIn': false,
+            'firstName': undefined,
+            'lastName': undefined,
+            'pageType': 'list',
+            'draft': true
+        };
         return default_params;
     };
 

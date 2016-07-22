@@ -4,4 +4,12 @@
 
 .b-card-list__cards {
     text-align: left;
+    width: 620px;
+    display: inline-block;
+}
+
+@media screen and (max-width: $breakpointM) {
+    .b-card-list__cards {
+        width: 90%;
+    }
 }

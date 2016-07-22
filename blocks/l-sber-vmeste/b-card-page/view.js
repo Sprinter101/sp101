@@ -39,6 +39,7 @@ goog.scope(function() {
         TEXT_TITLE: 'b-card-page__text-title',
         DESCRIPTION: 'b-card-page__text',
         DONATIONS: 'b-card-page__donations',
+        DIRECTION_COUNT: 'b-card-page__directions-count',
         FULL_PRICE: 'b-card-page__amount',
         BUTTON_CONTAINER: 'b-card-page__card-button',
         CARD_LIST: 'b-card-list',
@@ -60,6 +61,8 @@ goog.scope(function() {
         dom.textTitle = this.getElementByClass(CssClass.TEXT_TITLE, element);
         dom.description = this.getElementByClass(CssClass.DESCRIPTION, element);
         dom.donations = this.getElementByClass(CssClass.DONATIONS, element);
+        dom.directionsCount =
+            this.getElementByClass(CssClass.DIRECTION_COUNT, element);
         dom.fullPrice = this.getElementByClass(CssClass.FULL_PRICE, element);
         dom.buttonContainer = this.getElementByClass(
             CssClass.BUTTON_CONTAINER, element
@@ -160,22 +163,34 @@ goog.scope(function() {
 
     /**
      * Set number of directions
-     * @param  {number} num number of money
+     * @param  {number} numDirections number of directions
+     * @param  {number} numTopics     number of topics
      */
-    View.prototype.setNumDirections = function(num) {
+    View.prototype.setDirectionsCount = function(numDirections, numTopics) {
+        numDirections = numDirections || 0;
+        numTopics = numTopics || 0;
+
         var declension = Utils.declensionPrint({
-            num: num,
+            num: numDirections,
             nom: 'направление',
             gen: 'направления',
             plu: 'направлений'
         });
+        var topics = Utils.declensionPrint({
+            num: numTopics,
+            nom: 'тема',
+            gen: 'темы',
+            plu: 'тем'
+        });
 
         goog.soy.renderElement(
-            this.dom.numDirections,
+            this.dom.directionsCount,
             Template.text,
-            {text: num + ' ' + declension}
+            {
+                text: numDirections + ' ' + declension + ', ' +
+                      numTopics + ' ' + topics
+            }
         );
     };
-
 
 });  // goog.scope

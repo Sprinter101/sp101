@@ -144,7 +144,6 @@ gulp.task('html', ['scripts'], function() {
 });
 
 gulp.task('watch', function() {
-
     if (!args.modulesPath) livereload.listen();
     gulp.watch([
         path.join(__dirname, 'blocks', '/**/*.scss'),
