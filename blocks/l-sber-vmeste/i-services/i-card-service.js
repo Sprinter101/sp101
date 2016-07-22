@@ -72,8 +72,8 @@ goog.scope(function() {
      * @param {number} entityId
      * @return {object}
      */
-    CardService.prototype.removeEntity = function(entityId) {
-        return Request.getInstance().send({
+    CardService.removeEntity = function(entityId) {
+        return request.send({
             url: '/user-fund/' + entityId,
             type: 'DELETE'
         });
@@ -84,8 +84,8 @@ goog.scope(function() {
      * @param {number} entityId
      * @return {object}
      */
-    CardService.prototype.addEntity = function(entityId) {
-        return Request.getInstance().send({
+    CardService.addEntity = function(entityId) {
+        return request.send({
             url: '/user-fund/' + entityId,
             type: 'POST'
         });
