@@ -1,28 +1,28 @@
-@startuml
+SberVmeste -up-|> cl.Control
+SberVmeste *--  HeaderManager
+SberVmeste *-- PageManager
 
-title SV-109 l-sber-vmeste
+SberVmeste --> Controller
+SberVmeste --> Router
 
+Controller o-- HeaderManager
+Controller o-- PageManager
 
-lSberVmeste <|-- iControl
-lSberVmeste *--  bHeaderManager
-lSberVmeste *-- bPageManager
+HeaderManager *-- Header
+PageManager --> Router
+PageManager *-- "0..*" Page
 
-lSberVmeste --> iController
-lSberVmeste --> iRouter
-
-
-bHeaderManager *-- bHeader
-bPageManager --> iRouter
+Page o-- Header
 
     
-class iRouter <extend cl.iRouter> {
+class Router <extend cl.Router> {
     use()
     changeLocation()
     getMaskByUrl()
     parseMaskDataFromUrl()
 }
 
-class bHeaderManager <extend iContentManager> {
+class HeaderManager <extend cl.ContentManager> {
     setProfileHeader()
     setChoiceHeader()
     setCardHeader()
@@ -30,13 +30,20 @@ class bHeaderManager <extend iContentManager> {
     getCurrentHeader()
 }
 
-class bPageManager <extend iContentManager> {
+class PageManager <extend cl.ContentManager> {
     setCurrentPage()
     getCurrentPage()
     getLocation()
 }
 
-class iController {
+class Header <extend cl.Control> {
+    renderCorrectTitle()
+    renderCorrectHelp()
+    renderButton()
+    renderListPageTitle()
+}
+
+class Controller {
     actionStart()
     actionListPage()
     actionTest()
@@ -48,6 +55,5 @@ class iController {
     actionManageUserfund()
 }
 
-class iControl <<clobl class>>
 
 @enduml
