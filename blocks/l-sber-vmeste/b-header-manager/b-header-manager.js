@@ -44,7 +44,7 @@ goog.scope(function() {
         },
         LIST: {'config': {
             'type': 'list', 'roundButton': '',
-            'choice_phrase': 'list',
+            'choice_phrase': '',
             'help_phrase': 'about-list'}
         },
         CHOICE: {'config': {

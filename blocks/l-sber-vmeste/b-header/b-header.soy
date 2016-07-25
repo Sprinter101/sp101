@@ -66,12 +66,14 @@
         </div>
         {let $hiddenChoice: $headerType == 'profile' ? true : false /}
         {let $choice_phrase: $params.config?.choice_phrase /}
-            <div class="{call .rootClass/}__choice-phrase">
+            <div class="{call .rootClass/}__choice-wrapper">
+            {if $headerType != 'profile'}
                 {call .choicePhrase}
                     {param choice_phrase: $choice_phrase /}
                     {param headerType: $headerType /}
                     {param hidden: $hiddenChoice/}
                 {/call}
+            {/if}
             </div>
         </div>
     </div>
@@ -149,17 +151,19 @@
     {/if}
         {switch $choice_phrase}
             {case 'list'}
-                Начните помогать
+                начните помогать
+            {case 'edit'}
+                редактировать фонд
             {case 'topic'}
-                Тема
+                тема
             {case 'direction'}
-                Направление
+                направление
             {case 'fund'}
-                Фонд
+                фонд
             {case 'donation'}
-                Выберите тип финансирования
+                выберите тип финансирования
             {default}
-                Направление
+                направление
         {/switch}
     </div>
 {/template}

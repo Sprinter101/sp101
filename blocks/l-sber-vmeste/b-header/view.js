@@ -43,9 +43,10 @@ goog.scope(function() {
         LOGOUT_PHRASE: 'b-header__help_logout',
         BUTTON_CONTAINER: 'b-header__button-wrapper',
         BUTTON: 'g-button_sber',
-        CHOICE_PHRASE: 'b-header__choice-phrase',
+        CHOICE_CONTAINER: 'b-header__choice-wrapper',
         ME_BUTTON: 'b-header__button_me',
-        CLOSE_BUTTON: 'b-header__button_close'
+        CLOSE_BUTTON: 'b-header__button_close',
+        HEADER_AUTHORIZED: 'b-header_authorized'
     };
 
     /**
@@ -72,15 +73,15 @@ goog.scope(function() {
             View.CssClass.BUTTON_CONTAINER
         );
 
-        this.dom.choicePhrase = this.getElementByClass(
-            View.CssClass.CHOICE_PHRASE
+        this.dom.choicePhraseContainer = this.getElementByClass(
+            View.CssClass.CHOICE_CONTAINER
         );
 
         this.dom.HelpPhraseContainer = this.getElementByClass(
             View.CssClass.HELP_PHRASE_CONTAINER
         );
 
-        this.checkLayout_();
+        //this.checkLayout_();
     };
 
     /**
@@ -93,23 +94,62 @@ goog.scope(function() {
 
      /**
      * check media layout
-     * for donation page and sber logo
+     * only for list page
      * @private
      */
     View.prototype.checkLayout_ = function() {
         var element = this.getElement();
         if (goog.dom.classlist.contains(element, 'b-header_list')) {
-            if ((Media.isExtraSmall()) || (Media.isSmall())) {
-                goog.dom.classlist.add(this.dom.buttonContainer, HIDDEN);
-                goog.dom.classlist.remove(this.dom.choicePhrase, HIDDEN);
-                goog.dom.classlist.add(this.dom.HelpPhraseContainer, HIDDEN);
+            console.log('check layout');
+            if (goog.dom.classlist.contains(
+                element, View.CssClass.HEADER_AUTHORIZED)) {
+
+                goog.dom.classlist.add(this.dom.buttonContainer,
+                        HIDDEN
+                    );
+
+                if ((Media.isExtraSmall()) || (Media.isSmall())) {
+                    goog.dom.classlist.remove(this.dom.choicePhraseContainer,
+                        HIDDEN
+                    );
+                    goog.dom.classlist.add(this.dom.HelpPhraseContainer,
+                        HIDDEN
+                    );
+                }
+                else {
+                    goog.dom.classlist.remove(this.dom.choicePhraseContainer,
+                        HIDDEN
+                    );
+                    goog.dom.classlist.remove(this.dom.HelpPhraseContainer,
+                        HIDDEN
+                    );
+                }
             }
             else {
-                goog.dom.classlist.remove(this.dom.buttonContainer, HIDDEN);
-                goog.dom.classlist.add(this.dom.choicePhrase, HIDDEN);
-                goog.dom.classlist.remove(this.dom.HelpPhraseContainer, HIDDEN);
+                 if ((Media.isExtraSmall()) || (Media.isSmall())) {
+                    goog.dom.classlist.add(this.dom.buttonContainer,
+                        HIDDEN
+                    );
+                    goog.dom.classlist.remove(this.dom.choicePhraseContainer,
+                        HIDDEN
+                    );
+                    goog.dom.classlist.add(this.dom.HelpPhraseContainer,
+                        HIDDEN
+                    );
+                }
+                else {
+                    goog.dom.classlist.remove(this.dom.buttonContainer,
+                        HIDDEN
+                    );
+                    goog.dom.classlist.add(this.dom.choicePhraseContainer,
+                        HIDDEN
+                    );
+                    goog.dom.classlist.remove(this.dom.HelpPhraseContainer,
+                        HIDDEN
+                    );
+                }
             }
-         }
+        }
     };
 
     /**
@@ -143,6 +183,30 @@ goog.scope(function() {
         goog.soy.renderElement(
             this.dom.choicePhrase,
             sv.lSberVmeste.bHeader.Template.title,
+            soyParams
+        );
+    };
+
+    /**
+     * render choice phrase
+     * @param {Object} params
+     */
+    View.prototype.renderListPageTitle = function(params) {
+        var choice_phrase;
+        if (params.loggedIn) {
+            choice_phrase = 'edit';
+        }
+        else {
+            choice_phrase = 'list';
+        }
+        var soyParams = {
+            'headerType': params.pageType,
+            'choice_phrase': choice_phrase,
+            'hidden': false
+        };
+        goog.soy.renderElement(
+            this.dom.choicePhraseContainer,
+            sv.lSberVmeste.bHeader.Template.choicePhrase,
             soyParams
         );
     };
@@ -208,6 +272,26 @@ goog.scope(function() {
             );
                 goog.dom.classlist.remove(
                 this.dom.button, View.CssClass.CLOSE_BUTTON
+            );
+        }
+        this.changeHeaderTypeAuthorized_(content);
+        this.checkLayout_();
+    };
+
+     /**
+    * Add 'authorized' class to eader element
+    * @param {string} content
+    * @private
+    */
+    View.prototype.changeHeaderTypeAuthorized_ = function(content) {
+        if (content === 'я' || content === 'x') {
+            goog.dom.classlist.remove(this.getElement(),
+                View.CssClass.HEADER_AUTHORIZED
+            );
+        }
+        else {
+            goog.dom.classlist.add(this.getElement(),
+                View.CssClass.HEADER_AUTHORIZED
             );
         }
     };

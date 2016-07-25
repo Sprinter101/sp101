@@ -58,7 +58,8 @@ goog.scope(function() {
     UserBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.createFundButton();
+        var loggedIn = this.params.loggedIn;
+        this.createFundButton(loggedIn);
     };
 
     /**
@@ -93,13 +94,20 @@ goog.scope(function() {
 
     /**
     * Creates Fund button
+    * @param {bool} loggedIn
     */
-    UserBlock.prototype.createFundButton = function() {
+    UserBlock.prototype.createFundButton = function(loggedIn) {
         var buttonContainer = this.getView().getDom().buttonContainer;
-
+        var content;
+        if (loggedIn) {
+            content = 'Продолжить';
+        }
+        else {
+            content = 'Основать фонд';
+        }
         var buttonConfig = {
             'data': {
-                'content': 'Основать фонд',
+                'content': content,
             }
         };
 

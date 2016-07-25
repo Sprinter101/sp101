@@ -58,6 +58,13 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     * @private
     */
     this.chosenCategoriesData_ = {};
+
+     /**
+    * @type {bool}
+    * @private
+    */
+    this.userLoggedIn_ = false;
+
 };
 goog.inherits(sv.lSberVmeste.bListPage.ListPage,
     sv.lSberVmeste.iPage.Page);
@@ -92,15 +99,16 @@ goog.scope(function() {
             UserService.isUserLoggedIn()
                 .then(function(result) {
                     var params = that.handleSuccessLoginCheck_(result);
-                    that.header_.renderButton(params);
+                    that.userLoggedIn_ = result.data.loggedIn;
+                    that.manageHeaderContent_(params);
+                    that.sendCategoriesRequest();
             }, function(err) {
                     var params = that.handleRejectionLoginCheck_(err);
-                    that.header_.renderButton(params);
+                    that.manageHeaderContent_(params);
+                    that.sendCategoriesRequest();
                 }
             );
        }
-
-        this.sendCategoriesRequest();
 
         this.listTab_ = this.decorateChild(
             'ListTab', this.getView().getDom().listTab
@@ -180,7 +188,7 @@ goog.scope(function() {
 
         if (!goog.object.isEmpty(this.chosenCategoriesData_)) {
 
-            this.createUserBlock();
+            this.createUserBlock(this.userLoggedIn_);
 
             this.getView().createPageTitleText(true);
         } else {
@@ -221,7 +229,10 @@ goog.scope(function() {
         this.userBlock_ = this.renderChild(
             'ListPageUserBlock',
             this.getView().getDom().userBlock,
-            {categories: this.chosenCategoriesData_}
+            {
+                categories: this.chosenCategoriesData_,
+                loggedIn: this.userLoggedIn_
+            }
         );
 
         this.getHandler().listen(
@@ -349,6 +360,22 @@ goog.scope(function() {
             'draft': true
         };
         return default_params;
+    };
+
+     /**
+    * set correct buttons and phrases to this.header_
+    * @param {Object} params
+    * @private
+    */
+    ListPage.prototype.manageHeaderContent_ = function(params) {
+        if (params.loggedIn) {
+            this.header_.renderListPageTitle(params);
+        }
+        else {
+            console.log('anonymous');
+            //this.header_.renderCorrectTitle(params);
+            this.header_.renderButton(params);
+        }
     };
 
 });  // goog.scope
