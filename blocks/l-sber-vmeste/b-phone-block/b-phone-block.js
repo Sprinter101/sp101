@@ -255,14 +255,14 @@ goog.scope(function() {
      */
     Block.prototype.handleVerificationRejection = function(err) {
         console.error(err);
-        var eventVerSuccess = {
+        var eventVerError = {
             type: Block.Event.VERIFICATION_ERROR,
             detail: {
                 phone: this.textPhone_.innerText.toString(),
                 response: err.data
             }
         };
-        this.dispatchEvent(eventVerSuccess);
+        this.dispatchEvent(eventVerError);
     };
 
     /**
