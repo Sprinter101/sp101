@@ -171,5 +171,6 @@ gulp.task('build', [
     'fonts',
     'styles',
     'soy',
-    'scripts'
+    'scripts',
+    'assets-html'
 ]);
