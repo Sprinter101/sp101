@@ -229,7 +229,7 @@ goog.scope(function() {
      * @param {Object} err
      */
     Block.prototype.handleRejection = function(err) {
-        console.log(err);
+        console.error(err);
     };
 
     /**
@@ -238,7 +238,10 @@ goog.scope(function() {
      * @param {Object} success
      */
     Block.prototype.handleSuccess = function(success) {
-        console.log(success);
+        if (success.data) {
+            console.log(success);
+            this.inputVerificationCode_.setValue(success.data);
+        }
     };
 
     /**
@@ -246,7 +249,7 @@ goog.scope(function() {
      * @param {Object} err
      */
     Block.prototype.handleVerificationRejection = function(err) {
-        console.log(err);
+        console.error(err);
         var eventVerSuccess = {
             type: Block.Event.VERIFICATION_ERROR,
             detail: {
