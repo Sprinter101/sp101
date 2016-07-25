@@ -21,6 +21,23 @@
     width: 50%;
 }
 
+
+.b-card:last-child {
+    border-bottom: none;
+}
+​
+// @include media-m {
+    // .b-card:nth-child(odd):nth-last-child(2) {
+    //     border-bottom: none;
+    // }
+// }
+
+
+
+
+
+
+
 .b-card_half-line {
     display: inline-block;
 
@@ -125,6 +142,7 @@
 @media screen and (max-width: $breakpointM) {
     .b-card__arrow {
         display: inline-block;
+        right: 10px;
     }
 
     .b-card {
@@ -138,5 +156,16 @@
 
     .b-card__info {
         max-width: 70%;
+    }
+
+    .b-card__arrow_show, .b-card__check-mark_show {
+        display: inline-block;
+        right: 5px;
+    }
+}
+
+@media screen and (min-width: $breakpointM) {
+    .b-card:nth-child(odd):nth-last-child(2) {
+        border-bottom: none;
     }
 }

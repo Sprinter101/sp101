@@ -12,31 +12,31 @@ $breakpointXXL: 1280px;
 
 @mixin media-m {
     @media screen and (min-width: $breakpointM) {
-      @content;
+        @content;
     }
 }
 
 @mixin media-l {
     @media screen and (min-width: $breakpointL) {
-     @content;
+        @content;
     }
 }
 
 @mixin media-xl {
     @media screen and (min-width: $breakpointXL) {
-      @content;
+        @content;
     }
 }
 
 @mixin media-xxl {
     @media screen and (min-width: $breakpointXXL) {
-      @content;
+        @content;
     }
 }
 
 @mixin landscape {
     @media only screen and (orientation:landscape) {
-      @content;
+        @content;
     }
 }
 
