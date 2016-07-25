@@ -115,7 +115,7 @@ goog.scope(function() {
      * @private
      */
     DonatePage.prototype.isUserLoggedIn_ = function() {
-        UserService.getInstance().isUserLoggedIn()
+        UserService.isUserLoggedIn()
             .then(
                 this.handleSuccessLoginCheck_,
                 this.handleRejectionLoginCheck_,

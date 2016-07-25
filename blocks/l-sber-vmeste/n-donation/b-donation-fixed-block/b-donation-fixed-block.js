@@ -112,9 +112,9 @@ goog.scope(function() {
      /**
      * dispatch custom event
      * @param {sv.gButton.Button.Event.CLICK} event
-     * @protected
+     * @private
      */
-    DonationFixedBlock.prototype.dispatchReadyEvent = function(event) {
+    DonationFixedBlock.prototype.dispatchReadyEvent_ = function(event) {
         var customEvent = new goog.events.Event(DonationFixedBlock.Event
             .DONATION_FIXED_READY, this);
 
@@ -133,7 +133,7 @@ goog.scope(function() {
      * @private
      */
     DonationFixedBlock.prototype.onButtonReadyClick_ = function(event) {
-        this.dispatchReadyEvent(event);
+        this.dispatchReadyEvent_(event);
     };
 
      /**

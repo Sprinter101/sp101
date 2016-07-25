@@ -32,9 +32,7 @@ goog.inherits(
 
 goog.scope(function() {
     var PageManager = sv.lSberVmeste.bPageManager.PageManager,
-        HeaderManager = sv.lSberVmeste.bHeaderManager.HeaderManager,
-        Router = sv.lSberVmeste.iRouter.Router,
-        Request = cl.iRequest.Request;
+        Router = sv.lSberVmeste.iRouter.Router;
 
     /**
      * @override
@@ -57,7 +55,6 @@ goog.scope(function() {
      * Change page
      * @param  {string} page
      * @param  {Object=} opt_params
-     * @protected
      */
     PageManager.prototype.setCurrentPage = function(page, opt_params) {
         if (this.currentPage_) {

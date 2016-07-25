@@ -80,7 +80,7 @@ goog.scope(function() {
             View.CssClass.HELP_PHRASE_CONTAINER
         );
 
-        this.checkLayout();
+        this.checkLayout_();
     };
 
     /**
@@ -94,9 +94,9 @@ goog.scope(function() {
      /**
      * check media layout
      * for donation page and sber logo
-     * @protected
+     * @private
      */
-    View.prototype.checkLayout = function() {
+    View.prototype.checkLayout_ = function() {
         var element = this.getElement();
         if (goog.dom.classlist.contains(element, 'b-header_list')) {
             if ((Media.isExtraSmall()) || (Media.isSmall())) {
@@ -115,7 +115,6 @@ goog.scope(function() {
     /**
      * check if button has 'me' class
      * @return {bool}
-     * @protected
      */
     View.prototype.checkButtonCustomClass = function() {
         return goog.dom.classlist.contains(
@@ -126,7 +125,6 @@ goog.scope(function() {
     /**
      * check if help has 'logout' class
      * @return {bool}
-     * @protected
      */
     View.prototype.checkHelpClass = function() {
         return goog.dom.classlist.contains(
@@ -137,7 +135,6 @@ goog.scope(function() {
     /**
      * render choice phrase
      * @param {string} phrase
-     * @protected
      */
     View.prototype.renderCorrectTitle = function(phrase) {
         var soyParams = {
@@ -153,7 +150,6 @@ goog.scope(function() {
     /**
      * render help phrase
      * @param {string} help_phrase
-     * @protected
      */
     View.prototype.renderCorrectHelp = function(help_phrase) {
         var soyParams = {'help_phrase': help_phrase};
@@ -170,14 +166,13 @@ goog.scope(function() {
             .listen(
                 this.dom.help,
                 goog.events.EventType.CLICK,
-                this.onHelpClick
+                this.onHelpClick_
             );
     };
 
     /**
      * render correct button
      * @param {string} content
-     * @protected
      */
     View.prototype.renderButton = function(content) {
         var soyParams = {'roundButton': content};
@@ -190,15 +185,15 @@ goog.scope(function() {
         this.dom.button = this.getElementByClass(
             View.CssClass.BUTTON
         );
-        this.changeButtonClass(content);
+        this.changeButtonClass_(content);
     };
 
     /**
     * Change button class
     * @param {string} content
-    * @protected
+    * @private
     */
-    View.prototype.changeButtonClass = function(content) {
+    View.prototype.changeButtonClass_ = function(content) {
         if (content === 'x') {
             goog.dom.classlist.add(
                 this.dom.button, View.CssClass.CLOSE_BUTTON
@@ -220,9 +215,9 @@ goog.scope(function() {
      /**
      * handles help phrase click
      * @param {goog.events.EventType.CLICK} event
-     * @protected
+     * @private
      */
-    View.prototype.onHelpClick = function(event) {
+    View.prototype.onHelpClick_ = function(event) {
         var customEvent = new goog.events.Event(
             View.Event.HELP_CLICK, this
         );

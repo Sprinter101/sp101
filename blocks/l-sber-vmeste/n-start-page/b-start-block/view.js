@@ -79,7 +79,6 @@ goog.scope(function() {
     /**
      * Render correct userfund logo
      * @param {bool} loggedIn
-     * @public
      */
     View.prototype.renderUserfundLogo = function(loggedIn) {
         var soyParams = {'data': {'loggedIn': loggedIn} };
@@ -112,10 +111,9 @@ goog.scope(function() {
     };
 
     /**
-    * render correct icon as userfund logo
-    * @param {bool} draft
-    * @public
-    */
+     * render correct icon as userfund logo
+     * @param {bool} draft
+     */
     View.prototype.renderStartButton = function(draft) {
         var soyParams = {'draft': draft};
         goog.soy.renderElement(
@@ -157,7 +155,6 @@ goog.scope(function() {
     /**
      * return button custom class
      * @return {bool}
-     * @public
      */
     View.prototype.checkStartButtonClass = function() {
         return goog.dom.classlist.contains(

@@ -107,7 +107,6 @@ goog.scope(function() {
      /**
     * Choose correct content for header button
     * @param {Object} params
-    * @public
     */
     Header.prototype.renderButton = function(params) {
         var content;
@@ -139,7 +138,6 @@ goog.scope(function() {
      /**
     * Choose correct phrase for header help_phrase
     * @param {Object} params
-    * @public
     */
     Header.prototype.renderCorrectHelp = function(params) {
         if (params.help_phrase === 'logout') {
@@ -150,7 +148,6 @@ goog.scope(function() {
     /**
     * Choose correct phrase for header title
     * @param {string} phrase
-    * @public
     */
     Header.prototype.renderCorrectTitle = function(phrase) {
         this.getView().renderCorrectTitle(phrase);

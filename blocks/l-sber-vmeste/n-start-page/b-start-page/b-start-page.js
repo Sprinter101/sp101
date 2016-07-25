@@ -10,6 +10,7 @@ goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 goog.require('sv.lSberVmeste.iUserService.UserService');
+goog.require('sv.lSberVmeste.iUserfundService.UserfundService');
 
 
 
@@ -50,6 +51,7 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         UserService = sv.lSberVmeste.iUserService.UserService,
+        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService,
         View = sv.lSberVmeste.bStartPage.View;
 
     /**
@@ -71,9 +73,9 @@ goog.scope(function() {
         this.header_ = this.params.header;
             if (this.header_) {
             var that = this;
-            UserService.getInstance().isUserLoggedIn()
+            UserService.isUserLoggedIn()
                 .then(function(result) {
-                    var params = that.handleSuccessLoginCheck(result);
+                    var params = that.handleSuccessLoginCheck_(result);
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
                     var draft = params.draft;
@@ -85,7 +87,7 @@ goog.scope(function() {
                         that.getFundsCount_();
                     }
                 }, function(err) {
-                    var params = that.handleRejectionLoginCheck(err);
+                    var params = that.handleRejectionLoginCheck_(err);
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
             });
@@ -96,8 +98,9 @@ goog.scope(function() {
     * Ajax success handler
     * @param {Object} response
     * @return {Object}
+    * @private
     */
-    StartPage.prototype.handleSuccessLoginCheck = function(response) {
+    StartPage.prototype.handleSuccessLoginCheck_ = function(response) {
         var loggedIn = response.data.loggedIn;
         var firstName = response.data.firstName;
         var lastName = response.data.lastName;
@@ -111,8 +114,9 @@ goog.scope(function() {
     * Ajax rejection handler
     * @param {Object} err
     * @return {Object}
+    * @private
     */
-    StartPage.prototype.handleRejectionLoginCheck = function(err) {
+    StartPage.prototype.handleRejectionLoginCheck_ = function(err) {
         console.log(err);
         var default_params = {'loggedIn': false, 'firstName': undefined,
             'lastName': undefined, 'draft': true, 'pageType': 'start'};
@@ -148,7 +152,7 @@ goog.scope(function() {
      * @private
      */
     StartPage.prototype.getFundsCount_ = function() {
-        UserService.getInstance().getUserfundsCount()
+        UserfundService.getUserfundsCount()
             .then(this.handleSuccess_,
                 this.handleRejection_,
                 this);

@@ -67,4 +67,28 @@ goog.scope(function() {
         return Promise.all([reqDirections, reqTopics]);
     };
 
+     /**
+     * Remove user entity by id
+     * @param {number} entityId
+     * @return {object}
+     */
+    CardService.removeEntity = function(entityId) {
+        return request.send({
+            url: '/user-fund/' + entityId,
+            type: 'DELETE'
+        });
+    };
+
+    /**
+     * Add user entity by id
+     * @param {number} entityId
+     * @return {object}
+     */
+    CardService.addEntity = function(entityId) {
+        return request.send({
+            url: '/user-fund/' + entityId,
+            type: 'POST'
+        });
+    };
+
 });  // goog.scope
