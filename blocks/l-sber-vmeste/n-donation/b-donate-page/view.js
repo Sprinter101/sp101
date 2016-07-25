@@ -35,6 +35,7 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-page-donate',
         TAB: 'g-tab_sber',
+        TABS_CONTAINER: 'b-page-donate__inner-wrap',
         DONATE_BLOCK_FIXED_SUM: 'b-page-donate__fixed-block',
         DONATE_BLOCK_PERCENT: 'b-page-donate__percent-block'
     };
@@ -46,7 +47,11 @@ goog.scope(function() {
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.dom.donationTabs = this.getElementByClass(
+        this.dom.tabsContainer = this.getElementByClass(
+            View.CssClass.TABS_CONTAINER, element
+        );
+
+        /*this.dom.donationTabs = this.getElementByClass(
             View.CssClass.TAB, element
         );
         this.dom.donateBlockFixedSum = this.getElementByClass(
@@ -54,7 +59,7 @@ goog.scope(function() {
         );
         this.dom.donateBlockPercent = this.getElementByClass(
             View.CssClass.DONATE_BLOCK_PERCENT, element
-        );
+        );*/
     };
 
     /**
@@ -63,5 +68,30 @@ goog.scope(function() {
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+    };
+
+    /**
+     * render correct button
+     * @param {number} selectedTabId
+     */
+    View.prototype.renderTabs = function(selectedTabId) {
+        var soyParams = {'selectedTabId': selectedTabId};
+        console.log('render tabs');
+        goog.soy.renderElement(
+            this.dom.tabsContainer,
+            sv.lSberVmeste.bDonatePage.Template.tabs,
+            soyParams,
+            {'factory': 'sber'}
+        );
+        var element = this.getElement();
+       this.dom.donationTabs = this.getElementByClass(
+            View.CssClass.TAB, element
+        );
+        this.dom.donateBlockFixedSum = this.getElementByClass(
+            View.CssClass.DONATE_BLOCK_FIXED_SUM, element
+        );
+        this.dom.donateBlockPercent = this.getElementByClass(
+            View.CssClass.DONATE_BLOCK_PERCENT, element
+        );
     };
 });  // goog.scope

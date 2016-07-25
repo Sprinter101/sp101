@@ -12,7 +12,23 @@
  * @override
  */
 {template .body}
-    <div class="{call .rootClass/}__wrapper">
+    <div class="{call .rootClass/}__inner-wrap">
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-donate
+{/template}
+
+/**
+ * tabs template
+ * @param selectedTabId {number}
+ */
+{template .tabs}
+{let $tabId: $selectedTabId ? $selectedTabId : 0 /}
     {call .renderChild}
           {param params: [
                 'type': 'TabSber',
@@ -47,7 +63,8 @@
                                     ]
                                 ]
                             ]
-                        ]
+                        ],
+                        'selectedTabId': $tabId
                     ],
                     'config': [
                         'tabClasses': [
@@ -60,12 +77,5 @@
             ]
         /}
         {/call}
-    </div>
-{/template}
 
-/**
- * @override
- */
-{template .rootClass}
-    b-page-donate
 {/template}

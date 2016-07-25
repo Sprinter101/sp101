@@ -51,6 +51,13 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
     * @private
     */
     this.next_route_ = '';
+
+    /**
+    * payment choice that user had already selected
+    * @type {string}
+    * @private
+    */
+    this.payment_choice_ = '';
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
@@ -67,60 +74,30 @@ goog.scope(function() {
         View = sv.lSberVmeste.bDonatePage.View,
         UserService = sv.lSberVmeste.iUserService.UserService;
 
+     /**
+     * Tab map
+     * @type {Object}
+     */
+    DonatePage.BlocksTabMap = {
+        'fixed': 0,
+        'percent': 1
+    };
+
     /**
     * @override
     * @param {Element} element
     */
     DonatePage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
-        var donationTabs = this.getView().getDom().donationTabs;
-        this.donationTabs_ = this.decorateChild('TabSber',
-        donationTabs);
-
-        this.donateBlockFixedSum_ = this.decorateChild('DonationFixedBlock',
-            this.getView().getDom().donateBlockFixedSum);
-
-        this.donateBlockPercent_ = this.decorateChild('DonationPercentBlock',
-            this.getView().getDom().donateBlockPercent);
-
-        this.headerManager_ = this.params.headerManager_;
-        if (this.headerManager_ !== undefined) {
-            var that = this;
-            that.headerManager_.setChoiceHeader();
-        }
-    };
-
-    /**
-    * @override
-    */
-    DonatePage.prototype.enterDocument = function() {
-        goog.base(this, 'enterDocument');
-
-        this.getHandler().listen(
-            this.donateBlockFixedSum_,
-            DonationFixedBlock.Event.DONATION_FIXED_READY,
-            this.onDonationFixedReady_
-        )
-        .listen(this.donateBlockPercent_,
-            DonationPercentBlock.Event.DONATION_PERCENT_READY,
-            this.onDonationPercentReady_
+        var that = this;
+        UserService.isUserLoggedIn()
+                .then(function(result) {
+                    that.handleSuccessLoginCheck_(result);
+                }, function(err) {
+                    that.handleRejectionLoginCheck_(err);
+                }
         );
 
-        this.isUserLoggedIn_();
-    };
-
-    /**
-     * check if user is logged in
-     * @private
-     */
-    DonatePage.prototype.isUserLoggedIn_ = function() {
-        UserService.isUserLoggedIn()
-            .then(
-                this.handleSuccessLoginCheck_,
-                this.handleRejectionLoginCheck_,
-                this
-            );
     };
 
      /**
@@ -133,10 +110,14 @@ goog.scope(function() {
         var loggedIn = response.data.loggedIn;
         if (loggedIn) {
             this.next_route_ = Route.PAYMENT_TEMP;
+            this.payment_choice_ = response.data.payment_choice || 'percent';
         }
         else {
             this.next_route_ = Route.REGISTRATION;
+            this.payment_choice_ = 'fixed';
         }
+        console.log('success');
+        this.renderTabs(this.payment_choice_);
     };
 
      /**
@@ -148,6 +129,37 @@ goog.scope(function() {
     DonatePage.prototype.handleRejectionLoginCheck_ = function(err) {
         console.log(err);
         this.next_route_ = Route.REGISTRATION;
+        this.payment_choice_ = 'fixed';
+        this.renderTabs(this.payment_choice_);
+    };
+
+     /**
+     * render donate page tabs
+     * @param {string} payment_choice
+     */
+    DonatePage.prototype.renderTabs = function(payment_choice) {
+        var selectedTabId = DonatePage.BlocksTabMap[payment_choice];
+        this.getView().renderTabs(selectedTabId);
+
+        var donationTabs = this.getView().getDom().donationTabs;
+        this.donationTabs_ = this.decorateChild('TabSber',
+        donationTabs);
+
+        this.donateBlockFixedSum_ = this.decorateChild('DonationFixedBlock',
+            this.getView().getDom().donateBlockFixedSum);
+
+        this.donateBlockPercent_ = this.decorateChild('DonationPercentBlock',
+            this.getView().getDom().donateBlockPercent);
+
+        this.getHandler().listen(
+            this.donateBlockFixedSum_,
+            DonationFixedBlock.Event.DONATION_FIXED_READY,
+            this.onDonationFixedReady_
+        )
+        .listen(this.donateBlockPercent_,
+            DonationPercentBlock.Event.DONATION_PERCENT_READY,
+            this.onDonationPercentReady_
+        );
     };
 
      /**
