@@ -2,50 +2,50 @@
 
 title SV-43 b-list-page
 
-iPage <|-- bListPage
-bListPage o-- bHeader
-bListPage *-- bUserBlock
-bListPage *-- gListTab
-bListPage "2" *-- bCardList
-bListPage --> iRouter
-bListPage --> iRequest
-bListPage --> iUserService
+Page <|-- ListPage
+ListPage o-- Header
+ListPage *-- UserBlock
+ListPage *-- ListTab
+ListPage "2" *-- CardList
+ListPage --> Router
+ListPage --> UserService
 
-bHeader *-- gIcon
-bHeader *-- gButton
-bHeader --> iRouter
-bHeader --> iRequest
+Header *-- Icon
+Header *-- Button
+Header --> Router
+Header --> Request
 
-bUserBlock *-- gButton
+UserBlock *-- Button
 
-bCardList "0..*" *-- bCard
+CardList "0..*" *-- Card
 
-iUserService --> iRequest
+UserService --> Request
 
-class bCardList <extend iControl> {
+class CardList <extend cl.Control> {
     renderCards()
 }
 
-class iUserService {
+class UserService {
     isUserLoggedIn()
     removeEntity()
     addEntity()
 }
 
-class gListTab <extend cl.gTab> {
+class ListTab <extend cl.Tab> {
     getContentTabs()
     setActiveTab()
     resizeActiveTab()
     createIcon()
 }
 
-class bHeader <extend iControl> {
+class Header <extend cl.Control> {
     renderCorrectTitle()
     renderCorrectHelp()
     renderButton()
+    renderListPageTitle()
 }
 
-class iRouter <extend cl.iRouter> {
+class Router <extend cl.Router> {
     enable()
     use()
     changeLocation()
@@ -53,16 +53,17 @@ class iRouter <extend cl.iRouter> {
     parseMaskDataFromUrl()
 }
 
-class iUserService {
+class UserService {
     isUserLoggedIn()
 }
 
-class bUserBlock <extend iControl>
-class gButton <extend cl.gButton>
-class iPage  <extend iControl>
+class UserBlock <extend cl.Control>
+class Button <extend cl.Button>
+class Page  <extend cl.Control>
+class Request {
+    init()
+    send()
+}
 
-
-class iRequest <<clobl class>>
-class gIcon <<clobl class>>
 
 @enduml

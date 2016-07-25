@@ -2,41 +2,41 @@
 
 title SV-55 b-donate-page
 
-iPage <|-- bDonatePage
-bDonatePage *--  gTab
-bDonatePage *--  bDonationFixedBlock
-bDonatePage *--  bDonationPercentBlock
+Page <|-- DonatePage
+DonatePage *--  cl.Tab
+DonatePage *--  DonationFixedBlock
+DonatePage *--  DonationPercentBlock
 
-bDonatePage --> iRouter
-bDonatePage --> iUserService
+DonatePage --> Router
+DonatePage --> UserService
 
-bDonationFixedBlock *-- gButton
-bDonationFixedBlock *-- gInput
+DonationFixedBlock *-- Button
+DonationFixedBlock *-- Input
 
-bDonationPercentBlock *-- gButton
-bDonationPercentBlock *-- gInput
-bDonationPercentBlock *-- gSlider
+DonationPercentBlock *-- Button
+DonationPercentBlock *-- Input
+DonationPercentBlock *-- Slider
 
-iUserService --> iRequest
+UserService --> Request
 
-class gSlider {
+class Slider {
     enable()
     disable()
     getValue()    
 }
 
-class iRouter <extend cl.iRouter> {
+class Router <extend cl.Router> {
     use()
     changeLocation()
     getMaskByUrl()
     parseMaskDataFromUrl()
 }
 
-class iUserService {
+class UserService {
     isUserLoggedIn()
 }
 
-class gInput <extend cl.gInput> {
+class Input <extend cl.Input> {
     setValue()
     enable()
     disable()
@@ -44,15 +44,16 @@ class gInput <extend cl.gInput> {
     validate()
 }
 
-class bDonationFixedBlock <extend iControl>
-class bDonationPercentBlock <extend iControl>
-class gButton <extend cl.gButton>
+class Request {
+    init()
+    send()
+}
 
-class iPage  <extend iControl>
+class DonationFixedBlock <extend cl.Control>
+class DonationPercentBlock <extend cl.Control>
+class Button <extend cl.Button>
 
-
-class iRequest <<clobl class>>
-class gTab <<clobl class>>
+class Page  <extend cl.Control>
 
 
 @enduml
