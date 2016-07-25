@@ -12,14 +12,20 @@
 /**
  * Body
  * @override
+ * @param params {{
+ *          data {
+ *              initValue: number
+ *          }
+ * }}
  */
 {template .body}
+{let $initValue: $params.data.initValue /}
     <div class="{call .rootClass/}__track">
-        <div class="{call .rootClass/}__slider"  style="left: 0;">
-             <div class="{call .rootClass/}__label" style="left: -17px;">1
+        <div class="{call .rootClass/}__slider">
+             <div class="{call .rootClass/}__label{sp}{call .hidden/}" style="left: -17px;">
             </div>
-            <span class="{call .rootClass/}__label_small" style="left: 25px;">%</span>
-            <div class="{call .rootClass/}__thumb"></div>
+            <span class="{call .rootClass/}__label_small{sp}{call .hidden/}" style="left: 25px;">%</span>
+            <div class="{call .rootClass/}__thumb{sp}{call .hidden/}" data-params='{$initValue}' ></div>
         </div>
     </div>
 {/template}
@@ -43,4 +49,13 @@
     {if $params?.config?.isDisabled}
         {call .rootClass/}_disabled
     {/if}
+{/template}
+
+
+/**
+ * Additional class for hiding unwanted 
+ * for this headerType element
+ */
+{template .hidden}
+    i-utils__hidden
 {/template}

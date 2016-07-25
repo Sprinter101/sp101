@@ -3,6 +3,7 @@ goog.provide('sv.gSlider.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.dom.classlist');
+goog.require('goog.dom.dataset');
 goog.require('goog.events.EventType');
 goog.require('goog.style');
 goog.require('sv.iMedia.Media');
@@ -21,13 +22,38 @@ sv.gSlider.View = function(opt_params, opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.gSlider.View.CssClass.ROOT);
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.left_ = 0;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.is_move_ = 0;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.currentPos_ = null;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.start_ = null;
 };
 goog.inherits(sv.gSlider.View, cl.iControl.View);
 
 
 goog.scope(function() {
     var View = sv.gSlider.View,
-        Media = sv.iMedia.Media;
+        Media = sv.iMedia.Media,
+        HIDDEN = sv.iUtils.Utils.CssClass.HIDDEN;
     /**
      * Css class enum
      * @enum {string}
@@ -64,13 +90,56 @@ goog.scope(function() {
             View.CssClass.LABEL_PERCENT);
         this.dom.slider = this.getElementByClass(View.CssClass.SLIDER);
 
-        this.start_ = null;
-        this.is_move_ = 0;
-        this.currentPos_ = 0;
-        this.left_ = 0;
-        this.currentPercent = 1;
+        var initValue = goog.dom.dataset.getAll(this.dom.thumb);
+        initValue = parseInt(initValue.params, 10);
+        console.log(initValue);
+        this.init(initValue);
+
     };
 
+     /**
+    * set initial slider's value
+    * @param {numbe} initValue
+    */
+    View.prototype.init = function(initValue) {
+        this.currentPercent_ = initValue || 1;
+
+        if (this.currentPercent_ === 1) {
+            this.currentPos_ = 0;
+        }
+        else {
+            this.currentPos_ = this.MakeInitialPosition_(initValue);
+        }
+        this.applyMovement_(initValue);
+        /*this.dom.slider.style.transform = 'translateX(' +
+            this.currentPos_ + 'px)';*/
+        this.dom.label.innerHTML = initValue;
+        goog.dom.classlist.remove(this.dom.thumb, HIDDEN);
+        goog.dom.classlist.remove(this.dom.label, HIDDEN);
+        goog.dom.classlist.remove(this.dom.label_percent, HIDDEN);
+        this.left_ = this.currentPos_;
+    };
+
+
+     /**
+     * calculates current donation percent
+     * @param {number} initValue
+     * @return {number} current position
+     * @private
+     */
+    View.prototype.MakeInitialPosition_ = function(initValue) {
+        var track_size = goog.style.getSize(this.dom.track).width;
+        //var currentPercent = currentPos / this.track_size * 14;
+        var currentPos = initValue / 14 * track_size;
+        currentPos = Math.floor(currentPos);
+        if (currentPos >= track_size) {
+            currentPos = track_size;
+        }
+        else if (currentPos < 1) {
+            currentPos = 0;
+        }
+        return currentPos;
+    };
 
      /**
     * @override
@@ -147,7 +216,7 @@ goog.scope(function() {
                 this.dom.label.innerHTML = currentPercent;
                 this.applyMovement_(currentPercent);
                 this.dispatchMoveEvent_(currentPercent);
-                this.currentPercent = currentPercent;
+                this.currentPercent_ = currentPercent;
             }
         };
 
@@ -193,12 +262,12 @@ goog.scope(function() {
 
         /**
          * calculates current donation percent
-         * @param {number} delta_x
+         * @param {number} currentPos
          * @return {number} current percent value
          * @private
          */
-        View.prototype.CalculatePercent_ = function(delta_x) {
-            var currentPercent = delta_x / this.track_size * 14;
+        View.prototype.CalculatePercent_ = function(currentPos) {
+            var currentPercent = currentPos / this.track_size * 14;
             return currentPercent;
         };
 
@@ -222,7 +291,7 @@ goog.scope(function() {
          * @return {number} currentPercent
          */
         View.prototype.getValue = function() {
-            return this.currentPercent;
+            return this.currentPercent_;
         };
 
          /**

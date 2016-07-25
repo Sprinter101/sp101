@@ -73,10 +73,14 @@ goog.scope(function() {
     /**
      * render correct button
      * @param {number} selectedTabId
+     * @param {number} sliderInitValue
      */
-    View.prototype.renderTabs = function(selectedTabId) {
-        var soyParams = {'selectedTabId': selectedTabId};
-        console.log('render tabs');
+    View.prototype.renderTabs = function(selectedTabId, sliderInitValue) {
+        var soyParams = {
+            'selectedTabId': selectedTabId,
+            'sliderInitValue': sliderInitValue
+        };
+
         goog.soy.renderElement(
             this.dom.tabsContainer,
             sv.lSberVmeste.bDonatePage.Template.tabs,

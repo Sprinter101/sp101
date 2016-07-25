@@ -58,6 +58,13 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
     * @private
     */
     this.payment_choice_ = '';
+
+     /**
+    * slider initial value
+    * @type {number}
+    * @private
+    */
+    this.sliderInitValue_ = 1;
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
@@ -111,13 +118,15 @@ goog.scope(function() {
         if (loggedIn) {
             this.next_route_ = Route.PAYMENT_TEMP;
             this.payment_choice_ = response.data.payment_choice || 'percent';
+            this.sliderInitValue_ = 3;
         }
         else {
             this.next_route_ = Route.REGISTRATION;
-            this.payment_choice_ = 'fixed';
+            this.payment_choice_ = 'percent';
+            this.sliderInitValue_ = 10;
         }
         console.log('success');
-        this.renderTabs(this.payment_choice_);
+        this.renderTabs(this.payment_choice_, this.sliderInitValue_);
     };
 
      /**
@@ -130,16 +139,20 @@ goog.scope(function() {
         console.log(err);
         this.next_route_ = Route.REGISTRATION;
         this.payment_choice_ = 'fixed';
-        this.renderTabs(this.payment_choice_);
+        this.sliderInitValue_ = 1;
+        this.renderTabs(this.payment_choice_, this.sliderInitValue_);
     };
 
      /**
      * render donate page tabs
      * @param {string} payment_choice
+     * @param {number} sliderInitValue
      */
-    DonatePage.prototype.renderTabs = function(payment_choice) {
+    DonatePage.prototype.renderTabs = function(
+            payment_choice, sliderInitValue) {
+
         var selectedTabId = DonatePage.BlocksTabMap[payment_choice];
-        this.getView().renderTabs(selectedTabId);
+        this.getView().renderTabs(selectedTabId, sliderInitValue);
 
         var donationTabs = this.getView().getDom().donationTabs;
         this.donationTabs_ = this.decorateChild('TabSber',
