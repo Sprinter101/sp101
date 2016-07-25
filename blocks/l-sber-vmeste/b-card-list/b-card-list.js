@@ -67,8 +67,7 @@ goog.scope(function() {
                 data: {
                     logoSrc: card.imgUrl,
                     title: card.title,
-                    places: (pageType == 'CARD') ?
-                        this.parseCardType_(card.type.toString()) : ''
+                    places: this.parserChooser_(pageType, card.type.toString())
                 },
                 config: {
                     customClasses: this.cardsCustomClasses_,
@@ -96,6 +95,28 @@ goog.scope(function() {
         }
 
         this.dispatchEvent(CardList.Event.CARDS_RENDERED);
+    };
+
+    /**
+     * Easy-to-change parser
+     * @param {string} pageType
+     * @param {string} parserTarget
+     * @return {string}
+     * @private
+     */
+    CardList.prototype.parserChooser_ = function(pageType, parserTarget) {
+        switch (pageType) {
+            case 'CARD':
+                 return this.parseCardType_(parserTarget);
+                break;
+            case 'LIST':
+                return '';
+                break;
+            default:
+                return this.parseCardType_(parserTarget);
+                break;
+
+        }
     };
 
     /**
