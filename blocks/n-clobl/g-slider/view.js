@@ -111,9 +111,8 @@ goog.scope(function() {
             this.currentPos_ = this.MakeInitialPosition_(initValue);
         }
         this.applyMovement_(initValue);
-        /*this.dom.slider.style.transform = 'translateX(' +
-            this.currentPos_ + 'px)';*/
-        this.dom.label.innerHTML = initValue;
+
+        this.dom.label.innerHTML = this.currentPercent_;
         goog.dom.classlist.remove(this.dom.thumb, HIDDEN);
         goog.dom.classlist.remove(this.dom.label, HIDDEN);
         goog.dom.classlist.remove(this.dom.label_percent, HIDDEN);
@@ -129,7 +128,6 @@ goog.scope(function() {
      */
     View.prototype.MakeInitialPosition_ = function(initValue) {
         var track_size = goog.style.getSize(this.dom.track).width;
-        //var currentPercent = currentPos / this.track_size * 14;
         var currentPos = initValue / 14 * track_size;
         currentPos = Math.floor(currentPos);
         if (currentPos >= track_size) {
@@ -202,22 +200,23 @@ goog.scope(function() {
          */
         View.prototype.onThumbMove_ = function(event) {
             this.track_size = goog.style.getSize(this.dom.track).width;
-            if (this.is_move_ == 1) {
-                var step = event.clientX - this.start_;
-                this.currentPos_ = this.left_ + step;
-                if (this.currentPos_ >= this.track_size) {
-                    this.currentPos_ = this.track_size;
+                if (this.is_move_ == 1) {
+                    var step = event.clientX - this.start_;
+                    this.currentPos_ = this.left_ + step;
+                    if (this.currentPos_ >= this.track_size) {
+                        this.currentPos_ = this.track_size;
+                    }
+                    else if (this.currentPos_ < 1) {
+                        this.currentPos_ = 0;
+                    }
+                    var currentPercent = this.CalculatePercent_(
+                        this.currentPos_);
+                    currentPercent = Math.floor(currentPercent) + 1;
+                    this.dom.label.innerHTML = currentPercent;
+                    this.applyMovement_(currentPercent);
+                    this.dispatchMoveEvent_(currentPercent);
+                    this.currentPercent_ = currentPercent;
                 }
-                else if (this.currentPos_ < 1) {
-                    this.currentPos_ = 0;
-                }
-                var currentPercent = this.CalculatePercent_(this.currentPos_);
-                currentPercent = Math.floor(currentPercent) + 1;
-                this.dom.label.innerHTML = currentPercent;
-                this.applyMovement_(currentPercent);
-                this.dispatchMoveEvent_(currentPercent);
-                this.currentPercent_ = currentPercent;
-            }
         };
 
          /**
@@ -284,6 +283,7 @@ goog.scope(function() {
             document.onmousemove = null;
             this.dom.thumb.onmouseup = null;
             return this.currentPos_;
+
          };
 
           /**
@@ -309,32 +309,32 @@ goog.scope(function() {
                 this.getHandler().listen(
                     this.dom.slider,
                     goog.events.EventType.MOUSEDOWN,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .listen(
                     this.getElement(),
                     goog.events.EventType.MOUSEMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .listen(
                     document,
                      goog.events.EventType.MOUSEUP,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 )
                 .listen(
                     this.dom.slider,
                     goog.events.EventType.TOUCHSTART,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .listen(
                     this.getElement(),
                     goog.events.EventType.TOUCHMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .listen(
                     document,
                      goog.events.EventType.TOUCHEND,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 );
             }
         };
@@ -355,32 +355,32 @@ goog.scope(function() {
                 this.getHandler().unlisten(
                     this.dom.slider,
                     goog.events.EventType.MOUSEDOWN,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .unlisten(
                     this.getElement(),
                     goog.events.EventType.MOUSEMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .unlisten(
                     document,
                      goog.events.EventType.MOUSEUP,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 )
                 .unlisten(
                     this.dom.slider,
                     goog.events.EventType.TOUCHSTART,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .unlisten(
                     this.getElement(),
                     goog.events.EventType.TOUCHMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .unlisten(
                     document,
                      goog.events.EventType.TOUCHEND,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 );
             }
         };

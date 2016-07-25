@@ -11,18 +11,22 @@
 /**
  * @override
  * @param params {{
- *      data {
- *          sliderInitValue: number
- *      }
- * }}
+ *           data {
+ *          sliderInitValue: number,
+ *          inputIncomeValue: number
+ *          }
+ *    }}
  */
 {template .body autoescape="strict" kind="html"}
-{let $initValue: $params.data.sliderInitValue /}
+    {let $initValue: $params.data.sliderInitValue /}
+    {let $inputValue: $params.data.inputIncomeValue /}
     <div class="{call .rootClass/}__inner-wrap">
         <div class="{call .rootClass/}__choice-wrap{sp}{call .clearfix/}">
         <div class="{call .rootClass/}__user-income{sp}{call .clearfix/}">
-                {call .inputTip/}
-                {call .input/}
+            {call .inputTip/}
+            {call .input}
+                {param inputValue: $inputValue /}
+            {/call}
         </div>
         <div class="{call .rootClass/}__donation-percent{sp}{call .clearfix/}">
         {call .sliderTip /}
@@ -77,6 +81,7 @@
 
 /**
  * template for input
+ * @param inputValue {number}
  */
 {template .input autoescape="strict" kind="html"}
     {call .renderChild}
@@ -85,7 +90,8 @@
             'renderParams': [
                 'data': [
                     'inputType': 'text',
-                    'placeholder': '0'
+                    'placeholder': '0',
+                    'value': $inputValue
                 ],
                 'config': [
                     'validations': [

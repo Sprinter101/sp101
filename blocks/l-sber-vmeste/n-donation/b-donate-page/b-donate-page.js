@@ -119,14 +119,26 @@ goog.scope(function() {
             this.next_route_ = Route.PAYMENT_TEMP;
             this.payment_choice_ = response.data.payment_choice || 'percent';
             this.sliderInitValue_ = 3;
+            this.inputIncomValue_ = 20000;
+            this.inputFixedValue = 500;
         }
         else {
             this.next_route_ = Route.REGISTRATION;
             this.payment_choice_ = 'percent';
-            this.sliderInitValue_ = 10;
+            this.sliderInitValue_ = undefined;
+            this.inputIncomValue_ = undefined;
+            this.inputFixedValue = undefined;
         }
+        var payment_choice = this.payment_choice_;
+        var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
         console.log('success');
-        this.renderTabs(this.payment_choice_, this.sliderInitValue_);
+        var params = {
+            'selectedTabId': selectedTabId,
+            'sliderInitValue': this.sliderInitValue_,
+            'inputIncomeValue': this.inputIncomValue_,
+            'inputFixedValue': this.inputFixedValue
+        };
+        this.renderTabs(params);
     };
 
      /**
@@ -139,21 +151,27 @@ goog.scope(function() {
         console.log(err);
         this.next_route_ = Route.REGISTRATION;
         this.payment_choice_ = 'fixed';
-        this.sliderInitValue_ = 1;
-        this.renderTabs(this.payment_choice_, this.sliderInitValue_);
+        this.sliderInitValue_ = undefined;
+        this.inputIncomValue_ = undefined;
+        this.inputFixedValue = 700;
+        var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
+        var params = {
+            'selectedTabId': selectedTabId,
+            sliderInitValue: this.sliderInitValue_,
+            inputIncomeValue: this.inputIncomValue_,
+            inputFixedValue: this.inputFixedValue
+        };
+        this.renderTabs(params);
     };
 
      /**
      * render donate page tabs
-     * @param {string} payment_choice
-     * @param {number} sliderInitValue
+     * @param {Object} params
      */
-    DonatePage.prototype.renderTabs = function(
-            payment_choice, sliderInitValue) {
+    DonatePage.prototype.renderTabs = function(params) {
 
-        var selectedTabId = DonatePage.BlocksTabMap[payment_choice];
-        this.getView().renderTabs(selectedTabId, sliderInitValue);
-
+       this.getView().renderTabs(params);
+       console.log(params);
         var donationTabs = this.getView().getDom().donationTabs;
         this.donationTabs_ = this.decorateChild('TabSber',
         donationTabs);

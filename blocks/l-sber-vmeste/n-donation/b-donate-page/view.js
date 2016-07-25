@@ -50,16 +50,6 @@ goog.scope(function() {
         this.dom.tabsContainer = this.getElementByClass(
             View.CssClass.TABS_CONTAINER, element
         );
-
-        /*this.dom.donationTabs = this.getElementByClass(
-            View.CssClass.TAB, element
-        );
-        this.dom.donateBlockFixedSum = this.getElementByClass(
-            View.CssClass.DONATE_BLOCK_FIXED_SUM, element
-        );
-        this.dom.donateBlockPercent = this.getElementByClass(
-            View.CssClass.DONATE_BLOCK_PERCENT, element
-        );*/
     };
 
     /**
@@ -72,14 +62,10 @@ goog.scope(function() {
 
     /**
      * render correct button
-     * @param {number} selectedTabId
-     * @param {number} sliderInitValue
+     * @param {Object} params
      */
-    View.prototype.renderTabs = function(selectedTabId, sliderInitValue) {
-        var soyParams = {
-            'selectedTabId': selectedTabId,
-            'sliderInitValue': sliderInitValue
-        };
+    View.prototype.renderTabs = function(params) {
+        var soyParams = {'params': params};
 
         goog.soy.renderElement(
             this.dom.tabsContainer,
