@@ -13,44 +13,25 @@
  */
 {template .body}
     <div class="{call .rootClass /}__cart">
-        <div class="{call .rootClass /}__title"></div>
-        <div class="{call .rootClass /}__fund-info-title">Всего в Вашем фонде:</div>
-        <div class="{call .rootClass /}__fund-info"></div>
-        <div class="{call .rootClass /}__buttons">
+        <div class="{call .rootClass /}__fund-info-wrapper">
+            <div class="{call .rootClass /}__fund-info">
+                <div class="{call .rootClass /}__title">Добавили:</div>
+                <div class="{call .rootClass /}__category">Помощь детям</div>
+            </div>
+        </div>
+        <div class="{call .rootClass /}__button-wrapper">
             <div class="{call .rootClass /}__fund-button">
                 {call .renderChild}
                   {param params: [
                         'type': 'ButtonSber',
                         'renderParams': [
                             'data': [
-                                'content': 'Фонд'
+                                'content': 'Мой фонд'
                             ],
                             'config': [
                                 'buttonStyles': [
                                     'width_smaller',
-                                    'height_small',
                                     'border_white',
-                                    'background_transparent',
-                                    'border_thick'
-                                ]
-                            ]
-                        ]
-                    ]/}
-                {/call}
-            </div>
-            <div class="{call .rootClass /}__continue-button">
-                {call .renderChild}
-                  {param params: [
-                        'type': 'ButtonSber',
-                        'renderParams': [
-                            'data': [
-                                'content': 'Продолжить'
-                            ],
-                            'config': [
-                                'buttonStyles': [
-                                    'width_smaller',
-                                    'height_small',
-                                    'border_black',
                                     'background_transparent',
                                     'border_thick'
                                 ]
@@ -68,84 +49,4 @@
  */
 {template .rootClass}
     b-userfund-cart
-{/template}
-
-/**
- * @param data
- */
-{template .generateCategoriesText}
-    {let $nbsp: '\u00A0' /}
-    {let $comma: ', ' /}
-    {let $noCategoriesMsg: 'Вы не выбрали ни одной категории' /}
-
-    {if not $data.topic
-        and not $data.direction
-        and not $data.fund}
-        {$noCategoriesMsg}
-    {else}
-
-        {if $data.topic}
-            {let $word kind="text"}
-                {call sv.iUtils.Utils.declensionPrint 
-                    data="[ 'num': $data.topic,
-                            'nom': 'тема',
-                            'gen': 'темы',
-                            'plu': 'тем'
-                        ]"}
-                {/call}
-            {/let}
-            {$data.topic}{$nbsp}{$word}
-        {/if}
-
-        {if $data.direction}
-            {let $word kind="text"}
-                {call sv.iUtils.Utils.declensionPrint 
-                    data="[ 'num': $data.direction,
-                            'nom': 'направление',
-                            'gen': 'направления',
-                            'plu': 'направлений'
-                        ]"}
-                {/call}
-            {/let}
-            {if $data.topic}
-                {$comma}
-            {/if}
-            {$data.direction}{$nbsp}{$word}
-        {/if}
-
-        {if $data.fund}
-            {let $word kind="text"}
-                {call sv.iUtils.Utils.declensionPrint 
-                    data="[ 'num': $data.fund,
-                            'nom': 'фонд',
-                            'gen': 'фонда',
-                            'plu': 'фондов'
-                        ]"}
-                {/call}
-            {/let}
-            {if $data.topic or $data.direction}
-                {$comma}
-            {/if}
-            {$data.fund}{$nbsp}{$word}
-        {/if}
-
-    {/if}
-
-{/template}
-
-/**
- * @param category
- */
-{template .createTitle}
-    {let $title kind="text"}
-        {if $category == 'topic'}
-            Новая тема
-        {elseif $category == 'direction'}
-            Новое направление
-        {else}
-            Новый фонд
-        {/if}
-    {/let}
-
-    {$title}
 {/template}

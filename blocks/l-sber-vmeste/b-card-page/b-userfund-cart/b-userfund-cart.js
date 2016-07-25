@@ -4,7 +4,6 @@ goog.require('cl.iControl.Control');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
-goog.require('sv.lSberVmeste.iUserService.UserService');
 goog.require('sv.lSberVmeste.iUserfundService.UserfundService');
 
 
@@ -25,12 +24,6 @@ sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart = function(
      */
     this.fundButton_ = null;
 
-    /**
-     * @type {sv.gButton.Button}
-     * @private
-     */
-    this.continueButton_ = null;
-
     goog.base(this, view, opt_domHelper);
 };
 goog.inherits(sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart,
@@ -40,9 +33,7 @@ goog.scope(function() {
     var UserfundCart = sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart,
         Button = sv.gButton.Button,
         Route = sv.lSberVmeste.iRouter.Route,
-        Router = sv.lSberVmeste.iRouter.Router,
-        UserService = sv.lSberVmeste.iUserService.UserService,
-        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService;
+        Router = sv.lSberVmeste.iRouter.Router;
 
     /**
      * @override
@@ -54,11 +45,6 @@ goog.scope(function() {
         this.fundButton_ = this.decorateChild(
             'ButtonSber',
             this.getView().getDom().fundButton
-        );
-
-        this.continueButton_ = this.decorateChild(
-            'ButtonSber',
-            this.getView().getDom().continueButton
         );
     };
 
@@ -73,29 +59,15 @@ goog.scope(function() {
             this.fundButton_,
             Button.Event.CLICK,
             this.onFundButtonClick_
-        )
-        .listen(
-            this.continueButton_,
-            Button.Event.CLICK,
-            this.onContinueButtonClick_
         );
     };
 
     /**
      * shows userfund cart
-     * @param {string} cardType
+     * @param {string} cardTitle
      */
-    UserfundCart.prototype.show = function(cardType) {
-        this.getView().show();
-
-        this.getView().appendTitle({category: cardType});
-
-        UserfundService.getChosenEntities()
-        .then(
-            this.onGetChosenEntitiesSuccess_,
-            this.onGetChosenEntitiesRejection_,
-            this
-        );
+    UserfundCart.prototype.show = function(cardTitle) {
+        this.getView().show(cardTitle);
     };
 
     /**
@@ -106,33 +78,11 @@ goog.scope(function() {
     };
 
     /**
-    * Generates text based on categories object
-    */
-    UserfundCart.prototype.createCategoriesText = function() {
-        var categories = this.categories_;
-
-        var topicCount = categories.topic,
-            directionCount = categories.direction,
-            fundsCount = categories.fund;
-
-        var soyParams = {
-            'data': {
-                topicCount: topicCount,
-                directionCount: directionCount,
-                fundsCount: fundsCount
-            }
-        };
-
-        this.getView().appendCategoriesText(soyParams);
-    };
-
-    /**
      * Fund button click handler
      * @private
      */
     UserfundCart.prototype.onFundButtonClick_ = function() {
-        UserService.isUserLoggedIn()
-            .then(this.redirectUser_, this.handleRejection, this);
+        this.redirectUser_();
     };
 
     /**
@@ -141,30 +91,6 @@ goog.scope(function() {
      */
     UserfundCart.prototype.onContinueButtonClick_ = function() {
         this.hide();
-    };
-
-    /**
-     * "Get chosen entities" successful response handler
-     * @param {Object} response
-     * @private
-     */
-    UserfundCart.prototype.onGetChosenEntitiesSuccess_ = function(
-        response) {
-        var data = response.data,
-            categoriesLength = {};
-
-        for (var i = 0; i < data.length; i++) {
-
-            var dataType = data[i].type;
-
-            if (categoriesLength[dataType]) {
-                categoriesLength[dataType] += 1;
-            } else {
-                categoriesLength[dataType] = 1;
-            }
-        }
-
-        this.getView().appendCategoriesText({data: categoriesLength});
     };
 
     /**
@@ -179,18 +105,10 @@ goog.scope(function() {
 
     /**
      * Redirects user to another page
-     * @param {Object} response
      * @private
      */
-    UserfundCart.prototype.redirectUser_ = function(response) {
-        isLoggedIn = response.data.loggedIn;
-
-        if (isLoggedIn) {
-            Router.getInstance().changeLocation(Route['DONATE']);
-        } else {
-            Router.getInstance().changeLocation(Route['REGISTRATION'],
-                null, {action: 'DONATE'});
-        }
+    UserfundCart.prototype.redirectUser_ = function() {
+        Router.getInstance().changeLocation(Route['LIST_PAGE']);
     };
 
 });  // goog.scope

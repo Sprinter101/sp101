@@ -44,7 +44,7 @@ goog.scope(function() {
         BUTTON_CONTAINER: 'b-card-page__card-button',
         CARD_LIST: 'b-card-list',
         STOP_HELPING_LINK: 'b-card-page__stop-helping',
-        USERFUND_CARD: 'b-card-page__userfund-cart',
+        USERFUND_CART: 'b-card-page__userfund-cart',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN,
     };
 
@@ -74,7 +74,7 @@ goog.scope(function() {
         );
 
         dom.userfundCart = this.getElementByClass(
-            CssClass.USERFUND_CARD, element
+            CssClass.USERFUND_CART, element
         ).firstChild;
     };
 
@@ -103,6 +103,15 @@ goog.scope(function() {
             this.dom.iconTitle, Template.text, {text: title}
         );
     };
+
+    /**
+     * Get icon title
+     * @return  {string} title organization name
+     */
+    View.prototype.getIconTitle = function() {
+        return this.dom.iconTitle.innerHTML.trim();
+    };
+
 
     /**
      * Set title before description

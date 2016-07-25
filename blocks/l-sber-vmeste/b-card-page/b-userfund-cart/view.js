@@ -34,9 +34,8 @@ goog.scope(function() {
     View.CssClass = {
         ROOT: 'b-userfund-cart',
         TITLE: 'b-userfund-cart__title',
-        FUND_INFO: 'b-userfund-cart__fund-info',
         FUND_BUTTON_CONTAINER: 'b-userfund-cart__fund-button',
-        CONTINUE_BUTTON_CONTAINER: 'b-userfund-cart__continue-button',
+        CATEGORY: 'b-userfund-cart__category',
         CART_VISIBLE: 'b-userfund-cart_visible',
     };
 
@@ -52,8 +51,8 @@ goog.scope(function() {
             element
         );
 
-        this.dom.fundInfo = this.getElementByClass(
-            View.CssClass.FUND_INFO,
+        this.dom.category = this.getElementByClass(
+            View.CssClass.CATEGORY,
             element
         );
 
@@ -61,21 +60,19 @@ goog.scope(function() {
             View.CssClass.FUND_BUTTON_CONTAINER,
             element
         ).firstChild;
-
-        this.dom.continueButton = this.getElementByClass(
-            View.CssClass.CONTINUE_BUTTON_CONTAINER,
-            element
-        ).firstChild;
     };
 
     /**
      * shows userfund cart
+     * @param {string} cardTitle
      */
-    View.prototype.show = function() {
+    View.prototype.show = function(cardTitle) {
         goog.dom.classlist.add(
             this.getElement(),
             View.CssClass.CART_VISIBLE
         );
+
+        this.appendCategoryText(cardTitle);
     };
 
     /**
@@ -89,36 +86,11 @@ goog.scope(function() {
     };
 
     /**
-    * renders generateCategoriesText template into fundInfo DOM element
-    * @param {
-    *    'data': {
-    *        topic: number,
-    *        direction: number,
-    *        fund: number
-    *    }
-    * } soyParams
-    */
-    View.prototype.appendCategoriesText = function(soyParams) {
-        goog.soy.renderElement(
-            this.dom.fundInfo,
-            sv.lSberVmeste.bCardPage.bUserfundCart
-                .Template.generateCategoriesText,
-            soyParams
-        );
-    };
-
-    /**
-     * renders createTitle template into
-     * @param {
-     *    category: string
-     * } soyParams
+     * appends a string to category DOM element
+     * @param {string} category
      */
-    View.prototype.appendTitle = function(soyParams) {
-        goog.soy.renderElement(
-            this.dom.title,
-            sv.lSberVmeste.bCardPage.bUserfundCart.Template.createTitle,
-            soyParams
-        );
+    View.prototype.appendCategoryText = function(category) {
+        this.dom.category.innerHTML = ''+category.trim();
     };
 
 });  // goog.scope

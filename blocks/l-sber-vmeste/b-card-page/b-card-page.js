@@ -216,7 +216,7 @@ goog.scope(function() {
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
         CardService.addEntity(this.params.cardId)
         .then(function() {
-            this.userfundCart_.show(this.cardType_);
+            this.userfundCart_.show(this.getView().getIconTitle());
             this.setThanksButton_();
             this.getView().showStopHelpingLink();
         }, function(err) {
@@ -230,6 +230,8 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
+        this.userfundCart_.hide();
+
         CardService.removeEntity(this.params.cardId)
         .then(function() {
             this.setStartHelpingButton_();
