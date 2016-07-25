@@ -251,7 +251,7 @@ goog.scope(function() {
             type: Block.Event.VERIFICATION_ERROR,
             detail: {
                 phone: this.textPhone_.innerText.toString(),
-                response: success.data
+                response: err.data
             }
         };
         this.dispatchEvent(eventVerSuccess);
