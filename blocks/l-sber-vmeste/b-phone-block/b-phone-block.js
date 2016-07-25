@@ -169,20 +169,13 @@ goog.scope(function() {
             ParentClass = Parent.classList[0],
             Request = cl.iRequest.Request,
 
-            infoTextField = this.textInfo_,
-            phoneTextField = this.textPhone_,
-
-            inputNumberBlock = this.inputPhoneNumber_.element_.parentElement,
             inputNumberField = this.inputPhoneNumber_.element_.firstChild,
-
-            inputConfirmBlock =
-                this.inputVerificationCode_.element_.parentElement,
             inputConfirmField = this.inputVerificationCode_.element_.firstChild,
+
             inputValue = inputNumberField.value;
 
         switch (ParentClass) {
             case 'b-phone-block__enter-button':
-                var confirmButton = this.buttons_[1].element_.parentElement;
                 var phoneNumJSON = {
                     'phone': inputValue.toString()
                 };
@@ -191,16 +184,12 @@ goog.scope(function() {
                     url: '/auth/sms',
                     type: 'POST',
                     data: phoneNumJSON
-                }).then(this.handleSuccess,
+                }).then(
+                    this.handleSuccess,
                     this.handleRejection,
                     this
                 );
 
-                phoneTextField.innerText = inputValue;
-                infoTextField.innerText = 'Введите 3-х значный пароль из СМС';
-
-                this.hideElements([inputNumberBlock, Parent]);
-                this.showElements([inputConfirmBlock, confirmButton], 'block');
 
                 break;
 
@@ -242,6 +231,22 @@ goog.scope(function() {
             console.log(success);
             this.inputVerificationCode_.setValue(success.data);
         }
+        var infoTextField = this.textInfo_,
+            phoneTextField = this.textPhone_,
+
+            buttonEnter = this.buttons_[0].element_.parentElement,
+            confirmButton = this.buttons_[1].element_.parentElement,
+
+            inputNumberBlock = this.inputPhoneNumber_.element_.parentElement,
+            inputNumberField = this.inputPhoneNumber_.element_.firstChild,
+            inputConfirmBlock =
+                this.inputVerificationCode_.element_.parentElement;
+
+        phoneTextField.innerText = inputNumberField.value;
+        infoTextField.innerText = 'Введите 3-х значный пароль из СМС';
+
+        this.hideElements([inputNumberBlock, buttonEnter]);
+        this.showElements([inputConfirmBlock, confirmButton], 'block');
     };
 
     /**
