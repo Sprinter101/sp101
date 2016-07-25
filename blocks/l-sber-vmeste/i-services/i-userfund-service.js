@@ -21,7 +21,8 @@ goog.scope(function() {
      * @type {string}
      */
     UserfundService.URL = {
-        USERFUNDS_COUNT: '/user-fund/count'
+        USERFUNDS_COUNT: '/user-fund/count',
+        CHOSEN_ENTITIES: '/user-fund/entity'
     };
 
     /**
@@ -31,6 +32,16 @@ goog.scope(function() {
     UserfundService.getUserfundsCount = function() {
         return request.send({
             url: UserfundService.URL.USERFUNDS_COUNT
+        });
+    };
+
+    /**
+     * get entities, chosen by the user
+     * @return {Object} ajax response or error
+     */
+    UserfundService.getChosenEntities = function() {
+        return request.send({
+            url: UserfundService.URL.CHOSEN_ENTITIES
         });
     };
 

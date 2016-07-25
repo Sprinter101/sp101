@@ -44,6 +44,7 @@ goog.scope(function() {
         BUTTON_CONTAINER: 'b-card-page__card-button',
         CARD_LIST: 'b-card-list',
         STOP_HELPING_LINK: 'b-card-page__stop-helping',
+        USERFUND_CARD: 'b-card-page__userfund-cart',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN,
     };
 
@@ -71,6 +72,10 @@ goog.scope(function() {
         dom.stopHelpingLink = this.getElementByClass(
             CssClass.STOP_HELPING_LINK, element
         );
+
+        dom.userfundCart = this.getElementByClass(
+            CssClass.USERFUND_CARD, element
+        ).firstChild;
     };
 
     /**

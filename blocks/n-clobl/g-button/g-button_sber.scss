@@ -1,7 +1,7 @@
 .g-button_sber {
     font-size: 18px;
     font-weight: normal;
-    
+
     width: 180px;
     height: 43px;
     padding: 0;
@@ -25,6 +25,10 @@
 
 .g-button_border_green {
     border: solid 1px #1eeb78;
+}
+
+.g-button_border_black {
+    border: solid 1px #000;
 }
 
 .g-button_border_white {
@@ -115,4 +119,8 @@
 
 .g-button_wide {
     width: 220px;
+}
+
+.g-button_width_smaller {
+    width: 140px;
 }

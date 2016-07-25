@@ -53,6 +53,17 @@
             </div>
         </div>
     </div>
+
+    <div class="{call .rootClass /}__userfund-cart">
+        {call .renderChild}
+          {param params: [
+                'type': 'UserfundCart',
+                'renderParams': [
+                    'data': []
+                ]
+            ]/}
+        {/call}
+    </div>
 {/template}
 
 /**

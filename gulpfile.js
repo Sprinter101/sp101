@@ -53,7 +53,7 @@ gulp.task('soy', function() {
     return gulpHelper.soy.build([]);
 });
 
-gulp.task('scripts', ['lint', 'soy'], function() {
+gulp.task('scripts', ['soy'], function() {
     return gulpHelper.js.build({
         outputFiles: [{
                 entryPoint: 'sv.lSberVmeste.Main',
@@ -67,7 +67,7 @@ gulp.task('scripts', ['lint', 'soy'], function() {
     });
 });
 
-gulp.task('scripts-only', ['lint'], function() {
+gulp.task('scripts-only', function() {
     return gulpHelper.js.build({
         outputFiles: [{
                 entryPoint: 'sv.lSberVmeste.Main',
@@ -160,7 +160,7 @@ gulp.task('watch', function() {
 });
 
 const tasks = function(bool) {
-    return bool ? ['soy', 'scripts', 'styles', 'fonts', 'images', 'html', 'assets-html'] : ['soy', 'images', 'scripts', 'styles', 'html', 'assets-html'];
+    return bool ? ['soy', 'lint', 'scripts', 'styles', 'fonts', 'images', 'html', 'assets-html'] : ['soy', 'lint', 'images', 'scripts', 'styles', 'html', 'assets-html'];
 };
 
 gulp.task('default', tasks(production));

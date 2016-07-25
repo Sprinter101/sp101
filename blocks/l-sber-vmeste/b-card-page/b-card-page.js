@@ -39,6 +39,12 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardType_ = null;
 
+    /**
+     * @type {sv.lSberVmeste.bCardPage.bUserfundCart.UserFundCart}
+     * @private
+     */
+     this.userfundCart_ = null;
+
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
@@ -48,7 +54,8 @@ goog.scope(function() {
         CardService = sv.lSberVmeste.iCardService.CardService,
         request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
-        Router = sv.lSberVmeste.iRouter.Router;
+        Router = sv.lSberVmeste.iRouter.Router,
+        userfundCart = sv.lSberVmeste.bCardPage.bUserfundCart.UserFundCart;
 
 
     /**
@@ -83,6 +90,10 @@ goog.scope(function() {
         .then(
             this.loadCardsResolveHandler_, this.loadCardsRejectHandler_, this
         );
+
+        this.userfundCart_ = this.decorateChild(
+            'UserfundCart',
+            this.getView().getDom().userfundCart);
     };
 
     /**
@@ -205,6 +216,7 @@ goog.scope(function() {
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
         CardService.addEntity(this.params.cardId)
         .then(function() {
+            this.userfundCart_.show(this.cardType_);
             this.setThanksButton_();
             this.getView().showStopHelpingLink();
         }, function(err) {
