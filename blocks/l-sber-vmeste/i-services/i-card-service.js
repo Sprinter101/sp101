@@ -17,6 +17,14 @@ goog.scope(function() {
     var CardService = sv.lSberVmeste.iCardService.CardService;
 
     /**
+     * Api enum
+     * @type {string}
+     */
+    CardService.URL = {
+        ENTITY: '/entity'
+    };
+
+    /**
      * Get card info by card id
      * @param  {number} cardId card id
      * @return {goog.Promise}
@@ -89,6 +97,15 @@ goog.scope(function() {
             url: '/user-fund/' + entityId,
             type: 'POST'
         });
+    };
+
+    /**
+     * Get all available entities
+     * @return {goog.Promise}
+     */
+    CardService.getAllEntities = function() {
+
+        return request.send({url: CardService.URL.ENTITY});
     };
 
 });  // goog.scope

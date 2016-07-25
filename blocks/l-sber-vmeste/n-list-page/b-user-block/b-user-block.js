@@ -107,7 +107,7 @@ goog.scope(function() {
         }
         var buttonConfig = {
             'data': {
-                'content': content,
+                'content': content
             }
         };
 
