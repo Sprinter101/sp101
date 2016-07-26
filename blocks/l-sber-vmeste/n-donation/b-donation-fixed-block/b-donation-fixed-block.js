@@ -103,6 +103,10 @@ goog.scope(function() {
                 Input.Event.BLUR,
                 this.onFixedSumBlur_
             )
+            .listen(this.fixedSum_,
+                Input.Event.INPUT,
+                this.onFixedSumInput_
+            )
             .listen(
                 this.fixedSum_,
                 Input.Event.ENTER_KEY_PRESS,
@@ -116,12 +120,22 @@ goog.scope(function() {
     };
 
     /**
+     * Focus event handler
+     * @param {sv.gInput.Input.Event.Focus} event
+     * @private
+     */
+    DonationFixedBlock.prototype.onFixedSumInput_ = function(event) {
+        this.manageButtonReadyStyle_(true);
+    };
+
+    /**
      * Blur event handler
      * @param {sv.gInput.Input.Event.Blur} event
      * @private
      */
     DonationFixedBlock.prototype.onFixedSumBlur_ = function(event) {
-        this.manageButtonReadyStyle_();
+        var result = this.checkInputSum_();
+        this.manageButtonReadyStyle_(result);
     };
 
     /**
@@ -176,15 +190,16 @@ goog.scope(function() {
 
      /**
      * enables or disables 'ready' button
+     * @param {bool}
      * @private
      */
-    DonationFixedBlock.prototype.manageButtonReadyStyle_ = function() {
-        if (this.checkInputSum_()) {
-                this.buttonReady_.enable();
-            }
-            else {
-                this.buttonReady_.disable();
-            }
+    DonationFixedBlock.prototype.manageButtonReadyStyle_ = function(result) {
+        if (result) {
+            this.buttonReady_.enable();
+        }
+        else {
+            this.buttonReady_.disable();
+        }
     };
 
 

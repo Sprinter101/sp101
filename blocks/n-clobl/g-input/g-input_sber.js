@@ -190,6 +190,7 @@ goog.scope(function() {
         });
 
         this.validate(true);
+        this.dispatchEvent(Input.Event.INPUT);
     };
 
     /**
