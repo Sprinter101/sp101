@@ -127,7 +127,7 @@ goog.scope(function() {
             this.payment_choice_ = 'fixed';
             this.sliderInitValue_ = undefined;
             this.inputIncomValue_ = undefined;
-            this.inputFixedValue = undefined;
+            this.inputFixedValue = 800;
         }
         var payment_choice = this.payment_choice_;
         var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
@@ -153,7 +153,7 @@ goog.scope(function() {
         this.payment_choice_ = 'fixed';
         this.sliderInitValue_ = undefined;
         this.inputIncomValue_ = undefined;
-        this.inputFixedValue = 700;
+        this.inputFixedValue = undefined;
         var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
         var params = {
             'selectedTabId': selectedTabId,
@@ -201,7 +201,6 @@ goog.scope(function() {
      */
     DonatePage.prototype.onDonationFixedReady_ = function(event) {
         var sumValue = JSON.stringify(event.payload.fixedSum);
-        console.log(sumValue);
         this.redirectToNextPage_();
     };
 

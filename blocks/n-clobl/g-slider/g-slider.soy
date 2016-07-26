@@ -14,13 +14,15 @@
  * @override
  * @param params {{
  *          data {
- *              initValue: number
+ *              initValue: number,
+ *              maxPercent: number
  *          }
  * }}
  */
 {template .body}
 {let $initValue: $params.data.initValue /}
-    <div class="{call .rootClass/}__track">
+{let $maxPercent: $params.data.maxPercent /}
+    <div class="{call .rootClass/}__track" data-params='{$maxPercent}'>
         <div class="{call .rootClass/}__slider">
              <div class="{call .rootClass/}__label{sp}{call .hidden/}" style="left: -17px;">
             </div>

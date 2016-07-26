@@ -44,7 +44,7 @@ sv.lSberVmeste.bDonationPercentBlock.DonationPercentBlock = function(
     this.buttonReady_ = null;
 
     /**
-    * reulst donation sum
+    * result donation sum
     * type {number}
     * @private
     */
@@ -98,7 +98,7 @@ goog.scope(function() {
     DonationPercentBlock.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
-       // this.KeyHandler_ = new goog.events.KeyHandler(document);
+       this.KeyHandler_ = new goog.events.KeyHandler(document);
 
         this.getHandler()
             .listen(
@@ -120,6 +120,11 @@ goog.scope(function() {
                 this.monthlyIncome_,
                 Input.Event.ENTER_KEY_PRESS,
                 this.onEnterPress_
+            )
+           .listen(
+                this.KeyHandler_,
+                goog.events.KeyHandler.EventType.KEY,
+                this.onCommonKeyEvent_
             );
     };
 
@@ -191,7 +196,7 @@ goog.scope(function() {
     DonationPercentBlock.prototype.onButtonReadyClick_ = function(event) {
         var customEvent = new goog.events.Event(DonationPercentBlock.Event
             .DONATION_PERCENT_READY, this);
-        console.log(this.resultSum_);
+
         if (this.resultSum_) {
             customEvent.payload = {
                 percentSum: this.resultSum_
@@ -242,7 +247,7 @@ goog.scope(function() {
      * @param {goog.events.KeyHandler.EventType.KEY} event
      * @private
      */
-   /* DonationPercentBlock.prototype.onCommonKeyEvent_ = function(event) {
+    DonationPercentBlock.prototype.onCommonKeyEvent_ = function(event) {
         event.stopPropagation();
         var that = this;
         var digits = DonationPercentBlock.KEYCODES;
@@ -250,7 +255,7 @@ goog.scope(function() {
             this.manageButtonReadyStyle_(this.resultSum_);
             this.manageSliderStyle_();
         }
-    };*/
+    };
 
      /**
      * enables or disables 'ready' button

@@ -46,6 +46,12 @@ sv.gSlider.View = function(opt_params, opt_template, opt_modifier) {
     * @private
     */
     this.start_ = null;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.maxPercent_ = 0;
 };
 goog.inherits(sv.gSlider.View, cl.iControl.View);
 
@@ -90,9 +96,11 @@ goog.scope(function() {
             View.CssClass.LABEL_PERCENT);
         this.dom.slider = this.getElementByClass(View.CssClass.SLIDER);
 
+        var maxPercent = goog.dom.dataset.getAll(this.dom.track);
+        this.maxPercent_ = parseInt(maxPercent.params, 10);
+
         var initValue = goog.dom.dataset.getAll(this.dom.thumb);
         initValue = parseInt(initValue.params, 10);
-        console.log(initValue);
         this.init(initValue);
 
     };
@@ -128,7 +136,7 @@ goog.scope(function() {
      */
     View.prototype.MakeInitialPosition_ = function(initValue) {
         var track_size = goog.style.getSize(this.dom.track).width;
-        var currentPos = initValue / 14 * track_size;
+        var currentPos = initValue / (this.maxPercent_ - 1) * track_size;
         currentPos = Math.floor(currentPos);
         if (currentPos >= track_size) {
             currentPos = track_size;
@@ -266,7 +274,8 @@ goog.scope(function() {
          * @private
          */
         View.prototype.CalculatePercent_ = function(currentPos) {
-            var currentPercent = currentPos / this.track_size * 14;
+            var currentPercent = currentPos / this.track_size *
+                (this.maxPercent_ - 1);
             return currentPercent;
         };
 
