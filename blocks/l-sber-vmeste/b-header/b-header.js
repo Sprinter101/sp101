@@ -109,10 +109,10 @@ goog.scope(function() {
     * @param {Object} params
     */
     Header.prototype.renderListPageTitle = function(params) {
-        var loggedIn = params.loggedIn;
+        var draft = params.draft;
         var pageType = params.pageType;
         this.getView().renderListPageTitle({
-            'loggedIn': loggedIn,
+            'draft': draft,
             'pageType': pageType
         });
     };

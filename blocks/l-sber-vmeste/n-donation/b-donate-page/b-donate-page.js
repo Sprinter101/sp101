@@ -114,20 +114,20 @@ goog.scope(function() {
     * @private
     */
     DonatePage.prototype.handleSuccessLoginCheck_ = function(response) {
-        var loggedIn = response.data.loggedIn;
-        if (loggedIn) {
-            this.next_route_ = Route.PAYMENT_TEMP;
+        var draft = response.data.userFund.draft;
+        if (!draft) {
+            this.next_route_ = Route.REGISTRATION;
             this.payment_choice_ = response.data.payment_choice || 'percent';
             this.sliderInitValue_ = 3;
             this.inputIncomValue_ = 20000;
             this.inputFixedValue = 500;
         }
         else {
-            this.next_route_ = Route.REGISTRATION;
+            this.next_route_ = Route.PAYMENT_TEMP;
             this.payment_choice_ = 'fixed';
             this.sliderInitValue_ = undefined;
             this.inputIncomValue_ = undefined;
-            this.inputFixedValue = 800;
+            this.inputFixedValue = undefined;
         }
         var payment_choice = this.payment_choice_;
         var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];

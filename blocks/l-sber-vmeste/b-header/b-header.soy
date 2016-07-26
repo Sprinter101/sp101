@@ -58,22 +58,13 @@
             {/call}
         </div>
         <div class="{call .rootClass/}__central-column">
-        {let $hiddenButton: $headerType == 'profile' ? false : 
-            $headerType == 'list' ? false : true /}
-        {let $roundButton: $params.config?.roundButton /}
-        <div class="{call .rootClass/}__button-wrapper{if $hiddenButton}
-        {sp}{call .hidden/}{/if}">
-        </div>
-        {let $hiddenChoice: $headerType == 'profile' ? true : false /}
-        {let $choice_phrase: $params.config?.choice_phrase /}
+            {let $hiddenButton: $headerType == 'profile' ? false : 
+                $headerType == 'list' ? false : true /}
+            {let $roundButton: $params.config?.roundButton /}
+            <div class="{call .rootClass/}__button-wrapper{if $hiddenButton}
+                {sp}{call .hidden/}{/if}">
+            </div>
             <div class="{call .rootClass/}__choice-wrapper">
-            {if $headerType != 'profile'}
-                {call .choicePhrase}
-                    {param choice_phrase: $choice_phrase /}
-                    {param headerType: $headerType /}
-                    {param hidden: $hiddenChoice/}
-                {/call}
-            {/if}
             </div>
         </div>
     </div>

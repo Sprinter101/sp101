@@ -46,7 +46,7 @@ goog.scope(function() {
         CHOICE_CONTAINER: 'b-header__choice-wrapper',
         ME_BUTTON: 'b-header__button_me',
         CLOSE_BUTTON: 'b-header__button_close',
-        HEADER_AUTHORIZED: 'b-header_authorized'
+        HEADER_EDIT: 'b-header_edit'
     };
 
     /**
@@ -100,26 +100,21 @@ goog.scope(function() {
     View.prototype.checkLayout_ = function() {
         var element = this.getElement();
         if (goog.dom.classlist.contains(element, 'b-header_list')) {
-            console.log('check layout');
             if (goog.dom.classlist.contains(
-                element, View.CssClass.HEADER_AUTHORIZED)) {
+                element, View.CssClass.HEADER_EDIT)) {
 
                 goog.dom.classlist.add(this.dom.buttonContainer,
                         HIDDEN
                     );
-
-                if ((Media.isExtraSmall()) || (Media.isSmall())) {
-                    goog.dom.classlist.remove(this.dom.choicePhraseContainer,
+                goog.dom.classlist.remove(this.dom.choicePhraseContainer,
                         HIDDEN
                     );
+                if ((Media.isExtraSmall()) || (Media.isSmall())) {
                     goog.dom.classlist.add(this.dom.HelpPhraseContainer,
                         HIDDEN
                     );
                 }
                 else {
-                    goog.dom.classlist.remove(this.dom.choicePhraseContainer,
-                        HIDDEN
-                    );
                     goog.dom.classlist.remove(this.dom.HelpPhraseContainer,
                         HIDDEN
                     );
@@ -181,7 +176,7 @@ goog.scope(function() {
             'data': {choice_phrase: phrase}
         };
         goog.soy.renderElement(
-            this.dom.choicePhrase,
+            this.dom.choicePhraseContainer,
             sv.lSberVmeste.bHeader.Template.title,
             soyParams
         );
@@ -193,11 +188,11 @@ goog.scope(function() {
      */
     View.prototype.renderListPageTitle = function(params) {
         var choice_phrase;
-        if (params.loggedIn) {
-            choice_phrase = 'edit';
+        if (params.draft) {
+            choice_phrase = 'list';
         }
         else {
-            choice_phrase = 'list';
+            choice_phrase = 'edit';
         }
         var soyParams = {
             'headerType': params.pageType,
@@ -209,6 +204,8 @@ goog.scope(function() {
             sv.lSberVmeste.bHeader.Template.choicePhrase,
             soyParams
         );
+        this.changeHeaderTypeEditFund_(params.draft);
+        this.checkLayout_();
     };
 
     /**
@@ -274,24 +271,24 @@ goog.scope(function() {
                 this.dom.button, View.CssClass.CLOSE_BUTTON
             );
         }
-        this.changeHeaderTypeAuthorized_(content);
+
         this.checkLayout_();
     };
 
      /**
     * Add 'authorized' class to eader element
-    * @param {string} content
+    * @param {bool} draft
     * @private
     */
-    View.prototype.changeHeaderTypeAuthorized_ = function(content) {
-        if (content === 'я' || content === 'x') {
+    View.prototype.changeHeaderTypeEditFund_ = function(draft) {
+        if (draft) {
             goog.dom.classlist.remove(this.getElement(),
-                View.CssClass.HEADER_AUTHORIZED
+                View.CssClass.HEADER_EDIT
             );
         }
         else {
             goog.dom.classlist.add(this.getElement(),
-                View.CssClass.HEADER_AUTHORIZED
+                View.CssClass.HEADER_EDIT
             );
         }
     };

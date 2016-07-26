@@ -65,6 +65,12 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     */
     this.userLoggedIn_ = false;
 
+     /**
+    * @type {bool}
+    * @private
+    */
+    this.draft_ = true;
+
 };
 goog.inherits(sv.lSberVmeste.bListPage.ListPage,
     sv.lSberVmeste.iPage.Page);
@@ -98,8 +104,10 @@ goog.scope(function() {
             var that = this;
             UserService.isUserLoggedIn()
                 .then(function(result) {
-                    var params = that.handleSuccessLoginCheck_(result);
                     that.userLoggedIn_ = result.data.loggedIn;
+                    var params = that.handleSuccessLoginCheck_(result);
+
+                    that.draft_ = params.draft;
                     that.manageHeaderContent_(params);
                     that.sendCategoriesRequest();
             }, function(err) {
@@ -187,7 +195,7 @@ goog.scope(function() {
 
         if (!goog.object.isEmpty(this.chosenCategoriesData_)) {
 
-            this.createUserBlock(this.userLoggedIn_);
+            this.createUserBlock();
 
             this.getView().createPageTitleText(true);
         } else {
@@ -230,7 +238,7 @@ goog.scope(function() {
             this.getView().getDom().userBlock,
             {
                 categories: this.chosenCategoriesData_,
-                loggedIn: this.userLoggedIn_
+                draft: this.draft_
             }
         );
 
@@ -334,12 +342,14 @@ goog.scope(function() {
         var loggedIn = response.data.loggedIn;
         var firstName = response.data.firstName;
         var lastName = response.data.lastName;
+        var draft = response.data.userFund.draft;
         var pageType = 'list';
         return {
             'loggedIn': loggedIn,
             'firstName': firstName,
             'lastName': lastName,
-            'pageType': pageType
+            'pageType': pageType,
+            'draft': draft
         };
     };
 
@@ -367,11 +377,12 @@ goog.scope(function() {
     * @private
     */
     ListPage.prototype.manageHeaderContent_ = function(params) {
-        if (params.loggedIn) {
+        if (params.draft) {
+            this.header_.renderButton(params);
             this.header_.renderListPageTitle(params);
         }
         else {
-            this.header_.renderButton(params);
+            this.header_.renderListPageTitle(params);
         }
     };
 
