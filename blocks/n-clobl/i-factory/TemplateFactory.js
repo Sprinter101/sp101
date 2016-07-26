@@ -10,7 +10,6 @@ goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
 goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.bCardList.Template');
-goog.require('sv.lSberVmeste.bCardPage.bUserfundCart.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
 goog.require('sv.lSberVmeste.bDonatePage.Template');
 goog.require('sv.lSberVmeste.bDonationFixedBlock.Template');
@@ -29,6 +28,7 @@ goog.require('sv.lSberVmeste.bRegistrationPage.Template');
 goog.require('sv.lSberVmeste.bStartBlock.Template');
 goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
+goog.require('sv.lSberVmeste.bUserfundCart.Template');
 goog.require('sv.lSberVmeste.bUserfundPage.Template');
 goog.require('sv.lSberVmeste.Template');
 
@@ -160,7 +160,7 @@ sv.iFactory.TemplateFactory = function() {
         )
         .setTemplateListItem(
             'UserfundCart',
-            sv.lSberVmeste.bCardPage.bUserfundCart.Template.page
+            sv.lSberVmeste.bUserfundCart.Template.page
         );
 
 };

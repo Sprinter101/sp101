@@ -1,4 +1,4 @@
-goog.provide('sv.lSberVmeste.bCardPage.bUserfundCart.View');
+goog.provide('sv.lSberVmeste.bUserfundCart.View');
 
 goog.require('cl.iControl.View');
 
@@ -12,20 +12,20 @@ goog.require('cl.iControl.View');
  * @constructor
  * @extends {cl.iControl.View}
  */
-sv.lSberVmeste.bCardPage.bUserfundCart.View = function(opt_params,
+sv.lSberVmeste.bUserfundCart.View = function(opt_params,
     opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(
-        sv.lSberVmeste.bCardPage.bUserfundCart.View.CssClass.ROOT
+        sv.lSberVmeste.bUserfundCart.View.CssClass.ROOT
     );
 };
-goog.inherits(sv.lSberVmeste.bCardPage.bUserfundCart.View,
+goog.inherits(sv.lSberVmeste.bUserfundCart.View,
     cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bCardPage.bUserfundCart.View;
+    var View = sv.lSberVmeste.bUserfundCart.View;
 
     /**
      * Css class enum

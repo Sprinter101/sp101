@@ -20,8 +20,6 @@ goog.require('sv.lSberVmeste.bCard.Card');
 goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
-goog.require('sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart');
-goog.require('sv.lSberVmeste.bCardPage.bUserfundCart.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
 goog.require('sv.lSberVmeste.bDonatePage.DonatePage');
@@ -56,6 +54,8 @@ goog.require('sv.lSberVmeste.bStartPage.StartPage');
 goog.require('sv.lSberVmeste.bStartPage.View');
 goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
 goog.require('sv.lSberVmeste.bUserBlock.View');
+goog.require('sv.lSberVmeste.bUserfundCart.UserfundCart');
+goog.require('sv.lSberVmeste.bUserfundCart.View');
 goog.require('sv.lSberVmeste.bUserfundPage.UserfundPage');
 goog.require('sv.lSberVmeste.bUserfundPage.View');
 goog.require('sv.lSberVmeste.SberVmeste');
@@ -202,8 +202,8 @@ sv.iFactory.FactorySber = function() {
             view: sv.lSberVmeste.bUserfundPage.View
         })
         .setControlListItem('UserfundCart', {
-            control: sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart,
-            view: sv.lSberVmeste.bCardPage.bUserfundCart.View
+            control: sv.lSberVmeste.bUserfundCart.UserfundCart,
+            view: sv.lSberVmeste.bUserfundCart.View
         });
 
 };

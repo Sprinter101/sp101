@@ -40,7 +40,7 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     this.cardType_ = null;
 
     /**
-     * @type {sv.lSberVmeste.bCardPage.bUserfundCart.UserFundCart}
+     * @type {sv.lSberVmeste.bUserfundCart.UserfundCart}
      * @private
      */
      this.userfundCart_ = null;
