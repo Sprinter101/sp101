@@ -67,6 +67,7 @@ goog.scope(function() {
      * @param {string} cardTitle
      */
     View.prototype.show = function(cardTitle) {
+
         goog.dom.classlist.add(
             this.getElement(),
             View.CssClass.CART_VISIBLE
@@ -90,7 +91,7 @@ goog.scope(function() {
      * @param {string} category
      */
     View.prototype.appendCategoryText = function(category) {
-        this.dom.category.innerHTML = ''+category.trim();
+        this.dom.category.innerHTML = '' + category.trim();
     };
 
 });  // goog.scope

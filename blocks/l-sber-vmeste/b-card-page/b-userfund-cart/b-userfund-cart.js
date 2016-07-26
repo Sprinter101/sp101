@@ -86,24 +86,6 @@ goog.scope(function() {
     };
 
     /**
-     * Continue button click handler
-     * @private
-     */
-    UserfundCart.prototype.onContinueButtonClick_ = function() {
-        this.hide();
-    };
-
-    /**
-     * "Get chosen entities" rejection handler
-     * @param {Object} err
-     * @private
-     */
-    UserfundCart.prototype.onGetChosenEntitiesRejection_ = function(
-        err) {
-        console.log(err);
-    };
-
-    /**
      * Redirects user to another page
      * @private
      */
