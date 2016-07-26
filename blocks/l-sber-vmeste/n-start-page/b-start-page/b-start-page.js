@@ -240,7 +240,7 @@ goog.scope(function() {
      */
     StartPage.prototype.onManageUserfund_ = function(event) {
         Router.getInstance().changeLocation(
-            Route.USERFUND_PAGE);
+            Route.LIST_PAGE, {'category': 'topics'});
     };
 
      /**

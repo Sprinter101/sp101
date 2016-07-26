@@ -10,34 +10,43 @@
 
 /**
  * @override
+ * @override
+ * @param params {{
+ *           data {
+ *          inputFixedValue: number
+ *          }
+ *    }}
  */
 {template .body autoescape="strict" kind="html"}
-    <div class="{call .rootClass/}__inner-wrap">
-        <div class="{call .rootClass/}__sum-choice">
-            {call .inputTip /}
-            {call .input /}
-        </div>
-         <div class="{call .rootClass/}__button-wrapper">
-            {call .renderChild}
-              {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': 'Продолжить',
-                        ],
-                        'config': ['customClasses': 
-                            ['b-donation-fixed-block__button_ready'],
-                              'stylesForDisabled': [
-                               'border_yellow',
-                               'background_transparent',
-                               'text-color_white'
-                           ]
+    {let $inputValue: $params.data.inputFixedValue /}
+        <div class="{call .rootClass/}__inner-wrap">
+            <div class="{call .rootClass/}__sum-choice">
+                {call .inputTip /}
+                {call .input}
+                    {param inputValue: $inputValue /}
+                {/call}
+            </div>
+             <div class="{call .rootClass/}__button-wrapper">
+                {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Продолжить',
+                            ],
+                            'config': ['customClasses': 
+                                ['b-donation-fixed-block__button_ready'],
+                                  'stylesForDisabled': [
+                                   'border_yellow',
+                                   'background_transparent',
+                                   'text-color_white'
+                               ]
+                            ]
                         ]
-                    ]
-                ]/}
-            {/call}
+                    ]/}
+                {/call}
+            </div>
         </div>
-    </div>
 {/template}
 
 /**
@@ -52,6 +61,7 @@
 
 /**
  * template for input
+ *  @param inputValue {number}
  */
 {template .input autoescape="strict" kind="html"}
     {call .renderChild}
@@ -60,7 +70,8 @@
             'renderParams': [
                 'data': [
                     'inputType': 'text',
-                    'placeholder': '0'
+                    'placeholder': '0',
+                    'value': $inputValue
                 ],
                 'config': [
                     'validations': [

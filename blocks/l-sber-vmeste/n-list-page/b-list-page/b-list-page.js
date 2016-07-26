@@ -1,11 +1,11 @@
 goog.provide('sv.lSberVmeste.bListPage.ListPage');
 
-goog.require('cl.iRequest.Request');
 goog.require('goog.object');
 goog.require('sv.gTab.gListTab.Tab');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bListPage.View');
 goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
+goog.require('sv.lSberVmeste.iCardService.CardService');
 goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
@@ -58,6 +58,19 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     * @private
     */
     this.chosenCategoriesData_ = {};
+
+     /**
+    * @type {bool}
+    * @private
+    */
+    this.userLoggedIn_ = false;
+
+     /**
+    * @type {bool}
+    * @private
+    */
+    this.draft_ = true;
+
 };
 goog.inherits(sv.lSberVmeste.bListPage.ListPage,
     sv.lSberVmeste.iPage.Page);
@@ -66,11 +79,11 @@ goog.inherits(sv.lSberVmeste.bListPage.ListPage,
 goog.scope(function() {
     var ListPage = sv.lSberVmeste.bListPage.ListPage,
         ListTab = sv.gTab.gListTab.Tab,
-        request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         CardList = sv.lSberVmeste.bCardList.CardList,
         UserBlock = sv.lSberVmeste.bUserBlock.UserBlock,
+        CardService = sv.lSberVmeste.iCardService.CardService;
         UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
@@ -91,16 +104,19 @@ goog.scope(function() {
             var that = this;
             UserService.isUserLoggedIn()
                 .then(function(result) {
+                    that.userLoggedIn_ = result.data.loggedIn;
                     var params = that.handleSuccessLoginCheck_(result);
-                    that.header_.renderButton(params);
+
+                    that.draft_ = params.draft;
+                    that.manageHeaderContent_(params);
+                    that.sendCategoriesRequest();
             }, function(err) {
                     var params = that.handleRejectionLoginCheck_(err);
-                    that.header_.renderButton(params);
+                    that.manageHeaderContent_(params);
+                    that.sendCategoriesRequest();
                 }
             );
        }
-
-        this.sendCategoriesRequest();
 
         this.listTab_ = this.decorateChild(
             'ListTab', this.getView().getDom().listTab
@@ -133,8 +149,7 @@ goog.scope(function() {
     * Sends ajax requests for cards
     */
     ListPage.prototype.sendCategoriesRequest = function() {
-        request
-            .send({url: 'entity/'})
+        CardService.getAllEntities()
             .then(this.handleResponse_, this.handleRejection, this);
     };
 
@@ -221,7 +236,10 @@ goog.scope(function() {
         this.userBlock_ = this.renderChild(
             'ListPageUserBlock',
             this.getView().getDom().userBlock,
-            {categories: this.chosenCategoriesData_}
+            {
+                categories: this.chosenCategoriesData_,
+                draft: this.draft_
+            }
         );
 
         this.getHandler().listen(
@@ -324,12 +342,14 @@ goog.scope(function() {
         var loggedIn = response.data.loggedIn;
         var firstName = response.data.firstName;
         var lastName = response.data.lastName;
+        var draft = response.data.userFund.draft;
         var pageType = 'list';
         return {
             'loggedIn': loggedIn,
             'firstName': firstName,
             'lastName': lastName,
-            'pageType': pageType
+            'pageType': pageType,
+            'draft': draft
         };
     };
 
@@ -349,6 +369,21 @@ goog.scope(function() {
             'draft': true
         };
         return default_params;
+    };
+
+     /**
+    * set correct buttons and phrases to this.header_
+    * @param {Object} params
+    * @private
+    */
+    ListPage.prototype.manageHeaderContent_ = function(params) {
+        if (params.draft) {
+            this.header_.renderButton(params);
+            this.header_.renderListPageTitle(params);
+        }
+        else {
+            this.header_.renderListPageTitle(params);
+        }
     };
 
 });  // goog.scope

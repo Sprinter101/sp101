@@ -81,7 +81,7 @@ goog.scope(function() {
             this.getView().getDom().arrowBack
         );
 
-        this.checkListHeaderLayout_;
+        //this.checkListHeaderLayout_;
 
     };
 
@@ -102,6 +102,19 @@ goog.scope(function() {
             this.onHelpClick_
         );
 
+    };
+
+    /**
+    * Choose correct content for list header phrase
+    * @param {Object} params
+    */
+    Header.prototype.renderListPageTitle = function(params) {
+        var draft = params.draft;
+        var pageType = params.pageType;
+        this.getView().renderListPageTitle({
+            'draft': draft,
+            'pageType': pageType
+        });
     };
 
      /**

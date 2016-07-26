@@ -3,6 +3,7 @@ goog.provide('sv.gSlider.View');
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
 goog.require('goog.dom.classlist');
+goog.require('goog.dom.dataset');
 goog.require('goog.events.EventType');
 goog.require('goog.style');
 goog.require('sv.iMedia.Media');
@@ -21,13 +22,44 @@ sv.gSlider.View = function(opt_params, opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
     this.setCssClass(sv.gSlider.View.CssClass.ROOT);
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.left_ = 0;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.is_move_ = 0;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.currentPos_ = null;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.start_ = null;
+
+    /**
+    * @type {number}
+    * @private
+    */
+    this.maxPercent_ = 0;
 };
 goog.inherits(sv.gSlider.View, cl.iControl.View);
 
 
 goog.scope(function() {
     var View = sv.gSlider.View,
-        Media = sv.iMedia.Media;
+        Media = sv.iMedia.Media,
+        HIDDEN = sv.iUtils.Utils.CssClass.HIDDEN;
     /**
      * Css class enum
      * @enum {string}
@@ -64,13 +96,56 @@ goog.scope(function() {
             View.CssClass.LABEL_PERCENT);
         this.dom.slider = this.getElementByClass(View.CssClass.SLIDER);
 
-        this.start_ = null;
-        this.is_move_ = 0;
-        this.currentPos_ = 0;
-        this.left_ = 0;
-        this.currentPercent = 1;
+        var maxPercent = goog.dom.dataset.getAll(this.dom.track);
+        this.maxPercent_ = parseInt(maxPercent.params, 10);
+
+        var initValue = goog.dom.dataset.getAll(this.dom.thumb);
+        initValue = parseInt(initValue.params, 10);
+        this.init(initValue);
+
     };
 
+     /**
+    * set initial slider's value
+    * @param {numbe} initValue
+    */
+    View.prototype.init = function(initValue) {
+        this.currentPercent_ = initValue || 1;
+
+        if (this.currentPercent_ === 1) {
+            this.currentPos_ = 0;
+        }
+        else {
+            this.currentPos_ = this.MakeInitialPosition_(initValue);
+        }
+        this.applyMovement_(initValue);
+
+        this.dom.label.innerHTML = this.currentPercent_;
+        goog.dom.classlist.remove(this.dom.thumb, HIDDEN);
+        goog.dom.classlist.remove(this.dom.label, HIDDEN);
+        goog.dom.classlist.remove(this.dom.label_percent, HIDDEN);
+        this.left_ = this.currentPos_;
+    };
+
+
+     /**
+     * calculates current donation percent
+     * @param {number} initValue
+     * @return {number} current position
+     * @private
+     */
+    View.prototype.MakeInitialPosition_ = function(initValue) {
+        var track_size = goog.style.getSize(this.dom.track).width;
+        var currentPos = initValue / (this.maxPercent_ - 1) * track_size;
+        currentPos = Math.floor(currentPos);
+        if (currentPos >= track_size) {
+            currentPos = track_size;
+        }
+        else if (currentPos < 1) {
+            currentPos = 0;
+        }
+        return currentPos;
+    };
 
      /**
     * @override
@@ -133,22 +208,23 @@ goog.scope(function() {
          */
         View.prototype.onThumbMove_ = function(event) {
             this.track_size = goog.style.getSize(this.dom.track).width;
-            if (this.is_move_ == 1) {
-                var step = event.clientX - this.start_;
-                this.currentPos_ = this.left_ + step;
-                if (this.currentPos_ >= this.track_size) {
-                    this.currentPos_ = this.track_size;
+                if (this.is_move_ == 1) {
+                    var step = event.clientX - this.start_;
+                    this.currentPos_ = this.left_ + step;
+                    if (this.currentPos_ >= this.track_size) {
+                        this.currentPos_ = this.track_size;
+                    }
+                    else if (this.currentPos_ < 1) {
+                        this.currentPos_ = 0;
+                    }
+                    var currentPercent = this.CalculatePercent_(
+                        this.currentPos_);
+                    currentPercent = Math.floor(currentPercent) + 1;
+                    this.dom.label.innerHTML = currentPercent;
+                    this.applyMovement_(currentPercent);
+                    this.dispatchMoveEvent_(currentPercent);
+                    this.currentPercent_ = currentPercent;
                 }
-                else if (this.currentPos_ < 1) {
-                    this.currentPos_ = 0;
-                }
-                var currentPercent = this.CalculatePercent_(this.currentPos_);
-                currentPercent = Math.floor(currentPercent) + 1;
-                this.dom.label.innerHTML = currentPercent;
-                this.applyMovement_(currentPercent);
-                this.dispatchMoveEvent_(currentPercent);
-                this.currentPercent = currentPercent;
-            }
         };
 
          /**
@@ -193,12 +269,13 @@ goog.scope(function() {
 
         /**
          * calculates current donation percent
-         * @param {number} delta_x
+         * @param {number} currentPos
          * @return {number} current percent value
          * @private
          */
-        View.prototype.CalculatePercent_ = function(delta_x) {
-            var currentPercent = delta_x / this.track_size * 14;
+        View.prototype.CalculatePercent_ = function(currentPos) {
+            var currentPercent = currentPos / this.track_size *
+                (this.maxPercent_ - 1);
             return currentPercent;
         };
 
@@ -215,6 +292,7 @@ goog.scope(function() {
             document.onmousemove = null;
             this.dom.thumb.onmouseup = null;
             return this.currentPos_;
+
          };
 
           /**
@@ -222,7 +300,7 @@ goog.scope(function() {
          * @return {number} currentPercent
          */
         View.prototype.getValue = function() {
-            return this.currentPercent;
+            return this.currentPercent_;
         };
 
          /**
@@ -240,32 +318,32 @@ goog.scope(function() {
                 this.getHandler().listen(
                     this.dom.slider,
                     goog.events.EventType.MOUSEDOWN,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .listen(
                     this.getElement(),
                     goog.events.EventType.MOUSEMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .listen(
                     document,
                      goog.events.EventType.MOUSEUP,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 )
                 .listen(
                     this.dom.slider,
                     goog.events.EventType.TOUCHSTART,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .listen(
                     this.getElement(),
                     goog.events.EventType.TOUCHMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .listen(
                     document,
                      goog.events.EventType.TOUCHEND,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 );
             }
         };
@@ -286,32 +364,32 @@ goog.scope(function() {
                 this.getHandler().unlisten(
                     this.dom.slider,
                     goog.events.EventType.MOUSEDOWN,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .unlisten(
                     this.getElement(),
                     goog.events.EventType.MOUSEMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .unlisten(
                     document,
                      goog.events.EventType.MOUSEUP,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 )
                 .unlisten(
                     this.dom.slider,
                     goog.events.EventType.TOUCHSTART,
-                    this.onThumbFocus
+                    this.onThumbFocus_
                 )
                 .unlisten(
                     this.getElement(),
                     goog.events.EventType.TOUCHMOVE,
-                    this.onThumbMove
+                    this.onThumbMove_
                 )
                 .unlisten(
                     document,
                      goog.events.EventType.TOUCHEND,
-                     this.onThumbBlur
+                     this.onThumbBlur_
                 );
             }
         };

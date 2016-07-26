@@ -58,7 +58,8 @@ goog.scope(function() {
     UserBlock.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
 
-        this.createFundButton();
+        var draft = this.params.draft;
+        this.createFundButton_(draft);
     };
 
     /**
@@ -93,13 +94,26 @@ goog.scope(function() {
 
     /**
     * Creates Fund button
+    * @param {bool} draft
+    * @private
     */
-    UserBlock.prototype.createFundButton = function() {
+    UserBlock.prototype.createFundButton_ = function(draft) {
         var buttonContainer = this.getView().getDom().buttonContainer;
-
+        var content, buttonStyle;
+        if (!draft) {
+            content = 'Завершить редактирование';
+            buttonStyles = ['width_xl'];
+        }
+        else {
+            content = 'Основать фонд';
+            buttonStyles = [];
+        }
         var buttonConfig = {
             'data': {
-                'content': 'Основать фонд',
+                'content': content
+            },
+            config: {
+                'buttonStyles': buttonStyles
             }
         };
 
@@ -116,45 +130,10 @@ goog.scope(function() {
     };
 
     /**
-    * Creates Edit donations button
-    */
-    UserBlock.prototype.createEditDonationsButton = function() {
-        var buttonContainer = this.getView().getDom().buttonContainer;
-
-        var buttonConfig = {
-            'data': {
-                'content': '350' + 'Р',
-            },
-            'config': {
-                'buttonStyles': ['font_l']
-            }
-        };
-
-        this.button_ = this.renderChild('ButtonSber',
-            buttonContainer, buttonConfig);
-
-        this.getHandler().listen(
-            this.button_,
-            Button.Event.CLICK,
-            this.onEditDonationsButtonClick_,
-            false,
-            this
-        );
-    };
-
-    /**
     * Fund button click handler
     * @private
     */
     UserBlock.prototype.onFundButtonClick_ = function() {
-        this.dispatchEvent(UserBlock.Event.BUTTON_CLICK);
-    };
-
-    /**
-    * Edit donations button ckick handler
-    * @private
-    */
-    UserBlock.prototype.onEditDonationsButtonClick_ = function() {
         this.dispatchEvent(UserBlock.Event.BUTTON_CLICK);
     };
 

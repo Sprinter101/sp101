@@ -12,22 +12,49 @@
  * @override
  */
 {template .body}
-    <div class="{call .rootClass/}__wrapper">
+    <div class="{call .rootClass/}__inner-wrap">
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-page-donate
+{/template}
+
+/**
+ * tabs template
+ * @param params {
+ *           selectedTabId: number,
+ *           sliderInitValue: number,
+ *           inputIncomeValue: number,
+ *           inputFixedValue: number
+ *           }
+ */
+{template .tabs}
+{let $tabId: $params.selectedTabId ? $params.selectedTabId : 0 /}
+{let $sliderInitValue: $params.sliderInitValue /}
+{let $incomeValue: $params.inputIncomeValue /}
+{let $fixedValue: $params.inputFixedValue /}
     {call .renderChild}
-          {param params: [
+            {param params: [
                 'type': 'TabSber',
                 'renderParams': [
                     'data': [
                         'tabs': [
                             [
-                                'label': 'Сумма',
+                            'label': 'Сумма',
                                 'content': [
                                     'childToRender': [
                                         'type': 'DonationFixedBlock',
                                         'renderParams': [
-                                            'data': [],
+                                            'data': [
+                                            'inputFixedValue': $fixedValue
+                                            ],
                                             'config': [
-                                                'customClasses': ['b-page-donate__fixed-block']
+                                                'customClasses': 
+                                                ['b-page-donate__fixed-block']
                                             ]
                                         ]
                                     ]
@@ -39,15 +66,20 @@
                                     'childToRender': [
                                         'type': 'DonationPercentBlock',
                                         'renderParams': [
-                                            'data': [],
+                                            'data': [
+                                            'sliderInitValue': $sliderInitValue,
+                                            'inputIncomeValue': $incomeValue
+                                            ],
                                             'config': [
-                                               'customClasses': ['b-page-donate__percent-block']
+                                               'customClasses':
+                                               ['b-page-donate__percent-block']
                                             ]
                                         ]
                                     ]
                                 ]
                             ]
-                        ]
+                        ],
+                        'selectedTabId': $tabId
                     ],
                     'config': [
                         'tabClasses': [
@@ -60,12 +92,5 @@
             ]
         /}
         {/call}
-    </div>
-{/template}
 
-/**
- * @override
- */
-{template .rootClass}
-    b-page-donate
 {/template}

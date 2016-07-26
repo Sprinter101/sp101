@@ -51,6 +51,20 @@ sv.lSberVmeste.bDonatePage.DonatePage = function(view, opt_domHelper) {
     * @private
     */
     this.next_route_ = '';
+
+    /**
+    * payment choice that user had already selected
+    * @type {string}
+    * @private
+    */
+    this.payment_choice_ = '';
+
+     /**
+    * slider initial value
+    * @type {number}
+    * @private
+    */
+    this.sliderInitValue_ = 1;
 };
 goog.inherits(sv.lSberVmeste.bDonatePage.DonatePage, sv.lSberVmeste.iPage.Page);
 
@@ -67,60 +81,30 @@ goog.scope(function() {
         View = sv.lSberVmeste.bDonatePage.View,
         UserService = sv.lSberVmeste.iUserService.UserService;
 
+     /**
+     * Tab map
+     * @type {Object}
+     */
+    DonatePage.BlocksTabMap = {
+        'fixed': 0,
+        'percent': 1
+    };
+
     /**
     * @override
     * @param {Element} element
     */
     DonatePage.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
-        var donationTabs = this.getView().getDom().donationTabs;
-        this.donationTabs_ = this.decorateChild('TabSber',
-        donationTabs);
-
-        this.donateBlockFixedSum_ = this.decorateChild('DonationFixedBlock',
-            this.getView().getDom().donateBlockFixedSum);
-
-        this.donateBlockPercent_ = this.decorateChild('DonationPercentBlock',
-            this.getView().getDom().donateBlockPercent);
-
-        this.headerManager_ = this.params.headerManager_;
-        if (this.headerManager_ !== undefined) {
-            var that = this;
-            that.headerManager_.setChoiceHeader();
-        }
-    };
-
-    /**
-    * @override
-    */
-    DonatePage.prototype.enterDocument = function() {
-        goog.base(this, 'enterDocument');
-
-        this.getHandler().listen(
-            this.donateBlockFixedSum_,
-            DonationFixedBlock.Event.DONATION_FIXED_READY,
-            this.onDonationFixedReady_
-        )
-        .listen(this.donateBlockPercent_,
-            DonationPercentBlock.Event.DONATION_PERCENT_READY,
-            this.onDonationPercentReady_
+        var that = this;
+        UserService.isUserLoggedIn()
+                .then(function(result) {
+                    that.handleSuccessLoginCheck_(result);
+                }, function(err) {
+                    that.handleRejectionLoginCheck_(err);
+                }
         );
 
-        this.isUserLoggedIn_();
-    };
-
-    /**
-     * check if user is logged in
-     * @private
-     */
-    DonatePage.prototype.isUserLoggedIn_ = function() {
-        UserService.isUserLoggedIn()
-            .then(
-                this.handleSuccessLoginCheck_,
-                this.handleRejectionLoginCheck_,
-                this
-            );
     };
 
      /**
@@ -130,13 +114,31 @@ goog.scope(function() {
     * @private
     */
     DonatePage.prototype.handleSuccessLoginCheck_ = function(response) {
-        var loggedIn = response.data.loggedIn;
-        if (loggedIn) {
-            this.next_route_ = Route.PAYMENT_TEMP;
+        var draft = response.data.userFund.draft;
+        if (!draft) {
+            this.next_route_ = Route.REGISTRATION;
+            this.payment_choice_ = response.data.payment_choice || 'percent';
+            this.sliderInitValue_ = 3;
+            this.inputIncomValue_ = 20000;
+            this.inputFixedValue = 500;
         }
         else {
-            this.next_route_ = Route.REGISTRATION;
+            this.next_route_ = Route.PAYMENT_TEMP;
+            this.payment_choice_ = 'fixed';
+            this.sliderInitValue_ = undefined;
+            this.inputIncomValue_ = undefined;
+            this.inputFixedValue = undefined;
         }
+        var payment_choice = this.payment_choice_;
+        var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
+
+        var params = {
+            'selectedTabId': selectedTabId,
+            'sliderInitValue': this.sliderInitValue_,
+            'inputIncomeValue': this.inputIncomValue_,
+            'inputFixedValue': this.inputFixedValue
+        };
+        this.renderTabs(params);
     };
 
      /**
@@ -148,6 +150,47 @@ goog.scope(function() {
     DonatePage.prototype.handleRejectionLoginCheck_ = function(err) {
         console.log(err);
         this.next_route_ = Route.REGISTRATION;
+        this.payment_choice_ = 'fixed';
+        this.sliderInitValue_ = undefined;
+        this.inputIncomValue_ = undefined;
+        this.inputFixedValue = undefined;
+        var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
+        var params = {
+            'selectedTabId': selectedTabId,
+            sliderInitValue: this.sliderInitValue_,
+            inputIncomeValue: this.inputIncomValue_,
+            inputFixedValue: this.inputFixedValue
+        };
+        this.renderTabs(params);
+    };
+
+     /**
+     * render donate page tabs
+     * @param {Object} params
+     */
+    DonatePage.prototype.renderTabs = function(params) {
+
+       this.getView().renderTabs(params);
+
+        var donationTabs = this.getView().getDom().donationTabs;
+        this.donationTabs_ = this.decorateChild('TabSber',
+        donationTabs);
+
+        this.donateBlockFixedSum_ = this.decorateChild('DonationFixedBlock',
+            this.getView().getDom().donateBlockFixedSum);
+
+        this.donateBlockPercent_ = this.decorateChild('DonationPercentBlock',
+            this.getView().getDom().donateBlockPercent);
+
+        this.getHandler().listen(
+            this.donateBlockFixedSum_,
+            DonationFixedBlock.Event.DONATION_FIXED_READY,
+            this.onDonationFixedReady_
+        )
+        .listen(this.donateBlockPercent_,
+            DonationPercentBlock.Event.DONATION_PERCENT_READY,
+            this.onDonationPercentReady_
+        );
     };
 
      /**

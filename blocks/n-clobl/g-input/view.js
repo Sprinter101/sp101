@@ -251,10 +251,10 @@ goog.scope(function() {
      * @protected
      */
     View.prototype.onBlur = function() {
-        if (this.label_) {
-            this.dom.input.setAttribute(
+        this.dom.input.setAttribute(
                 'placeholder', this.placeholder_
             );
+        if (this.label_) {
             if (this.dom.input.value == '') {
                 this.hideLabel();
                 this.unsetFilled();
