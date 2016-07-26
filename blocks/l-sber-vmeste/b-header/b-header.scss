@@ -145,6 +145,10 @@
     font-size: 17px;
 }
 
+.b-header__choice-phrase_bit {
+    margin-left: -5px;
+}
+
 .b-header__share-wrapper {
     display: inline-block;
     float: right;
@@ -196,6 +200,9 @@
     .b-header__choice-phrase_donation {
         width: 321px;
         margin-top: 42px;
+    }
+    .b-header__choice-phrase_bit {
+        margin-left: 0;
     }
     .b-header__choice-phrase_edit {
         font-size: 20px;

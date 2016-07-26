@@ -64,7 +64,15 @@
             <div class="{call .rootClass/}__button-wrapper{if $hiddenButton}
                 {sp}{call .hidden/}{/if}">
             </div>
+            {let $choice_phrase: $params.config?.choice_phrase /}
             <div class="{call .rootClass/}__choice-wrapper">
+            {if $choice_phrase == 'donation'}
+                {call .choicePhrase}
+                    {param headerType: $headerType/}
+                    {param choice_phrase: $choice_phrase/}
+                    {param hidden: false/}
+                {/call}
+            {/if}
             </div>
         </div>
     </div>
@@ -152,7 +160,10 @@
             {case 'fund'}
                 фонд
             {case 'donation'}
-                выберите тип финансирования
+                Выберите тип 
+                <span class="{call .rootClass/}__choice-phrase_bit">
+                {sp}финансирования
+                </span>
             {default}
                 направление
         {/switch}

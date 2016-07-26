@@ -81,8 +81,6 @@ goog.scope(function() {
             this.getView().getDom().arrowBack
         );
 
-        //this.checkListHeaderLayout_;
-
     };
 
     /**
