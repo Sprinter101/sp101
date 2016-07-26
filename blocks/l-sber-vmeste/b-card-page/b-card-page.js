@@ -39,6 +39,12 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardType_ = null;
 
+    /**
+     * @type {sv.lSberVmeste.bCardPage.bUserfundCart.UserFundCart}
+     * @private
+     */
+     this.userfundCart_ = null;
+
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
@@ -83,6 +89,10 @@ goog.scope(function() {
         .then(
             this.loadCardsResolveHandler_, this.loadCardsRejectHandler_, this
         );
+
+        this.userfundCart_ = this.decorateChild(
+            'UserfundCart',
+            this.getView().getDom().userfundCart);
     };
 
     /**
@@ -205,6 +215,7 @@ goog.scope(function() {
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
         CardService.addEntity(this.params.cardId)
         .then(function() {
+            this.userfundCart_.show(this.getView().getIconTitle());
             this.setThanksButton_();
             this.getView().showStopHelpingLink();
         }, function(err) {
@@ -218,6 +229,8 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
+        this.userfundCart_.hide();
+
         CardService.removeEntity(this.params.cardId)
         .then(function() {
             this.setStartHelpingButton_();
