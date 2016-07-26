@@ -16,8 +16,8 @@
 /node_modules
 
 # cordova
-/cordova/*
-/!cordova/config.xml
+cordova/*
+!/cordova/config.xml
 
 # jshint config
 .jshintrc
