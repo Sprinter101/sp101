@@ -95,6 +95,7 @@ goog.scope(function() {
         var data = res.data;
         var type = data.type;
         var title = data.title;
+        var imgUrl = data.imgUrl;
         var isChecked = data.checked;
         var description = data.description;
 
@@ -114,6 +115,7 @@ goog.scope(function() {
             this.setStartHelpingButton_();
         }
 
+        this.getView().setLogo(imgUrl);
         this.getView().setIconTitle(title);
         this.getView().setTextTitle(title);
         this.getView().setDescription(description);

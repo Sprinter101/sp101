@@ -39,6 +39,7 @@ goog.scope(function() {
         TEXT_TITLE: 'b-card-page__text-title',
         DESCRIPTION: 'b-card-page__text',
         DONATIONS: 'b-card-page__donations',
+        LOGO: 'b-card-page__icon-image',
         DIRECTION_COUNT: 'b-card-page__directions-count',
         FULL_PRICE: 'b-card-page__amount',
         BUTTON_CONTAINER: 'b-card-page__card-button',
@@ -61,6 +62,7 @@ goog.scope(function() {
         dom.textTitle = this.getElementByClass(CssClass.TEXT_TITLE, element);
         dom.description = this.getElementByClass(CssClass.DESCRIPTION, element);
         dom.donations = this.getElementByClass(CssClass.DONATIONS, element);
+        dom.logo = this.getElementByClass(CssClass.LOGO, element);
         dom.directionsCount =
             this.getElementByClass(CssClass.DIRECTION_COUNT, element);
         dom.fullPrice = this.getElementByClass(CssClass.FULL_PRICE, element);
@@ -105,9 +107,7 @@ goog.scope(function() {
      */
     View.prototype.setTextTitle = function(title) {
         goog.soy.renderElement(
-            this.dom.textTitle,
-            Template.text,
-            {text: title}
+            this.dom.textTitle, Template.text, { text: title }
         );
     };
 
@@ -117,10 +117,16 @@ goog.scope(function() {
      */
     View.prototype.setDescription = function(description) {
         goog.soy.renderElement(
-            this.dom.description,
-            Template.text,
-            {text: description}
+            this.dom.description, Template.text, { text: description }
         );
+    };
+
+    /**
+     * Set card logo
+     * @param {string} url logo url
+     */
+    View.prototype.setLogo = function(url) {
+        this.dom.logo.src = url;
     };
 
     /**
@@ -138,7 +144,7 @@ goog.scope(function() {
         goog.soy.renderElement(
             this.dom.donations,
             Template.text,
-            {text: 'Ежемесячно ' + num + ' ' + declension + ' перечисляет'}
+            { text: 'Ежемесячно ' + num + ' ' + declension + ' перечисляет' }
         );
     };
 
@@ -157,7 +163,7 @@ goog.scope(function() {
         goog.soy.renderElement(
             this.dom.fullPrice,
             Template.text,
-            {text: price + ' ' + declension}
+            { text: price + ' ' + declension }
         );
     };
 
