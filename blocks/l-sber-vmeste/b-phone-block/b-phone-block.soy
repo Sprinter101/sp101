@@ -49,11 +49,13 @@
                         'inputClass': 'input_confirmation',
                         'inputType': 'text',
                         'value': '',
-                    ],
+                        'maxLength': '3'
+                        ],
                     'config': [
                         'validations': [
                             'notEmpty',
-                            'digits'
+                            'digits',
+                            'confirmCode'
                         ],
                         'constraints': ['digitsOnly']
 
