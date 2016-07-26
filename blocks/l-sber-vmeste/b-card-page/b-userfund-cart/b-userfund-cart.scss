@@ -1,0 +1,94 @@
+@import '../../i-media/i-media.scss';
+
+.b-userfund-cart {
+    position: fixed;
+    bottom: -100px;
+    left: 0;
+
+    width: 100%;
+    height: 100px;
+
+    color: #000;
+    background-color: #f2f5a1;
+}
+
+.b-userfund-cart__cart {
+    width: 285px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.b-userfund-cart__fund-info-wrapper {
+    float: left;
+
+    height: 100%;
+}
+
+.b-userfund-cart__fund-info {
+    font-size: 15px;
+    line-height: 1.47;
+
+    display: table-cell;
+
+    width: 135px;
+    height: 100px;
+
+    text-align: left;
+    vertical-align: middle;
+}
+
+.b-userfund-cart__button-wrapper {
+    float: right;
+
+    height: 100%;
+}
+
+.b-userfund-cart__fund-button {
+    display: table-cell;
+
+    height: 100px;
+
+    vertical-align: middle;
+}
+
+.b-userfund-cart_visible {
+    animation: show-and-hide 5s;
+}
+
+@include media-m {
+    .b-userfund-cart {
+        position: absolute;
+        top: -178px;
+        right: 0;
+        left: -5px;
+
+        width: 780px;
+        margin: 0 auto;
+
+        border-radius: 7px;
+    }
+
+    .b-userfund-cart_visible {
+        animation: show-and-hide-m 5s;
+    }
+}
+
+@keyframes show-and-hide-m {
+    10% {
+        top: -78px;
+    }
+
+    85% {
+        top: -78px;
+    }
+}
+
+@keyframes show-and-hide {
+    10% {
+        bottom: 0;
+    }
+
+    85% {
+        bottom: 0;
+    }
+}
