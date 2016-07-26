@@ -170,6 +170,10 @@ goog.scope(function() {
         numDirections = numDirections || 0;
         numTopics = numTopics || 0;
 
+        var text = '';
+        var textDirections = '';
+        var textTopics = '';
+
         var declension = Utils.declensionPrint({
             num: numDirections,
             nom: 'направление',
@@ -183,13 +187,21 @@ goog.scope(function() {
             plu: 'тем'
         });
 
+        if (numDirections) {
+            textDirections = numDirections + ' ' + declension;
+        }
+        if (numTopics) {
+            textTopics = numTopics + ' ' + topics;
+        }
+
+        if (numDirections && numTopics) {
+            text = [textDirections, textTopics].join(', ');
+        } else {
+            text = textDirections + textTopics;
+        }
+
         goog.soy.renderElement(
-            this.dom.directionsCount,
-            Template.text,
-            {
-                text: numDirections + ' ' + declension + ', ' +
-                      numTopics + ' ' + topics
-            }
+            this.dom.directionsCount, Template.text, { text: text }
         );
     };
 
