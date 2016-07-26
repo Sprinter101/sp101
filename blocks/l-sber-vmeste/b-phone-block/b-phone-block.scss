@@ -1,12 +1,13 @@
-@import '../../l-sber-vmeste/i-media/i-media.scss';
+@import '../i-media/i-media';
 
 .b-phone-block {
   position: relative;
 
   display: block;
 
-  width: 480px;
-  height: 420px;
+  width: 335px;
+  height: 335px;
+
   top: 10%;
   margin: 0 auto;
   padding: 10px 0;
@@ -67,4 +68,51 @@
   position: inherit;
   display: none;
   text-align: center;
+}
+
+@include media-m {
+  .b-phone-block {
+    position: relative;
+
+    display: block;
+    
+    width: 480px;
+    height: 420px;
+
+    top: 10%;
+    margin: 0 auto;
+    padding: 10px 0;
+
+    text-align: center;
+    vertical-align: middle;
+
+    border-radius: 8px;
+    border-bottom: solid 1px #979797;
+    background: #fff;
+
+    font-size: 15px;
+  }
+}
+
+@include media-xl {
+  .b-phone-block {
+    position: relative;
+
+    display: block;
+
+    width: 480px;
+    height: 420px;
+    top: 10%;
+    margin: 0 auto;
+    padding: 10px 0;
+
+    text-align: center;
+    vertical-align: middle;
+
+    border-radius: 8px;
+    border-bottom: solid 1px #979797;
+    background: #fff;
+
+    font-size: 15px;
+  }
 }
