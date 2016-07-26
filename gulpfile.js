@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const util = require('gulp-util');
 const path = require('path');
 const args = require('yargs').argv;
+const exec = require('child_process').exec;
 const livereload = require('gulp-livereload');
 const gulpConfig = require('./gulp/config.json');
 const configFile = args.modulesPath ? require('./config/dev/config.json') : require('./config/config.json');
@@ -10,7 +11,9 @@ const gulpif = require('gulp-if');
 const apiAddress = args.apiAddress || configFile.api.url;
 const production = !!util.env.production;
 
-const pathToPublic = configFile.pathToPublic ||
+var pathToCordova = configFile.pathToCordova ||
+    path.join(__dirname, 'cordova');
+var pathToPublic = configFile.pathToPublic ||
     path.join(__dirname, 'public/');
 
 const modulesPath = args.modulesPath ||
@@ -141,6 +144,19 @@ gulp.task('html', ['scripts'], function() {
         },
         dest: pathToPublic
     });
+});
+
+gulp.task('buildCordova', ['cordova'], function() {
+    var command = 'cd ' + pathToCordova + ' && cordova build android';
+    var output = exec(command);
+
+    output.stdout.pipe(process.stdout);
+    output.stderr.pipe(process.stdout);
+});
+
+gulp.task('cordova', ['default'], function() {
+    gulp.src(path.join(pathToPublic, '/') + '*')
+        .pipe(gulp.dest(path.join(pathToCordova, 'www/')));
 });
 
 gulp.task('watch', function() {
