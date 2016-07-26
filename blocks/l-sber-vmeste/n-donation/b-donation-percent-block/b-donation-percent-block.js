@@ -72,6 +72,11 @@ goog.scope(function() {
         DONATION_PERCENT_READY: 'donation-percent-ready'
     };
 
+     /**
+     * Max donation sum
+     */
+    DonationPercentBlock.MAX_RESULT_SUM = 500000;
+
     /**
     * @override
     * @param {Element} element
@@ -105,6 +110,10 @@ goog.scope(function() {
                 this.monthlyIncome_,
                 Input.Event.BLUR,
                 this.onMonthlyIncomeBlur_
+            )
+             .listen(this.monthlyIncome_,
+                Input.Event.INPUT,
+                this.onMonthlyIncomeInput_
             )
             .listen(
                 this.buttonReady_,
@@ -150,6 +159,15 @@ goog.scope(function() {
     };
 
     /**
+     * Input event handler
+     * @param {sv.gInput.Input.Event.Input} event
+     * @private
+     */
+    DonationPercentBlock.prototype.onMonthlyIncomeInput_ = function(event) {
+        this.buttonReady_.enable();
+    }
+
+    /**
      * Blur event handler
      * @param {sv.gInput.Input.Event.Blur} event
      * @private
@@ -159,18 +177,34 @@ goog.scope(function() {
         var currentPercent = this.donationSlider_.getValue();
 
         if (this.checkMonthlyIncomeSum_()) {
-        var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum,
-            currentPercent);
-        this.showResultSum_(resultSum);
-        this.resultSum_ = resultSum;
+        this.checkResultSum_(currentPercent);
+        this.manageSliderStyle_();
+        this.manageButtonReadyStyle_(this.resultSum_);
         }
         else {
             this.hideResultSum_();
             this.resultSum_ = 0;
         }
-        this.manageSliderStyle_();
-        this.manageButtonReadyStyle_(this.resultSum_);
     };
+
+     /**
+     * Check result donation sum and manage result block view
+     * @param {number} percent - donation percent from slider
+     * @private
+     */
+     DonationPercentBlock.prototype.checkResultSum_ = function(currentPercent) {
+        var resultSum = this.CalculateDonation_(this.monthlyIncome_.sum,
+            currentPercent);
+        var mode = true;
+        this.resultSum_ = resultSum;
+        if (resultSum > DonationPercentBlock.MAX_RESULT_SUM) {
+            mode = false;
+            this.resultSum_ = 0;
+        }
+        this.showResultSum_(resultSum, mode);
+        this.manageButtonReadyStyle_(this.resultSum_);
+
+     };
 
     /**
      * Calculate donation sum
@@ -222,10 +256,7 @@ goog.scope(function() {
     DonationPercentBlock.prototype.onSliderMove_ = function(event) {
         var currentPercent = event.payload.percent;
         if (this.checkMonthlyIncomeSum_()) {
-        var resultSum = this.CalculateDonation_(
-            this.monthlyIncome_.sum, currentPercent);
-        this.showResultSum_(resultSum);
-        this.resultSum_ = resultSum;
+            this.checkResultSum_(currentPercent);
         }
         this.manageButtonReadyStyle_(this.resultSum_);
     };
@@ -288,10 +319,11 @@ goog.scope(function() {
      /**
      * Show result sum of donation
      * @param {string} sumValue
+     * @param {bool} mode
      * @private
      */
-    DonationPercentBlock.prototype.showResultSum_ = function(sumValue) {
-        this.getView().showResultSum(sumValue);
+    DonationPercentBlock.prototype.showResultSum_ = function(sumValue, mode) {
+        this.getView().showResultSum(sumValue, mode);
     };
 
      /**

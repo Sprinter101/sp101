@@ -57,6 +57,9 @@
                     ]/}
             {/call}
         </div>
+        <div class="{call .rootClass/}__error-message{sp}{call .hidden/}">
+            Мы не можем принять от вас сразу больше, чем 500 тыс. рублей
+        </div>
     </div>
 {/template}
 
@@ -169,4 +172,12 @@
  */
 {template .clearfix}
     i-utils__clearfix
+{/template}
+
+/**
+ * Additional class for hiding unwanted 
+ * for this headerType element
+ */
+{template .hidden}
+    i-utils__hidden
 {/template}
