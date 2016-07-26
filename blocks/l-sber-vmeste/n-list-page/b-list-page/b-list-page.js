@@ -210,7 +210,7 @@ goog.scope(function() {
             var cardList = this.cardLists_[i],
                 cardType = ListPage.CardTypes[i];
 
-            cardList.renderCards(categories[cardType]);
+            cardList.renderCards(categories[cardType], 'LIST');
         }
     };
 

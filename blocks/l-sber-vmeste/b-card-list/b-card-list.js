@@ -49,8 +49,9 @@ goog.scope(function() {
     /**
      * cards renderer
      * @param {Array} cards
+     * @param {String} pageType
      */
-    CardList.prototype.renderCards = function(cards) {
+    CardList.prototype.renderCards = function(cards, pageType) {
         var domCardsBlock = this.getView().getDom().cardsBlock;
 
         for (var i = 0; cards && i < cards.length; i++) {
@@ -65,7 +66,8 @@ goog.scope(function() {
             var cardParams = {
                 data: {
                     logoSrc: card.imgUrl,
-                    title: card.title
+                    title: card.title,
+                    places: this.parserChooser_(pageType, card.type.toString())
                 },
                 config: {
                     customClasses: this.cardsCustomClasses_,
@@ -93,6 +95,51 @@ goog.scope(function() {
         }
 
         this.dispatchEvent(CardList.Event.CARDS_RENDERED);
+    };
+
+    /**
+     * Easy-to-change parser
+     * @param {string} pageType
+     * @param {string} parserTarget
+     * @return {string}
+     * @private
+     */
+    CardList.prototype.parserChooser_ = function(pageType, parserTarget) {
+        switch (pageType) {
+            case 'CARD':
+                 return this.parseCardType_(parserTarget);
+                break;
+            case 'LIST':
+                return '';
+                break;
+            default:
+                return this.parseCardType_(parserTarget);
+                break;
+
+        }
+    };
+
+    /**
+     * Parser for card type
+     * @param {string} type
+     * @return {string}
+     * @private
+     */
+    CardList.prototype.parseCardType_ = function(type) {
+        switch (type) {
+            case 'topic':
+                return 'Тема';
+                break;
+            case 'direction':
+                return 'Направление';
+                break;
+            case 'fund':
+                return 'Фонд';
+                break;
+            default :
+                return '';
+                break;
+        }
     };
 
     /**

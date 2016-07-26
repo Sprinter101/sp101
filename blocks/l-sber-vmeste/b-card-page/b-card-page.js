@@ -185,7 +185,7 @@ goog.scope(function() {
             directionsCount = response.data.length;
         }
 
-        this.cardList_.renderCards(cardList);
+        this.cardList_.renderCards(cardList, 'CARD');
         this.getView().setDirectionsCount(directionsCount, topicsCount);
     };
 
