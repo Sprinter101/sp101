@@ -1,0 +1,52 @@
+{namespace sv.lSberVmeste.bCardPage.bUserfundCart.Template}
+
+/**
+ * @constructor
+ * @extends cl.iControl.Template
+ */
+{template .page}
+    {call .init data="all"/}
+{/template}
+
+/**
+ * Body
+ */
+{template .body}
+    <div class="{call .rootClass /}__cart">
+        <div class="{call .rootClass /}__fund-info-wrapper">
+            <div class="{call .rootClass /}__fund-info">
+                <div class="{call .rootClass /}__title">Добавили:</div>
+                <div class="{call .rootClass /}__category"></div>
+            </div>
+        </div>
+        <div class="{call .rootClass /}__button-wrapper">
+            <div class="{call .rootClass /}__fund-button">
+                {call .renderChild}
+                  {param params: [
+                        'type': 'ButtonSber',
+                        'renderParams': [
+                            'data': [
+                                'content': 'Мой фонд'
+                            ],
+                            'config': [
+                                'buttonStyles': [
+                                    'width_smaller',
+                                    'border_white',
+                                    'background_transparent',
+                                    'border_thick'
+                                ]
+                            ]
+                        ]
+                    ]/}
+                {/call}
+            </div>
+        </div>
+    </div>
+{/template}
+
+/**
+ * @override
+ */
+{template .rootClass}
+    b-userfund-cart
+{/template}

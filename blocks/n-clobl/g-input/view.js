@@ -37,19 +37,6 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     * @private
     */
     this.showErrorsOnFocus_ = !!this.params.showErrorsOnFocus;
-
-     /**
-     * Error messages for validations
-     * @type {Object}
-     */
-    this.validationErrorMessages = {
-        'digits': 'Допустимо использовать только цифры',
-        'email': 'Введён некорректный адрес электронной почты',
-        'notEmpty': 'Это поле не может быть пустым',
-        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
-                        'чем 500 тыс. рублей',
-    };
-
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
@@ -95,12 +82,13 @@ goog.scope(function() {
         'digits': 'Допустимо использовать только цифры',
         'email': 'Введён некорректный адрес электронной почты',
         'notEmpty': 'Это поле не может быть пустым',
-        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
+        'maxDonation': 'Мы не можем принять от вас сразу боыльше, ' +
                        'чем 500 тыс. рублей',
         'minInput': 'Минимальная сумма ввода — 1000 рублей',
         'minDonation': 'Минимальная сумма пожертвования — 100 рублей',
         'name': 'Не корректно введено имя',
-        'phoneNumber': 'Не корректно введён номер телефона'
+        'phoneNumber': 'Не корректно введён номер телефона',
+        'confirmCode': 'Не корректно введен код из СМС'
     };
 
     /**

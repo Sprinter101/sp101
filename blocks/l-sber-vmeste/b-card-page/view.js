@@ -39,11 +39,13 @@ goog.scope(function() {
         TEXT_TITLE: 'b-card-page__text-title',
         DESCRIPTION: 'b-card-page__text',
         DONATIONS: 'b-card-page__donations',
+        LOGO: 'b-card-page__icon-image',
         DIRECTION_COUNT: 'b-card-page__directions-count',
         FULL_PRICE: 'b-card-page__amount',
         BUTTON_CONTAINER: 'b-card-page__card-button',
         CARD_LIST: 'b-card-list',
         STOP_HELPING_LINK: 'b-card-page__stop-helping',
+        USERFUND_CART: 'b-card-page__userfund-cart',
         HIDDEN: sv.iUtils.Utils.CssClass.HIDDEN,
     };
 
@@ -61,6 +63,7 @@ goog.scope(function() {
         dom.textTitle = this.getElementByClass(CssClass.TEXT_TITLE, element);
         dom.description = this.getElementByClass(CssClass.DESCRIPTION, element);
         dom.donations = this.getElementByClass(CssClass.DONATIONS, element);
+        dom.logo = this.getElementByClass(CssClass.LOGO, element);
         dom.directionsCount =
             this.getElementByClass(CssClass.DIRECTION_COUNT, element);
         dom.fullPrice = this.getElementByClass(CssClass.FULL_PRICE, element);
@@ -71,6 +74,10 @@ goog.scope(function() {
         dom.stopHelpingLink = this.getElementByClass(
             CssClass.STOP_HELPING_LINK, element
         );
+
+        dom.userfundCart = this.getElementByClass(
+            CssClass.USERFUND_CART, element
+        ).firstChild;
     };
 
     /**
@@ -100,14 +107,21 @@ goog.scope(function() {
     };
 
     /**
+     * Get icon title
+     * @return  {string} title organization name
+     */
+    View.prototype.getIconTitle = function() {
+        return this.dom.iconTitle.innerHTML.trim();
+    };
+
+
+    /**
      * Set title before description
      * @param  {string} title organization name
      */
     View.prototype.setTextTitle = function(title) {
         goog.soy.renderElement(
-            this.dom.textTitle,
-            Template.text,
-            {text: title}
+            this.dom.textTitle, Template.text, { text: title }
         );
     };
 
@@ -117,10 +131,16 @@ goog.scope(function() {
      */
     View.prototype.setDescription = function(description) {
         goog.soy.renderElement(
-            this.dom.description,
-            Template.text,
-            {text: description}
+            this.dom.description, Template.text, { text: description }
         );
+    };
+
+    /**
+     * Set card logo
+     * @param {string} url logo url
+     */
+    View.prototype.setLogo = function(url) {
+        this.dom.logo.src = url;
     };
 
     /**
@@ -138,7 +158,7 @@ goog.scope(function() {
         goog.soy.renderElement(
             this.dom.donations,
             Template.text,
-            {text: 'Ежемесячно ' + num + ' ' + declension + ' перечисляет'}
+            { text: 'Ежемесячно ' + num + ' ' + declension + ' перечисляет' }
         );
     };
 
@@ -157,7 +177,7 @@ goog.scope(function() {
         goog.soy.renderElement(
             this.dom.fullPrice,
             Template.text,
-            {text: price + ' ' + declension}
+            { text: price + ' ' + declension }
         );
     };
 
@@ -169,6 +189,10 @@ goog.scope(function() {
     View.prototype.setDirectionsCount = function(numDirections, numTopics) {
         numDirections = numDirections || 0;
         numTopics = numTopics || 0;
+
+        var text = '';
+        var textDirections = '';
+        var textTopics = '';
 
         var declension = Utils.declensionPrint({
             num: numDirections,
@@ -183,13 +207,21 @@ goog.scope(function() {
             plu: 'тем'
         });
 
+        if (numDirections) {
+            textDirections = numDirections + ' ' + declension;
+        }
+        if (numTopics) {
+            textTopics = numTopics + ' ' + topics;
+        }
+
+        if (numDirections && numTopics) {
+            text = [textDirections, textTopics].join(', ');
+        } else {
+            text = textDirections + textTopics;
+        }
+
         goog.soy.renderElement(
-            this.dom.directionsCount,
-            Template.text,
-            {
-                text: numDirections + ' ' + declension + ', ' +
-                      numTopics + ' ' + topics
-            }
+            this.dom.directionsCount, Template.text, { text: text }
         );
     };
 

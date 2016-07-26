@@ -39,6 +39,12 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     */
     this.cardType_ = null;
 
+    /**
+     * @type {sv.lSberVmeste.bCardPage.bUserfundCart.UserFundCart}
+     * @private
+     */
+     this.userfundCart_ = null;
+
 };
 goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
 
@@ -83,6 +89,10 @@ goog.scope(function() {
         .then(
             this.loadCardsResolveHandler_, this.loadCardsRejectHandler_, this
         );
+
+        this.userfundCart_ = this.decorateChild(
+            'UserfundCart',
+            this.getView().getDom().userfundCart);
     };
 
     /**
@@ -95,6 +105,7 @@ goog.scope(function() {
         var data = res.data;
         var type = data.type;
         var title = data.title;
+        var imgUrl = data.imgUrl;
         var isChecked = data.checked;
         var description = data.description;
 
@@ -114,6 +125,7 @@ goog.scope(function() {
             this.setStartHelpingButton_();
         }
 
+        this.getView().setLogo(imgUrl);
         this.getView().setIconTitle(title);
         this.getView().setTextTitle(title);
         this.getView().setDescription(description);
@@ -185,7 +197,7 @@ goog.scope(function() {
             directionsCount = response.data.length;
         }
 
-        this.cardList_.renderCards(cardList);
+        this.cardList_.renderCards(cardList, 'CARD');
         this.getView().setDirectionsCount(directionsCount, topicsCount);
     };
 
@@ -205,6 +217,7 @@ goog.scope(function() {
     CardPage.prototype.onStartHelpingButtonClick_ = function() {
         CardService.addEntity(this.params.cardId)
         .then(function() {
+            this.userfundCart_.show(this.getView().getIconTitle());
             this.setThanksButton_();
             this.getView().showStopHelpingLink();
         }, function(err) {
@@ -218,6 +231,8 @@ goog.scope(function() {
     * @private
     */
     CardPage.prototype.onStopHelpingLinkClick_ = function() {
+        this.userfundCart_.hide();
+
         CardService.removeEntity(this.params.cardId)
         .then(function() {
             this.setStartHelpingButton_();

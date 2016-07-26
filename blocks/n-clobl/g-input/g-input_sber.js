@@ -47,7 +47,8 @@ sv.gInput.Input = function(view, opt_domHelper) {
         'name': this.validateName_,
         'phoneNumber': this.validatePhoneNumber_,
         'minInput': this.validateMinInput_,
-        'minDonation': this.validateMinDonation_
+        'minDonation': this.validateMinDonation_,
+        'confirmCode': this.validateConfirmCode_
     };
 
     /**
@@ -241,15 +242,6 @@ goog.scope(function() {
     Input.prototype.constraintDigitsOnly_ = function(oldValue) {
         return oldValue.replace(/[\D]/g, '');
     };
-    /**
-     * Removes all non-phone-number characters from the string
-     * @private
-     * @param {string} oldValue
-     * @return {string}
-     */
-    Input.prototype.constraintPhoneOnly_ = function(oldValue) {
-        return oldValue.replace(/[.*!"@#$%^&;:?=()_[:space:]-]/g, '');
-    };
 
     /**
      * Removes all extra characters
@@ -377,6 +369,19 @@ goog.scope(function() {
         var numberRegex = /^\+\d{11}$/;
 
         return numberRegex.test(phoneNumber);
+    };
+
+    /**
+     * validate confirmation code
+     * @param {string } confirmCode code to validate
+     * @return {boolean}
+     * @private
+     */
+    Input.prototype.validateConfirmCode_ = function(confirmCode) {
+        confirmCode = confirmCode.trim();
+        var codeRegex = /\d{3}/;
+
+        return codeRegex.test(confirmCode);
     };
 
     /**

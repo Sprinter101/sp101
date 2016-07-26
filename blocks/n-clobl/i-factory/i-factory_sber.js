@@ -16,12 +16,12 @@ goog.require('sv.gTab.gListTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
-goog.require('sv.lSberVmeste.SberVmeste');
-goog.require('sv.lSberVmeste.View');
 goog.require('sv.lSberVmeste.bCard.Card');
 goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.bCardList.View');
+goog.require('sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart');
+goog.require('sv.lSberVmeste.bCardPage.bUserfundCart.View');
 goog.require('sv.lSberVmeste.bCardPage.CardPage');
 goog.require('sv.lSberVmeste.bCardPage.View');
 goog.require('sv.lSberVmeste.bDonatePage.DonatePage');
@@ -58,6 +58,8 @@ goog.require('sv.lSberVmeste.bUserBlock.UserBlock');
 goog.require('sv.lSberVmeste.bUserBlock.View');
 goog.require('sv.lSberVmeste.bUserfundPage.UserfundPage');
 goog.require('sv.lSberVmeste.bUserfundPage.View');
+goog.require('sv.lSberVmeste.SberVmeste');
+goog.require('sv.lSberVmeste.View');
 
 
 
@@ -198,6 +200,10 @@ sv.iFactory.FactorySber = function() {
         .setControlListItem('UserfundPage', {
             control: sv.lSberVmeste.bUserfundPage.UserfundPage,
             view: sv.lSberVmeste.bUserfundPage.View
+        })
+        .setControlListItem('UserfundCart', {
+            control: sv.lSberVmeste.bCardPage.bUserfundCart.UserfundCart,
+            view: sv.lSberVmeste.bCardPage.bUserfundCart.View
         });
 
 };
