@@ -124,14 +124,14 @@ goog.scope(function() {
         }
         else {
             this.next_route_ = Route.REGISTRATION;
-            this.payment_choice_ = 'percent';
+            this.payment_choice_ = 'fixed';
             this.sliderInitValue_ = undefined;
             this.inputIncomValue_ = undefined;
             this.inputFixedValue = undefined;
         }
         var payment_choice = this.payment_choice_;
         var selectedTabId = DonatePage.BlocksTabMap[this.payment_choice_];
-        console.log('success');
+
         var params = {
             'selectedTabId': selectedTabId,
             'sliderInitValue': this.sliderInitValue_,
@@ -171,7 +171,7 @@ goog.scope(function() {
     DonatePage.prototype.renderTabs = function(params) {
 
        this.getView().renderTabs(params);
-       console.log(params);
+
         var donationTabs = this.getView().getDom().donationTabs;
         this.donationTabs_ = this.decorateChild('TabSber',
         donationTabs);
@@ -201,6 +201,7 @@ goog.scope(function() {
      */
     DonatePage.prototype.onDonationFixedReady_ = function(event) {
         var sumValue = JSON.stringify(event.payload.fixedSum);
+        console.log(sumValue);
         this.redirectToNextPage_();
     };
 

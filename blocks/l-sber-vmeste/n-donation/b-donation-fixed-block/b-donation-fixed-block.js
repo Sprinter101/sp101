@@ -33,6 +33,13 @@ sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock = function(
     */
     this.buttonReady_ = null;
 
+     /**
+    * result donation sum
+    * type {number}
+    * @private
+    */
+    this.resultSum_ = 0;
+
 };
 goog.inherits(sv.lSberVmeste.bDonationFixedBlock.DonationFixedBlock,
     cl.iControl.Control);
@@ -66,6 +73,23 @@ goog.scope(function() {
         this.buttonReady_ = this.decorateChild('ButtonSber',
             this.getView().getDom().buttonReady
             );
+
+        this.initView_();
+    };
+
+     /**
+     * init block view
+     * @private
+     */
+    DonationFixedBlock.prototype.initView_ = function() {
+        var sum = this.fixedSum_.getValue();
+        if (sum) {
+            this.resultSum_ = parseInt(sum, 10);
+        }
+        else {
+            this.resultSum_ = 0;
+            this.buttonReady_.disable();
+        }
     };
 
     /**
@@ -119,10 +143,12 @@ goog.scope(function() {
             .DONATION_FIXED_READY, this);
 
         if (this.checkInputSum_()) {
-          var sumValue = this.getView().getValue();
+          this.resultSum_ = this.fixedSum_.getValue();
+          this.resultSum_ = parseInt(this.resultSum_, 10);
                 customEvent.payload = {
-                fixedSum: sumValue
+                fixedSum: this.resultSum_
                 };
+
             this.dispatchEvent(customEvent);
         }
     };
