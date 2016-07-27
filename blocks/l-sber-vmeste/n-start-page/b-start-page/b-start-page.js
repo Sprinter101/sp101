@@ -2,7 +2,6 @@ goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
-goog.require('goog.events.EventType');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
@@ -38,7 +37,7 @@ sv.lSberVmeste.bStartPage.StartPage = function(view, opt_domHelper) {
      * @type {sv.gButton.Button}
      * @private
      */
-    this.userfundsCountButton_ = null;
+    this.userfundButton_ = null;
 };
 goog.inherits(sv.lSberVmeste.bStartPage.StartPage, sv.lSberVmeste.iPage.Page);
 
@@ -50,8 +49,7 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         UserService = sv.lSberVmeste.iUserService.UserService,
-        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService,
-        View = sv.lSberVmeste.bStartPage.View;
+        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService;
 
     /**
     * @override
@@ -78,7 +76,7 @@ goog.scope(function() {
                     var draft = params.draft;
                     var loggedIn = params.loggedIn;
                     if (!draft) {
-                        that.printReportsButtonContent();
+                        that.printReportsButtonContent_();
                     } else {
                         that.getFundsCount_();
                     }
@@ -176,7 +174,7 @@ goog.scope(function() {
         console.log(err);
 
         var defaultCount = 10;
-        this.changeUserfundButton(defaultCount);
+        this.changeUserfundButton_(defaultCount);
     };
 
     /**
