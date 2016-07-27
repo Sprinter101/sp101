@@ -2,7 +2,7 @@ SberVmeste -up-|> cl.Control
 SberVmeste *--  HeaderManager
 SberVmeste *-- PageManager
 
-SberVmeste --> Controller
+SberVmeste *-- Controller
 SberVmeste --> Router
 
 Controller o-- HeaderManager
