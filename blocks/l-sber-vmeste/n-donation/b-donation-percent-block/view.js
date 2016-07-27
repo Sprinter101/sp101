@@ -120,7 +120,7 @@ goog.scope(function() {
                 HIDDEN
             );
         }
-        this.dom.resultSumContainer.innerHTML = resultSum + 'Р';
+        this.dom.resultSumContainer.innerHTML = resultSum + '₽';
     };
 
     /**
