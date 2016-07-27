@@ -59,21 +59,19 @@ sv.lSberVmeste.bListPage.ListPage = function(view, opt_domHelper) {
     */
     this.chosenCategoriesData_ = {};
 
-     /**
+    /**
     * @type {bool}
     * @private
     */
     this.userLoggedIn_ = false;
 
-     /**
+    /**
     * @type {bool}
     * @private
     */
     this.draft_ = true;
-
 };
-goog.inherits(sv.lSberVmeste.bListPage.ListPage,
-    sv.lSberVmeste.iPage.Page);
+goog.inherits(sv.lSberVmeste.bListPage.ListPage, sv.lSberVmeste.iPage.Page);
 
 
 goog.scope(function() {
@@ -83,7 +81,7 @@ goog.scope(function() {
         Router = sv.lSberVmeste.iRouter.Router,
         CardList = sv.lSberVmeste.bCardList.CardList,
         UserBlock = sv.lSberVmeste.bUserBlock.UserBlock,
-        CardService = sv.lSberVmeste.iCardService.CardService;
+        CardService = sv.lSberVmeste.iCardService.CardService,
         UserService = sv.lSberVmeste.iUserService.UserService;
 
     /**
@@ -116,10 +114,10 @@ goog.scope(function() {
                     that.sendCategoriesRequest();
                 }
             );
-       }
+        }
 
         this.listTab_ = this.decorateChild(
-            'ListTab', this.getView().getDom().listTab
+           'ListTab', this.getView().getDom().listTab
         );
 
         this.listTab_.setActiveTab(this.listTabCategory_);
@@ -203,7 +201,6 @@ goog.scope(function() {
         }
 
         this.renderCardListCards();
-
     };
 
     /**

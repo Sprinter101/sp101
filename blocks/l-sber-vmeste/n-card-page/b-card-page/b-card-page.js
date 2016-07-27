@@ -1,10 +1,10 @@
 goog.provide('sv.lSberVmeste.bCardPage.CardPage');
 
 goog.require('cl.iControl.Control');
-goog.require('cl.iRequest.Request');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bCardList.CardList');
 goog.require('sv.lSberVmeste.iCardService.CardService');
+goog.require('sv.lSberVmeste.iPage.Page');
 goog.require('sv.lSberVmeste.iRouter.Route');
 goog.require('sv.lSberVmeste.iRouter.Router');
 
@@ -16,7 +16,7 @@ goog.require('sv.lSberVmeste.iRouter.Router');
  * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
  *     document interaction.
  * @constructor
- * @extends {cl.iControl.Control}
+ * @extends {sv.lSberVmeste.iPage.Page}
  */
 sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
     goog.base(this, view, opt_domHelper);
@@ -43,16 +43,14 @@ sv.lSberVmeste.bCardPage.CardPage = function(view, opt_domHelper) {
      * @type {sv.lSberVmeste.bUserfundCart.UserfundCart}
      * @private
      */
-     this.userfundCart_ = null;
-
+    this.userfundCart_ = null;
 };
-goog.inherits(sv.lSberVmeste.bCardPage.CardPage, cl.iControl.Control);
+goog.inherits(sv.lSberVmeste.bCardPage.CardPage, sv.lSberVmeste.iPage.Page);
 
 goog.scope(function() {
     var CardPage = sv.lSberVmeste.bCardPage.CardPage,
         Button = cl.gButton.Button,
         CardService = sv.lSberVmeste.iCardService.CardService,
-        request = cl.iRequest.Request.getInstance(),
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router;
 
