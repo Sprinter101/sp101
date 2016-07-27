@@ -59,11 +59,14 @@ goog.scope(function() {
      * 'Display category card' action
      * @param {Object=} opt_params
      */
-    Controller.prototype.actionDisplayCategoryCard = function(opt_params) {
-        this.headerManager_.setCardHeader();
+    Controller.prototype.actionDisplayCategoryCard = function(
+        opt_params) {
+        this.headerManager_.setCardHeader({
+            'cardId': opt_params.id
+        });
         var header = this.headerManager_.getCurrentHeader();
         this.pageManager_.setCurrentPage('CardPage', {
-            cardId: opt_params.id,
+            'cardId': opt_params.id,
             'header': header
         });
     };
