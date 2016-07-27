@@ -8,6 +8,7 @@ goog.require('sv.gInput.Template');
 goog.require('sv.gSlider.Template');
 goog.require('sv.gTab.Template');
 goog.require('sv.gTestPage.Template'); // sandbox item
+goog.require('sv.lSberVmeste.Template');
 goog.require('sv.lSberVmeste.bCard.Template');
 goog.require('sv.lSberVmeste.bCardList.Template');
 goog.require('sv.lSberVmeste.bCardPage.Template');
@@ -30,7 +31,6 @@ goog.require('sv.lSberVmeste.bStartPage.Template');
 goog.require('sv.lSberVmeste.bUserBlock.Template');
 goog.require('sv.lSberVmeste.bUserfundCart.Template');
 goog.require('sv.lSberVmeste.bUserfundPage.Template');
-goog.require('sv.lSberVmeste.Template');
 
 
 

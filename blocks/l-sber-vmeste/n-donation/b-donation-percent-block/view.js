@@ -8,7 +8,6 @@ goog.require('sv.iUtils.Utils');
 
 
 
-
 /**
  * sv.lSberVmeste.bDonationPercentBlock.View
  * @param {Object=} opt_params

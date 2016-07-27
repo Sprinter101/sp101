@@ -165,7 +165,7 @@ goog.scope(function() {
      */
     DonationPercentBlock.prototype.onMonthlyIncomeInput_ = function(event) {
         this.buttonReady_.enable();
-    }
+    };
 
     /**
      * Blur event handler
@@ -189,7 +189,7 @@ goog.scope(function() {
 
      /**
      * Check result donation sum and manage result block view
-     * @param {number} percent - donation percent from slider
+     * @param {number} currentPercent - donation percent from slider
      * @private
      */
      DonationPercentBlock.prototype.checkResultSum_ = function(currentPercent) {

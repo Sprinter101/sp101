@@ -190,7 +190,7 @@ goog.scope(function() {
 
      /**
      * enables or disables 'ready' button
-     * @param {bool}
+     * @param {bool} result
      * @private
      */
     DonationFixedBlock.prototype.manageButtonReadyStyle_ = function(result) {
