@@ -6,9 +6,10 @@ Page <|-- ListPage
 ListPage o-- Header
 ListPage *-- UserBlock
 ListPage *-- ListTab
-ListPage "2" *-- CardList
+ListPage *-- "2" CardList
 ListPage --> Router
 ListPage --> UserService
+ListPage --> CardService
 
 Header *-- Icon
 Header *-- Button
@@ -17,9 +18,10 @@ Header --> Request
 
 UserBlock *-- Button
 
-CardList "0..*" *-- Card
+CardList *--  "0..*" Card
 
 UserService --> Request
+CardService --> Request
 
 class CardList <extend cl.Control> {
     renderCards()
@@ -27,6 +29,14 @@ class CardList <extend cl.Control> {
 
 class UserService {
     isUserLoggedIn()
+}
+
+class CardService {
+    getAllEntities()
+    getCad()
+    getDirectionsByAssociatedId()
+    getFundsByAssociatedId()
+    getFundEntitiesById
     removeEntity()
     addEntity()
 }
@@ -51,10 +61,6 @@ class Router <extend cl.Router> {
     changeLocation()
     getMaskByUrl()
     parseMaskDataFromUrl()
-}
-
-class UserService {
-    isUserLoggedIn()
 }
 
 class UserBlock <extend cl.Control>
