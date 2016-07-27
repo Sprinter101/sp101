@@ -8,7 +8,7 @@
     display: block;
     width: 1px;
     height: 30px;
-    margin: 10px auto;
+    margin: 0 auto 10px;
     opacity: 0.4;
     border: 1px solid #FFFFFF;
     border-radius: 1px;
@@ -35,12 +35,8 @@
 .b-page-start__userfunds-info-count {
     display: block;
     width: 181px;
-    margin: 8px auto 0;
+    margin: 8px auto 10px;
     text-align: center;
-}
-
-.b-page-start__button_userfund {
-    margin-bottom: 10px;
 }
 
 @include media-m {
@@ -52,12 +48,12 @@
     }
     .b-page-start__path_vertical {
         height: 87px;
-        margin: 10px auto 15px;
+        margin: -5px auto 15px;
     }
     .b-page-start__userfunds-info {
         margin: 39px auto 0;
     }
-    .b-page-start__button_userfund {
+    .b-page-start__userfunds-info-count {
         margin: 14px auto 10px;
     }
 }
@@ -71,12 +67,8 @@
     }
     .b-page-start__path_vertical {
         height: 57px;
-        margin: 10px auto 15px;
     }
     .b-page-start__userfunds-info {
         margin: 45px auto 0;
-    }
-    .b-page-start__button_userfund {
-        margin: 14px auto 10px;
     }
 }

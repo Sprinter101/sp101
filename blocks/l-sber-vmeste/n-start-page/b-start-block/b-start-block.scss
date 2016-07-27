@@ -6,7 +6,7 @@
 }
 
 .b-start-block__logo_anonymous {
-    margin-top: 87px;
+    margin-top: 67px;
 }
 
 .b-start-block__logo_authorized {
@@ -21,7 +21,9 @@
 }
 
 .b-start-block__title_anonymous {
-    margin-top: 50px;
+    width: 61px;
+    margin: 50px auto 0;
+    line-height: 1em;
 }
 
 .b-start-block__title_authorized {
@@ -50,26 +52,29 @@
     .b-start-block__logo_anonymous{
         margin-top: 86px;
     }
-    .b-start-block__userfund-name {
+    .b-start-block__title_anonymous {
+        width: 121px;
         margin: 26px auto 0;
     }
     .b-start-block__slogan {
         margin: 26px auto 0;
     }
-    .b-start-block__button_start {
+    .b-start-block__button-wrapper {
         margin: 48px auto 0;
     }
 }
 
 @include media-xl {
-
+    .b-start-block__logo_anonymous {
+        margin-top: 86px;
+    }
     .b-start-block__title_anonymous {
         margin-top: 33px;
     }
     .b-start-block__slogan {
         margin: 15px auto 0;
     }
-    .b-start-block__button_start {
+    .b-start-block__button-wrapper {
         margin: 41px auto 0;
     }
 }
