@@ -13,7 +13,7 @@ goog.require('sv.lSberVmeste.bStartPage.View');
  * @constructor
  * @extends {cl.iControl.View}
  */
-sv.lSberVmeste.bPageManager.View = function(opt_params, 
+sv.lSberVmeste.bPageManager.View = function(opt_params,
     opt_template, opt_modifier) {
     goog.base(this, opt_params, opt_template, opt_modifier);
 
@@ -40,7 +40,6 @@ goog.scope(function() {
      */
     View.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
     };
 
      /**
@@ -48,7 +47,5 @@ goog.scope(function() {
      */
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
     };
 });  // goog.scope
-
