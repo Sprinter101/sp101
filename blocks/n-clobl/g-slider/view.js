@@ -235,7 +235,7 @@ goog.scope(function() {
         View.prototype.applyMovement_ = function(currentPercent) {
             var percent_right_move;
             if (Media.isExtraSmall() || Media.isSmall()) {
-                    percent_right_move = 12;
+                    percent_right_move = -5;
                 }
             else {
                 percent_right_move = 2;
@@ -244,7 +244,7 @@ goog.scope(function() {
                 this.currentPos_ + 'px)';
                 if (currentPercent > 9) {
                     this.dom.label.style.transform = 'translateX(-32px)';
-                    this.dom.label_percent.style.transform = 'translateX(-' +
+                    this.dom.label_percent.style.transform = 'translateX(' +
                         percent_right_move + 'px)';
                 }
                 else if (currentPercent <= 9) {
