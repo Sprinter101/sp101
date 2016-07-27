@@ -1,0 +1,47 @@
+@startuml
+
+title StartPage
+
+Page <|-- StartPage
+StartPage o-- Header
+StartPage *-- ButtonSber
+StartPage *-- StartBlock
+
+StartPage <-- Route
+StartPage <-- Router
+StartPage <-- UserfundService
+StartPage <-- UserService
+
+
+class Header <extend cl.Control> {
+    renderButton()
+}
+
+class ButtonSber <extends cl.gButton.Button> {
+}
+
+class StartBlock {
+    handleLoginCheck()
+}
+
+class UserfundService {
+    {static} getUserfundsCount()
+}
+
+class UserService {
+    {static} isUserLoggedIn()
+}
+
+class Route {
+    {static} String LIST_PAGE
+    {static} String USERFUND_PAGE
+}
+
+class Router <extend cl.Router> {
+    changeLocation()
+}
+
+
+class Page <extends cl.Control>
+
+@enduml
