@@ -1,4 +1,4 @@
-{namespace sv.lSberVmeste.bDonationPercentBlock.Template} 
+{namespace sv.lSberVmeste.bDonationPercentBlock.Template}
 
 /**
  * @constructor
@@ -49,9 +49,11 @@
                             'data': [
                                 'content': 'Готово',
                             ],
-                            'config': ['customClasses': 
-                                ['b-donation-percent-block__button_ready'],
-                                    'stylesForDisabled': [
+                            'config': [
+                                'customClasses': [
+                                    'b-donation-percent-block__button_ready'
+                                ],
+                                'stylesForDisabled': [
                                     'border_yellow',
                                     'background_transparent',
                                     'text-color_white'
@@ -73,7 +75,7 @@
  */
 {template .inputTip autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__input-tip">
-    Укажите Ваш месячный доход
+        Укажите Ваш месячный доход
     </div>
 {/template}
 
@@ -82,7 +84,7 @@
  */
 {template .sliderTip autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__slider-tip">
-         Переводить в мой фонд
+        Переводить в мой фонд
     </div>
 {/template}
 
@@ -116,7 +118,7 @@
                        'maxCharacters': 8,
                        'minIncome': 1000
                    ],
-                    'customClasses': ['b-donation-percent-block__input']
+                   'customClasses': ['b-donation-percent-block__input']
                 ]
             ]
         ]/}
@@ -132,8 +134,9 @@
         {param params: [
             'type': 'SliderSber',
             'renderParams': [
-                'data': [ 'initValue': $initValue, 
-                        'maxPercent': 15
+                'data': [
+                    'initValue': $initValue,
+                    'maxPercent': 15
                 ],
                 'config': [
                     'customClasses': ['b-donation-percent-block__slider'],
@@ -150,7 +153,7 @@
 {template .result autoescape="strict" kind="html"}
     <div class="{call .rootClass/}__result">
         <div class="{call .rootClass/}__result-phrase">
-        Итого в месяц
+            Итого в месяц
         </div>
         <div class="{call .rootClass/}__result-sum">
         —</div>
@@ -179,7 +182,7 @@
 {/template}
 
 /**
- * Additional class for hiding unwanted 
+ * Additional class for hiding unwanted
  * for this headerType element
  */
 {template .hidden}
