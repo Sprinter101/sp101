@@ -5,11 +5,19 @@
 
     text-align: center;
 
-    background: #fff;
     position: relative;
 
     font-family: AndaleMono;
     font-size: 15px;
+
+    height: 100%;
+}
+
+.b-card-page,
+.b-card-page__top,
+.b-card-page__description,
+.b-card-page__bottom {
+    background-color: #fff;
 }
 
 .b-card-page__top-wrapper,
@@ -109,6 +117,14 @@
 
 .b-card-page__directions {
     margin-top: 17px;
+}
+
+
+
+.b-page-manager_cardpage {
+    // 78 is the height of header
+    min-height: calc(100% - 78px);
+    height: 1px;
 }
 
 @include media-m {

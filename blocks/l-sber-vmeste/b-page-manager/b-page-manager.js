@@ -23,6 +23,13 @@ sv.lSberVmeste.bPageManager.PageManager = function(view, opt_domHelper) {
      * @private
      */
     this.currentPage_ = null;
+
+    /**
+     * Current page class
+     * @type {string}
+     * @private
+     */
+    this.currenPageClass_ = null;
 };
 goog.inherits(
     sv.lSberVmeste.bPageManager.PageManager,
@@ -40,7 +47,6 @@ goog.scope(function() {
      */
     PageManager.prototype.decorateInternal = function(element) {
         goog.base(this, 'decorateInternal', element);
-
     };
 
      /**
@@ -48,7 +54,6 @@ goog.scope(function() {
      */
     PageManager.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
-
     };
 
     /**
@@ -57,12 +62,15 @@ goog.scope(function() {
      * @param  {Object=} opt_params
      */
     PageManager.prototype.setCurrentPage = function(page, opt_params) {
+        this.setCurrentPageClass(page);
+
         if (this.currentPage_) {
             this.removeChild(this.currentPage_, true);
         }
         this.currentPage_ =
             this.renderChild(page, this.getElement(), opt_params);
     };
+
     /**
      * gets current page
      * @return {Object}
@@ -70,12 +78,25 @@ goog.scope(function() {
     PageManager.prototype.getCurrentPage = function() {
         return this.currentPage_;
     };
+
     /**
      * gets location
      * @return {Object}
      */
     PageManager.prototype.getLocation = function() {
         return Router.getInstance().getCurrentLocationState();
+    };
 
+    /**
+     * Set curent page class to page manager element
+     * @param {string} pageName
+     */
+    PageManager.prototype.setCurrentPageClass = function(pageName) {
+        if (this.currenPageClass_) {
+            this.removeClassName(this.currenPageClass_);
+        }
+
+        this.currenPageClass_ = 'b-page-manager_' + pageName.toLowerCase();
+        this.addClassName(this.currenPageClass_);
     };
 });  // goog.scope
