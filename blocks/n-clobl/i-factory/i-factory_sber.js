@@ -16,6 +16,8 @@ goog.require('sv.gTab.gListTab.View');
 goog.require('sv.gTestPage.TestPage');
 goog.require('sv.gTestPage.View');
 goog.require('sv.iFactory.TemplateFactory');
+goog.require('sv.lSberVmeste.SberVmeste');
+goog.require('sv.lSberVmeste.View');
 goog.require('sv.lSberVmeste.bCard.Card');
 goog.require('sv.lSberVmeste.bCard.View');
 goog.require('sv.lSberVmeste.bCardList.CardList');
@@ -58,8 +60,6 @@ goog.require('sv.lSberVmeste.bUserfundCart.UserfundCart');
 goog.require('sv.lSberVmeste.bUserfundCart.View');
 goog.require('sv.lSberVmeste.bUserfundPage.UserfundPage');
 goog.require('sv.lSberVmeste.bUserfundPage.View');
-goog.require('sv.lSberVmeste.SberVmeste');
-goog.require('sv.lSberVmeste.View');
 
 
 

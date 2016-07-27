@@ -22,18 +22,22 @@
     {let $inputValue: $params.data.inputIncomeValue /}
     <div class="{call .rootClass/}__inner-wrap">
         <div class="{call .rootClass/}__choice-wrap{sp}{call .clearfix/}">
-        <div class="{call .rootClass/}__user-income{sp}{call .clearfix/}">
-            {call .inputTip/}
-            {call .input}
-                {param inputValue: $inputValue /}
-            {/call}
-        </div>
-        <div class="{call .rootClass/}__donation-percent{sp}{call .clearfix/}">
-        {call .sliderTip /}
-        {call .slider}
-            {param initValue: $initValue /}
-        {/call}
-        </div>
+            <div class="{call .rootClass/}__user-income{sp}{call .clearfix/}">
+                <div class="{call .rootClass/}__input-wrapper">
+                    {call .inputTip/}
+                    {call .input}
+                        {param inputValue: $inputValue /}
+                    {/call}
+            </div>
+            </div>
+            <div class="{call .rootClass/}__donation-percent{sp}{call .clearfix/}">
+                <div class="{call .rootClass/}__slider-wrapper">
+                    {call .sliderTip /}
+                    {call .slider}
+                        {param initValue: $initValue /}
+                    {/call}
+                </div>
+            </div>
         </div>
         {call .result/}
         {call .pathLine/}
@@ -56,6 +60,9 @@
                         ]
                     ]/}
             {/call}
+        </div>
+        <div class="{call .rootClass/}__error-message{sp}{call .hidden/}">
+            Мы не можем принять от вас сразу больше, чем 500 тыс. рублей
         </div>
     </div>
 {/template}
@@ -169,4 +176,12 @@
  */
 {template .clearfix}
     i-utils__clearfix
+{/template}
+
+/**
+ * Additional class for hiding unwanted 
+ * for this headerType element
+ */
+{template .hidden}
+    i-utils__hidden
 {/template}

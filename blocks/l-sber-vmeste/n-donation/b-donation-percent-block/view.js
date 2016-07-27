@@ -2,7 +2,9 @@ goog.provide('sv.lSberVmeste.bDonationPercentBlock.View');
 
 goog.require('cl.iControl.View');
 goog.require('goog.dom');
+goog.require('goog.dom.classlist');
 goog.require('goog.events.EventType');
+goog.require('sv.iUtils.Utils');
 
 
 
@@ -24,7 +26,8 @@ goog.inherits(sv.lSberVmeste.bDonationPercentBlock.View, cl.iControl.View);
 
 
 goog.scope(function() {
-    var View = sv.lSberVmeste.bDonationPercentBlock.View;
+    var View = sv.lSberVmeste.bDonationPercentBlock.View,
+        HIDDEN = sv.iUtils.Utils.CssClass.HIDDEN;
 
 
     /**
@@ -36,7 +39,9 @@ goog.scope(function() {
         MONTHLY_INCOME: 'b-donation-percent-block__input',
         SLIDER: 'b-donation-percent-block__slider',
         RESULT_SUM: 'b-donation-percent-block__result-sum',
-        BUTTON_READY: 'b-donation-percent-block__button_ready'
+        BUTTON_READY: 'b-donation-percent-block__button_ready',
+        SUM_ERROR: 'b-donation-percent-block__result_incorrect',
+        ERROR_MESSAGE: 'b-donation-percent-block__error-message'
     };
 
     /**
@@ -71,6 +76,10 @@ goog.scope(function() {
             View.CssClass.RESULT_SUM, element
         );
 
+        this.dom.resultError = this.getElementByClass(
+            View.CssClass.ERROR_MESSAGE
+        );
+
         this.dom.buttonReady = this.getElementByClass(
             View.CssClass.BUTTON_READY, element
         );
@@ -87,9 +96,30 @@ goog.scope(function() {
     /**
      * show result sum of donation
      * @param {string} resultSum
+     * @param {bool} mode
      */
-    View.prototype.showResultSum = function(resultSum) {
-        this.dom.resultSumContainer.innerHTML = resultSum + 'Р';
+    View.prototype.showResultSum = function(resultSum, mode) {
+        if (mode) {
+            goog.dom.classlist.remove(
+                this.dom.resultSumContainer,
+                View.CssClass.SUM_ERROR
+            );
+            goog.dom.classlist.add(
+                this.dom.resultError,
+                HIDDEN
+            );
+        }
+        else {
+            goog.dom.classlist.add(
+                this.dom.resultSumContainer,
+                View.CssClass.SUM_ERROR
+            );
+            goog.dom.classlist.remove(
+                this.dom.resultError,
+                HIDDEN
+            );
+        }
+        this.dom.resultSumContainer.innerHTML = resultSum + '₽';
     };
 
     /**
