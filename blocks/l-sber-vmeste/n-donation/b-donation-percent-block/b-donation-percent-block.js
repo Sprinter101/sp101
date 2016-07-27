@@ -165,6 +165,7 @@ goog.scope(function() {
      */
     DonationPercentBlock.prototype.onMonthlyIncomeInput_ = function(event) {
         this.buttonReady_.enable();
+        this.donationSlider_.enable();
     };
 
     /**
@@ -254,6 +255,7 @@ goog.scope(function() {
      * @private
      */
     DonationPercentBlock.prototype.onSliderMove_ = function(event) {
+        this.monthlyIncome_.sum = this.monthlyIncome_.getValue();
         var currentPercent = event.payload.percent;
         if (this.checkMonthlyIncomeSum_()) {
             this.checkResultSum_(currentPercent);
