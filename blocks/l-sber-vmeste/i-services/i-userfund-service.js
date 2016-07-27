@@ -1,6 +1,5 @@
 goog.provide('sv.lSberVmeste.iUserfundService.UserfundService');
 
-goog.require('cl.iControl.Control');
 goog.require('cl.iRequest.Request');
 
 
@@ -8,7 +7,6 @@ goog.require('cl.iRequest.Request');
 /**
  * Application userfund service
  * @constructor
- * @extends {cl.iControl.Control}
  */
 sv.lSberVmeste.iUserfundService.UserfundService = function() {};
 
@@ -44,5 +42,4 @@ goog.scope(function() {
             url: UserfundService.URL.CHOSEN_ENTITIES
         });
     };
-
 });  // goog.scope
