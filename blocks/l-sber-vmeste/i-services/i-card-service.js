@@ -8,7 +8,6 @@ goog.require('goog.Promise');
 
 /**
  * @constructor
- * @extends {cl.iControl.Control}
  */
 sv.lSberVmeste.iCardService.CardService = function() {};
 
@@ -104,8 +103,6 @@ goog.scope(function() {
      * @return {goog.Promise}
      */
     CardService.getAllEntities = function() {
-
         return request.send({url: CardService.URL.ENTITY});
     };
-
 });  // goog.scope

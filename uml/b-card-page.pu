@@ -3,7 +3,9 @@
 title CardPage
 
 Page <|-- CardPage
+
 CardPage o-- Header
+
 CardPage *-- ButtonSber
 CardPage *-- CardList
 CardPage *-- UserfundCart
@@ -21,30 +23,29 @@ class ButtonSber <extends cl.gButton.Button> {
     dispose()
 }
 
-class CardList {
+class CardList <extend cl.Control> {
     renderCards()
 }
 
-class UserfundCart {
+class UserfundCart <extend cl.Control> {
     show()
     hide()
 }
 
 class CardService {
-    getCard()
-    getFundsByAssociatedId()
-    getFundEntitiesById()
-    getDirectionsByAssociatedId()
+    {static} getCard()
+    {static} getFundsByAssociatedId()
+    {static} getFundEntitiesById()
+    {static} getDirectionsByAssociatedId()
 }
 
 class Route {
-    CARD
+    {static} String CARD
 }
 
 class Router <extend cl.Router> {
     changeLocation()
 }
-
 
 class Page <extends cl.Control>
 

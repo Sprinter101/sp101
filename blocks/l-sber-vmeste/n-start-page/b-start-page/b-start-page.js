@@ -2,7 +2,6 @@ goog.provide('sv.lSberVmeste.bStartPage.StartPage');
 
 goog.require('cl.iControl.Control');
 goog.require('goog.dom');
-goog.require('goog.events.EventType');
 goog.require('sv.gButton.Button');
 goog.require('sv.lSberVmeste.bStartBlock.StartBlock');
 goog.require('sv.lSberVmeste.bStartPage.View');
@@ -38,8 +37,7 @@ sv.lSberVmeste.bStartPage.StartPage = function(view, opt_domHelper) {
      * @type {sv.gButton.Button}
      * @private
      */
-    this.userfundsCountButton_ = null;
-
+    this.userfundButton_ = null;
 };
 goog.inherits(sv.lSberVmeste.bStartPage.StartPage, sv.lSberVmeste.iPage.Page);
 
@@ -51,8 +49,7 @@ goog.scope(function() {
         Route = sv.lSberVmeste.iRouter.Route,
         Router = sv.lSberVmeste.iRouter.Router,
         UserService = sv.lSberVmeste.iUserService.UserService,
-        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService,
-        View = sv.lSberVmeste.bStartPage.View;
+        UserfundService = sv.lSberVmeste.iUserfundService.UserfundService;
 
     /**
     * @override
@@ -62,16 +59,14 @@ goog.scope(function() {
         goog.base(this, 'decorateInternal', element);
 
         this.startBlock_ = this.decorateChild(
-            'StartBlock',
-            this.getView().getDom().startBlock
+            'StartBlock', this.getView().getDom().startBlock
         );
-
-       this.userfundButton_ = this.decorateChild('ButtonSber',
-            this.getView().getDom().userfundButton
+        this.userfundButton_ = this.decorateChild(
+            'ButtonSber', this.getView().getDom().userfundButton
         );
-
         this.header_ = this.params.header;
-            if (this.header_) {
+
+        if (this.header_) {
             var that = this;
             UserService.isUserLoggedIn()
                 .then(function(result) {
@@ -81,17 +76,16 @@ goog.scope(function() {
                     var draft = params.draft;
                     var loggedIn = params.loggedIn;
                     if (!draft) {
-                        that.printReportsButtonContent();
-                    }
-                    else {
+                        that.printReportsButtonContent_();
+                    } else {
                         that.getFundsCount_();
                     }
                 }, function(err) {
                     var params = that.handleRejectionLoginCheck_(err);
                     that.header_.renderButton(params);
                     that.startBlock_.handleLoginCheck(params);
-            });
-       }
+                });
+        }
     };
 
     /**
@@ -106,8 +100,14 @@ goog.scope(function() {
         var lastName = response.data.lastName;
         var draft = response.data.userFund.draft;
         var pageType = 'start';
-        return {'loggedIn': loggedIn, 'firstName': firstName,
-            'lastName': lastName, 'draft': draft, 'pageType': pageType};
+
+        return {
+            'loggedIn': loggedIn,
+            'firstName': firstName,
+            'lastName': lastName,
+            'draft': draft,
+            'pageType': pageType
+        };
     };
 
     /**
@@ -118,8 +118,15 @@ goog.scope(function() {
     */
     StartPage.prototype.handleRejectionLoginCheck_ = function(err) {
         console.log(err);
-        var default_params = {'loggedIn': false, 'firstName': undefined,
-            'lastName': undefined, 'draft': true, 'pageType': 'start'};
+
+        var default_params = {
+            'loggedIn': false,
+            'firstName': undefined,
+            'lastName': undefined,
+            'draft': true,
+            'pageType': 'start'
+        };
+
         return default_params;
     };
 
@@ -146,17 +153,15 @@ goog.scope(function() {
         );
     };
 
-     /**
+    /**
      * Gets count of funds from server and then sends it
      * for further processing if request was successful
      * @private
      */
     StartPage.prototype.getFundsCount_ = function() {
         UserfundService.getUserfundsCount()
-            .then(this.handleSuccess_,
-                this.handleRejection_,
-                this);
-        };
+            .then(this.handleSuccess_, this.handleRejection_, this);
+    };
 
     /**
     * Ajax rejection handler
@@ -167,8 +172,9 @@ goog.scope(function() {
     */
     StartPage.prototype.handleRejection_ = function(err) {
         console.log(err);
+
         var defaultCount = 10;
-        this.changeUserfundButton(defaultCount);
+        this.changeUserfundButton_(defaultCount);
     };
 
     /**
@@ -177,23 +183,21 @@ goog.scope(function() {
     * @param {Object} response - number of new opened userfunds
     * @private
     */
-    StartPage.prototype.handleSuccess_ =
-        function(response) {
-            var data = response.data;
-            if (data.today < 1) {
-                data = data.all;
-            }
-            else {
-                data = data.today;
-            }
-            if (data > 0) {
-                this.renderUserfundsCountInfo_(data);
-                this.changeUserfundButton_(data);
-            }
-            else {
-                data = 20;
-                this.changeUserfundButton_(data);
-            }
+    StartPage.prototype.handleSuccess_ = function(response) {
+        var data = response.data;
+
+        if (data.today < 1) {
+            data = data.all;
+        } else {
+            data = data.today;
+        }
+        if (data > 0) {
+            this.renderUserfundsCountInfo_(data);
+            this.changeUserfundButton_(data);
+        } else {
+            data = 20;
+            this.changeUserfundButton_(data);
+        }
     };
 
     /**
@@ -201,22 +205,20 @@ goog.scope(function() {
     * @param {string} userfundsCount number of new opened userfunds
     * @private
     */
-    StartPage.prototype.renderUserfundsCountInfo_ = function(
-       userfundsCount) {
+    StartPage.prototype.renderUserfundsCountInfo_ = function(userfundsCount) {
         this.getView().printCorrectPhrase(userfundsCount);
     };
 
-     /**
+    /**
      * Applies data to userfunds count button
      * @param {string} userfundsCount number of new opened userfunds
      * @private
      */
-    StartPage.prototype.changeUserfundButton_ =
-        function(userfundsCount) {
-            this.getView().printCorrectCount(userfundsCount);
+    StartPage.prototype.changeUserfundButton_ = function(userfundsCount) {
+        this.getView().printCorrectCount(userfundsCount);
     };
 
-     /**
+    /**
     * print correct 'reports' button content
     * @private
     */
@@ -224,7 +226,7 @@ goog.scope(function() {
         this.getView().printReportsButtonContent();
     };
 
-     /**
+    /**
      * detect start button type to correct event's handle
      * @return {bool}
      * @private
@@ -240,17 +242,19 @@ goog.scope(function() {
      */
     StartPage.prototype.onManageUserfund_ = function(event) {
         Router.getInstance().changeLocation(
-            Route.LIST_PAGE, {'category': 'topics'});
+            Route.LIST_PAGE, {'category': 'topics'}
+        );
     };
 
-     /**
+    /**
      * Handles start button CLICK and redirect to ListPage
      * @param {sv.gButton.Button.Event.CLICK} event
      * @private
      */
     StartPage.prototype.onStartCreatingUserfund_ = function(event) {
         Router.getInstance().changeLocation(
-            Route.LIST_PAGE, {'category': 'topics'});
+            Route.LIST_PAGE, {'category': 'topics'}
+        );
     };
 
     /**
@@ -260,12 +264,11 @@ goog.scope(function() {
      */
     StartPage.prototype.onUserfundButtonClick_ = function(event) {
         if (this.checkUserfundButtonClass_()) {
+            Router.getInstance().changeLocation(Route.USERFUND_PAGE);
+        } else {
             Router.getInstance().changeLocation(
-                Route.USERFUND_PAGE);
-        }
-        else {
-            Router.getInstance().changeLocation(
-                Route.LIST_PAGE, {'category': 'funds'});
+                Route.LIST_PAGE, {'category': 'funds'}
+            );
         }
     };
 
