@@ -150,12 +150,22 @@ gulp.task('buildCordova', ['cordova'], function() {
     var command = 'cd ' + pathToCordova + ' && cordova build android';
     var output = exec(command);
 
+    output.stdout.on('data', function(chunk) {
+        if (chunk.trim().indexOf('BUILD SUCCESSFUL') != -1) {
+            var commandRunAndroid = 'cd ' + pathToCordova + ' && cordova run android';
+
+            outputRunAndroid = exec(commandRunAndroid);
+            outputRunAndroid.stdout.pipe(process.stdout);
+            outputRunAndroid.stderr.pipe(process.stderr);
+        }
+    });
+
     output.stdout.pipe(process.stdout);
-    output.stderr.pipe(process.stdout);
+    output.stderr.pipe(process.stderr);
 });
 
 gulp.task('cordova', ['default'], function() {
-    gulp.src(path.join(pathToPublic, '/') + '*')
+    gulp.src(path.join(pathToPublic, '/**/*'))
         .pipe(gulp.dest(path.join(pathToCordova, 'www/')));
 });
 
