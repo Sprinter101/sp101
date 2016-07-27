@@ -1,0 +1,46 @@
+@startuml
+title b-profile-page
+
+Page <|-- RegistrationPage
+
+RegistrationPage *-- PhoneBlock
+
+RegistrationPage --> Router
+RegistrationPage --> UserService
+
+PhoneBlock --> Request
+PhoneBlock *-- Input
+PhoneBlock *-- Button
+
+UserService --> Request
+
+
+class Input <extend cl.Input> {
+    setValue()
+    enable()
+    disable()
+    isValid()
+    validate()
+}
+
+class Router <extend cl.Router> {
+    use()
+    changeLocation()
+    getMaskByUrl()
+    parseMaskDataFromUrl()
+}
+
+class Request {
+    init()
+    send()
+}
+
+class UserService {
+    isUserLoggedIn()
+}
+
+class Page  <extend cl.Control>
+class PhoneBlock <extend cl.Control>
+class RegistrationPage <extend cl.Control>
+class Button <extend cl.Button>
+@enduml

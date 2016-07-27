@@ -1,0 +1,47 @@
+@startuml
+title b-profile-page
+
+Page <|-- ProfilePage
+
+ProfilePage *-- Profile
+ProfilePage *-- ProfileEdit
+
+Profile *-- Button
+
+ProfilePage --> Router
+ProfilePage --> UserService
+
+ProfileEdit *-- Input
+ProfileEdit *-- Button
+
+UserService --> Request
+
+
+class Input <extend cl.Input> {
+    setValue()
+    enable()
+    disable()
+    isValid()
+    validate()
+}
+
+class Router <extend cl.Router> {
+    use()
+    changeLocation()
+    getMaskByUrl()
+    parseMaskDataFromUrl()
+}
+
+class Request {
+    init()
+    send()
+}
+
+class UserService {
+    isUserLoggedIn()
+}
+
+class Page  <extend cl.Control>
+class Profile <extend cl.Control>
+class Button <extend cl.Button>
+@enduml
