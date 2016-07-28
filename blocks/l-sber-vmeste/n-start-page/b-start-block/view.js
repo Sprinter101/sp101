@@ -37,7 +37,8 @@ goog.scope(function() {
         BUTTON: 'g-button_sber',
         LOGO_CONTAINER: 'b-start-block__logo-wrapper',
         TITLE_CONTAINER: 'b-start-block__title-wrapper',
-        MANAGE_BUTTON: 'b-start-block__button_manage'
+        MANAGE_BUTTON: 'b-start-block__button_manage',
+        WIDE_BUTTON: 'g-button_wide'
     };
 
     /**
@@ -144,10 +145,16 @@ goog.scope(function() {
             goog.dom.classlist.add(
                 this.dom.button, View.CssClass.MANAGE_BUTTON
             );
+            goog.dom.classlist.add(
+                this.dom.button, View.CssClass.WIDE_BUTTON
+            );
         }
         else {
             goog.dom.classlist.remove(
                 this.dom.button, View.CssClass.MANAGE_BUTTON
+            );
+            goog.dom.classlist.remove(
+                this.dom.button, View.CssClass.WIDE_BUTTON
             );
         }
     };
