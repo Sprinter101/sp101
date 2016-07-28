@@ -18,6 +18,12 @@ sv.lSberVmeste.iRouter.Router = function() {
      * @private
      */
     this.hiddenData_ = {};
+
+    /**
+     * @type {Boolean}
+     * @private
+     */
+    this.skipNextHashChange_ = false;
 };
 goog.inherits(sv.lSberVmeste.iRouter.Router, cl.iRouter.Router);
 goog.addSingletonGetter(sv.lSberVmeste.iRouter.Router);
@@ -105,26 +111,37 @@ goog.scope(function() {
     };
 
     /**
+     * skipNextHashChange_ prevents onHashChange function from execution
+     */
+    Router.prototype.skipNextHashChange = function() {
+        this.skipNextHashChange_ = true;
+    };
+
+    /**
      * @override
      */
     Router.prototype.onHashChange = function() {
-        var locationState = this.getCurrentLocationState(),
-            mask = locationState.mask,
-            data = locationState.data,
-            params = locationState.query || {},
-            hiddenData = this.hiddenData_[mask];
+        if (!this.skipNextHashChange_) {
+            var locationState = this.getCurrentLocationState(),
+                mask = locationState.mask,
+                data = locationState.data,
+                params = locationState.query || {},
+                hiddenData = this.hiddenData_[mask];
 
-        for (var key in hiddenData) {
-            params[key] = hiddenData[key];
-        }
+            for (var key in hiddenData) {
+                params[key] = hiddenData[key];
+            }
 
-        for (var key in data) {
-            params[key] = data[key];
-        }
+            for (var key in data) {
+                params[key] = data[key];
+            }
 
-        var action = this.config[locationState.mask];
-        if (typeof action == 'function') {
-            action(params);
+            var action = this.config[locationState.mask];
+            if (typeof action == 'function') {
+                action(params);
+            }
+        } else {
+            this.skipNextHashChange_ = false;
         }
     };
 });  // goog.scope
