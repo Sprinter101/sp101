@@ -2,23 +2,25 @@
 
 
 .g-tab__tabs {
-    display: inline-block;
+    text-align: center;
 }
 
 .g-tab__tab {
-    position: relative;
     font-family: SFUIDisplay;
+    font-size: 13px;
+    line-height: 30px;
 
-    width: 20%;
+    position: relative;
+
+    width: 45%;
     height: 32px;
+    padding: 0;
 
     letter-spacing: 1.1px;
-    font-size: 13px;
+
     color: #fff;
     border: solid 1px #fff;
     border-right: 0;
-    display: table-cell;
-    vertical-align: middle;
     &:first-child {
         border-radius: 19px 0 0 19px;
     }
@@ -29,6 +31,8 @@
 }
 
 .g-tab__icon {
+    line-height: 0;
+
     position: absolute;
     top: 4px;
 }
@@ -49,15 +53,17 @@
 .g-tab__content {
     margin-top: 28px;
     padding: 22px 27px 0 27px;
+
     border: 0;
     border-radius: 7px 7px 0 0;
     background-color: #fff;
 }
 
 .g-tab__content_transparent {
-    background: none;
-    color: white;
     padding: 0;
+
+    color: white;
+    background: none;
 }
 
 @include media-s {
@@ -70,23 +76,22 @@
     .g-tab__content {
         padding: 55px 51px 0 51px;
     }
-
     .g-tab__content_transparent {
-        padding: 0;
         width: 100%;
+        padding: 0;
     }
 }
 
 @include media-l {
     .g-tab__content_transparent {
-        padding: 0;
         width: 100%;
+        padding: 0;
     }
 }
 
 @include media-xl {
     .g-tab__content_transparent {
-        padding: 0;
         width: 100%;
+        padding: 0;
     }
 }
