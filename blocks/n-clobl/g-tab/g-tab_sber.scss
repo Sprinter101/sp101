@@ -31,6 +31,13 @@
     }
 }
 
+.g-tab__content-tab-top {
+    margin-top: 28px;
+    height: 27px;
+    border-radius: 7px 7px 0 0;
+    background: #fff;
+}
+
 .g-tab__icon {
     position: absolute;
     top: 4px;
@@ -51,12 +58,10 @@
 
 .g-tab__content {
     width: 105%;
-    height: 606px;
+    height: 50px;
     overflow: auto;
-    margin-top: 28px;
     padding: 0px 27px 0 27px;
     border: 0;
-    border-radius: 7px 7px 0 0;
     background-color: #fff;
 }
 
@@ -75,6 +80,10 @@
 @include media-m {
     .g-tab__content {
         padding: 0px 51px 0 31px;
+    }
+
+    .g-tab__content-tab-top {
+        height: 50px;
     }
 
     .g-tab__content_transparent {

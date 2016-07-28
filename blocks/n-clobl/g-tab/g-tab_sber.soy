@@ -36,6 +36,7 @@
     {let $selectedTabId: $params.data?.selectedTabId ?:
         $params.config?.noDefaultTab ? (-1) : 0 /}
     {call .tabs data="all"/}
+    <div class="{call .rootClass/}__content-tab-top"></div>
     {for $i in range($params?.data?.tabs?.length)}
         {call .content}
             {param params: [
