@@ -43,17 +43,26 @@ body {
     overflow: hidden;
 }
 
-.l-sber-vmeste {
-    width: 100%;
+.l-sber-vmeste__wrapper {
+    position: relative;
     height: 100%;
-    font-family: AndaleMono;
-    font-weight: normal;
+    width: calc(100% + 30px);
+    overflow-y: scroll;
+    overflow-x: hidden;
     background-image: url('images/fon_SV.png'); /* fallback for older browsers */
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(49, 49, 49, 0.9) 100%), url('images/fon.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    overflow: auto;
+}
+
+.l-sber-vmeste {
+    position: absolute;
+    width: calc(100% - 15px);
+    height: 100%;
+    font-family: AndaleMono;
+    font-weight: normal;
+    
 }
 
 .i-layout_mobile,
@@ -63,7 +72,6 @@ body {
         display: block;
     }
 }
-
 
 .frame-request {
     display: none;
