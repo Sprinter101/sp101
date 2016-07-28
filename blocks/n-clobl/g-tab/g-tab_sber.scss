@@ -57,12 +57,20 @@
 }
 
 .g-tab__content {
+    position: relative;
     width: 105%;
     height: 50px;
     overflow: auto;
-    padding: 0px 27px 0 27px;
+    padding: 0;
     border: 0;
     background-color: #fff;
+}
+
+.g-tab__content-wrapper {
+    position: absolute;
+    padding: 0 10px;
+    width: 374px;
+    box-sizing: border-box;
 }
 
 .g-tab__content_transparent {
@@ -79,7 +87,7 @@
 
 @include media-m {
     .g-tab__content {
-        padding: 0px 51px 0 31px;
+        padding: 0px 20px;
     }
 
     .g-tab__content-tab-top {
@@ -89,6 +97,10 @@
     .g-tab__content_transparent {
         padding: 0;
         width: 100%;
+    }
+
+    .g-tab__content-wrapper {
+        width: 787px;
     }
 }
 

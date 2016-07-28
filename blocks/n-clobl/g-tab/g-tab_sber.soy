@@ -60,7 +60,9 @@
 {template .content}
     <div class="{call .rootClass/}__content
         {$params?.hidden ? ' i-utils__hidden' : ''}{call .contentClasses data="all" /}">
-        {call .innerContent data="all"/}
+        <div class="{call .rootClass/}__content-wrapper">
+            {call .innerContent data="all"/}
+        </div>
     </div>
 {/template}
 
