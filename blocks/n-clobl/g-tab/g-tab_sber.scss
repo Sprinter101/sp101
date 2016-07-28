@@ -86,10 +86,6 @@
 }
 
 @include media-m {
-    .g-tab__content {
-        padding: 0px 20px;
-    }
-
     .g-tab__content-tab-top {
         height: 50px;
     }
@@ -100,7 +96,8 @@
     }
 
     .g-tab__content-wrapper {
-        width: 787px;
+        width: 748px;
+        padding: 0;
     }
 }
 
