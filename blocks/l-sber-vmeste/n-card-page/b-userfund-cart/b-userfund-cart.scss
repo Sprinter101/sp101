@@ -60,16 +60,25 @@
         position: absolute;
         top: -178px;
         right: 0;
-        left: -5px;
 
-        width: 780px;
+        width: 768px;
         margin: 0 auto;
 
-        border-radius: 7px;
+        border-radius: 0 0 7px 7px;
     }
 
     .b-userfund-cart_visible {
         animation: show-and-hide-m 5s;
+    }
+}
+
+@include media-l {
+    .b-userfund-cart {
+        left: -5px;
+
+        width: 780px;
+
+        border-radius: 7px;
     }
 }
 
