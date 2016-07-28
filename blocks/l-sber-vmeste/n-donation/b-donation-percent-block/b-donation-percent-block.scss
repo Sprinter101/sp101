@@ -58,7 +58,7 @@
 .b-donation-percent-block__result-sum {
     text-align: center;
     color: #e7f038;
-    font-size: 62px;
+    font-size: 52px;
     text-align: center;
     line-height: 1em;
 }
@@ -110,6 +110,9 @@
     }
     .b-donation-percent-block__result {
         margin-top: 119px;
+    }
+    .b-donation-percent-block__result-sum {
+        font-size: 62px;
     }
 }
 
