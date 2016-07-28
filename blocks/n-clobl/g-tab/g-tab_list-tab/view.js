@@ -45,7 +45,8 @@ goog.scope(function() {
      * @enum {string}
      */
     View.Event = {
-        TAB_SELECT: 'tab-select'
+        TAB_SELECT: 'tab-select',
+        TAB_CHANGE: 'tab-change'
     };
 
     /**
@@ -114,13 +115,21 @@ goog.scope(function() {
     /**
      * Change tab
      * @param {number} id
+     * @param {Boolean} quietMode
      */
-    View.prototype.changeTab = function(id) {
+    View.prototype.changeTab = function(id, quietMode) {
         this.closeTab(this.currentTabId_);
         this.openTab(id);
 
         this.currentTabId_ = id;
         this.resizeActiveTab();
+
+        if (!quietMode) {
+            this.dispatchEvent({
+                'type': View.Event.TAB_CHANGE,
+                'tabId': id
+            });
+        }
     };
 
     /**

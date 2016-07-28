@@ -140,6 +140,15 @@ goog.scope(function() {
     ListPage.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
 
+        this.getHandler()
+        .listen(
+            this.listTab_,
+            ListTab.Event.TAB_CHANGE,
+            this.onListTabTabChange_,
+            false,
+            this
+        );
+
         this.addListCardsListeners();
     };
 
@@ -381,6 +390,29 @@ goog.scope(function() {
         else {
             this.header_.renderListPageTitle(params);
         }
+    };
+
+    /**
+     * List Tab's TAB_CHANGE event handler
+     * @param {Object} event
+     * @private
+     */
+    ListPage.prototype.onListTabTabChange_ = function(event) {
+        var href = window.location.href,
+            tabCategory = event.tabCategory,
+            newHref;
+
+        if (href.indexOf('category=') + 1) {
+            newHref =
+                href.replace(/category=[a-z]+/, 'category=' + tabCategory);
+        } else {
+            newHref =
+                href + ((href.indexOf('?') + 1) ? '&' : '?') +
+                'category=' + tabCategory;
+        }
+
+        Router.getInstance().skipNextHashChange();
+        window.location.replace(newHref);
     };
 
 });  // goog.scope

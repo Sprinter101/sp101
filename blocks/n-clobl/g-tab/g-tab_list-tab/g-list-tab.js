@@ -27,17 +27,15 @@ goog.scope(function() {
      * @enum {string}
      */
     Tab.Event = {
-        TAB_SELECT: View.Event.TAB_SELECT
+        TAB_SELECT: View.Event.TAB_SELECT,
+        TAB_CHANGE: View.Event.TAB_CHANGE
     };
 
     /**
      * Tab map
-     * @type {Object}
+     * @type {Array.<string>}
      */
-    Tab.TabMap = {
-        'topics': 0,
-        'funds': 1
-    };
+    Tab.Tabs = ['topics', 'funds'];
 
     /**
      * @override
@@ -53,6 +51,8 @@ goog.scope(function() {
                 null,
                 this);
 
+        this.viewListen(View.Event.TAB_CHANGE, this.onTabChange_);
+
         setTimeout(this.resizeActiveTab.bind(this), 0);
     };
 
@@ -67,8 +67,10 @@ goog.scope(function() {
     * @param {string} category
     */
     Tab.prototype.setActiveTab = function(category) {
-        if (category && Tab.TabMap[category]) {
-            this.getView().changeTab(Tab.TabMap[category]);
+        var tabId = Tab.Tabs.indexOf(category);
+
+        if (category && tabId + 1) {
+            this.getView().changeTab(tabId, true);
         }
     };
 
@@ -113,6 +115,21 @@ goog.scope(function() {
     */
     Tab.prototype.onResize_ = function() {
         this.resizeActiveTab();
+    };
+
+    /**
+     * Tab change event handler
+     * @param {Object} event
+     * @private
+     */
+    Tab.prototype.onTabChange_ = function(event) {
+        var tabCategory = Tab.Tabs[event.tabId];
+
+        this.dispatchEvent({
+            'type': Tab.Event.TAB_CHANGE,
+            'tabId': event.tabId,
+            'tabCategory': tabCategory
+        });
     };
 
 });  // goog.scope
