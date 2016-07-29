@@ -52,15 +52,18 @@
     float: left;
     margin-left: 26px;
     margin-top: 34px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .b-header__logo_large-wrapper {
     display: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .b-header__button-wrapper {
     display: inline-block;
     margin: 30px auto 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .b-header__button {
@@ -70,6 +73,7 @@
 .b-header__help-wrapper {
     display: inline-block;
     float: right;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .b-header__help_about-profile {
@@ -108,11 +112,13 @@
     margin-left: 28px;
     margin-top: 36px;
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .b-header__choice-wrapper {
     display: inline-block;
     text-align: center;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 .b-header__choice-phrase_list {
@@ -154,6 +160,7 @@
     display: inline-block;
     float: right;
     margin: 30px 13px 0 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 @include media-m {
