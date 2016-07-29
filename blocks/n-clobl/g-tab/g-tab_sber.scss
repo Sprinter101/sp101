@@ -17,6 +17,7 @@
     padding: 0;
 
     letter-spacing: 1.1px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
     color: #fff;
     border: solid 1px #fff;
@@ -53,7 +54,7 @@
 
 .g-tab__content {
     margin-top: 28px;
-    padding: 22px 27px 0 27px;
+    padding: 22px 0 0 0;
 
     border: 0;
     border-radius: 7px 7px 0 0;
@@ -70,6 +71,10 @@
 @include media-s {
     .g-tab__tab {
         width: 152px;
+    }
+
+    .g-tab__content {
+        padding: 22px 27px 0 27px;
     }
 }
 
