@@ -229,8 +229,6 @@ goog.scope(function() {
      * @protected
      */
     View.prototype.onFocus = function() {
-        this.dom.input.select();
-
         this.dom.input.setAttribute('placeholder', '');
 
         if (!this.showErrorsOnFocus_) {
