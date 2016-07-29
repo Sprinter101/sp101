@@ -21,6 +21,7 @@
     color: #fff;
     border: solid 1px #fff;
     border-right: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     &:first-child {
         border-radius: 19px 0 0 19px;
     }
