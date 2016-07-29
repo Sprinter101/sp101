@@ -31,7 +31,10 @@ goog.scope(function() {
      * @enum {string}
     */
     View.CssClass = {
-        ROOT: 'l-sber-vmeste'
+        ROOT: 'l-sber-vmeste',
+        CONTENT_WRAPPER: 'l-sber-vmeste__wrapper',
+        ROOT_DESKTOP: 'l-sber-vmeste_desktop',
+        WRAPPER_DESKTOP: 'l-sber-vmeste__wrapper_desktop'
     };
 
     /**
@@ -48,6 +51,11 @@ goog.scope(function() {
         this.dom.pageManager = this.getElementByClass(
             PageManagerView.CssClass.ROOT
         );
+
+        this.dom.contentWrapper = this.getElementByClass(
+            View.CssClass.CONTENT_WRAPPER,
+            this.getElement()
+        );
     };
 
     /**
@@ -55,5 +63,28 @@ goog.scope(function() {
      */
     View.prototype.enterDocument = function() {
         goog.base(this, 'enterDocument');
+
+        var regexp = new RegExp('Android|webOS|iPhone|iPad|' +
+            'iPod|BlackBerry|IEMobile|Opera Mini', 'i');
+
+        if (!(regexp.test(navigator.userAgent))) {
+            this.addDesktopSpecificClasses();
+        }
     };
+
+    /**
+     * Adds desktop-specific classes to elements
+     */
+    View.prototype.addDesktopSpecificClasses = function() {
+        goog.dom.classlist.add(
+            this.getElement(),
+            View.CssClass.ROOT_DESKTOP
+        );
+
+        goog.dom.classlist.add(
+            this.dom.contentWrapper,
+            View.CssClass.WRAPPER_DESKTOP
+        );
+    };
+
 });  // goog.scope

@@ -53,8 +53,11 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    overflow: auto;
+    overflow-y: scroll;
 }
+
+.l-sber-vmeste__wrapper {
+    height: 100%;}
 
 .i-layout_mobile,
 .i-layout_tablet,
@@ -67,4 +70,12 @@ body {
 
 .frame-request {
     display: none;
+}
+
+.l-sber-vmeste_desktop {
+    width: calc(100% + 30px);
+}
+
+.l-sber-vmeste__wrapper_desktop {
+    width: calc(100% - 15px);
 }

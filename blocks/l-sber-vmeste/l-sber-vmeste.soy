@@ -24,26 +24,28 @@
     ] /}
     <div class="{call .rootClass/}"
     data-params="{call goog.json.serialize data="$data" /}">
-        {call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
-            {param params: [
-                'factory': 'sber',
-                'type': 'HeaderManager',
-                'renderParams': [
-                    'data': [],
-                    'config': []
-                ]
-            ]/}
-        {/call}
-        {call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
-            {param params: [
-                'factory': 'sber',
-                'type': 'PageManager',
-                'renderParams': [
-                    'data': $params?.data ? $params?.data : [],
-                    'config': []
-                ]
-            ]/}
-        {/call}
+        <div class="{call .rootClass/}__wrapper">
+            {call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
+                {param params: [
+                    'factory': 'sber',
+                    'type': 'HeaderManager',
+                    'renderParams': [
+                        'data': [],
+                        'config': []
+                    ]
+                ]/}
+            {/call}
+            {call cl.iFactory.FactoryManager.INSTANCE.renderTemplate}
+                {param params: [
+                    'factory': 'sber',
+                    'type': 'PageManager',
+                    'renderParams': [
+                        'data': $params?.data ? $params?.data : [],
+                        'config': []
+                    ]
+                ]/}
+            {/call}
+        </div>
     </div>
 {/template}
 
@@ -79,6 +81,7 @@
     </iframe>
     <script type="text/javascript" src="external.min.js"></script>
     <script type="text/javascript" src="scripts.js"></script>
+    <script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js"></script>
 {/template}
 
 /**
