@@ -1,6 +1,7 @@
 goog.provide('sv.lSberVmeste.iRouter.Router');
 
 goog.require('cl.iRouter.Router');
+goog.require('sv.lSberVmeste.iRouter.Route');
 
 
 
@@ -30,7 +31,8 @@ goog.addSingletonGetter(sv.lSberVmeste.iRouter.Router);
 
 
 goog.scope(function() {
-    var Router = sv.lSberVmeste.iRouter.Router;
+    var Router = sv.lSberVmeste.iRouter.Router,
+        Route = sv.lSberVmeste.iRouter.Route;
 
     /**
      * @override
@@ -132,11 +134,14 @@ goog.scope(function() {
                 params[key] = hiddenData[key];
             }
 
-            for (var key in data) {
-                params[key] = data[key];
-            }
+        for (var key in data) {
+            params[key] = data[key];
+        }
+        if (!mask.length) {
+            mask += Route.START;
+        }
 
-            var action = this.config[locationState.mask];
+            var action = this.config[mask];
             if (typeof action == 'function') {
                 action(params);
             }
