@@ -163,6 +163,11 @@ goog.scope(function() {
             this.onThumbFocus_
         )
         .listen(
+            this.getElement(),
+            goog.events.EventType.TOUCHMOVE,
+            this.onThumbMove_
+        )
+        .listen(
             document,
             goog.events.EventType.MOUSEMOVE,
             this.onThumbMove_
@@ -176,11 +181,6 @@ goog.scope(function() {
             this.dom.slider,
             goog.events.EventType.TOUCHSTART,
             this.onThumbFocus_
-        )
-        .listen(
-            this.getElement(),
-            goog.events.EventType.TOUCHMOVE,
-            this.onThumbMove_
         )
         .listen(
             document,
@@ -240,19 +240,41 @@ goog.scope(function() {
             else {
                 percent_right_move = 2;
             }
-            this.dom.slider.style.transform = 'translateX(' +
-                this.currentPos_ + 'px)';
+
+            var sliderStyle = this.dom.slider.style,
+                labelStyle = this.dom.label.style,
+                percentStyle = this.dom.label_percent.style,
+                transform = this.checkTransformProperty_();
+
+            sliderStyle[transform] = 'translateX(' + this.currentPos_ + 'px)';
                 if (currentPercent > 9) {
-                    this.dom.label.style.transform = 'translateX(-32px)';
-                    this.dom.label_percent.style.transform = 'translateX(' +
+                    labelStyle[transform] = 'translateX(-32px)';
+                    percentStyle[transform] = 'translateX(' +
                         percent_right_move + 'px)';
                 }
                 else if (currentPercent <= 9) {
-                    this.dom.label.style.transform = 'translateX(0)';
-                    this.dom.label_percent.style.transform = 'translateX(0)';
+                    labelStyle[transform] = 'translateX(0)';
+                    percentStyle[transform] = 'translateX(0)';
                 }
         };
 
+        /**
+         * check if transform is used in this browser
+         * need for ios8
+         * @return {string}
+         * @private
+         */
+        View.prototype.checkTransformProperty_ = function() {
+            this.disableScroll_();
+            var transform;
+            if ('transform' in this.dom.slider.style) {
+                transform = 'transform';
+            }
+            else {
+                transform = 'webkitTransform';
+            }
+            return transform;
+        };
 
          /**
          * dispatches view event with slider value
@@ -287,6 +309,7 @@ goog.scope(function() {
          */
          View.prototype.onThumbBlur_ = function(event) {
             this.is_move_ = 0;
+            this.enableScroll_();
             this.dom.thumb.style.left = this.currentPos_ + 'px';
             this.left_ = this.currentPos_;
             document.onmousemove = null;
@@ -301,6 +324,49 @@ goog.scope(function() {
          */
         View.prototype.getValue = function() {
             return this.currentPercent_;
+        };
+
+        /**
+         * prevent page scrolling whaen slider moves
+         * @param {goog.events.EventType.TOUCHMOVE} event
+         * @private
+         */
+        View.prototype.preventScrollEvent_ = function(event) {
+            event = event || window.event;
+            if (event.preventDefault) {
+                event.preventDefault();
+            }
+            event.returnValue = false;
+        };
+
+        /**
+         * disable page scrolling whaen slider moves
+         * @private
+         */
+        View.prototype.disableScroll_ = function() {
+            if (window.addEventListener) {
+                window.addEventListener(
+                    'DOMMouseScroll',
+                    View.preventScrollEvent_,
+                    false
+                );
+            }
+            window.ontouchmove = this.preventScrollEvent_;
+        };
+
+        /**
+         * enable page scrolling whaen slider stops
+         * @private
+         */
+        View.prototype.enableScroll_ = function() {
+            if (window.removeEventListener) {
+                window.removeEventListener(
+                    'DOMMouseScroll',
+                    View.preventScrollEvent_,
+                    false
+                );
+            }
+            window.ontouchmove = null;
         };
 
          /**

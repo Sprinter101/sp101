@@ -24,10 +24,13 @@
 {let $maxPercent: $params.data.maxPercent /}
     <div class="{call .rootClass/}__track" data-params='{$maxPercent}'>
         <div class="{call .rootClass/}__slider">
-             <div class="{call .rootClass/}__label{sp}{call .hidden/}" style="left: -15px;">
+             <div class="{call .rootClass/}__label{sp}{call .hidden/}"
+                style="left: -15px;">
             </div>
-            <span class="{call .rootClass/}__label_small{sp}{call .hidden/}" style="left: 25px;">%</span>
-            <div class="{call .rootClass/}__thumb{sp}{call .hidden/}" data-params='{$initValue}' ></div>
+            <span class="{call .rootClass/}__label_small{sp}{call .hidden/}"
+                style="left: 25px;">%</span>
+                <div class="{call .rootClass/}__thumb{sp}{call .hidden/}"
+                    data-params='{$initValue}'></div>
         </div>
     </div>
 {/template}
