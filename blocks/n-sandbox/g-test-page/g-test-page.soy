@@ -33,19 +33,23 @@
             {param params: [
                 'type': 'InputSber',
                 'renderParams': [
-                    'data': ['inputType': 'text'],
+                    'data': ['inputType': 'number'],
                     'config': [
                         'validations': [
                             'notEmpty',
-                            'maxDonation'
+                            'digits',
+                            'maxDonation',
+                            'minDonation'
                         ],
                         'constraints': [
                             'digitsOnly',
                             'charactersLimit',
                             'noLeadingZero'
                         ],
-                        'valueParams': [
-                              'maxCharacters': 6
+                          'valueParams': [
+                           'maxNumber': 500000,
+                           'maxCharacters': 6,
+                           'minDonation': 100
                         ],
                     ]
                 ]
@@ -75,7 +79,7 @@
             {param params: [
                 'type': 'InputSber',
                 'renderParams': [
-                    'data': ['inputType': 'text', 'value': '+7'],
+                    'data': ['inputType': 'number', 'value': '+7'],
                     'config': [
                         'validations': ['phoneNumber'],
                         'constraints': ['phoneNumber']

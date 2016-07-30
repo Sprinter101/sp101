@@ -148,3 +148,13 @@ $error_color: #F76464;
     opacity: 0.4;
     user-select: none;
 }
+
+.g-input__input[type=number]::-webkit-outer-spin-button,
+.g-input__input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.g-input__input[type=number] {
+    -moz-appearance:textfield;
+}

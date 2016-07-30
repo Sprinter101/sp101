@@ -53,20 +53,22 @@ goog.scope(function() {
     Constraint.prototype.check = function(event, currentValue,
         constraints) {
 
-        var that = this;
+        var that = this,
+            failedConstraints;
 
-        if (event && event.event_.key) {
-            this.keyCheckMode_ = true;
+        this.keyCheckMode_ = (event && event.event_.key);
+
+        if (this.keyCheckMode_) {
             this.key_ = event.event_.key;
 
-            if (!this.isKeyTypeable(keyCode) || event.ctrlKey) {
-                return;
+            if (!this.isKeyTypeable_(event.keyCode) || event.ctrlKey) {
+                return true;
             }
         }
 
         this.currentValue_ = currentValue;
 
-        var failedConstraints = constraints.filter(
+        failedConstraints = constraints.filter(
             function(constraintType) {
                 return that.doConstraintType_(constraintType);
             }
@@ -95,9 +97,8 @@ goog.scope(function() {
     /**
      * 
      */
-    Constraint.prototype.isKeyTypeable_ = function() {
-        var keyCode = this.key_,
-            keyCodes = goog.events.KeyCodes;
+    Constraint.prototype.isKeyTypeable_ = function(keyCode) {
+        var keyCodes = goog.events.KeyCodes;
 
         var typeableKeys = [
             48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
@@ -159,20 +160,6 @@ goog.scope(function() {
      */
     Constraint.prototype.noLeadingZero_ = function() {
         var regex = new RegExp(/^0+/g);
-
-        if (this.keyCheckMode_) {
-            return (regex.test(this.key_) && !this.currentValue_.length);
-        } else {
-            this.currentValue_ = this.currentValue_.replace(regex, '');
-            return;
-        }
-    };
-
-    /**
-     * 
-     */
-    Constraint.prototype.leadingPlusSign_ = function() {
-        var regex = new RegExp(/^[^+]+/g);
 
         if (this.keyCheckMode_) {
             return (regex.test(this.key_) && !this.currentValue_.length);

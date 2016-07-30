@@ -58,6 +58,8 @@
         {if $params?.config?.tabIndex}
             {sp}tabindex="{$params.config.tabIndex}"
         {/if}
+        {sp}
+            pattern="[0-9]*"
         >
     </input>
     <div class="{call .rootClass/}__error-message-box"></div>

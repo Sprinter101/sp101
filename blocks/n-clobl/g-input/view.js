@@ -133,7 +133,7 @@ goog.scope(function() {
             .listen(
                 this.dom.input,
                 goog.events.EventType.KEYDOWN,
-                this.onKeyDown_
+                this.onKeyDown
             );
     };
 
@@ -236,6 +236,7 @@ goog.scope(function() {
         this.dom.input.setAttribute(
             'placeholder', this.placeholder_ || ''
         );
+
         if (this.label_) {
             if (this.dom.input.value == '') {
                 this.hideLabel();
@@ -253,7 +254,7 @@ goog.scope(function() {
     * @param {Object} event
     * @private
     */
-    View.prototype.onKeyDown_ = function(event) {
+    View.prototype.onKeyDown = function(event) {
         var keyCode = event.keyCode;
 
         if (keyCode == goog.events.KeyCodes.ENTER) {
