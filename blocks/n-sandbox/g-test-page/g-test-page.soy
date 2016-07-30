@@ -12,16 +12,8 @@
  * @override
  */
 {template .body}
-    <div class="{call .rootClass /}__title">Кнопки</div>
-    {call .buttons_ /}
-    <div class="{call .rootClass /}__title">Иконки</div>
-    {call .icons_ /}
-    <div class="{call .rootClass /}__title">Табы</div>
-    {call .tab_ /}
     <div class="{call .rootClass /}__title">Инпут</div>
     {call .input_ /}
-     <div class="{call .rootClass /}__title">Ползунок</div>
-    {call .slider_ /}
 {/template}
 
 /**
@@ -29,178 +21,6 @@
  */
 {template .rootClass}
     b-test-page
-{/template}
-
-/**
-* Buttons template
-*/
-{template .buttons_ autoescape="strict" kind="html"}
-    {let $buttonTypes: [
-            ['Помогать', [
-                'background_transparent',
-                'border_green',
-                'border_thick'
-                ]
-            ],
-            ['Готово', []
-            ],
-            ['Основать фонд', []
-            ],
-            ['Я', [
-                'width_m',
-                'height_big',
-                'font_SFUI'
-                ]
-            ],
-            ['Начать', []
-            ],
-            ['202 фонда', [
-                'text-color_white',
-                'font_big',
-                'height_small',
-                'background_transparent',
-                'border_green'
-                ]
-            ],
-            ['+', [
-                'text-color_white',
-                'width_s',
-                'height_small',
-                'font_SFUI',
-                'background_transparent',
-                'border_white',
-                'opacity_one-third',
-                'padding_none'
-                ]
-            ]
-        ] /}
-
-    {foreach $item in $buttonTypes}
-        <div class="{call .rootClass /}__element">
-            {call .renderChild}
-                {param params: [
-                    'type': 'ButtonSber',
-                    'renderParams': [
-                        'data': [
-                            'content': $item[0]
-                        ],
-                        'config': [
-                            'buttonStyles': $item[1]
-                        ]
-                    ]
-                ]/}
-            {/call}
-        </div>
-    {/foreach}
-{/template}
-
-/**
-* Icons template
-*/
-{template .icons_ autoescape="strict" kind="html"}
-    {let $iconTypes: ['arrow-back',
-                      'arrow-right', 'share', 'logo-userfund', 'logo-sber',
-                      'logo-userfund_authorized', 'checked', 'user-avatar'
-                     ]/}
-    {foreach $item in $iconTypes}
-        <div class="{call .rootClass /}__element">
-                {call .renderChild}
-                    {param params: [
-                        'type': 'IconSber',
-                        'renderParams': [
-                            'data': ['type': $item],
-                            'config': []
-                        ]
-                    ]/}
-                {/call}
-            </div>
-    {/foreach}
-{/template}
-
-/**
-* Tabs template
-*/
-{template .tab_ autoescape="strict" kind="html"}
-    <div class="{call .rootClass /}__element">
-        {call .renderChild}
-            {param params: [
-                'type': 'TabSber',
-                'renderParams': [
-                    'data': [
-                        'tabs': [
-                            [
-                                'label': 'Темы',
-                                'content': [
-                                    'text': 'Темы'
-                                ]
-                            ],
-                            [
-                                'label': 'Фонды',
-                                'content': [
-                                    'text': 'Фонды'
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]/}
-        {/call}
-    </div>
-
-    <div class="{call .rootClass /}__element">
-        {call .renderChild}
-            {param params: [
-                'type': 'TabSber',
-                'renderParams': [
-                    'data': [
-                        'tabs': [
-                            [
-                                'label': '% от дохода',
-                                'content': [
-                                    'childToRender': [
-                                        'type': 'InputSber',
-                                        'renderParams': [
-                                            'data': [
-                                                'inputType': 'text'
-                                            ],
-                                            'config': [
-                                                'validations': [
-                                                    'notEmpty',
-                                                    'minDonation',
-                                                    'maxDonation'
-                                                ],
-                                                'constraints': [
-                                                    'digitsOnly',
-                                                    'charactersLimit'
-                                                ],
-                                                'valueParams': [
-                                                      'maxNumber': 500000,
-                                                      'minDonation': 100,
-                                                      'maxCharacters': 6
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                'label': 'Сумма',
-                                'content': [
-                                    'text': 'Сумма'
-                                ]
-                            ]
-                        ]
-                    ],
-                    'config': [
-                        'tabClasses': [
-                            'content': ['transparent']
-                        ]
-                    ]
-                ]
-            ]
-        /}
-        {/call}
-    </div>
 {/template}
 
 /**
@@ -215,12 +35,18 @@
                 'renderParams': [
                     'data': ['inputType': 'text'],
                     'config': [
-                        'validations': ['notEmpty', 'digits', 'maxDonation'],
+                        'validations': [
+                            'notEmpty',
+                            'maxDonation'
+                        ],
                         'constraints': [
                             'digitsOnly',
                             'charactersLimit',
                             'noLeadingZero'
-                        ]
+                        ],
+                        'valueParams': [
+                              'maxCharacters': 6
+                        ],
                     ]
                 ]
             ]/}
@@ -235,8 +61,8 @@
                 'renderParams': [
                     'data': ['inputType': 'text'],
                     'config': [
-                        'validations': ['notEmpty', 'name'],
-                        'constraints': ['noLeadingZero', 'name']
+                        'validations': ['notEmpty'],
+                        'constraints': ['name']
                     ]
                 ]
             ]/}
@@ -301,22 +127,4 @@
             ]/}
         {/call}
     </div>
-{/template}
-
-/**
-* Slider template
-
-*/
-{template .slider_ autoescape="strict" kind="html"}
-    {call .renderChild}
-        {param params: [
-            'type': 'SliderSber',
-            'renderParams': [
-                'data': [],
-                'config': [
-                    'customClasses': ['g-slider_test']
-                ]
-            ]
-        ]/}
-    {/call}
 {/template}

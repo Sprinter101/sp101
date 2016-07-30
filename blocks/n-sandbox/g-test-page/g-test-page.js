@@ -1,16 +1,13 @@
 goog.provide('sv.gTestPage.TestPage');
 
 goog.require('cl.iControl.Control');
-goog.require('sv.gButton.Button');
 
 
 
 /**
  * sv.gTestPage.TestPage control
- * @param {sv.bTestPage.View} view View used to render or
- *     decorate the component; defaults to {@link goog.ui.ControlRenderer}.
- * @param {goog.dom.DomHelper=} opt_domHelper Optional DOM helper, used for
- *     document interaction.
+ * @param {sv.bTestPage.View} view
+ * @param {goog.dom.DomHelper=} opt_domHelper
  * @constructor
  * @extends {cl.iControl.Control}
  */
@@ -21,29 +18,14 @@ sv.gTestPage.TestPage = function(view, opt_domHelper) {
     * @type {Array}
     * @private
     */
-    this.buttons_ = [];
-
-    /**
-    * @type {Array}
-    * @private
-    */
-    this.tabs_ = [];
-
-    /**
-    * @type {Array}
-    * @private
-    */
     this.inputs_ = [];
-
-    this.slider_ = null;
 
 };
 goog.inherits(sv.gTestPage.TestPage, cl.iControl.Control);
 
 
 goog.scope(function() {
-    var TestPage = sv.gTestPage.TestPage,
-        Button = cl.gButton.Button;
+    var TestPage = sv.gTestPage.TestPage;
 
     /**
     * @override
@@ -58,80 +40,14 @@ goog.scope(function() {
             that.headerManager_.setChoiceHeader();
         }
 
-        var domButtons = this.getView().getDom().buttons,
-            domTabs = this.getView().getDom().tabs,
-            domInputs = this.getView().getDom().inputs,
-            domSlider = this.getView().getDom().slider;
+        var domInputs = this.getView().getDom().inputs;
 
-        var inputParams = {
-            MAX_NUMBER: 500000,
-            MAX_CHARACTERS: 6
-        };
+        this.inputs_.push(this.decorateChild('InputSber', domInputs[0]));
+        this.inputs_.push(this.decorateChild('InputSber', domInputs[1]));
+        this.inputs_.push(this.decorateChild('InputSber', domInputs[2]));
+        this.inputs_.push(this.decorateChild('InputSber', domInputs[3]));
+        this.inputs_.push(this.decorateChild('InputSber', domInputs[4]));
 
-        for (var i = 0; i < domButtons.length; i++) {
-            this.buttons_.push(this.decorateChild('ButtonSber', domButtons[i]));
-        }
-
-        for (var i = 0; i < domTabs.length; i++) {
-            this.tabs_.push(this.decorateChild('TabSber', domTabs[i]));
-        }
-
-        this.inputs_.push(
-            this.decorateChild('InputSber', domInputs[0],
-                goog.object.clone(inputParams)
-            )
-        );
-        this.inputs_.push(
-            this.decorateChild('InputSber', domInputs[1],
-                goog.object.clone(inputParams))
-        );
-        this.inputs_.push(
-            this.decorateChild('InputSber', domInputs[2],
-                goog.object.clone(inputParams))
-        );
-        this.inputs_.push(
-            this.decorateChild('InputSber', domInputs[3],
-                goog.object.clone(inputParams))
-        );
-        this.inputs_.push(
-            this.decorateChild('InputSber', domInputs[4],
-                goog.object.clone(inputParams))
-        );
-
-        inputParams = goog.object.clone(inputParams);
-        inputParams.placeholder = 'placeholder';
-        inputParams.label = "label's text";
-
-        this.inputs_.push(
-            this.decorateChild('InputSber', domInputs[5], inputParams)
-        );
-
-        this.slider_ = this.decorateChild('SliderSber', domSlider);
-    };
-
-    /**
-    * @override
-    */
-    TestPage.prototype.enterDocument = function() {
-        goog.base(this, 'enterDocument');
-
-        for (var i = 0; i < this.buttons_.length; i++) {
-            goog.events.listen(
-                this.buttons_[i],
-                Button.Event.CLICK,
-                this.onButtonClick_
-            );
-        }
-
-    };
-
-    /**
-    * Button click handler
-    * @param {Event} event
-    * @private
-    */
-    TestPage.prototype.onButtonClick_ = function(event) {
-        console.log(event.target.element_);
     };
 
 });  // goog.scope

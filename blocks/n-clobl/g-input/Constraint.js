@@ -15,15 +15,21 @@ sv.gInput.Constraint = function(valueParams) {
     this.currentValue_ = '';
 
     /**
+     * @type {Boolean}
+     * @private
+     */
+    this.keyCheckMode_ = false;
+
+    /**
      * Possible constraint type handlers
      * @type {Object}
      */
     this.constraintsHandlers = {
-        'digitsOnly': this.constraintDigitsOnly_,
-        'charactersLimit': this.constraintCharactersLimit_,
-        'noLeadingZero': this.constraintNoLeadingZero_,
-        'name': this.constraintName_,
-        'phoneNumber': this.constraintPhoneNumber_
+        'digitsOnly': this.digitsOnly_,
+        'charactersLimit': this.charactersLimit_,
+        'noLeadingZero': this.noLeadingZero_,
+        'name': this.name_,
+        'phoneNumber': this.phoneNumber_
     };
 
     /**
@@ -44,10 +50,20 @@ goog.scope(function() {
     /**
      * 
      */
-    Constraint.prototype.check = function(key, currentValue, constraints) {
+    Constraint.prototype.check = function(event, currentValue,
+        constraints) {
+
         var that = this;
 
-        this.key_ = key;
+        if (event && event.event_.key) {
+            this.keyCheckMode_ = true;
+            this.key_ = event.event_.key;
+
+            if (!this.isKeyTypeable(keyCode) || event.ctrlKey) {
+                return;
+            }
+        }
+
         this.currentValue_ = currentValue;
 
         var failedConstraints = constraints.filter(
@@ -56,7 +72,11 @@ goog.scope(function() {
             }
         );
 
-        return !failedConstraints.length;
+        if (this.keyCheckMode_) {
+            return !failedConstraints.length;
+        } else {
+            return this.currentValue_;
+        }
     };
 
     /**
@@ -66,9 +86,37 @@ goog.scope(function() {
     * @param {string} constraintType
     */
     Constraint.prototype.doConstraintType_ = function(constraintType) {
-        var constraintFunction = this.constraintsHandlers[constraintType];
+        var constraintFunction =
+            this.constraintsHandlers[constraintType];
 
         return constraintFunction.call(this);
+    };
+
+    /**
+     * 
+     */
+    Constraint.prototype.isKeyTypeable_ = function() {
+        var keyCode = this.key_,
+            keyCodes = goog.events.KeyCodes;
+
+        var typeableKeys = [
+            48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68,
+            69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
+            84, 85, 86, 87, 88, 89, 90, // 0-9 a-z
+            keyCodes.SPACE, keyCodes.SEMICOLON, keyCodes.DASH,
+            keyCodes.EQUALS, keyCodes.COMMA, keyCodes.PERIOD,
+            keyCodes.SLASH, keyCodes.APOSTROPHE, keyCodes.TILDE,
+            keyCodes.SINGLE_QUOTE, keyCodes.OPEN_SQUARE_BRACKET,
+            keyCodes.BACKSLASH, keyCodes.CLOSE_SQUARE_BRACKET,
+            keyCodes.NUM_ZERO, keyCodes.NUM_ONE, keyCodes.NUM_TWO,
+            keyCodes.NUM_THREE, keyCodes.NUM_FOUR, keyCodes.NUM_FIVE,
+            keyCodes.NUM_SIX, keyCodes.NUM_SEVEN, keyCodes.NUM_EIGHT,
+            keyCodes.NUM_NINE, keyCodes.NUM_MULTIPLY, keyCodes.NUM_PLUS,
+            keyCodes.NUM_MINUS, keyCodes.NUM_PERIOD,
+            keyCodes.NUM_DIVISION
+        ];
+
+        return !!(typeableKeys.indexOf(keyCode) + 1);
     };
 
     /**
@@ -77,19 +125,15 @@ goog.scope(function() {
      * @param {string} oldValue
      * @return {string}
      */
-    Constraint.prototype.constraintDigitsOnly_ = function() {
+    Constraint.prototype.digitsOnly_ = function() {
         var regex = new RegExp(/[\D]/g);
 
-        return regex.test(this.key_);
-    };
-    /**
-     * Removes all non-phone-number characters from the string
-     * @private
-     * @param {string} oldValue
-     * @return {string}
-     */
-    Constraint.prototype.constraintPhoneOnly_ = function(oldValue) {
-        return oldValue.replace(/[.*!"@#$%^&;:?=()_[:space:]-]/g, '');
+        if (this.keyCheckMode_) {
+            return regex.test(this.key_);
+        } else {
+            this.currentValue_ = this.currentValue_.replace(regex, '');
+            return;
+        }
     };
 
     /**
@@ -98,8 +142,13 @@ goog.scope(function() {
      * @param {string} oldValue
      * @return {string}
      */
-    Constraint.prototype.constraintCharactersLimit_ = function() {
-        return (this.currentValue_.length >= this.valueParams_.maxCharacters)
+    Constraint.prototype.charactersLimit_ = function() {
+        if (this.keyCheckMode_) {
+            return (this.currentValue_.length >= this.valueParams_.maxCharacters);
+        } else {
+            this.currentValue_ = this.currentValue_.slice(0, this.valueParams_.maxCharacters);
+            return;
+        }
     };
 
     /**
@@ -108,8 +157,29 @@ goog.scope(function() {
      * @param {string} oldValue
      * @return {string}
      */
-    Constraint.prototype.constraintNoLeadingZero_ = function(oldValue) {
-        return oldValue.replace(/^0/, '');
+    Constraint.prototype.noLeadingZero_ = function() {
+        var regex = new RegExp(/^0+/g);
+
+        if (this.keyCheckMode_) {
+            return (regex.test(this.key_) && !this.currentValue_.length);
+        } else {
+            this.currentValue_ = this.currentValue_.replace(regex, '');
+            return;
+        }
+    };
+
+    /**
+     * 
+     */
+    Constraint.prototype.leadingPlusSign_ = function() {
+        var regex = new RegExp(/^[^+]+/g);
+
+        if (this.keyCheckMode_) {
+            return (regex.test(this.key_) && !this.currentValue_.length);
+        } else {
+            this.currentValue_ = this.currentValue_.replace(regex, '');
+            return;
+        }
     };
 
     /**
@@ -118,11 +188,16 @@ goog.scope(function() {
      * @param {string} oldValue
      * @return {string}
      */
-    Constraint.prototype.constraintName_ = function(oldValue) {
-        oldValue = oldValue.trim();
-        var nameRegex = /[^ёа-яА-Яa-zA-Z- ]/g;
+    Constraint.prototype.name_ = function() {
+        var regexKey = new RegExp(/[^ёа-яА-Яa-zA-Z- ]/g);
+        var regex = new RegExp(/^[\s-]+|[^ёа-яА-Яa-zA-Z- ]/g);
 
-        return oldValue.replace(nameRegex, '');
+        if (this.keyCheckMode_) {
+            return regexKey.test(this.key_);
+        } else {
+            this.currentValue_ = this.currentValue_.replace(regex, '');
+            return;
+        }
     };
 
     /**
@@ -131,15 +206,18 @@ goog.scope(function() {
      * @param {string} oldValue
      * @return {string}
      */
-    Constraint.prototype.constraintPhoneNumber_ = function(oldValue) {
-        oldValue = oldValue.trim();
-        var nameRegex = /.{1,}[+]/g;
-        var nameRegex2 = /[^+\d]/g;
+    Constraint.prototype.phoneNumber_ = function() {
+        var regexKey = new RegExp(/\D/g);
+        var regexBeforePlusSign = new RegExp(/^[^+]/g);
+        var regexEmptyString = new RegExp(/^$/g);
 
-        if (oldValue == '') {
-            return '+';
+        if (this.keyCheckMode_) {
+            return regexKey.test(this.key_);
+        } else {
+            this.currentValue_ = this.currentValue_
+                .replace(regexBeforePlusSign, '')
+                .replace(regexEmptyString, '+' + this.currentValue_);
+            return;
         }
-
-        return oldValue.replace(nameRegex, '+').replace(nameRegex2, '');
     };
 });

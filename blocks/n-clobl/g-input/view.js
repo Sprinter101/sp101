@@ -30,22 +30,19 @@ sv.gInput.View = function(opt_params, opt_template, opt_modifier) {
     * @type {string}
     * @private
     */
-    this.placeholder_ = null;
+    this.placeholder_ = '';
 
     /**
     * @type {boolean}
     * @private
     */
     this.showErrorsOnFocus_ = !!this.params.showErrorsOnFocus;
-<<<<<<< HEAD
-=======
 
     /**
      * @type {sv.gInput.Constraint}
      */
     this.constraint_ = null
 
->>>>>>> Constraints in progress
 };
 goog.inherits(sv.gInput.View, cl.gInput.View);
 
@@ -85,23 +82,6 @@ goog.scope(function() {
     };
 
     /**
-     * Error messages for validations
-     * @enum {string}
-     */
-    View.ValidationErrorMessages = {
-        'digits': 'Допустимо использовать только цифры',
-        'email': 'Введён некорректный адрес электронной почты',
-        'notEmpty': 'Это поле не может быть пустым',
-        'maxDonation': 'Мы не можем принять от вас сразу больше, ' +
-                       'чем 500 тыс. рублей',
-        'minInput': 'Минимальная сумма ввода — 1000 рублей',
-        'minDonation': 'Минимальная сумма пожертвования — 100 рублей',
-        'name': 'Не корректно введено имя',
-        'phoneNumber': 'Не корректно введён номер телефона',
-        'confirmCode': 'Не корректно введен код из СМС'
-    };
-
-    /**
      * @override
      * @param {Element} element
      */
@@ -134,7 +114,8 @@ goog.scope(function() {
                 this.dom.input,
                 goog.events.EventType.BLUR,
                 this.onBlur
-            ).listen(
+            )
+            .listen(
                 this.dom.input,
                 goog.events.EventType.INPUT,
                 this.onInput
@@ -253,8 +234,8 @@ goog.scope(function() {
      */
     View.prototype.onBlur = function() {
         this.dom.input.setAttribute(
-                'placeholder', this.placeholder_
-            );
+            'placeholder', this.placeholder_ || ''
+        );
         if (this.label_) {
             if (this.dom.input.value == '') {
                 this.hideLabel();
@@ -274,21 +255,17 @@ goog.scope(function() {
     */
     View.prototype.onKeyDown_ = function(event) {
         var keyCode = event.keyCode;
-        var keysToIgnore = [8,9,16,17,18,20,27];
 
         if (keyCode == goog.events.KeyCodes.ENTER) {
             this.dispatchEvent(View.Event.ENTER_KEY_PRESS);
             return;
-        } else if (keysToIgnore.indexOf(keyCode) + 1) {
-            return;
         }
 
-        var that = this;
-
         var isCorrect = this.constraint_.check(
-            event.event_.key,
+            event,
             this.getValue(),
-            this.params['constraints']);
+            this.params['constraints']
+        );
 
         if (!isCorrect) {
             event.preventDefault();
@@ -336,6 +313,24 @@ goog.scope(function() {
         }
 
         this.dom.input.value = value;
+    };
+
+    /**
+     * Input handler
+     * @protected
+     */
+    View.prototype.onInput = function() {
+        var newValue = this.constraint_.check(
+            null,
+            this.getValue(),
+            this.params['constraints']
+        );
+
+        if (newValue != this.getValue()) {
+            this.setValue(newValue);
+        }
+
+        this.dispatchEvent(View.Event.INPUT);
     };
 
 });  // goog.scope
